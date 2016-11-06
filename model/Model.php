@@ -5,11 +5,6 @@ require_once File::build_path(array('config', 'Conf.php'));
 /**
  * Model provides data managment and interactions to the database
  *
- *
- * Clement's commit
- *
- *      Function Init ,error ,
- *
  * TODO accessors - selectors
  */
 class Model
@@ -30,7 +25,7 @@ class Model
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
             if (Conf::getDebug())   echo $e->getMessage();
-            else                    echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            else                    echo "Une erreur est survenue ! Merci de rÃ©essayer plus tard";
             die();
         }
 
