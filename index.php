@@ -2,7 +2,7 @@
     /**
      * - Initial commit
      *
-     *      Implementation of the elements non relative to the database
+     *      Implementation of the elements non relative to the database (assets)
      *      Implementation of the database
      *      Implementation of the router.php file
      *      Implementation of the File.php file

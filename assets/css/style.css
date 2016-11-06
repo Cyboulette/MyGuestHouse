@@ -1,0 +1,193 @@
+/* Gestion du footer */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	margin-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #f5f5f5;
+}
+
+.container .text-muted {
+	margin: 20px 0;
+	text-align: center;
+}
+
+.footer > .container {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+/* Gestion des produits */
+
+.produit {
+	border: 1px solid #e7e7e7;
+	padding: 5px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #f8f8f8;
+	margin-bottom: 15px;
+}
+
+.produit:not(.noHover):hover {
+	background: rgb(200, 154, 91);
+	color: white;
+}
+
+.produit:hover .description {
+	color: #333;
+}
+
+.produit:hover img {
+	background: white;
+}
+
+.produit img {
+	height: 150px;
+}
+
+.produit .details {
+	margin-bottom: 5px;
+}
+
+.input-group .input-number, .quantity {
+	width: 50px;
+	text-align: center;
+}
+
+.quantity {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.produit .description {
+	background: url('../images/last-products-bg.png');
+	padding: 20px;
+	border: 1px solid #e7e7e7;
+	border-left: none;
+	border-right: none;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	margin-left: -5px;
+	margin-right: 0px;
+	width: calc(100% + 10px);
+}
+
+/* Correction des titles sur bootstrap */
+
+.h1, .h2, .h3, h1, h2, h3 {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+/* Gestion de l'éventuelle sidebar */
+
+.sidebar {
+	display: none;
+}
+
+.nav-sidebar {
+	margin-right: -21px; /* 20px de padding + 1px de bordure */
+	margin-bottom: 20px;
+	margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+	color: #fff;
+	background-color: #428bca;
+}
+
+/* Gestion du carousel */
+
+.carousel-control.left, .carousel-control.right {
+	background: none;
+	color: rgb(200, 154, 91);
+}
+
+.carousel-control {
+	width: auto;
+}
+
+.carousel-control.left {
+	left: 10%;
+}
+
+.carousel-control.right {
+	right: 10%;
+}
+
+.carousel-indicators .active {
+	background-color: rgb(200, 154, 91);
+}
+
+.carousel-indicators li {
+	border: 1px solid rgb(200, 154, 91);
+}
+
+.carousel-inner>.item>img {
+	margin-left: auto;
+	margin-right: auto;
+	height : 250px;
+}
+
+/* Gestion de l'icône de chargement */
+
+.loader {
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 100px;
+	height: 100px;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+
+@media (min-width: 768px) {
+	.sidebar {
+		position: fixed;
+		top: 51px;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		display: block;
+		padding: 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: #f5f5f5;
+		border-right: 1px solid #eee;
+	}
+
+	.main {
+		padding-right: 40px;
+		padding-left: 40px;
+	}
+}
