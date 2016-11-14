@@ -6,7 +6,6 @@
      *      Implementation of the ModelUtilisteurs.php
      *      Implementation of the ControllerUtilisateur.php   
      *      Implementation of the presentation page (default index)        
-     *      Implementation of the ControllerUtilisateur.php   
      
 
 - 06/11   Initial commit
