@@ -9,7 +9,7 @@ class Conf {
         'hostname' => 'localhost',
         'database' => 'MyGuestHouse',
         'login' => 'root',
-        'password' => ''
+        'password' => 'tdlepd2803'
     );
 
     static private $debug = true;

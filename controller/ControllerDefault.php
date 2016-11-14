@@ -1,11 +1,13 @@
 <?php
 require_once File::build_path(array('config', 'Conf.php'));
 
+
 /**
  * This generic class contains all functions that a controller can use
  */
 class ControllerDefault
 {
+    protected static $object = 'default';
 
     public static function index() {
         $view = 'index';
@@ -48,3 +50,4 @@ class ControllerDefault
         require File::build_path(array('view', 'view.php'));
     }
 }
+?>

@@ -1,11 +1,4 @@
-<?php
-/**
- * This is the main view, here we call all the other views
- */
-?>
-
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
@@ -15,10 +8,11 @@
         require File::build_path(array("assets", "css", "styles.php"));
         ?>
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
 
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top menuHaut">
+        <nav class="navbar navbar-inverse  menuHaut">
 
             <div class="container">
 
@@ -64,33 +58,39 @@
 
         </nav>
 
-        <?php
-            if(isset($powerNeeded) && $powerNeeded == true)
-            {
-                if ($view != 'index'){
-                    echo '<div class="container page" >';
-                }
-                    $filepath = File::build_path("view" , static::$object, "$view.php");
-                    require $filepath;
 
-                if($view != 'index'){
-                    echo '</div>';
-                }
-            }else{
-                echo '<div class="container page"><div class="alert alert-danger">Vous ne possédez pas les droits pour accéder à cette page</div></div>';
+        <?php
+        if(isset($powerNeeded) && $powerNeeded == true)
+        {
+            if ($view != 'index'){
+                echo '<div class="container page" >';
             }
+            $filepath = File::build_path(array("view" , static::$object, $view.".php"));
+            require $filepath;
+            //header('Location:'.$filepath);
+
+            if($view != 'index'){
+                echo '</div>';
+            }
+        }else{
+            echo '<div class="container page"><div class="alert alert-danger">Vous ne possédez pas les droits pour accéder à cette page</div></div>';
+        }
         ?>
+
 
 
         <?php require File::build_path(array("assets", "js", "js.php")); ?>
 
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted">Bonjour Aurevoir</p>
+        <footer class="footer" >
+            <br/>
+            <div class="container ">
+                <div class="text-muted text-center"><p>CRC &copy</p></div>
+
             </div>
+
         </footer>
     </body>
-<html>
+</html>
 
 
 
