@@ -50,7 +50,7 @@
 <!--                            <a href="index.php?controller=utilisateur&action=profil">Mon Profil</a></li>-->
 <!--                        <li-->
 <!--                            --><?php //ControllerDefault::active('utilisateur', 'disconnect'); ?><!-->
-<!--                            <a href="index.php?controller=utilisateur&action=disconnect">Déconnexion</a></li>-->
+<!--                            <a href="index.php?controller=utilisateur&action=disconnect">DÃ©connexion</a></li>-->
 <!--                    --><?php //} ?>
 
                 </ul>
@@ -73,7 +73,7 @@
                 echo '</div>';
             }
         }else{
-            echo '<div class="container page"><div class="alert alert-danger">Vous ne possédez pas les droits pour accéder à cette page</div></div>';
+            echo '<div class="container page"><div class="alert alert-danger">Vous ne possÃ©dez pas les droits pour accÃ©der Ã  cette page</div></div>';
         }
         ?>
 
@@ -83,11 +83,7 @@
 
         <footer class="footer" >
             <br/>
-            <div class="container ">
                 <div class="text-muted text-center"><p>CRC &copy</p></div>
-
-            </div>
-
         </footer>
     </body>
 </html>
