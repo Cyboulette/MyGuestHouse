@@ -1,10 +1,9 @@
 <?php
 require_once File::build_path(array('config', 'Conf.php'));
 
-
 /**
  * This generic class contains all functions that a controller can use
- */
+*/
 class ControllerDefault
 {
     protected static $object = 'default';
@@ -22,26 +21,26 @@ class ControllerDefault
      *
      * @param string, string
      * @return boolean
-     */
+    */
     public static function active($currentController, $currentAction){
         $queryString = $_SERVER['QUERY_STRING'];
         if(!empty($currentAction)){
-            if( strpos($queryString, 'controller='.$currentController.'&action='.$currentAction) !== false ) {
+            if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction) !== false) {
                 echo 'class="active"';
             }
         }else{
-            if( strpos($queryString, 'controller='.$currentController !== false )) {
+            if(strpos($queryString, 'controller='.$currentController !== false)) {
                 echo 'class="active"';
             }
-            if ( $currentController == 'index' && empty($queryString) ) {
-                echo 'classe="active"';
+            if ($currentController == 'index' && empty($queryString)) {
+                echo 'class="active"';
             }
         }
     }
 
     /**
      *
-     */
+    */
     public static function error($error) {
         $displayError = $error;
         $view = 'error';
