@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title><?php echo $pagetitle; ?></title>
 
         <?php
@@ -50,7 +51,7 @@
 <!--                            <a href="index.php?controller=utilisateur&action=profil">Mon Profil</a></li>-->
 <!--                        <li-->
 <!--                            --><?php //ControllerDefault::active('utilisateur', 'disconnect'); ?><!-->
-<!--                            <a href="index.php?controller=utilisateur&action=disconnect">DÃ©connexion</a></li>-->
+<!--                            <a href="index.php?controller=utilisateur&action=disconnect">Déconnexion</a></li>-->
 <!--                    --><?php //} ?>
 
                 </ul>
@@ -73,7 +74,7 @@
                 echo '</div>';
             }
         }else{
-            echo '<div class="container page"><div class="alert alert-danger">Vous ne possÃ©dez pas les droits pour accÃ©der Ã  cette page</div></div>';
+            echo '<div class="container page"><div class="alert alert-danger">Vous ne possédez pas les droits pour accéder à cette page</div></div>';
         }
         ?>
 
@@ -82,8 +83,9 @@
         <?php require File::build_path(array("assets", "js", "js.php")); ?>
 
         <footer class="footer" >
-            <br/>
-                <div class="text-muted text-center"><p>CRC &copy</p></div>
+                <div class="container">
+                    <p class="text-muted text-center">CRC &copy</p>
+                </div>
         </footer>
     </body>
 </html>
