@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `Avis`
 --
 
-CREATE TABLE `Avis` (
+CREATE TABLE `GH_Avis` (
   `idChambre` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `note` int(11) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `Avis` (
 -- Structure de la table `Chambres`
 --
 
-CREATE TABLE `Chambres` (
+CREATE TABLE `GH_Chambres` (
   `idChambre` int(11) NOT NULL,
   `nomChambre` varchar(32) NOT NULL,
   `descriptionChambre` text NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `Chambres` (
 -- Structure de la table `ChambresDetails`
 --
 
-CREATE TABLE `ChambresDetails` (
+CREATE TABLE `GH_ChambresDetails` (
   `idChambre` int(11) NOT NULL,
   `idDetail` int(11) NOT NULL,
   `valeurDetail` varchar(32) NOT NULL
@@ -59,10 +59,10 @@ CREATE TABLE `ChambresDetails` (
 -- Structure de la table `ChambresPresta`
 --
 
-CREATE TABLE `ChambresPresta` (
+CREATE TABLE `GH_ChambresPresta` (
   `idChambre` int(11) NOT NULL,
   `idPrestation` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ CREATE TABLE `ChambresPresta` (
 -- Structure de la table `Details`
 --
 
-CREATE TABLE `Details` (
+CREATE TABLE `GH_Details` (
   `idDetail` int(11) NOT NULL,
   `nomDetail` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -81,7 +81,7 @@ CREATE TABLE `Details` (
 -- Structure de la table `Prestations`
 --
 
-CREATE TABLE `Prestations` (
+CREATE TABLE `GH_Prestations` (
   `idPrestation` int(11) NOT NULL,
   `nomPrestation` varchar(32) NOT NULL,
   `prix` float NOT NULL
@@ -93,7 +93,7 @@ CREATE TABLE `Prestations` (
 -- Structure de la table `Rangs`
 --
 
-CREATE TABLE `Rangs` (
+CREATE TABLE `GH_Rangs` (
   `idRang` int(11) NOT NULL,
   `labelRang` varchar(64) NOT NULL,
   `power` int(11) NOT NULL
@@ -105,7 +105,7 @@ CREATE TABLE `Rangs` (
 -- Structure de la table `Reservations`
 --
 
-CREATE TABLE `Reservations` (
+CREATE TABLE `GH_Reservations` (
   `idReservation` int(11) NOT NULL,
   `idChambre` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `Reservations` (
 -- Structure de la table `ReservationsPrestation`
 --
 
-CREATE TABLE `ReservationsPrestation` (
+CREATE TABLE `GH_ReservationsPrestation` (
   `idReservation` int(11) NOT NULL,
   `idPrestation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -130,7 +130,7 @@ CREATE TABLE `ReservationsPrestation` (
 -- Structure de la table `Utilisateurs`
 --
 
-CREATE TABLE `Utilisateurs` (
+CREATE TABLE `GH_Utilisateurs` (
   `idUtilisateur` int(11) NOT NULL,
   `prenomUtilisateur` varchar(32) NOT NULL,
   `nomUtlisateur` varchar(32) NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE `Utilisateurs` (
 -- Structure de la table `VisuelsChambres`
 --
 
-CREATE TABLE `VisuelsChambres` (
+CREATE TABLE `GH_VisuelsChambres` (
   `idVisuel` int(11) NOT NULL,
   `idChambre` int(11) NOT NULL,
   `urlVisuel` text NOT NULL
@@ -159,52 +159,52 @@ CREATE TABLE `VisuelsChambres` (
 --
 -- Index pour la table `Avis`
 --
-ALTER TABLE `Avis`
+ALTER TABLE `GH_Avis`
   ADD PRIMARY KEY (`idChambre`,`idUtilisateur`),
   ADD KEY `cf_avisUtilisateur` (`idUtilisateur`);
 
 --
 -- Index pour la table `Chambres`
 --
-ALTER TABLE `Chambres`
+ALTER TABLE `GH_Chambres`
   ADD PRIMARY KEY (`idChambre`);
 
 --
 -- Index pour la table `ChambresDetails`
 --
-ALTER TABLE `ChambresDetails`
+ALTER TABLE `GH_ChambresDetails`
   ADD PRIMARY KEY (`idChambre`,`idDetail`),
   ADD KEY `cf_cdDetail` (`idDetail`);
 
 --
 -- Index pour la table `ChambresPresta`
 --
-ALTER TABLE `ChambresPresta`
+ALTER TABLE `GH_ChambresPresta`
   ADD PRIMARY KEY (`idChambre`,`idPrestation`),
   ADD KEY `cf_cpPrestation` (`idPrestation`);
 
 --
 -- Index pour la table `Details`
 --
-ALTER TABLE `Details`
+ALTER TABLE `GH_Details`
   ADD PRIMARY KEY (`idDetail`);
 
 --
 -- Index pour la table `Prestations`
 --
-ALTER TABLE `Prestations`
+ALTER TABLE `GH_Prestations`
   ADD PRIMARY KEY (`idPrestation`);
 
 --
 -- Index pour la table `Rangs`
 --
-ALTER TABLE `Rangs`
+ALTER TABLE `GH_Rangs`
   ADD PRIMARY KEY (`idRang`);
 
 --
 -- Index pour la table `Reservations`
 --
-ALTER TABLE `Reservations`
+ALTER TABLE `GH_Reservations`
   ADD PRIMARY KEY (`idReservation`),
   ADD KEY `idChambre` (`idChambre`,`idUtilisateur`),
   ADD KEY `cf_resaUtilisateur` (`idUtilisateur`);
@@ -212,21 +212,21 @@ ALTER TABLE `Reservations`
 --
 -- Index pour la table `ReservationsPrestation`
 --
-ALTER TABLE `ReservationsPrestation`
+ALTER TABLE `GH_ReservationsPrestation`
   ADD PRIMARY KEY (`idReservation`,`idPrestation`),
   ADD KEY `cf_rpPrestation` (`idPrestation`);
 
 --
 -- Index pour la table `Utilisateurs`
 --
-ALTER TABLE `Utilisateurs`
+ALTER TABLE `GH_Utilisateurs`
   ADD PRIMARY KEY (`idUtilisateur`),
   ADD KEY `rang` (`rang`);
 
 --
 -- Index pour la table `VisuelsChambres`
 --
-ALTER TABLE `VisuelsChambres`
+ALTER TABLE `GH_VisuelsChambres`
   ADD PRIMARY KEY (`idVisuel`),
   ADD KEY `idChambre` (`idChambre`);
 
@@ -237,7 +237,7 @@ ALTER TABLE `VisuelsChambres`
 --
 -- AUTO_INCREMENT pour la table `Reservations`
 --
-ALTER TABLE `Reservations`
+ALTER TABLE `GH_Reservations`
   MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
@@ -246,46 +246,46 @@ ALTER TABLE `Reservations`
 --
 -- Contraintes pour la table `Avis`
 --
-ALTER TABLE `Avis`
-  ADD CONSTRAINT `cf_avisChambre` FOREIGN KEY (`idChambre`) REFERENCES `Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_avisUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `GH_Avis`
+  ADD CONSTRAINT `cf_avisChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_avisUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `GH_Utilisateurs` (`idUtilisateur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `ChambresDetails`
 --
-ALTER TABLE `ChambresDetails`
-  ADD CONSTRAINT `cf_cdChambre` FOREIGN KEY (`idChambre`) REFERENCES `Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_cdDetail` FOREIGN KEY (`idDetail`) REFERENCES `Details` (`idDetail`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_ChambresDetails`
+  ADD CONSTRAINT `cf_cdChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_cdDetail` FOREIGN KEY (`idDetail`) REFERENCES `GH_Details` (`idDetail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `ChambresPresta`
 --
-ALTER TABLE `ChambresPresta`
-  ADD CONSTRAINT `cf_cpChambre` FOREIGN KEY (`idChambre`) REFERENCES `Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_cpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `Prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_ChambresPresta`
+  ADD CONSTRAINT `cf_cpChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_cpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `GH_Prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `Reservations`
 --
-ALTER TABLE `Reservations`
-  ADD CONSTRAINT `cf_resaChambre` FOREIGN KEY (`idChambre`) REFERENCES `Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_resaUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_Reservations`
+  ADD CONSTRAINT `cf_resaChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_resaUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `GH_Utilisateurs` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `ReservationsPrestation`
 --
-ALTER TABLE `ReservationsPrestation`
-  ADD CONSTRAINT `cf_rpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `Prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_rpReservation` FOREIGN KEY (`idReservation`) REFERENCES `Reservations` (`idReservation`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_ReservationsPrestation`
+  ADD CONSTRAINT `cf_rpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `GH_Prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_rpReservation` FOREIGN KEY (`idReservation`) REFERENCES `GH_Reservations` (`idReservation`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `Utilisateurs`
 --
-ALTER TABLE `Utilisateurs`
-  ADD CONSTRAINT `cf_rangUtilisateur` FOREIGN KEY (`rang`) REFERENCES `Rangs` (`idRang`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_Utilisateurs`
+  ADD CONSTRAINT `cf_rangUtilisateur` FOREIGN KEY (`rang`) REFERENCES `GH_Rangs` (`idRang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `VisuelsChambres`
 --
-ALTER TABLE `VisuelsChambres`
-  ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_VisuelsChambres`
+  ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
