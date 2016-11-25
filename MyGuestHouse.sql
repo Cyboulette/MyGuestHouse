@@ -317,3 +317,28 @@ ENDIF;
 
 END$$
 DELIMITER;
+
+--
+-- Déclencheur pour le nombre de clients maximum
+--
+
+DELIMITER $$
+
+CREATE TRIGGER `tg_clientsMax`
+BEFORE INSERT ON `GH_Reservations` FOR EACH ROW
+
+BEGIN
+
+DECLARE v_nbClients int;
+
+SELECT COUNT(*) INTO v_nbClients
+FROM GH_Réservations;
+WHERE dateDebut <= :new.dateFin AND dateFin >= :new.dateDebut;
+
+IF v_nbClients > 14 THEN
+RAISE_APPLICATION_ERROR(-20004, "Vous ne pouvez pas loger plus de quinze clients à la fois !");
+
+ENDIF;
+
+END$$
+DELIMITER;
