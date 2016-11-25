@@ -1,15 +1,18 @@
 <?php
-    /**
-     * - Initial commit
+    /** 25/11
+     * - Faire les prototypes des page admin
+     *      - creer une chambre
+     *      - modifier
+     *      - supprimmer
+     *      - afficher une chambre
      *
-     *      Implementation of the elements non relative to the database (assets)
-     *      Implementation of the database
-     *      Implementation of the router.php file
-     *      Implementation of the File.php file
-     *      Implementation of the main view (basics)
-     *      Implementation of the generic model
-     *      Implementation of the Default controller
+     * - Implémenter les prototypes
+     *
+     * L'admin doit purivr modifier des textes, modifier une photo
     */
+
+    // sebastien.gagne41@orange.fr trello, git hub, google drive
+    // sebastien.gagne@umontpellier.fr
 
     $DS = DIRECTORY_SEPARATOR;
     $ROOT_FOLDER = __DIR__.$DS;
