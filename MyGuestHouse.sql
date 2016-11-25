@@ -152,6 +152,18 @@ CREATE TABLE `GH_VisuelsChambres` (
   `urlVisuel` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+--Structure de la table `DatesBloquees`
+--
+
+CREATE TABLE `GH_DatesBloquees` (
+  `date` date NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 --
 -- Index pour les tables exportées
 --
