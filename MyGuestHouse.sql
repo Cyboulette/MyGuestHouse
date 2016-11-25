@@ -298,23 +298,22 @@ ALTER TABLE `GH_VisuelsChambres`
 
 --Déclencheur pour le nombre maximum ed chambres
 
-CREATE OR REPLACE TRIGGER tg_chambresMax 
-BEFORE INSERT ON CHAMBRES FOR EACH ROW
+DELIMITER $$
 
-  DECLARE
+CREATE TRIGGER `tg_chambresMax`
+BEFORE INSERT ON `GH_CHAMBRES` FOR EACH ROW
 
-    v_nbChambres NUMBER;
+BEGIN
 
-  BEGIN
+DECLARE v_nbChambres int;
 
-    SELECT COUNT(*) INTO v_nbChambres
-    FROM GH_CHambres;
+SELECT COUNT(*) INTO v_nbChambres
+FROM GH_CHambres;
 
-    IF v_nbChambres > 4 THEN
-    RAISE_APPLICATION_ERROR(-20004, "Vous ne pouvez pas avoir plus de cinq chambres !");
+IF v_nbChambres > 4 THEN
+RAISE_APPLICATION_ERROR(-20004, "Vous ne pouvez pas avoir plus de cinq chambres !");
 
-  ENDIF;
+ENDIF;
 
-END;
-
-GO;
+END$$
+DELIMITER;
