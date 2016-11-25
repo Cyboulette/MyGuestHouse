@@ -289,3 +289,32 @@ ALTER TABLE `GH_Utilisateurs`
 --
 ALTER TABLE `GH_VisuelsChambres`
   ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- --------------------------------------------------------
+
+--
+--Déclencheurs
+--
+
+--Déclencheur pour le nombre maximum ed chambres
+
+CREATE OR REPLACE TRIGGER tg_chambresMax 
+BEFORE INSERT ON CHAMBRES FOR EACH ROW
+
+  DECLARE
+
+    v_nbChambres NUMBER;
+
+  BEGIN
+
+    SELECT COUNT(*) INTO v_nbChambres
+    FROM GH_CHambres;
+
+    IF v_nbChambres > 4 THEN
+    RAISE_APPLICATION_ERROR(-20004, "Vous ne pouvez pas avoir plus de cinq chambres !");
+
+  ENDIF;
+
+END;
+
+GO;
