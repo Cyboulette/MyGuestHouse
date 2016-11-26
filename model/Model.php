@@ -43,26 +43,6 @@ class Model
         }
     }
 
-    public static function delete($data) {
-        $table_name = static::$tableName;
-        $primary_key = static::$primary;
-        try {
-            $sql = "DELETE FROM `".$table_name."` WHERE `".$primary_key."` = :".$primary_key."";
-            $rep = Model::$pdo->prepare($sql);
-            $values = array(
-                $primary_key => htmlspecialchars($data)
-            );
-            $rep->execute($values);
-            return true;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
     public static function select($primary_value){
         $table_name = static::$object;
         $class_name = 'Model'.ucfirst(static::$object);
