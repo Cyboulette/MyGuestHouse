@@ -4,8 +4,7 @@
     /**
      * This generic class contains all functions that a controller can use
     */
-    class ControllerDefault
-    {
+    class ControllerDefault {
         protected static $object = 'default';
 
         public static function index() {

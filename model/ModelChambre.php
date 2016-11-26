@@ -1,10 +1,7 @@
 <?php
 require_once 'Model.php';
 
-class ModelChambre extends Model
-{
-
-
+class ModelChambre extends Model {
     protected $idChambre;
     protected $nomChambre;
     protected $descriptionChambre;
@@ -13,21 +10,21 @@ class ModelChambre extends Model
 
     protected static $tableName = 'chambres'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
     protected static $object = 'chambres'; // Correspond au nom de l'objet à créer (ici produit)
-    protected static $primary = '$idChambre';
+    protected static $primary = 'idChambre';
 
-    public function __construct($idChambre=null, $nomChambre=null, $descriptionChambre=null, $prixChambre=null,$superficieChambre=null ){
-        if(!is_null($idChambre) && !is_null($nomChambre) && !is_null($descriptionChambre) && !is_null($prixChambre) && !is_null($superficieChambre))
-        {
-            $this->idChambre            =$idChambre;
-            $this->nomChambre           =$nomChambre;
-            $this->descriptionChambre   =$descriptionChambre;
-            $this->prixChambre          =$prixChambre;
-            $this->superficieChambre    =$superficieChambre;
+    public function __construct($idChambre=null, $nomChambre=null, $descriptionChambre=null, $prixChambre=null, $superficieChambre=null){
+        if(!is_null($idChambre) && !is_null($nomChambre) && !is_null($descriptionChambre) && !is_null($prixChambre) && !is_null($superficieChambre)){
+            $this->idChambre = $idChambre;
+            $this->nomChambre = $nomChambre;
+            $this->descriptionChambre = $descriptionChambre;
+            $this->prixChambre = $prixChambre;
+            $this->superficieChambre = $superficieChambre;
         }
     }
 
 
-    // Do an INSERT INTO
+    /*
+    On a une fonction générique pour le faire !! 
     public function save(){
         try
         {
@@ -50,6 +47,6 @@ class ModelChambre extends Model
             else                    echo 'Exception reçue : ',  $e->getMessage(), "\n";
             die();
         }
-    }
+    }*/
 
 }

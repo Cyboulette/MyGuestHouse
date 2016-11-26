@@ -1,8 +1,7 @@
 <?php
 require_once File::build_path(array('model', 'ModelChambre.php'));
 
-class ControllerChambre
-{
+class ControllerChambre {
     private static $object = 'chambre';
 
     public static function readAll() {
