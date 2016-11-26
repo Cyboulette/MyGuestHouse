@@ -25,12 +25,14 @@ class Model
     }
 
     public static function selectAll(){
-        $table_name = static::$object;
-        $class_name = 'Model'.ucfirst($table_name);
+        $table_name = static::$tableName;
+        $class_name = 'Model'.ucfirst(static::$object);
 
         try {
-            $rep=Model::$pdo->query("SELECT * FROM gh_" .$table_name);
-            $rep->setFetchMode(PDO::FETCH_CLASS,$class_name);
+            $sql = "SELECT * FROM `GH_".$table_name."`";
+            $rep = Model::$pdo->query($sql);
+
+            $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             $tab = $rep->FetchAll();
             return $tab;
         } catch(PDOException $e) {
@@ -49,10 +51,10 @@ class Model
         $primary_key = static::$primary;
 
         try {
-            $sql = "SELECT * from $table_name WHERE $primary_key=:primary_val";
+            $sql = "SELECT * FROM `GH_".$table_name."` WHERE $primary_key=:primary_val";
             $req_prep = Model::$pdo->prepare($sql);
 
-            $values = array("primary_val" => $primary_value,);
+            $values = array("primary_val" => $primary_value);
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             $tab = $req_prep->fetchAll();
@@ -139,7 +141,7 @@ class Model
         $table_name = static::$tableName;
         $class_name = 'Model'.ucfirst(static::$object);
         try {
-            $sql = "SELECT * from `".$table_name."` WHERE `".$cle."` = :".$cle."";
+            $sql = "SELECT * from `GH_".$table_name."` WHERE `".$cle."` = :".$cle."";
             $req_generique = Model::$pdo->prepare($sql);
 
             $values = array(

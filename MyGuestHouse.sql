@@ -133,7 +133,7 @@ CREATE TABLE `GH_ReservationsPrestation` (
 CREATE TABLE `GH_Utilisateurs` (
   `idUtilisateur` int(11) NOT NULL,
   `prenomUtilisateur` varchar(32) NOT NULL,
-  `nomUtlisateur` varchar(32) NOT NULL,
+  `nomUtilisateur` varchar(32) NOT NULL,
   `emailUtilisateur` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
   `rang` int(11) NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE `GH_VisuelsChambres` (
 -- --------------------------------------------------------
 
 --
---Structure de la table `DatesBloquees`
+-- Structure de la table `DatesBloquees`
 --
 
 CREATE TABLE `GH_DatesBloquees` (
@@ -305,10 +305,10 @@ ALTER TABLE `GH_VisuelsChambres`
 -- --------------------------------------------------------
 
 --
---Déclencheurs
+-- Déclencheurs
 --
 
---Déclencheur pour le nombre maximum ed chambres
+-- Déclencheur pour le nombre maximum ed chambres
 
 DELIMITER $$
 
