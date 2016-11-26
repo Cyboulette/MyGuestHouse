@@ -35,7 +35,7 @@ class ModelUtilisateur extends Model {
       return $hex;
     }
 
-    public function save() {
+    /*public function save() {
         try {
           $sql = 'INSERT INTO `'.self::$tableName.'` (idUtilisateur, email, password, prenom, nom, rang, nonce) VALUES (NULL, :email, :password, :prenom, :nom, :rang, :nonce)';
           $addUser = Model::$pdo->prepare($sql);
@@ -58,7 +58,7 @@ class ModelUtilisateur extends Model {
             return false;
             die();
         }
-    }
+    }*/
 
     public function validate() {
         try {
