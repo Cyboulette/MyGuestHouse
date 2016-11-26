@@ -4,6 +4,7 @@
      *      Update MyGuestHouse.sql
      *      Implementation of the ModelChambre.php 
      *      Implementation of the ControllerChambre.php (basics)
+     *      Implementation of the Model.php
 
 
 - 15/11
