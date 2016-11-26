@@ -5,12 +5,20 @@
 
 class Conf {
 
+    // localhost de florian
     static private $databases = array (
         'hostname' => 'localhost',
-        'database' => 'desbinq',
+        'database' => 'MyGestHouse',
         'login' => 'root',
-        'password' => 'tdlepd2803'
+        'password' => 'root'
     );
+
+    // static private $databases = array (
+    //     'hostname' => 'localhost',
+    //     'database' => 'desbinq',
+    //     'login' => 'root',
+    //     'password' => 'tdlepd2803'
+    // );
 
     static private $debug = true;
     static public $power = array(
