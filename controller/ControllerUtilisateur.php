@@ -8,7 +8,7 @@ class ControllerUtilisateur {
    // Affichage du formulaire de connexion
    public static function connect() {
       $view = 'connexion';
-      $pagetitle = 'So\'Cap - Se connecter';
+      $pagetitle = 'Se connecter';
       $powerNeeded = !self::isConnected();
 
       require File::build_path(array('view', 'main_view.php'));
@@ -72,7 +72,7 @@ class ControllerUtilisateur {
    // Affichage du formulaire d'inscription
    public static function register() {
       $view = 'register';
-      $pagetitle = 'So\'Cap - S\'inscrire';
+      $pagetitle = 'S\'inscrire';
       $powerNeeded = !self::isConnected();
       require File::build_path(array('view', 'main_view.php'));
    }

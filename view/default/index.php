@@ -1,7 +1,3 @@
-
-
-
-
 <div class="jumbotron text-center" style="background-color: #e5e5e5">
     <h1>My Guest House 2016</h1>
     <p>Disponible maintenant</p>
@@ -11,7 +7,7 @@
     <div class="row">
         <div class="col-sm-3" >
             <h3>Mettez vous bien</h3>
-            <p>MyGuestHouse est un web logiciel destiné aux propriétaires de chambre d'hôte.</p>
+            <p>MyGuestHouse est un web logiciel destinÃ© aux propriÃ©taires de chambre d'hÃ´te.</p>
             <p>Vous pouvez installer MyGuestHouse depuis chez vous en suivant les instructions </p>
             <p></p>
 

@@ -1,8 +1,9 @@
 <?php
 
-@session_start(); // On démarre la session
+@session_start(); // On dÃ©marre la session
 
-// Autoloader permettant d'inclure directement un controller lorsqu'il est instancié 
+// Autoloader permettant d'inclure directement un controller lorsqu'il est instanciÃ©
+
 spl_autoload_register(function($controller_name){
     require_once File::build_path(array('controller', $controller_name.'.php')); // On inclut les fichiers par auto_load
 });
@@ -10,17 +11,16 @@ spl_autoload_register(function($controller_name){
 if(isset($_GET['controller']) && !empty(($_GET['controller']))) {
     $controller = $_GET['controller'];
     $controller_class = 'Controller'.ucfirst($controller);
-
     if(file_exists(File::build_path(array('controller', $controller_class.'.php')))) {
         require_once File::build_path(array('controller', $controller_class.'.php'));
         if(class_exists($controller_class)) {
             if(isset($_GET['action']) && !empty($_GET['action'])) {
                 $actionsExiste = get_class_methods($controller_class);
-                $action = $_GET['action'];    // recupère l'action passée dans l'URL
+                $action = $_GET['action'];    // recupÃ¨re l'action passÃ©e dans l'URL
                 if(in_array($action, $actionsExiste)) {
-                    $controller_class::$action(); // Appel de la méthode statique $action de ControllerDefault
+                    $controller_class::$action(); // Appel de la mÃ©thode statique $action de ControllerDefault
                 } else {
-                    ControllerDefault::error("L'action demandée est impossible");
+                    ControllerDefault::error("L'action demandÃ©e est impossible");
                 }
             } else {
                 ControllerDefault::index();
@@ -29,7 +29,7 @@ if(isset($_GET['controller']) && !empty(($_GET['controller']))) {
             ControllerDefault::error("Cette page n'existe pas");
         }
     } else {
-        ControllerDefault::error("Cette fonctionnalité n'est pas encore implémentée");
+        ControllerDefault::error("Cette fonctionnalitÃ© n'est pas encore implÃ©mentÃ©e");
     }
 } else {
     ControllerDefault::index();

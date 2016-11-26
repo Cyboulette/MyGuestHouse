@@ -7,9 +7,8 @@
      *      - afficher une chambre
      *
      * - Implémenter les prototypes
-     *
-     * L'admin doit purivr modifier des textes, modifier une photo
-    */
+     * - L'admin doit pouvoir modifier des textes, modifier une photo
+     */
 
     // sebastien.gagne41@orange.fr trello, git hub, google drive
     // sebastien.gagne@umontpellier.fr

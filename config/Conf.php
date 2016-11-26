@@ -6,10 +6,10 @@
 class Conf {
 
     static private $databases = array (
-        'hostname' => 'infolimon',
+        'hostname' => 'localhost',
         'database' => 'desbinq',
-        'login' => 'desbinq',
-        'password' => 'azerty123'
+        'login' => 'root',
+        'password' => 'tdlepd2803'
     );
 
     static private $debug = true;

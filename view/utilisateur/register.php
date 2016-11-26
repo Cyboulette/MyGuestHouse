@@ -22,6 +22,9 @@
       <div class="form-group">
         <label for="password">Votre mot de passe</label>
         <input type="password" name="password" id="password" value="<?=$password?>" class="form-control input-lg" placeholder="Saisissez votre mot de passe">
+      </div>
+
+      <div class="form-group">
         <label for="password_confirm">Confirmez le mot de passe</label>
         <input type="password" name="password_confirm" id="password_confirm" value="<?=$password_confirm?>" class="form-control input-lg" placeholder="Confirmez votre mot de passe">
       </div>
@@ -35,7 +38,7 @@
         <label for="nom">Votre nom</label>
         <input type="text" name="nom" id="nom" value="<?=$nom?>" class="form-control input-lg" placeholder="Saisissez votre nom">
       </div>
-      <div class="alert alert-info">
+      <div class="alert alert-info text-center">
         Tous les champs sont obligatoires
       </div>
       <hr class="colorgraph">

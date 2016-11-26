@@ -159,7 +159,7 @@ CREATE TABLE `GH_VisuelsChambres` (
 --
 
 CREATE TABLE `GH_DatesBloquees` (
-  `date` date NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
