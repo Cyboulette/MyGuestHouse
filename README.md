@@ -1,5 +1,9 @@
 # MyGuestHouse
 
+- 25/11
+     *      Update MyGuestHouse.sql (renaming tables)
+     *      Implementation of the ModelChambre.php 
+     *      Implementation of the ControllerChambre.php (basics)
 
 
 - 15/11
