@@ -2,14 +2,15 @@
 require_once 'Model.php';
 
 class ModelChambre extends Model {
+    
     protected $idChambre;
     protected $nomChambre;
     protected $descriptionChambre;
     protected $prixChambre;
     protected $superficieChambre;
 
-    protected static $tableName = 'chambres'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
-    protected static $object = 'chambres'; // Correspond au nom de l'objet à créer (ici produit)
+    protected static $tableName = 'Chambres'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
+    protected static $object = 'chambre'; // Correspond au nom de l'objet à créer (ici produit)
     protected static $primary = 'idChambre';
 
     public function __construct($idChambre=null, $nomChambre=null, $descriptionChambre=null, $prixChambre=null, $superficieChambre=null){

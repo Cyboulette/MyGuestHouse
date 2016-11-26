@@ -7,7 +7,7 @@ class ControllerChambre {
     public static function readAll() {
         $tab_v = ModelChambre::selectAll();
         $view = 'displayAllChambre';
-        $pagetitle = 'Nos Chambre';
+        $pagetitle = 'Nos Chambres';
         require_once File::build_path(array("view","main_view.php"));
     }
 }

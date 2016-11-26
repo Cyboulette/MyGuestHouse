@@ -12,7 +12,7 @@ class ModelUtilisateur extends Model {
     protected $rang;
     protected $nonce;
 
-    protected static $tableName = 'utilisateurs'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
+    protected static $tableName = 'Utilisateurs'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
     protected static $object = 'utilisateur'; // Correspond au nom de l'objet à créer (ici produit)
     protected static $primary = 'idUtilisateur'; // Correspond à la clé primaire de la table (pratique pour faire un read())
 
@@ -35,7 +35,7 @@ class ModelUtilisateur extends Model {
       return $hex;
     }
 
-    public function save() {
+    /*public function save() {
         try {
           $sql = 'INSERT INTO `'.self::$tableName.'` (idUtilisateur, email, password, prenom, nom, rang, nonce) VALUES (NULL, :email, :password, :prenom, :nom, :rang, :nonce)';
           $addUser = Model::$pdo->prepare($sql);
@@ -58,7 +58,7 @@ class ModelUtilisateur extends Model {
             return false;
             die();
         }
-    }
+    }*/
 
     public function validate() {
         try {
