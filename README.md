@@ -4,7 +4,7 @@
      *      Update MyGuestHouse.sql
      *      Implementation of the ModelChambre.php 
      *      Implementation of the ControllerChambre.php (basics)
-     *      Implementation of the Model.php
+     *      Implementation of the save() and delete() methods in Model.php
 
 
 - 15/11

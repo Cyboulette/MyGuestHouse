@@ -23,7 +23,7 @@ class ControllerUtilisateur {
             $password = strip_tags($_POST['password']);
 
             if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-               $checkUser = ModelUtilisateur::selectCustom('email', $email);
+               $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
                if($checkUser != false) {
                   if($checkUser[0]->get('nonce') == NULL) {
                      if(password_verify($password, $checkUser[0]->get('password'))) {
@@ -31,7 +31,7 @@ class ControllerUtilisateur {
                         $_SESSION['idUser'] = $checkUser[0]->get('idUtilisateur');
                         $message = 'Connexion réalisée avec succès !';
                         $view = 'success_action';
-                        $pagetitle = 'So\'Cap - Connexion réussie';
+                        $pagetitle = 'Connexion réussie';
                         $powerNeeded = self::isConnected();
                         require File::build_path(array('view', 'main_view.php'));
                      } else {
@@ -61,7 +61,7 @@ class ControllerUtilisateur {
          unset($_SESSION['idUser']);
          $message = 'Déconnexion réalisée avec succès !';
          $view = 'success_action';
-         $pagetitle = 'So\'Cap - Déconnexion';
+         $pagetitle = 'Déconnexion';
          $powerNeeded = !self::isConnected();
          require File::build_path(array('view', 'view.php'));
       } else {
@@ -84,7 +84,7 @@ class ControllerUtilisateur {
          if(isset($_POST['email'],$_POST['password'],$_POST['password_confirm'],$_POST['prenom'], $_POST['nom'])) {
             $email = strip_tags($_POST['email']);
             if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-               $checkUser = ModelUtilisateur::selectCustom('email', $email);
+               $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
                if($checkUser == false) {
                   $password = strip_tags($_POST['password']);
                   $password_confirm = strip_tags($_POST['password_confirm']);
@@ -95,11 +95,20 @@ class ControllerUtilisateur {
                            $nom = strip_tags($_POST['nom']);
                            if(!empty($nom) && !ctype_space($nom)) {
                               $creationUser = new ModelUtilisateur(0, $email, $password, $prenom, $nom, 2, '');
-                              $resultSave = $creationUser->save();
+                              $arrayUser=array(
+                                  'idUtilisateur'=>null,
+                                  'prenomUtilisateur'=>$prenom,
+                                  'nomUtilisateur'=> $nom,
+                                  'emailUtilisateur'=>$email,
+                                  'password'=>$password,
+                                  'rang'=> 2,
+                                  'nonce' => '');
+                              var_dump($arrayUser);
+                              $resultSave = $creationUser->save($arrayUser);
                               if($resultSave) {
                                  $message = 'Inscription réalisée avec succès !';
                                  $view = 'success_action';
-                                 $pagetitle = 'So\'Cap - Inscription';
+                                 $pagetitle = 'Inscription';
                                  $powerNeeded = !self::isConnected();
                                  require File::build_path(array('view', 'main_view.php'));
                               } else {
@@ -138,7 +147,7 @@ class ControllerUtilisateur {
          $key = strip_tags($_GET['key']);
          $email = strip_tags($_GET['email']);
          if(!empty($key) && !empty($email)) {
-            $checkUser = ModelUtilisateur::selectCustom('email', $email);
+            $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
             if($checkUser != false) {
                $user = $checkUser[0];
                if($key == $user->get('nonce')) {
@@ -146,7 +155,7 @@ class ControllerUtilisateur {
                   if($checkUpdate) {
                      $message = 'Validation de votre e-mail réalisée avec succès !';
                      $view = 'success_action';
-                     $pagetitle = 'So\'Cap - Validation de l\'adresse e-mail';
+                     $pagetitle = 'Validation de l\'adresse e-mail';
                      $powerNeeded = !self::isConnected();
                      require File::build_path(array('view', 'view.php'));
                   } else {

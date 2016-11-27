@@ -5,7 +5,7 @@ class ModelUtilisateur extends Model {
 
     // Mettre en protected pour y avoir accès depuis Model
     protected $idUtilisateur;
-    protected $email;
+    protected $emailUtilisateur;
     protected $password;
     protected $prenom;
     protected $nom;
@@ -16,10 +16,10 @@ class ModelUtilisateur extends Model {
     protected static $object = 'utilisateur'; // Correspond au nom de l'objet à créer (ici produit)
     protected static $primary = 'idUtilisateur'; // Correspond à la clé primaire de la table (pratique pour faire un read())
 
-    public function __construct($idUtilisateur = NULL, $email = NULL, $password = NULL, $prenom = NULL, $nom = NULL, $rang = NULL, $nonce = NULL) {
-        if (!is_null($idUtilisateur) && !is_null($email) && !is_null($password) && !is_null($prenom) && !is_null($nom) && !is_null($rang) && !is_null($nonce)) {
+    public function __construct($idUtilisateur = NULL, $emailUtilisateur = NULL, $password = NULL, $prenom = NULL, $nom = NULL, $rang = NULL, $nonce = NULL) {
+        if (!is_null($idUtilisateur) && !is_null($emailUtilisateur) && !is_null($password) && !is_null($prenom) && !is_null($nom) && !is_null($rang) && !is_null($nonce)) {
             $this->idUtilisateur = $idUtilisateur;
-            $this->email = $email;
+            $this->emailUtilisateur = $emailUtilisateur;
             $this->password = $password;
             $this->prenom = $prenom;
             $this->nom = $nom;
@@ -131,7 +131,7 @@ class ModelUtilisateur extends Model {
     public static function errorForm($error, $view, $titlePage) {
         $displayError = $error;
         $view = $view;
-        $pagetitle = 'So\'Cap - '.$titlePage;
+        $pagetitle = $titlePage;
         $powerNeeded = true;
         require File::build_path(array('view', 'main_view.php'));
     }

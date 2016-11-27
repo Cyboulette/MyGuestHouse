@@ -8,9 +8,9 @@ class Conf {
     // localhost de florian
     static private $databases = array (
         'hostname' => 'localhost',
-        'database' => 'MyGestHouse',
+        'database' => 'desbinq',
         'login' => 'root',
-        'password' => 'root'
+        'password' => 'tdlepd2803'
     );
 
     // static private $databases = array (

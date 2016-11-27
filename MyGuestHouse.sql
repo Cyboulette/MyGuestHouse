@@ -327,8 +327,8 @@ RAISE_APPLICATION_ERROR(-20004, "Vous ne pouvez pas avoir plus de cinq chambres 
 
 ENDIF;
 
-END$$
-DELIMITER;
+END;$$
+DELIMITER$$
 
 --
 -- Déclencheur pour le nombre de clients maximum
@@ -352,5 +352,5 @@ RAISE_APPLICATION_ERROR(-20004, "Vous ne pouvez pas loger plus de quinze clients
 
 ENDIF;
 
-END$$
-DELIMITER;
+END;
+DELIMITER $$

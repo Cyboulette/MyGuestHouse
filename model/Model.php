@@ -2,12 +2,12 @@
 
 require_once File::build_path(array('config', 'Conf.php'));
 
-/**
+/*
  * Model provides data management and interactions to the database
  */
 class Model
 {
-    /**
+    /*
      * PDO Object provides the query management
      */
     public static $pdo;
@@ -75,20 +75,21 @@ class Model
     }
 
     /*
-        Fonction générique qui permet d'insérer dans une table
-        $data = les colonnes de la table avec les valeurs associées
-        $typeReturn = NULL par défaut, ou id, si id, retourne le dernier id ajouté
-    */
+     *   Fonction générique qui permet d'insérer dans une table
+     *   $data = les colonnes de la table avec les valeurs associées
+     *   $typeReturn = NULL par défaut, ou id, si id, retourne le dernier id ajouté
+     */
     public static function save($data, $typeReturn = NULL) {
         try {
-            $sql = 'INSERT INTO `'.static::$tableName.'` VALUES (';
+            $sql = 'INSERT INTO `gh_' .static::$tableName.'` VALUES (';
+
 
             foreach ($data as $key => $value) {
                 $sql .= ':'.$key.',';
             }
 
             $sql = substr($sql, 0, -1);
-            $sql .= ')';
+            $sql .= ');';
 
             $add = Model::$pdo->prepare($sql);
             $add->execute($data);
@@ -108,9 +109,9 @@ class Model
     }
 
     /*
-        Fonction générique qui permet de supprimer de la table du model courant la valeur de la clé primaire
-        $data = valeur de la clé primaire
-    */
+     *  Fonction générique qui permet de supprimer de la table du model courant la valeur de la clé primaire
+     *  $data = valeur de la clé primaire
+     */
     public static function delete($data) {
         $table_name = static::$tableName;
         $primary_key = static::$primary;
@@ -133,10 +134,10 @@ class Model
 
 
     /*
-        Fonction générique qui permet de sélectionner tous résultats pour une clé particulière et sa valeur ($data) associée
-        $cle = le nom de la colonne à vérifier
-        $data = la valeur
-    */
+     *   Fonction générique qui permet de sélectionner tous résultats pour une clé particulière et sa valeur ($data) associée
+     *   $cle = le nom de la colonne à vérifier
+     *   $data = la valeur
+     */
     public static function selectCustom($cle, $data) {
         $table_name = static::$tableName;
         $class_name = 'Model'.ucfirst(static::$object);
@@ -189,5 +190,4 @@ class Model
     }
 
 }
-
 Model::Init();
