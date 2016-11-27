@@ -7,14 +7,16 @@
 		  		$nom = $chambre->get("nomChambre");
 		  		$prix = $chambre->get("prixChambre");
 		        echo "
-		       		<div class='col-xs-6 col-sm-3 placeholder'>
-                <img src='data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' width='200' height='200' class='img-responsive' alt='Generic placeholder thumbnail'>
-       		 			<h4>{$nom}</h4>
-        				<span class='text-muted'>{$prix} <span class='glyphicon glyphicon-eur' aria-hidden='true'></span></span>
-    				  </div>
+              <a href='#'>
+  		       		<div class='col-xs-6 col-sm-3 placeholder'>
+                  <img src='data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' width='200' height='200' class='img-responsive' alt='Generic placeholder thumbnail'>
+         		 			<h4>{$nom}</h4>
+          				<span class='text-muted'>{$prix} <span class='glyphicon glyphicon-eur' aria-hidden='true'></span></span>
+      				  </div>
+              </a>
 		        ";
 		    }
-		echo '</div>';	
+		  echo '</div>';	
   	}else{
   		echo '<div class="alert alert-danger">'."il n'y a aucune chambre pour linstant".'</div>';
   	}
