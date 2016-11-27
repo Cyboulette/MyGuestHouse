@@ -8,6 +8,7 @@ class ControllerChambre {
         $tab_v = ModelChambre::selectAll();
         $view = 'displayAllChambre';
         $pagetitle = 'Nos Chambres';
+        $powerNeeded = true;
         require_once File::build_path(array("view","main_view.php"));
     }
 }
