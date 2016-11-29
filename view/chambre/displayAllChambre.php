@@ -6,8 +6,9 @@
 		  	foreach ($tab_v as $chambre){
 		  		$nom = $chambre->get("nomChambre");
 		  		$prix = $chambre->get("prixChambre");
+          $id = $chambre->get("idChambre");
 		        echo "
-              <a href='#'>
+              <a href='?controller=chambre&action=read&idChambre=$id'>
   		       		<div class='col-xs-6 col-sm-3 placeholder'>
                   <img src='data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' width='200' height='200' class='img-responsive' alt='Generic placeholder thumbnail'>
          		 			<h4>{$nom}</h4>

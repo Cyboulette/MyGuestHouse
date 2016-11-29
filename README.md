@@ -1,6 +1,10 @@
 # MyGuestHouse
 
 - 29/11
+    *       change static::$object to static::$tableName int the select of the Model.php (for the $table_name)
+    *       create a function count() one the Modele.php 
+
+- 29/11
     *       Conf.php updated with all our configurations
     *       Models updated with the good prefix
     *       Views admin & site linked with the good css file

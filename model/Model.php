@@ -49,7 +49,7 @@ class Model
     }
 
     public static function select($primary_value){
-        $table_name = static::$object;
+        $table_name = static::$tableName;
         $class_name = 'Model'.ucfirst(static::$object);
         $primary_key = static::$primary;
 
@@ -67,6 +67,33 @@ class Model
             } else {
                 return $tab[0];
             }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function count(){
+        $table_name = static::$tableName;
+        $class_name = 'Model'.ucfirst(static::$object);
+
+        try {
+            $sql = "SELECT COUNT(*) FROM `".$table_name."`";
+            $rep = Model::$pdo->query($sql);
+
+            $rep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $rep->FetchAll();
+
+            if(empty($tab)) {
+                return false;
+            }
+    
+            return $tab[0][0];
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
