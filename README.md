@@ -1,5 +1,11 @@
 # MyGuestHouse
 
+- 29/11
+    *       Conf.php updated with all our configurations
+    *       Models updated with the good prefix
+    *       Views admin & site linked with the good css file
+    *       Remove save() not-generic in some Models
+
 - 25/11
      *      Update MyGuestHouse.sql
      *      Implementation of the ModelChambre.php 
