@@ -5,6 +5,7 @@
 
 		// Charge l'index de l'administration
 		public static function index() {
+			$powerNeeded = true;
 			$view = 'index';
 			$pagetitle = 'Administration';
 			$template = 'admin';
