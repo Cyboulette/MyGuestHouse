@@ -13,14 +13,16 @@ class Model
     public static $pdo;
 
     public function get($nom_attribut) {
-        if (property_exists($this, $nom_attribut))
+        if (property_exists($this, $nom_attribut)) {
             return $this->$nom_attribut;
+        }
         return false;
     }
 
     public function set($nom_attribut, $valeur) {
-        if (property_exists($this, $nom_attribut))
+        if (property_exists($this, $nom_attribut)) {
             $this->$nom_attribut = $valeur;
+        }
         return false;
     }
 
@@ -29,7 +31,7 @@ class Model
         $class_name = 'Model'.ucfirst(static::$object);
 
         try {
-            $sql = "SELECT * FROM `GH_".$table_name."`";
+            $sql = "SELECT * FROM `".$table_name."`";
             $rep = Model::$pdo->query($sql);
 
             $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
@@ -41,6 +43,7 @@ class Model
             } else {
                 echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
+            return false;
             die();
         }
     }
@@ -51,7 +54,7 @@ class Model
         $primary_key = static::$primary;
 
         try {
-            $sql = "SELECT * FROM `GH_".$table_name."` WHERE $primary_key=:primary_val";
+            $sql = "SELECT * FROM `".$table_name."` WHERE ".$primary_key." = :primary_val";
             $req_prep = Model::$pdo->prepare($sql);
 
             $values = array("primary_val" => $primary_value);
@@ -70,6 +73,7 @@ class Model
             } else {
                 echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
+            return false;
             die();
         }
     }
@@ -81,7 +85,7 @@ class Model
      */
     public static function save($data, $typeReturn = NULL) {
         try {
-            $sql = 'INSERT INTO `gh_' .static::$tableName.'` VALUES (';
+            $sql = 'INSERT INTO `'.static::$tableName.'` VALUES (';
 
 
             foreach ($data as $key => $value) {
@@ -89,7 +93,7 @@ class Model
             }
 
             $sql = substr($sql, 0, -1);
-            $sql .= ');';
+            $sql .= ')';
 
             $add = Model::$pdo->prepare($sql);
             $add->execute($data);
@@ -142,7 +146,7 @@ class Model
         $table_name = static::$tableName;
         $class_name = 'Model'.ucfirst(static::$object);
         try {
-            $sql = "SELECT * from `GH_".$table_name."` WHERE `".$cle."` = :".$cle."";
+            $sql = "SELECT * from `".$table_name."` WHERE `".$cle."` = :".$cle."";
             $req_generique = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -162,14 +166,6 @@ class Model
         }
     }
 
-    public static function error($error){
-        $displayError = $error;
-        $view = 'error';
-        $pagetitle= 'MyGuestHouse - Erreur';
-        $powerNeeded = true;
-        require File::build_path(array('view', 'view.php'));
-    }
-
     public static function Init(){
         $hostname = Conf::getHostname();
         $database_name = Conf::getDatabase();
@@ -185,6 +181,7 @@ class Model
             } else {
                 echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
+            return false;
             die();
         }
     }

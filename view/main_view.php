@@ -1,4 +1,5 @@
 <?php
+	$powerNeeded = true;
 	if(!isset($template)) {
 		$template = 'site';
 	}

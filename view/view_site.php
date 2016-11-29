@@ -4,12 +4,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title><?php echo $pagetitle; ?></title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        <?php
-            require File::build_path(array("assets", "css", "styles.php"));
-        ?>
-
+        <!-- Bootstrap -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+        <link href="assets/css/style_site.css" rel="stylesheet">
+        <link href="assets/css/style_tablesorter.css" rel="stylesheet">
     </head>
 
     <body>
@@ -48,31 +47,33 @@
 
 
         <?php
-        if(isset($powerNeeded) && $powerNeeded == true)
-        {
-            if ($view != 'index')
-            {
+        if(isset($powerNeeded) && $powerNeeded == true) {
+            if ($view != 'index') {
                 echo '<div class="container page" >';
             }
+
             $filepath = File::build_path(array("view" , static::$object, $view.".php"));
             require $filepath;
 
-            if($view != 'index')
-            {
+            if($view != 'index') {
                 echo '</div>';
             }
-        }else{
+        } else {
             echo '<div class="container page"><div class="alert alert-danger">Vous ne possédez pas les droits pour accéder à cette page</div></div>';
         }
         ?>
 
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.matchHeight.js"></script>
+        <script src="assets/js/jquery.tablesorter.min.js"></script>
+        <script src="assets/js/jquery.metadata.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
-
-        <?php require File::build_path(array("assets", "js", "js.php")); ?>
+        <!-- SCRIPTS CUSTOM -->
 
         <footer class="footer" >
                 <div class="container">
-                    <p class="text-muted text-center">CRC &copy</p>
+                    <p class="text-muted text-center">{{WEBSITE_NAME} (C)</p>
                 </div>
         </footer>
     </body>

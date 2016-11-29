@@ -14,7 +14,7 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="assets/css/dashboard.css" rel="stylesheet">
+    <link href="assets/css/style_admin.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -51,37 +51,20 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="index.php?controller=admin&action=index">Résumé <span class="sr-only">(current)</span></a></li>
-            <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateur <span class="sr-only">(current)</span></a></li>
-            <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="#"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambre <span class="sr-only">(current)</span></a></li>
-            <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="#"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservation <span class="sr-only">(current)</span></a></li>
-            <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="#">Label <span class="sr-only">(current)</span></a></li>          
+            <li <?php ControllerDefault::active('admin', 'utilisateurs'); ?>><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateur <span class="sr-only">(current)</span></a></li>
+            <li <?php ControllerDefault::active('admin', 'chambres'); ?>><a href="#"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambre <span class="sr-only">(current)</span></a></li>
+            <li <?php ControllerDefault::active('admin', 'reservations'); ?>><a href="#"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservation <span class="sr-only">(current)</span></a></li>      
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Résumé usuel</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Utilisateurs</h4>
-              <span class="text-muted">XX Utilisateurs inscrits</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Chambres</h4>
-              <span class="text-muted">XX Chambres enregistrées</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Réservations</h4>
-              <span class="text-muted">XX Réservations</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
+          <?php
+          if(isset($powerNeeded) && $powerNeeded == true) {
+              $filepath = File::build_path(array("view" , static::$object, $view.".php"));
+              require $filepath;
+          } else {
+              echo '<div class="alert alert-danger">Vous ne possédez pas les droits pour accéder à cette page</div>';
+          }
+          ?>
         </div>
       </div>
     </div>
@@ -89,7 +72,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -159,6 +159,152 @@ body {
 	margin-right: auto;
 }
 
+/* Contenu principal */
+
+.page {
+	padding-top: 90px;
+}
+
+/* Menu du haut */
+
+.menuHaut {
+    min-height: 70px;
+    background-color: #C89A5B;
+    border: 0px;
+}
+
+.menuHaut .navbar-nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 70px;
+    color: white;
+    font-size: 1.5em;
+}
+
+.menuHaut .navbar-nav > .active > a {
+	background-color: #ad762c;
+}
+
+.menuHaut .navbar-brand {
+    float: left;
+    height: 70px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 40px;
+    color: white;
+}
+
+/* Responsive du menu */
+
+@media (max-width: 767px) {
+	.menuHaut .navbar-nav > li > a {
+		line-height: 20px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+}
+
+.menuHaut .navbar-nav {
+	display: inline-block;
+	float: none;
+	vertical-align: top;
+}
+
+.menuHaut .navbar-collapse {
+	text-align: center;
+	border-color: white;
+}
+
+.menuHaut .navbar-toggle {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    border-color: white;
+}
+
+.menuHaut .navbar-toggle:active, .menuHaut .navbar-toggle:hover, .menuHaut .navbar-toggle:focus {
+	border-color: black;
+}
+
+.menuHaut li:not(.logoBrand):hover, .menuHaut .navbar-nav > .active > a:hover, .menuHaut .navbar-nav > .active > a:focus {
+	background: rgb(222, 171, 101);
+}
+
+
+.menuHaut .navbar-nav>.logoBrand>a, .menuHaut .navbar-nav>.logoBrand>a:hover {
+	color: #755324;
+	font-weight: bolder;
+}
+
+/* Gestion des contenus divers */
+
+section {
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.box {
+	background-color: #e6e6e6;
+	border: 1px solid #d0d0d0;
+	padding: 0px;
+	border-radius: 3px;
+}
+
+.box .icon {
+	font-size: 4em;
+}
+
+.box .title {
+	color: #C89A5B;
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+.box p {
+	margin-top : 5px;
+}
+
+.box .buttons {
+	margin-bottom: 10px;
+}
+
+/* Correction d'un bug dans bootstrap */
+
+/*.row [class*="col-"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.row{
+	overflow: hidden; 
+}*/
+
+/* Page d'accueil */
+
+.last-products {
+	background: url('../images/last-products-bg.png');
+	padding: 20px;
+	border: 1px solid #d0d0d0;
+	border-left: none;
+	border-right: none;
+}
+
+.last-products h2 {
+	margin-top: 10px;
+}
+
+i.bigCoffee {
+	font-size: 8em;
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+	.col-lg-3 {
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+}
+
 @-webkit-keyframes spin {
 	0% { -webkit-transform: rotate(0deg); }
 	100% { -webkit-transform: rotate(360deg); }

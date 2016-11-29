@@ -9,9 +9,9 @@ class ModelChambre extends Model {
     protected $prixChambre;
     protected $superficieChambre;
 
-    protected static $tableName = 'Chambres'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
-    protected static $object = 'chambre'; // Correspond au nom de l'objet à créer (ici produit)
-    protected static $primary = 'idChambre';
+    protected static $tableName = 'GH_Chambres'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
+    protected static $object = 'chambre'; // Correspond au nom de l'objet à créer
+    protected static $primary = 'idChambre'; // Correspond à la clé primaire de la table (pratique pour faire un read())
 
     public function __construct($idChambre=null, $nomChambre=null, $descriptionChambre=null, $prixChambre=null, $superficieChambre=null){
         if(!is_null($idChambre) && !is_null($nomChambre) && !is_null($descriptionChambre) && !is_null($prixChambre) && !is_null($superficieChambre)){
@@ -22,32 +22,5 @@ class ModelChambre extends Model {
             $this->superficieChambre = $superficieChambre;
         }
     }
-
-
-    /*
-    On a une fonction générique pour le faire !! 
-    public function save(){
-        try
-        {
-            $sql = 'INSERT INTO `'.self::$tableName.'` (idUtilisateur, nomChambre, descriptionChambre, prixChambre, , superficieChambre) VALUES (NULL, :nomChambre, :descriptionChambre, :prixChambre, :superficieChambre)';
-            $addUser = Model::$pdo->prepare($sql);
-
-            $values = array(
-                'nomChambre' => strip_tags($this->get('nomChambre')),
-                'descriptionChambre' => strip_tags($this->get('descriptionChambre')),
-                'prixChambre' => strip_tags($this->get('prixChambre')),
-                'superficieChambre' => strip_tags($this->get('superficieChambre'))
-            );
-
-            $addUser->execute($values);
-            return true;
-        }
-        catch(PDOException $e)
-        {
-            if (Conf::getDebug())   echo $e->getMessage();
-            else                    echo 'Exception reçue : ',  $e->getMessage(), "\n";
-            die();
-        }
-    }*/
 
 }
