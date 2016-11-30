@@ -87,13 +87,13 @@ class Model
             $rep = Model::$pdo->query($sql);
 
             $rep->setFetchMode(PDO::FETCH_NUM);
-            $tab = $rep->FetchAll();
+            $tab = $rep->Fetch();
 
             if(empty($tab)) {
                 return false;
             }
     
-            return $tab[0][0];
+            return $tab[0];
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();

@@ -18,8 +18,16 @@ class ControllerChambre {
     	$powerNeeded = true;
 
     	if (isset($_GET["idChambre"])) {
-	        $chambre = ModelChambre::select($_GET["idChambre"]);
-	        require_once File::build_path(array("view","main_view.php"));
+            $idChambre = $_GET["idChambre"];
+	        $chambre = ModelChambre::select($idChambre);
+            if ($chambre!=false) {
+                $tab_photo = ModelChambre::selectPhoto($idChambre);
+                $tab_detail = ModelChambre::selectDetail($idChambre);
+                $tab_prestation = ModelChambre::selectPrestation($idChambre);
+                require_once File::build_path(array("view","main_view.php"));
+            }else{
+                self::readAll();
+            }
     	}else{
     		self::readAll();
     	}  	
