@@ -7,8 +7,9 @@
         <!-- Bootstrap -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-        <link href="assets/css/style_site.css" rel="stylesheet">
         <link href="assets/css/style_tablesorter.css" rel="stylesheet">
+        <!-- THEME CUSTOM -->
+        <link href="view/themes/default/css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -37,8 +38,8 @@
                         <li <?php ControllerDefault::active('utilisateur', 'profil'); ?> ><a href="index.php?controller=utilisateur&action=profil">Profil</a></li>
                         <li <?php ControllerDefault::active('utilisateur', 'disconnect'); ?> ><a href="index.php?controller=utilisateur&action=disconnect">Déconnexion</a></li>
                     <?php
-                    }
-                        ?>
+                        }
+                    ?>
 
                 </ul>
             </div>

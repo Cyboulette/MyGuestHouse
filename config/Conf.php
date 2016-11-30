@@ -22,20 +22,22 @@ class Conf {
     );*/
 
     // Configuration de Quentin (HOME)
-    /*static private $databases = array (
+    static private $databases = array (
         'hostname' => 'localhost',
         'database' => 'MyGuestHouse',
         'login' => 'root',
         'password' => ''
-    );*/
+    );
 
     // Configuration IUT
-    static private $databases = array (
+    /*static private $databases = array (
         'hostname' => 'infolimon',
         'database' => 'desbinq',
         'login' => 'desbinq',
         'password' => 'azerty123'
-    );
+    );*/
+
+    static public $theme = 'default';
 
     static private $debug = true;
 
