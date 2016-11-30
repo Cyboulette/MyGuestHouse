@@ -1,10 +1,11 @@
 # MyGuestHouse
 
-- 29/11
-    *       change static::$object to static::$tableName int the select of the Model.php (for the $table_name)
-    *       create a function count() one the Modele.php 
+- 30/11
+    *       Move templates/themes to the good folder into view/themes and create (temp) Conf::$theme by default
 
 - 29/11
+    *       Change static::$object to static::$tableName int the select of the Model.php (for the $table_name)
+    *       Create a function count() one the Model.php 
     *       Conf.php updated with all our configurations
     *       Models updated with the good prefix
     *       Views admin & site linked with the good css file
