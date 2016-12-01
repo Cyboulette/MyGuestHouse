@@ -2,7 +2,7 @@
 require_once 'Model.php';
 
 class ModelVisuelChambre extends Model {
-    
+
     protected $idVisuel;
     protected $idChambre;
     protected $urlVisuel;
@@ -18,5 +18,26 @@ class ModelVisuelChambre extends Model {
             $this->urlVisuel = $urlVisuel;
         }
     }
+
+    public function update_url($url){
+        try{
+            $sql='UPDATE `'.self::$tableName.'` SET urlVisuel = '.$url.' WHERE idVisuel = :idVisuel';
+            $updateUrl=Model::$pdo->prepare($sql);
+
+            $value=array(
+                'idVisuel' => $this->idVisuel
+            );
+
+            $updateUrl->execute($value);
+            return true;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
 
 }

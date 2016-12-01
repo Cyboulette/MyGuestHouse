@@ -306,6 +306,12 @@ ALTER TABLE `GH_VisuelsChambres`
   ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
+--
+-- Insertion
+--
+INSERT INTO `gh_rangs`(`idRang`, `labelRang`, `power`) VALUES (1,'visiteur',1);
+INSERT INTO `gh_rangs`(`idRang`, `labelRang`, `power`) VALUES (2,'utilisateur',10);
+INSERT INTO `gh_rangs`(`idRang`, `labelRang`, `power`) VALUES (3,'administrateur',100);
 -- --------------------------------------------------------
 
 /* Déclencheurs

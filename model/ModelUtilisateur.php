@@ -28,7 +28,7 @@ class ModelUtilisateur extends Model {
         }
     }
 
-    public function generateRandomHex() {
+    public static function generateRandomHex() {
       $numbytes = 16;
       $bytes = openssl_random_pseudo_bytes($numbytes); 
       $hex   = bin2hex($bytes);

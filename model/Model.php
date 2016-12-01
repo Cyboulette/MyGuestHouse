@@ -213,5 +213,14 @@ class Model
         }
     }
 
+    //Gestion des erreurs pour tous les modèles !!
+    public static function error($error) {
+        $displayError = $error;
+        $view = 'error';
+        $pagetitle= 'Erreur';
+        $powerNeeded = true;
+        require File::build_path(array('view', 'view.php'));
+    }
+
 }
 Model::Init();
