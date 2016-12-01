@@ -8,6 +8,7 @@ The smartest CMS for guest house owner
     *       update_url method in ModelVisuelChambre
     *       Move templates/themes to the good folder into view/themes and create (temp) Conf::$theme by default
     *       Insertion `gh_rang` values into the .sql file
+    *       Implementation of view displayChambre
 
 - 29/11 **User utilites**
     *       Change static::$object to static::$tableName int the select of the Model.php (for the $table_name)
