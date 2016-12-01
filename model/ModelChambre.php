@@ -47,6 +47,27 @@ class ModelChambre extends Model {
         }
     }
 
+    public static function updatePhoto($before_p, $after_p){
+        try{
+            $sql='UPDATE `GH_VisuelsChambres` SET urlVisuel = :tag_after_p WHERE idVisuel = :tag_before_p';
+            $updateUrl=Model::$pdo->prepare($sql);
+
+            $value=array(
+                'tag_before_p' => $before_p,
+                'tag_after_p' => $after_p,
+            );
+
+            $updateUrl->execute($value);
+            return true;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
     public static function selectDetail($idChambre){
         try {
             $sql = "SELECT d.nomDetail, cd.valeurDetail 
