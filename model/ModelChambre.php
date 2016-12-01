@@ -33,7 +33,7 @@ class ModelChambre extends Model {
             );
 
             $rep->execute($values);
-            $result = $rep->fetch();
+            $result = $rep->fetchAll();
 
             return $result;
         } catch(PDOException $e) {
@@ -61,7 +61,7 @@ class ModelChambre extends Model {
             );
 
             $rep->execute($values);
-            $result = $rep->fetch();
+            $result = $rep->fetchAll();
 
             return $result;
         } catch(PDOException $e) {
@@ -89,7 +89,7 @@ class ModelChambre extends Model {
             );
 
             $rep->execute($values);
-            $result = $rep->fetch();
+            $result = $rep->fetchAll();
 
             return $result;
         } catch(PDOException $e) {
