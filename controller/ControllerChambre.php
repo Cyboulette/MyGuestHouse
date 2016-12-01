@@ -24,6 +24,19 @@ class ControllerChambre {
                 $tab_photo = ModelChambre::selectPhoto($idChambre);
                 $tab_detail = ModelChambre::selectDetail($idChambre);
                 $tab_prestation = ModelChambre::selectPrestation($idChambre);
+
+                $compteur = true;
+                foreach ($tab_photo as $key => $value) {
+                  $photo = $tab_photo[$key][0];
+                  if (!file_exists($photo)) {
+                    ModelChambre::delatePhoto($photo);// suppression de la photo de la bdd si elle nexiste pas physiquement
+                    $compteur = false;
+                  }
+                }
+                if (!$compteur) {
+                    $tab_photo = ModelChambre::selectPhoto($idChambre);
+                }
+                
                 require_once File::build_path(array("view","main_view.php"));
             }else{
                 self::readAll();

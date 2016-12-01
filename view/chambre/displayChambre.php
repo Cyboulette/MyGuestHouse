@@ -20,7 +20,8 @@
   	if (isset($tab_photo) && !empty($tab_photo)) {
       echo "<div>";
         foreach ($tab_photo as $key => $value) {
-          echo $tab_photo[$key][0].'</br>';
+          $photo = $tab_photo[$key][0];
+            echo $photo."</br>";
         }
       echo "</div>";
   	}else{
