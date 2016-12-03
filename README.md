@@ -3,6 +3,11 @@ The smartest CMS for guest house owner
 
 # Commits
 
+- 03/12 **Admin Pages**
+   *        Implementation of "lister les chambres" in the Administration
+   *        Need to have an account and be admin for have the power to enter into the Administration
+   *        Security of views/controllers, read the wiki for more information (french)
+
 - 30/11 **Front-office**
     *       Implementation of ModelVisuelChambre.php file
     *       update_url method in ModelVisuelChambre
