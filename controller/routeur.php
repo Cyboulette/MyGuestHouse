@@ -23,7 +23,10 @@ if(isset($_GET['controller']) && !empty(($_GET['controller']))) {
                 if(in_array($action, $actionsExiste)) {
                     $controller_class::$action(); // Appel de la méthode statique $action de ControllerDefault
                 } else {
-                    ControllerDefault::error("L'action demandée est impossible");
+                    if($controller == 'admin') {
+                        $template = 'admin';
+                    }
+                    ControllerDefault::error("L'action demandée est impossible", $template);
                 }
             } else {
                 ControllerDefault::index();

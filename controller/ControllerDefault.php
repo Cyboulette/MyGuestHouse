@@ -40,7 +40,7 @@
         /**
          *
         */
-        public static function error($error) {
+        public static function error($error, $template = NULL) {
             $displayError = $error;
             $view = 'error';
             $pagetitle= 'MyGuestHouse - Erreur';

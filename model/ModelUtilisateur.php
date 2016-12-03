@@ -57,7 +57,7 @@ class ModelUtilisateur extends Model {
 
     public function getPower() {
         try {
-          $sql = 'SELECT * FROM `rangs` WHERE idRang = :idRang';
+          $sql = 'SELECT * FROM `GH_Rangs` WHERE idRang = :idRang';
           $getRang = Model::$pdo->prepare($sql);
 
           $values = array(

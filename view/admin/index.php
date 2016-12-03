@@ -1,3 +1,4 @@
+<?php if(!$powerNeeded) { exit(); } ?>
 <h1 class="page-header">Résumé usuel</h1>
 
 <div class="row placeholders">
