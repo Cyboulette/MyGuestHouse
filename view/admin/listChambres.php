@@ -31,13 +31,43 @@
 				echo '<td>'.$prix.' €</td>';
 				echo '<td>'.$superficie.' m²</td>';
 				echo '<td><a href="index.php?controller=admin&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
-				echo '<td><a href="index.php?controller=admin&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+				echo '<td><button class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></button></td>';
 				echo '<td>
 					<a href="index.php?controller=admin&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-					<a href="index.php?controller=admin&action=deleteChambre&idChambre='.$id.'" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</a>
-				</td>';
+
+					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChambre" value="'.$id.'">Supprimer</button>
+
+					</td>';
 			echo '</tr>';
+
+
+
 		}
+
 		echo '</table></div>';
+
+		/* BOOTSTRAP MODAL */
+		echo '<div id="deleteChambre" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirmation</h4>
+					</div>
+
+					<div class="modal-body">
+						<p>Etes-vous certain de vouloir supprimer cette chambre ?</p>
+					</div>
+
+					<div class="modal-footer">
+					<a href="index.php?controller=admin&action=deleteChambre&idChambre='.$id.'" class="btn btn-xs btn-danger">Supprimer</a	>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+					</div>
+
+				</div>
+			</div>';
 	}
 ?>

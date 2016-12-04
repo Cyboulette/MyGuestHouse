@@ -68,6 +68,26 @@ class ModelChambre extends Model {
         }
     }
 
+    public function update_url($url){
+        try{
+            $sql='UPDATE `'.self::$tableName.'` SET urlVisuel = '.$url.' WHERE idVisuel = :idVisuel';
+            $updateUrl=Model::$pdo->prepare($sql);
+
+            $value=array(
+                'idVisuel' => $this->idVisuel
+            );
+
+            $updateUrl->execute($value);
+            return true;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
     public static function delatePhoto($url){
         try{
             $sql= "DELETE FROM `GH_VisuelsChambres` WHERE `urlVisuel`= :tag_url";

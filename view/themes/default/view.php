@@ -24,7 +24,7 @@
                 <ul class="nav navbar-nav">
                     <li class="logoBrand"><a href="index.php">MyGuestHouse</a></li>
                     <li <?php ControllerDefault::active('index', ''); ?>><a href="index.php">Accueil</a></li>
-                    <li <?php ControllerDefault::active('chambre', ''); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
+                    <li <?php ControllerDefault::active('chambre', 'readAll'); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
 
                     <?php
                     if(!isset($_SESSION['login'])) {
@@ -50,7 +50,11 @@
         <?php
         if(isset($powerNeeded) && $powerNeeded == true) {
             if ($view != 'index') {
-                echo '<div class="container page" >';
+                if($view == 'displayAllChambre'){ //Je pense qu'on va avoir besoin d'un maximum de place pour afficher de belles grandes photos (à voir)
+                    echo '<div class="container" >';
+                } else {
+                    echo '<div class="container page" >';
+                }
             }
 
             $filepath = File::build_path(array("view" , static::$object, $view.".php"));

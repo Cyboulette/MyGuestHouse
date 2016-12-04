@@ -110,6 +110,50 @@ class ModelUtilisateur extends Model {
         $powerNeeded = true;
         require File::build_path(array('view', 'main_view.php'));
     }
-}
 
+    // Select toutes les réservations d'un utilisateur
+    public static function selectAllRéservation(){
+        $idUtilisateur = static::$idUtilisateur;
+        $class_name = 'Model'.ucfirst(static::$object);
+
+        try{
+            $sql = 'SELECT * FROM GH_reservations WHERE idUtilisateur = '.$idUtilisateur;
+            $rep = Model::$pdo->prepare($sql);
+
+
+            $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+            $tab = $rep->FetchAll();
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    // Return the number of all currents reservations
+    public static function getNombreReservationEnCours(){
+        try{
+            $sql = 'SELECT COUNT(*) FROM GH_Reservation WHERE dateDebut >'.time();
+            $getNombre = Model::$pdo->prepare($sql);
+
+            $getNombre->setFetchMode(PDO::FETCH_NUM);
+            $tab = $getNombre->Fetch();
+
+            if(empty($tab)) {
+                return 0;
+            }
+
+            return $tab[0];
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+}
 ?>
