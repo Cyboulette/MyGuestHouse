@@ -157,7 +157,7 @@
             "; 
      
             foreach ($tab_prestation as $key => $value) { 
-              echo "<li>".$tab_prestation[$key][0]." : ".$tab_prestation[$key][1]."</li>"; 
+              echo "<li>".$tab_prestation[$key][0]." : ".$tab_prestation[$key][1]."&euro;</li>"; 
             } 
      
             echo " 
