@@ -25,7 +25,7 @@ class ControllerUtilisateur {
             if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
                $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
                if($checkUser != false) {
-                  if($checkUser[0]->get('nonce') == "null") {
+                  if($checkUser[0]->get('nonce') == null) {
                      if(password_verify($password, $checkUser[0]->get('password'))) {
                         $_SESSION['login'] = true;
                         $_SESSION['idUser'] = $checkUser[0]->get('idUtilisateur');

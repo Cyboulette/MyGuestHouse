@@ -47,6 +47,7 @@ class ModelChambre extends Model {
         }
     }
 
+    //a verifier//
     public static function updatePhoto($before_p, $after_p){
         try{
             $sql= "UPDATE `GH_VisuelsChambres` SET urlVisuel = :tag_after_p WHERE idVisuel = :tag_before_p";
@@ -68,25 +69,25 @@ class ModelChambre extends Model {
         }
     }
 
-    public function update_url($url){
-        try{
-            $sql='UPDATE `'.self::$tableName.'` SET urlVisuel = '.$url.' WHERE idVisuel = :idVisuel';
-            $updateUrl=Model::$pdo->prepare($sql);
+    // public function update_url($url){
+    //     try{
+    //         $sql='UPDATE `'.self::$tableName.'` SET urlVisuel = '.$url.' WHERE idVisuel = :idVisuel';
+    //         $updateUrl=Model::$pdo->prepare($sql);
 
-            $value=array(
-                'idVisuel' => $this->idVisuel
-            );
+    //         $value=array(
+    //             'idVisuel' => $this->idVisuel
+    //         );
 
-            $updateUrl->execute($value);
-            return true;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
+    //         $updateUrl->execute($value);
+    //         return true;
+    //     } catch(PDOException $e) {
+    //         if (Conf::getDebug()) {
+    //             echo $e->getMessage();
+    //         }
+    //         return false;
+    //         die();
+    //     }
+    // }
 
     public static function delatePhoto($url){
         try{
