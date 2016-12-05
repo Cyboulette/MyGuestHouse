@@ -163,7 +163,6 @@ class Model
         }
     }
 
-
     /*
      *   Fonction générique qui permet de sélectionner tous résultats pour une clé particulière et sa valeur ($data) associée
      *   $cle = le nom de la colonne à vérifier
@@ -221,6 +220,7 @@ class Model
         $powerNeeded = true;
         require File::build_path(array('view', 'view.php'));
     }
+
 
 }
 Model::Init();
