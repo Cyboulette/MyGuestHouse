@@ -92,16 +92,21 @@ class ControllerAdmin {
 		// Attend un $_GET['idChambre']
 		if(ControllerUtilisateur::isConnected()) {
 			if(isset($_GET['idChambre'])){
-				$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-				$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
 				$chambre = ModelChambre::select($_GET['idChambre']);
+				if ($chambre!=false) {
+					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+					$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
 
-				$powerNeeded = true;
-				$view = 'editChambre';
-				$pagetitle = 'Administration - Editeur de chambre';
-				$template = 'admin';
-				require_once File::build_path(array("view", "main_view.php"));
+
+
+					$powerNeeded = true;
+					$view = 'editChambre';
+					$pagetitle = 'Administration - Editeur de chambre';
+					$template = 'admin';
+					require_once File::build_path(array("view", "main_view.php"));	
+				}else{
+					ControllerDefault::error(" ! ");// je ne sais pas quel error utiliser
+				}
 			}else{
 				ControllerDefault::error("La chambre a modifier n'est pas specifiée ! ");
 			}

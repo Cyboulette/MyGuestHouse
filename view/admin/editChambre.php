@@ -40,10 +40,14 @@
         <label for='exampleTextarea'>Description : </label>
         <textarea class='form-control' id='exampleTextarea' rows='3'>{$description} </textarea>
       </div>
+
+      <div class='col-xs-6 col-sm-5 col-md-2'>
+        <input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
+      </div>
     </form>
 
     <div class='col-xs-6 col-sm-5 col-md-2'>
-      <input type='submit' class='btn btn-lg btn-success btn-block' value='Modifier'>
+      <a href='?controller=admin&action=chambres' class='btn btn-s btn-danger btn-block'>Annuler</a>
     </div>
   "; 
 ?>
