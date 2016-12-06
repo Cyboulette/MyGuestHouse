@@ -274,7 +274,7 @@ body {
     padding-bottom: 0px;
     line-height: 70px;
     color: #666666;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .menuHaut .navbar-nav > .active > a {
@@ -289,7 +289,13 @@ body {
     padding: 15px 15px;
     font-size: 18px;
     line-height: 40px;
-    color: white;
+    color: #ad1717;
+}
+
+.goAdmin {
+	position: absolute;
+    left: 10px;
+    top: 25%;
 }
 
 /* Responsive du menu */
@@ -310,17 +316,26 @@ body {
 
 .menuHaut .navbar-collapse {
 	text-align: center;
-	border-color: white;
+	border-color: #ad1717;
+}
+
+.menuHaut .navbar-toggle {
+	background-color: #ad1717;
+}
+
+.menuHaut .navbar-toggle .icon-bar {
+	background-color: white;
 }
 
 .menuHaut .navbar-toggle {
     margin-top: 18px;
     margin-bottom: 18px;
-    border-color: white;
+    border-color: #ad1717;
 }
 
 .menuHaut .navbar-toggle:active, .menuHaut .navbar-toggle:hover, .menuHaut .navbar-toggle:focus {
-	border-color: black;
+	border-color: #ad1717;
+	background-color: #841414!important;
 }
 
 .menuHaut .navbar-nav>li>a:focus, .menuHaut .navbar-nav>li>a:hover {
@@ -336,7 +351,6 @@ body {
 .menuHaut .navbar-nav>.logoBrand>a, .menuHaut .navbar-nav>.logoBrand>a:hover {
 	color: #ad1717;
 	font-weight: bolder;
-	right: 50px;
 }
 
 /* Gestion des contenus divers */
