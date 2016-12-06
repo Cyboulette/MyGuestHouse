@@ -192,6 +192,28 @@ class Model
         }
     }
 
+    public static function update_gen($data, $whereCle) {
+        try {
+            $sql = 'UPDATE `'.static::$tableName.'` SET ';
+
+            foreach ($data as $key => $value) {
+                $sql .= $key.' = :'.$key.', ';
+            }
+            $sql = substr($sql, 0, -2);
+            $sql .= ' WHERE '.$whereCle.' = :'.$whereCle;
+            
+            $update = Model::$pdo->prepare($sql);
+            $update->execute($data);
+            return true;
+        } catch(PDOException $e) {
+            if(Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
     public static function Init(){
         $hostname = Conf::getHostname();
         $database_name = Conf::getDatabase();
@@ -211,16 +233,6 @@ class Model
             die();
         }
     }
-
-    //Gestion des erreurs pour tous les modèles !!
-    public static function error($error) {
-        $displayError = $error;
-        $view = 'error';
-        $pagetitle= 'Erreur';
-        $powerNeeded = true;
-        require File::build_path(array('view', 'view.php'));
-    }
-
 
 }
 Model::Init();

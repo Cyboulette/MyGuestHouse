@@ -122,6 +122,7 @@
         </div>
     </div>
 
+    <?php if($display_news == 'true') { ?>
     <div class="row rooms">
         <div class="col-lg-12 titleRoom">
             <h1>Notre actualité</h1>
@@ -155,6 +156,7 @@
             </div>
         </div>
     </div>
+    <?php } ?>
 </div>
 
 

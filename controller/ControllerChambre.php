@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array('model', 'ModelChambre.php'));
+require_once File::build_path(array('model', 'ModelOption.php'));
 
 class ControllerChambre {
     private static $object = 'chambre';

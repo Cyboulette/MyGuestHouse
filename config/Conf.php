@@ -4,7 +4,6 @@
  */
 
 class Conf {
-
     // Configuration de Florian (HOME)
     static private $databases = array (
         'hostname' => 'localhost',
