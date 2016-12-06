@@ -116,7 +116,7 @@ body {
 
 .carousel-control.left, .carousel-control.right {
 	background: none;
-	color: rgb(200, 154, 91);
+	color: white;
 }
 
 .carousel-control {
@@ -132,11 +132,11 @@ body {
 }
 
 .carousel-indicators .active {
-	background-color: rgb(200, 154, 91);
+	background-color: white;
 }
 
 .carousel-indicators li {
-	border: 1px solid rgb(200, 154, 91);
+	border: 1px solid white;
 }
 
 .carousel-inner>.item>img {
@@ -145,6 +145,25 @@ body {
 	height : 250px;
 }
 
+/* Slide de l'accueil */
+
+.jumbotron {
+	padding: 0px;
+}
+
+.slideAccueil .item>img {
+	width: 100%;
+	height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+	.slideAccueil .carousel-caption {
+	    right: 20%;
+	    left: 20%;
+	    padding-bottom: 20%;
+	    font-size: 2em;
+	}
+}
 /* Gestion de l'icône de chargement */
 
 .loader {
@@ -162,27 +181,106 @@ body {
 /* Contenu principal */
 
 .page {
-	padding-top: 90px;
+	padding-top: 20px;
+}
+
+.titleRoom {
+	margin: 20px;
+}
+
+.titleRoom h1 {
+	color: #ad1717;
+}
+
+.rooms:nth-child(odd) {
+    background: #f9f9f9;
+    padding-bottom: 12px;
+    border-radius: 5px;
+}
+
+.rooms {
+	margin-bottom: 20px;
+}
+
+.room-img img {
+	height: 200px;
+	width: 100%;
+}
+
+.room-text {
+	margin-top: 15px;
+	color: #898989;
+}
+
+.room-text h2 {
+	color: #ad1717;
+}
+
+.room-buttons {
+	text-align: center;
+	color: #ad1717;
+	font-weight: bolder;
+}
+
+.btn-red {
+	background-color: #ad1717;
+	color: white;
+	border: 1px solid #841414;
+}
+
+.btn-red:hover, .btn-red:active, .btn-red:focus {
+	color: white;
+	background-color: #841414;
+}
+
+.service {
+	padding: 30px;
+	background: white;
+	border: 1px dotted black;
+	margin-bottom: 10px;
+}
+
+.service:hover {
+	background-color: #ad1717;
+	color: white;
+	border: 1px dashed white;
+}
+
+.calendar {
+	background: #ad1717;
+	padding: 10px;
+	color: white;
+	font-weight: bolder;
+	font-size: 1em;
+	border: 5px solid #841414;
+}
+
+.news .btn {
+	margin-top: 15px;
 }
 
 /* Menu du haut */
 
 .menuHaut {
     min-height: 70px;
-    background-color: #C89A5B;
+    background-color: #edf0f3;
     border: 0px;
+    border-radius: 0px;
+    margin-bottom: 0px;
 }
 
 .menuHaut .navbar-nav > li > a {
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: 70px;
-    color: white;
+    color: #666666;
     font-size: 1.5em;
 }
 
 .menuHaut .navbar-nav > .active > a {
-	background-color: #ad762c;
+	/*background-color: #ad6060;*/
+	color: #ad6060;
+	background: none;
 }
 
 .menuHaut .navbar-brand {
@@ -225,14 +323,20 @@ body {
 	border-color: black;
 }
 
+.menuHaut .navbar-nav>li>a:focus, .menuHaut .navbar-nav>li>a:hover {
+	color: #ad6060;
+}
+
 .menuHaut li:not(.logoBrand):hover, .menuHaut .navbar-nav > .active > a:hover, .menuHaut .navbar-nav > .active > a:focus {
-	background: rgb(222, 171, 101);
+	color: #ad6060;
+	background: none;
 }
 
 
 .menuHaut .navbar-nav>.logoBrand>a, .menuHaut .navbar-nav>.logoBrand>a:hover {
-	color: #755324;
+	color: #ad1717;
 	font-weight: bolder;
+	right: 50px;
 }
 
 /* Gestion des contenus divers */
