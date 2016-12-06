@@ -4,13 +4,13 @@
  */
 
 class Conf {
-    // Configuration de Florian (HOME)
-    static private $databases = array (
-        'hostname' => 'localhost',
-        'database' => 'MyGuestHouse',
-        'login' => 'root',
-        'password' => 'root'
-    );
+    // // Configuration de Florian (HOME)
+    // static private $databases = array (
+    //     'hostname' => 'localhost',
+    //     'database' => 'MyGuestHouse',
+    //     'login' => 'root',
+    //     'password' => 'root'
+    // );
 
     // Configuration de Clément (HOME)
     /*static private $databases = array (
@@ -20,13 +20,13 @@ class Conf {
         'password' => 'tdlepd2803'
     );*/
 
-    // // Configuration de Quentin (HOME)
-    // static private $databases = array (
-    //     'hostname' => 'localhost',
-    //     'database' => 'MyGuestHouse',
-    //     'login' => 'root',
-    //     'password' => ''
-    // );
+    // Configuration de Quentin (HOME)
+    static private $databases = array (
+        'hostname' => 'localhost',
+        'database' => 'MyGuestHouse',
+        'login' => 'root',
+        'password' => ''
+    );
 
     // Configuration IUT
     /*static private $databases = array (
