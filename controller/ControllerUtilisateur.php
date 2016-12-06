@@ -63,7 +63,7 @@ class ControllerUtilisateur {
          $view = 'success_action';
          $pagetitle = 'Déconnexion';
          $powerNeeded = !self::isConnected();
-         require File::build_path(array('view', 'view.php'));
+         require File::build_path(array('view', 'main_view.php'));
       } else {
          ModelUtilisateur::error('Vous n\'êtes pas connecté, impossible de vous déconnecter !');
       }
