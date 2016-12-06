@@ -91,15 +91,20 @@ class ControllerAdmin {
 	public static function editChambre() {
 		// Attend un $_GET['idChambre']
 		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+			if(isset($_GET['idChambre'])){
+				$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+				$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
 
-			$powerNeeded = true;
-			$view = 'editChambre';
-			$pagetitle = 'Administration - Editeur de chambre';
-			$template = 'admin';
-			require_once File::build_path(array("view", "main_view.php"));
+				$chambre = ModelChambre::select($_GET['idChambre']);
 
+				$powerNeeded = true;
+				$view = 'editChambre';
+				$pagetitle = 'Administration - Editeur de chambre';
+				$template = 'admin';
+				require_once File::build_path(array("view", "main_view.php"));
+			}else{
+				ControllerDefault::error("La chambre a modifier n'est pas specifiée ! ");
+			}
 		} else {
 			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
 		}
@@ -124,10 +129,12 @@ class ControllerAdmin {
 			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
 
 			$powerNeeded = true;
-			$view = 'viewAllUtilisateur';
+			$view = 'utilisateur';
 			$pagetitle = 'Administration - Gestion des utilisateurs';
 			$template = 'admin';
+
 			$tab_v = ModelUtilisateur::selectAll();
+
 			require_once File::build_path(array("view", "main_view.php"));
 
 		} else {
