@@ -1,4 +1,5 @@
 <?php
+	$websiteName = (!empty(ModelOption::selectCustom('nameOption', 'nom_site')[0]->get('valueOption')) ? ModelOption::selectCustom('nameOption', 'nom_site')[0]->get('valueOption'):'Nom de votre site');
 	if(!isset($template)) {
 		$template = Conf::$theme;
 	}

@@ -34,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">{{WEBSITE_NAME}}</a>
+          <a class="navbar-brand" href="index.php"><?=$websiteName?></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -51,9 +51,10 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="index.php?controller=admin&action=index">Résumé <span class="sr-only">(current)</span></a></li>
-            <li <?php ControllerDefault::active('admin', 'utilisateurs'); ?>><a href="index.php?controller=admin&action=displayAllUtilisateur"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateur <span class="sr-only">(current)</span></a></li>
+            <li <?php ControllerDefault::active('admin', 'utilisateurs'); ?>><a href="index.php?controller=admin&action=utilisateurs"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateur <span class="sr-only">(current)</span></a></li>
             <li <?php ControllerDefault::active('admin', 'chambres'); ?>><a href="index.php?controller=admin&action=chambres"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambre <span class="sr-only">(current)</span></a></li>
-            <li <?php ControllerDefault::active('admin', 'reservations'); ?>><a href="index.php?controller=admin&action=displayAllReservation"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservation <span class="sr-only">(current)</span></a></li>
+            <li <?php ControllerDefault::active('admin', 'reservations'); ?>><a href="index.php?controller=admin&action=reservations"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservation <span class="sr-only">(current)</span></a></li>
+            <li <?php ControllerDefault::active('admin', 'options'); ControllerDefault::active('admin', 'updateOptions');?>><a href="index.php?controller=admin&action=options"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Options <span class="sr-only">(current)</span></a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

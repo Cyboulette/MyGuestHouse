@@ -22,7 +22,7 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="logoBrand"><a href="index.php">MyGuestHouse</a></li>
+                    <li class="logoBrand"><a href="index.php"><?=$websiteName?></a></li>
                     <li <?php ControllerDefault::active('index', ''); ?>><a href="index.php">Accueil</a></li>
                     <li <?php ControllerDefault::active('chambre', 'readAll'); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
                     <li <?php ControllerDefault::active('default', 'aboutus'); ?>><a href="index.php?controller=default&action=aboutus">À propos de nous</a></li>
@@ -75,7 +75,7 @@
 
         <footer class="footer" >
                 <div class="container">
-                    <p class="text-muted text-center">MyGuestHouse &copy;</p>
+                    <p class="text-muted text-center"><?=$websiteName?> &copy;</p>
                 </div>
         </footer>
     </body>

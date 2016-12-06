@@ -1,5 +1,6 @@
 <?php
     require_once File::build_path(array('config', 'Conf.php'));
+    require_once File::build_path(array('model', 'ModelOption.php'));
 
     /**
      * This generic class contains all functions that a controller can use
@@ -11,6 +12,12 @@
             $view = 'index';
             $pagetitle = 'MyGuestHouse';
             $powerNeeded = true;
+
+            $display_news = ModelOption::selectCustom('nameOption', 'display_news')[0]->get('valueOption');
+            if(empty($display_news) && ($display_news != 'true' || $display_news != 'false')) {
+                $display_news = 'true';
+            }
+
             require File::build_path(array('view', 'main_view.php'));
         }
 

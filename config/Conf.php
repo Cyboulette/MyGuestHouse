@@ -4,7 +4,6 @@
  */
 
 class Conf {
-
     // Configuration de Florian (HOME)
     /*static private $databases = array (
         'hostname' => 'localhost',
@@ -21,7 +20,7 @@ class Conf {
         'password' => 'tdlepd2803'
     );*/
 
-    // Configuration de Quentin (HOME)
+    // Configuration de Quentin (HOME) (Si vous ne voulez pas utiliser ma conf, merci de la commenter en utilisant des  /* */ et pas des // :))
     static private $databases = array (
         'hostname' => 'localhost',
         'database' => 'MyGuestHouse',
