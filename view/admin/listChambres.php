@@ -5,7 +5,9 @@
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune chambre pour le moment</div>';
 		echo '<a href="index.php?controller=admin&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a>';
 	} else {
-		echo '<a href="index.php?controller=admin&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a> <br/><br/>';
+		if (ModelChambre::count()<5) {
+			echo '<a href="index.php?controller=admin&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a> <br/><br/>';
+		}
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
@@ -39,9 +41,6 @@
 
 					</td>';
 			echo '</tr>';
-
-
-
 		}
 
 		echo '</table></div>';
