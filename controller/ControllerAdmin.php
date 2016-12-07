@@ -90,43 +90,11 @@ class ControllerAdmin {
 		}
 	}
 
-	// Affiche la liste des chambres : view/amin/listChambres.php
-	public static function chambres() {
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+	
 
-			$view = 'listChambres';
-			$pagetitle = 'Administration - Liste des chambres';
-			$template = 'admin';
-			$tab_chambres = ModelChambre::selectAll();
-			require_once File::build_path(array("view","main_view.php"));
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
-	}
+	
 
-	public static function prestations(){
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$view = 'listPrestations';
-			$pagetitle = 'Administration - Options du site';
-			$template = 'admin';
-			$tab_options = ModelOption::selectAll();
-
-			$tab_allPrestation = ModelPrestation::selectAll();
-
-			require_once File::build_path(array("view","main_view.php"));
-		} else {
-			ControllerDefault::error('Vous nde pouvez pas accéder à cette page sans être connecté !');
-		}
-	}
-
-	public static function editPrestation(){
-		// Attend un $_GET['idPrestation']
-	}
+	// OPTIONS -----------------------------------------------
 
 	public static function options($message = NULL) {
 		if(ControllerUtilisateur::isConnected()) {
@@ -177,6 +145,53 @@ class ControllerAdmin {
 		}
 	}
 
+
+	
+	// UTILISATEURS -----------------------------------------------
+
+	// Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
+	public static function utilisateur(){// il faut mettre utilisateurs ... avec un s /!\
+		if(ControllerUtilisateur::isConnected()) {
+			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+			$view = 'utilisateur';
+			$pagetitle = 'Administration - Gestion des utilisateurs';
+			$template = 'admin';
+
+			$tab_v = ModelUtilisateur::selectAll();
+
+			require_once File::build_path(array("view", "main_view.php"));
+
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
+
+	
+
+	// CHAMBRES -----------------------------------------------
+
+	// Affiche la liste des chambres : view/amin/listChambres.php
+	public static function chambres() {
+		if(ControllerUtilisateur::isConnected()) {
+			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+			$view = 'listChambres';
+			$pagetitle = 'Administration - Liste des chambres';
+			$template = 'admin';
+			$tab_chambres = ModelChambre::selectAll();
+			require_once File::build_path(array("view","main_view.php"));
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
+
+	public static function deleteChambre() {
+		// Attend un $_GET['idChambre']
+	}
+
 	public static function editChambre() {
 		// Attend un $_GET['idChambre']
 		if(ControllerUtilisateur::isConnected()) {
@@ -202,8 +217,34 @@ class ControllerAdmin {
 		}
 	}
 
-	public static function deleteChambre() {
-		// Attend un $_GET['idChambre']
+	
+
+	// PRESTATIONS -----------------------------------------------	
+
+	public static function prestations(){
+		if(ControllerUtilisateur::isConnected()) {
+			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+			$view = 'listPrestations';
+			$pagetitle = 'Administration - Options du site';
+			$template = 'admin';
+			$tab_options = ModelOption::selectAll();
+
+			$tab_allPrestation = ModelPrestation::selectAll();
+
+			require_once File::build_path(array("view","main_view.php"));
+		} else {
+			ControllerDefault::error('Vous nde pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
+
+	public static function addPrestation(){
+		
+	}
+
+	public static function editPrestation(){
+		// Attend un $_GET['idPrestation']
 	}
 
 	public static function managePrestations() {
@@ -234,31 +275,12 @@ class ControllerAdmin {
 		}
 	}
 
-	public static function addPrestation(){
-		
-	}
+
+
+	// DETAILS -----------------------------------------------	
 
 	public static function manageDetails() {
 		// Attend un $_GET['idChambre']
-	}
-
-	// Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
-	public static function utilisateur(){
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$view = 'utilisateur';
-			$pagetitle = 'Administration - Gestion des utilisateurs';
-			$template = 'admin';
-
-			$tab_v = ModelUtilisateur::selectAll();
-
-			require_once File::build_path(array("view", "main_view.php"));
-
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
 	}
 }
 ?>
