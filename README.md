@@ -3,6 +3,10 @@ The smartest CMS for guest house owner
 
 # Commits
 
+- 06/12 **Back-office**
+    *       Implementation of view admin viewAllReservation.php
+
+<br>
 - 04/11 **Back-office**
     *       Problem in listChambre.php when call Modal for deleting ($id is constant)
     *       Set default value $powerNeeded=true in ControllerAdmin.php file

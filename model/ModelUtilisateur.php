@@ -133,27 +133,6 @@ class ModelUtilisateur extends Model {
         }
     }
 
-    // Return the number of all currents reservations
-    public static function getNombreReservationEnCours(){
-        try{
-            $sql = 'SELECT COUNT(*) FROM GH_Reservation WHERE dateDebut >'.time();
-            $getNombre = Model::$pdo->prepare($sql);
 
-            $getNombre->setFetchMode(PDO::FETCH_NUM);
-            $tab = $getNombre->Fetch();
-
-            if(empty($tab)) {
-                return 0;
-            }
-
-            return $tab[0];
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
 }
 ?>

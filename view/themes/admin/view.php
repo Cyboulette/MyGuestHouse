@@ -22,6 +22,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="assets/js/GETurl.js"></script>
   </head>
 
   <body>
@@ -39,10 +40,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="#">Administration</a></li>
-            <li><a href="#">Vos paramètres</a></li>
-            <li><a href="#">Votre profil</a></li>
-            <li><a href="#">Aide</a></li>
+            <li <?php ControllerDefault::active('admin', 'administration'); ?>><a href="#">Administration</a></li>
+            <li <?php ControllerDefault::active('admin', 'parametre'); ?>><a href="#">Vos paramètres</a></li>
+            <li <?php ControllerDefault::active('admin', 'profil'); ?>><a href="#">Votre profil</a></li>
+            <li <?php ControllerDefault::active('admin', 'aide'); ?>><a href="#">Aide</a></li>
           </ul>
         </div>
       </div>
@@ -75,6 +76,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
   </body>

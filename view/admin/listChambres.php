@@ -37,7 +37,7 @@
 				echo '<td>
 					<a href="index.php?controller=admin&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChambre" value="'.$id.'">Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChambre" onclick="GETurl(id, '.$id.')">Supprimer</button>
 
 					</td>';
 			echo '</tr>';
@@ -61,8 +61,7 @@
 					</div>
 
 					<div class="modal-footer">
-					<a href="index.php?controller=admin&action=deleteChambre&idChambre='.$id.'" class="btn btn-xs btn-danger">Supprimer</a	>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<a href="index.php?controller=admin&action=deleteChambre&idChambre='.$id.'" class="btn btn-danger">Supprimer</a	>
 					</div>
 					</div>
 
