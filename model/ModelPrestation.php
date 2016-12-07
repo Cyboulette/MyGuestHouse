@@ -21,7 +21,7 @@ class ModelPrestation extends Model {
 
     public static function selectAllByChambre($idChambre){
         try {
-            $sql = "SELECT p.nomPrestation, p.prix 
+            $sql = "SELECT p.idPrestation, p.nomPrestation, p.prix 
                     FROM `GH_ChambresPresta` cp 
                     INNER JOIN `GH_Prestations` p ON cp.idPrestation = p.idPrestation 
                     WHERE cp.idChambre= :tag_idChambre";
