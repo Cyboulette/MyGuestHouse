@@ -17,7 +17,7 @@ class Conf {
         'hostname' => 'localhost',
         'database' => 'desbinq',
         'login' => 'root',
-        'password' => 'tdlepd2803'
+        'password' => ''
     );*/
 
     // Configuration de Quentin (HOME)
