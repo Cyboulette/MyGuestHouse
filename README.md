@@ -5,6 +5,7 @@ The smartest CMS for guest house owner
 
 - 06/12 **Back-office**
     *       Implementation of view admin viewAllReservation.php
+    *       Some content in GH_Reservations in `.sql`
 
 <br>
 - 04/11 **Back-office**

@@ -159,6 +159,16 @@ CREATE TABLE `GH_Reservations` (
   `dateFin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `GH_Reservations`
+--
+
+INSERT INTO `desbinq`.`gh_reservations` (`idReservation`, `idChambre`, `idUtilisateur`, `dateDebut`, `dateFin`) VALUES
+(NULL, '1', '1', '2016-12-06', '2016-12-07');
+(NULL, '1', '1', '2016-12-06', '2016-12-07');
+(NULL, '1', '1', '2016-12-06', '2016-12-07');
+
+
 -- --------------------------------------------------------
 
 --
