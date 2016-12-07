@@ -1,6 +1,8 @@
 <?php
 require_once File::build_path(array('model', 'ModelChambre.php'));
 require_once File::build_path(array('model', 'ModelOption.php'));
+require_once File::build_path(array('model', 'ModelPrestation.php'));
+
 
 class ControllerChambre {
     private static $object = 'chambre';
@@ -24,7 +26,7 @@ class ControllerChambre {
             if ($chambre!=false) {
                 $tab_photo = ModelChambre::selectPhoto($idChambre);
                 $tab_detail = ModelChambre::selectDetail($idChambre);
-                $tab_prestation = ModelChambre::selectPrestation($idChambre);
+                $tab_prestation = ModelPrestation::selectAllByChambre($idChambre);
 
                 $compteur = true;
                 foreach ($tab_photo as $key => $value) {

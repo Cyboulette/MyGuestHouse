@@ -127,7 +127,7 @@
               <div> 
                 <ul> 
             "; 
-     
+
             foreach ($tab_detail as $key => $value) { 
               echo "<li>".$tab_detail[$key][0]." : ".$tab_detail[$key][1]."</li>"; 
             } 
@@ -157,9 +157,12 @@
                 <ul> 
             "; 
      
-            foreach ($tab_prestation as $key => $value) { 
-              echo "<li>".$tab_prestation[$key][0]." : ".$tab_prestation[$key][1]."&euro;</li>"; 
-            } 
+
+            foreach ($tab_prestation as $prestation) {
+              $nom = $prestation->get('nomPrestation');
+              $prix = $prestation->get('prix');
+              echo "<li>".$nom." : ".$prix."&euro;</li>"; 
+            }
      
             echo " 
                 </ul> 

@@ -3,7 +3,7 @@ require_once File::build_path(array('model', 'ModelUtilisateur.php'));
 require_once File::build_path(array('model', 'ModelChambre.php'));
 require_once File::build_path(array('model', 'ModelOption.php'));
 require_once File::build_path(array('model', 'ModelReservation.php'));
-
+require_once File::build_path(array('model', 'ModelPrestation.php'));
 
 class ControllerAdmin {
 	protected static $object = 'admin';

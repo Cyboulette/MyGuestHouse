@@ -137,33 +137,31 @@ class ModelChambre extends Model {
         }
     }
 
-    public static function selectPrestation($idChambre){
-        try {
-            $sql = "SELECT p.nomPrestation, p.prix 
-                    FROM `GH_ChambresPresta` cp 
-                    INNER JOIN `GH_Prestations` p ON cp.idPrestation = p.idPrestation 
-                    WHERE cp.idChambre= :tag_idChambre";
 
-            $rep = Model::$pdo->prepare($sql);
-
-            $values = array(
-                'tag_idChambre' => $idChambre,
-            );
-
-            $rep->execute($values);
-            $result = $rep->fetchAll();
-
-            return $result;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo "Une erreur est survenue ! Merci de réessayer plus tard";
-            }
-            return false;
-            die();
-        }
-    }
+    // //se trouve maintenant dans ModelPrestation
+    // public static function selectPrestation($idChambre){
+    //     try {
+    //         $sql = "SELECT p.nomPrestation, p.prix 
+    //                 FROM `GH_ChambresPresta` cp 
+    //                 INNER JOIN `GH_Prestations` p ON cp.idPrestation = p.idPrestation 
+    //                 WHERE cp.idChambre= :tag_idChambre";
+    //         $rep = Model::$pdo->prepare($sql);
+    //         $values = array(
+    //             'tag_idChambre' => $idChambre,
+    //         );
+    //         $rep->execute($values);
+    //         $result = $rep->fetchAll();
+    //         return $result;
+    //     } catch(PDOException $e) {
+    //         if (Conf::getDebug()) {
+    //             echo $e->getMessage();
+    //         } else {
+    //             echo "Une erreur est survenue ! Merci de réessayer plus tard";
+    //         }
+    //         return false;
+    //         die();
+    //     }
+    // }
 
 
 }

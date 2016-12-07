@@ -25,8 +25,10 @@
 			$nom = $chambre->get('nomChambre');
 			$prix = $chambre->get('prixChambre');
 			$superficie = $chambre->get('superficieChambre');
-			$nbPrestations = count(ModelChambre::selectPrestation($id));
-            $nbDetails = count(ModelChambre::selectDetail($id));
+			// $nbPrestations = count(ModelChambre::selectPrestation($id));
+			// $nbDetails = count(ModelChambre::selectDetail($id));
+			$nbPrestations = count(ModelPrestation::selectAllByChambre($id));
+			$nbDetails = count(ModelChambre::selectDetail($id));
 			echo '<tr>';
 				echo '<td>'.$id.'</td>';
 				echo '<td>'.$nom.'</td>';
