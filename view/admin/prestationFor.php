@@ -10,26 +10,27 @@
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
+				echo '<th>possede</th>';
 				echo '<th>Nom de la prestation</th>';
 				echo '<th>Prix</th>';
-				echo '<th>Actions</th>';
 				echo '</tr>';
 			echo '</thead>';
-		foreach ($tab_allPrestation as $prestation) {
-			$id = $prestation->get('idPrestation');
-			$nom = $prestation->get('nomPrestation');
-			$prix = $prestation->get('prix');
+		foreach ($tab_allPrestation as $prestation) { 
+			$id = $prestation->get('idPrestation'); 
+			$nom = $prestation->get('nomPrestation'); 
+			$prix = $prestation->get('prix'); 
+			$checked = in_array ( $prestation , $tab_prestation); 
+		 
+		if($checked){ 
+			$checked = 'oui'; 
+		}else{ 
+			$checked = 'non'; 
+		}
 			
 			echo '<tr>';
+				echo '<td>'.$checked.'</td>';
 				echo '<td>'.$nom.'</td>';
 				echo '<td>'.$prix.' €</td>';
-				echo '<td>
-					<a href="index.php?controller=admin&action=editPrestation&idPrestation='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-
-					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deletePrestation" onclick="GETurl(id, '.$id.')">Supprimer</button>
-
-					</td>';
-				echo '</tr>';
 		}
 
 		echo '</table></div>';

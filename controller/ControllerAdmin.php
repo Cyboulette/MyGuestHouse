@@ -106,6 +106,28 @@ class ControllerAdmin {
 		}
 	}
 
+	public static function prestations(){
+		if(ControllerUtilisateur::isConnected()) {
+			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+			$view = 'listPrestations';
+			$pagetitle = 'Administration - Options du site';
+			$template = 'admin';
+			$tab_options = ModelOption::selectAll();
+
+			$tab_allPrestation = ModelPrestation::selectAll();
+
+			require_once File::build_path(array("view","main_view.php"));
+		} else {
+			ControllerDefault::error('Vous nde pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
+
+	public static function editPrestation(){
+		// Attend un $_GET['idPrestation']
+	}
+
 	public static function options($message = NULL) {
 		if(ControllerUtilisateur::isConnected()) {
 			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
@@ -193,7 +215,7 @@ class ControllerAdmin {
 					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
 					$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
 
-					$view = 'listPrestations';
+					$view = 'prestationFor';
 					$pagetitle = 'Administration - Editeur de chambre';
 					$template = 'admin';
 

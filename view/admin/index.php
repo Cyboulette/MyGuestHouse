@@ -2,6 +2,8 @@
 <?php
   $nbChambre = ModelChambre::count();
   $nbUtilisateur = ModelUtilisateur::count();
+  $nbPrestation = ModelPrestation::count();
+  var_dump($nbPrestation);
 ?>
 
 <h1 class="page-header">Résumé usuel</h1>
@@ -20,9 +22,22 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
+    <a href="?controller=admin&action=prestations">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+      <h4>Prestations</h4>
+      <span class="text-muted"><?php if($nbPrestation!=null){echo$nbPrestation;}else{echo"0";}?> prestation<?php if($nbPrestation>1)echo"s";?> enregistrée<?php if($nbPrestation>1)echo"s";?></span>
+    </a>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
     <h4>Réservations</h4>
     <span class="text-muted">XX Réservations</span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <a href="?controller=admin&action=options">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+      <h4>Options</h4>
+    </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
