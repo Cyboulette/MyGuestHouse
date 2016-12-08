@@ -8,7 +8,7 @@
 		echo '<a href="index.php?controller=admin&action=addPrestation" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a><br/><br/>';
 		
 
-		echo '<form action="index.php" method="POST">';
+		echo '<form action="index.php?controller=admin&action=managedPrestation" method="POST">';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
@@ -40,8 +40,6 @@
 		echo '</table></div>';
 
 		echo '<input type="submit" class="btn btn-s btn-success btn-block" value="Valider">';
-		echo '<input type="hidden" name="controller" value="admin"/>';
-        echo '<input type="hidden" name="action" value="managedPrestation"/>';
         echo '<input type="hidden" name="idChambre" value="'.$idChambre.'"/>';
 		echo '</form>';
 
