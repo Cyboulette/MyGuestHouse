@@ -57,7 +57,7 @@
             <li <?php ControllerDefault::active('admin', 'chambres'); ?>><a href="index.php?controller=admin&action=chambres"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambres</a></li>
             <li <?php ControllerDefault::active('admin', 'prestations'); ?>><a href="index.php?controller=admin&action=prestations"><i class="fa fa-glass" aria-hidden="true"></i> Prestations</a></li>  
             <li <?php ControllerDefault::active('admin', 'reservations'); ?>><a href="index.php?controller=admin&action=reservations"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservations</a></li>
-            <li <?php ControllerDefault::active('admin', 'news'); ?>><a href="index.php?controller=admin&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> News</a></li>
+            <li <?php ControllerDefault::active('admin', 'news'); ?>><a href="index.php?controller=admin&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Actualités</a></li>
             <li <?php ControllerDefault::active('admin', 'options'); ControllerDefault::active('admin', 'updateOptions');?>><a href="index.php?controller=admin&action=options"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a></li>
           </ul>
         </div>

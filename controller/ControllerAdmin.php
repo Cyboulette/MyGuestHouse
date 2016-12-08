@@ -71,16 +71,6 @@ class ControllerAdmin {
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 
-	// Affiche la liste des chambres : view/amin/listChambres.php
-	public static function chambres() {
-		$powerNeeded = self::isAdmin();
-		$view = 'listChambres';
-		$pagetitle = 'Administration - Liste des chambres';
-		$template = 'admin';
-		$tab_chambres = ModelChambre::selectAll();
-		require_once File::build_path(array("view","main_view.php"));
-	}
-
 	// OPTIONS -----------------------------------------------
 
 	public static function options($message = NULL) {
@@ -150,18 +140,12 @@ class ControllerAdmin {
 
 	// Affiche la liste des chambres : view/amin/listChambres.php
 	public static function chambres() {
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$view = 'listChambres';
-			$pagetitle = 'Administration - Liste des chambres';
-			$template = 'admin';
-			$tab_chambres = ModelChambre::selectAll();
-			require_once File::build_path(array("view","main_view.php"));
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
+		$powerNeeded = self::isAdmin();
+		$view = 'listChambres';
+		$pagetitle = 'Administration - Liste des chambres';
+		$template = 'admin';
+		$tab_chambres = ModelChambre::selectAll();
+		require_once File::build_path(array("view","main_view.php"));
 	}
 
 	public static function deleteChambre() {
@@ -286,23 +270,21 @@ class ControllerAdmin {
 		// Attend un $_GET['idChambre']
 	}
 
-	// Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
-	// renommer la variable $tav_v . C'était dans le td sur les voitures, là on est plus dans des voitures
-	public static function utilisateur(){
-		$powerNeeded = self::isAdmin();
-		$view = 'utilisateur';
-		$pagetitle = 'Administration - Gestion des utilisateurs';
-		$template = 'admin';
-
-		$tab_v = ModelUtilisateur::selectAll();
-
-		require_once File::build_path(array("view", "main_view.php"));
-	}
+	// NEWS 
 
 	public static function news() {
 		$powerNeeded = self::isAdmin();
 		$view = 'listNews';
 		$pagetitle = 'Administration - Gestion des news';
+		$template = 'admin';
+		$tab_news = ModelNews::selectAll();
+		require_once File::build_path(array("view", "main_view.php"));
+	}
+
+	public static function addNews() {
+		$powerNeeded = self::isAdmin();
+		$view = 'addNews';
+		$pagetitle = 'Administration - Ajouter une news';
 		$template = 'admin';
 		$tab_news = ModelNews::selectAll();
 		require_once File::build_path(array("view", "main_view.php"));

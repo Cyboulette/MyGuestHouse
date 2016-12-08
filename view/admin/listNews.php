@@ -3,17 +3,17 @@
 
 <?php 
 	if(empty($tab_news)) {
-		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune chambre pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=addNews" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a>';
+		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune actualité pour le moment</div>';
+		echo '<a href="index.php?controller=admin&action=addNews" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a>';
 	} else {
 		if (ModelChambre::count()<5) {
-			echo '<a href="index.php?controller=admin&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a> <br/><br/>';
+			echo '<a href="index.php?controller=admin&action=addNews" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a> <br/><br/>';
 		}
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
 				echo '<th>ID</th>';
-				echo '<th>Titre de la news</th>';
+				echo '<th>Titre de l\'actualité</th>';
 				echo '<th>Date</th>';
 				echo '<th>Etat</th>';
 				echo '<th>Actions</th>';
