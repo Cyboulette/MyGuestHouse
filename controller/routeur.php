@@ -46,7 +46,45 @@ if(isset($_GET['controller']) && !empty(($_GET['controller']))) {
     } else {
         ControllerDefault::error("Cette fonctionnalité n'est pas encore implémentée");
     }
-} else {
+} elseif (isset($_POST['controller']) && !empty(($_POST['controller']))) {
+    $controller = $_POST['controller'];
+    $controller_class = 'Controller'.ucfirst($controller);
+
+    /*
+        Si le controller de la classe existe on l'appel
+     */
+    if(file_exists(File::build_path(array('controller', $controller_class.'.php')))) {
+        require_once File::build_path(array('controller', $controller_class.'.php'));
+
+        /*
+            Si la class existe, et l'action et l'action est donné ...
+         */
+        if(class_exists($controller_class)) {
+            if(isset($_POST['action']) && !empty($_POST['action'])) {
+                $actionsExiste = get_class_methods($controller_class);
+                $action = $_POST['action'];    // recupère l'action passée dans l'URL
+
+                /*
+                    .. on l'appel si elle existe
+                 */
+                if(in_array($action, $actionsExiste)) {
+                    $controller_class::$action(); // Appel de la méthode statique $action de ControllerDefault
+                } else {
+                    if($controller == 'admin') {
+                        $template = 'admin';
+                    }
+                    ControllerDefault::error("L'action demandée est impossible", $template);
+                }
+            } else {
+                ControllerDefault::index();
+            }
+        } else {
+            ControllerDefault::error("Cette page n'existe pas");
+        }
+    } else {
+        ControllerDefault::error("Cette fonctionnalité n'est pas encore implémentée");
+    }
+}else{
     ControllerDefault::index();
 }
 ?>

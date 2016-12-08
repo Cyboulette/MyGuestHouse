@@ -3,7 +3,6 @@
   $nbChambre = ModelChambre::count();
   $nbUtilisateur = ModelUtilisateur::count();
   $nbPrestation = ModelPrestation::count();
-  var_dump($nbPrestation);
 ?>
 
 <h1 class="page-header">Résumé usuel</h1>

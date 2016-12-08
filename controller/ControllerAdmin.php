@@ -260,6 +260,7 @@ class ControllerAdmin {
 					$pagetitle = 'Administration - Editeur de chambre';
 					$template = 'admin';
 
+					$idChambre = $_GET['idChambre'];
 					$tab_prestation = ModelPrestation::selectAllByChambre($_GET['idChambre']);
 					$tab_allPrestation = ModelPrestation::selectAll();
 
@@ -275,7 +276,33 @@ class ControllerAdmin {
 		}
 	}
 
+	public static function managedPrestation(){
+		// Attend un $_GET['idChambre'] && $_GET['checkbox'] = array()
+		// DO supprimer toutes les prestations de la chambre
+		// TODO ajouter l'array() à la chambre (avec foreach)
+		if(ControllerUtilisateur::isConnected()) {
+			if(isset($_POST['idChambre'])){
+				$idChambre = $_POST['idChambre'];
+				$prestation = ($_POST['prestations']);
+				ModelPrestation::deleteAllByChambre($idChambre); //TODO vérifier si true
+				foreach ($prestation as $key => $value) {
+					ModelPrestation::saveByChambre($idChambre, $prestation[$key]);
+				}
+			
+				// $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+				// $powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
 
+				// $view = 'prestationFor';
+				// $pagetitle = 'Administration - Editeur de chambre';
+				// $template = 'admin';
+				self::chambres();
+			}else{
+				ControllerDefault::error("La chambre a modifier n'est pas specifiée ! ");
+			}
+		}else{
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
 
 	// DETAILS -----------------------------------------------	
 

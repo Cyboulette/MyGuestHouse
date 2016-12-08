@@ -47,6 +47,59 @@ class ModelPrestation extends Model {
             die();
         }
     }
+
+    public static function deleteAllByChambre($idChambre){
+        try {
+            $sql = "DELETE FROM GH_ChambresPresta
+                    WHERE idChambre = :tag_idChambre";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idChambre' => $idChambre,
+            );
+
+            $req_prep->execute($values);
+
+            return true;
+
+        } catch (Exception $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function saveByChambre($idChambre, $idPrestation){
+        try {
+            $sql = "INSERT INTO GH_ChambresPresta (idChambre, idPrestation)
+                    VALUES (:tag_idChambre, :tag_idPrestation)";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idChambre' => $idChambre,
+                'tag_idPrestation' => $idPrestation,
+            );
+
+            $req_prep->execute($values);
+
+            return true;
+
+        } catch (Exception $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
 }
 
 ?>
