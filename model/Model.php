@@ -40,8 +40,6 @@ class Model
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else {
-                echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
             return false;
             die();
@@ -70,8 +68,6 @@ class Model
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else {
-                echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
             return false;
             die();
@@ -97,8 +93,6 @@ class Model
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else {
-                echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
             return false;
             die();

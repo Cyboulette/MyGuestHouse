@@ -122,7 +122,9 @@
         </div>
     </div>
 
-    <?php if($display_news == 'true') { ?>
+    <?php
+        if($display_news == 'true') { 
+    ?>
     <div class="row rooms">
         <div class="col-lg-12 titleRoom">
             <h1>Notre actualité</h1>
@@ -130,30 +132,26 @@
         </div>
 
         <div class="col-lg-12">
-            <div class="col-lg-6 news">
-                <div class="col-md-2 text-center">
-                    <div class="calendar">
-                        12 déc.
+            <?php
+                setlocale(LC_ALL, 'fr_FR');
+                foreach ($listNews as $news) {
+                if($news->get('publie') == 1) {
+                $date = date_create($news->get('dateNews'));
+                $dateDisplay = date_format($date, 'd M');
+            ?>
+                <div class="col-lg-6 news">
+                    <div class="col-md-2 text-center">
+                        <div class="calendar">
+                            <?=$dateDisplay?>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-10">
-                    <b>Hébergez vos amis en les parrainant !</b><br/>
-                    <btn class="btn btn-red btn-xs">Lire la news</btn>
-                </div>
-                <hr/>
-            </div>
-            <div class="col-lg-6 news">
-                <div class="col-md-2 text-center">
-                    <div class="calendar">
-                        06 déc.
+                    <div class="col-md-10">
+                        <b><?=$news->get('titreNews')?></b><br/>
+                        <btn class="btn btn-red btn-xs">Lire la news</btn>
                     </div>
+                    <hr/>
                 </div>
-                <div class="col-md-10">
-                    <b>Ouverture de notre site web !</b><br/>
-                    <btn class="btn btn-red btn-xs">Lire la news</btn>
-                </div>
-                <hr/>
-            </div>
+            <?php } } ?>
         </div>
     </div>
     <?php } ?>

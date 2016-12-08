@@ -4,145 +4,121 @@ require_once File::build_path(array('model', 'ModelChambre.php'));
 require_once File::build_path(array('model', 'ModelOption.php'));
 require_once File::build_path(array('model', 'ModelReservation.php'));
 require_once File::build_path(array('model', 'ModelPrestation.php'));
+require_once File::build_path(array('model', 'ModelNews.php'));
 
 class ControllerAdmin {
 	protected static $object = 'admin';
 
-	// Charge l'index de l'administration
-	public static function index() {
+	public static function isAdmin() {
 		if(ControllerUtilisateur::isConnected()) {
 			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-			$view = 'index';
-			$pagetitle = 'Administration';
-			$template = 'admin';
-			require File::build_path(array('view', 'main_view.php'));
+			if($currentUser->getPower() != Conf::$power['admin']) {
+				ControllerDefault::error('Vous ne possédez pas les droits pour accéder à cette page !');
+				exit();
+			} else {
+				return true;
+			}
 		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+			ControllerDefault::error('Vous devez être connecté pour accéder à l\'administration');
+			exit();
 		}
+	}
+
+	// Charge l'index de l'administration
+	public static function index() {
+		$powerNeeded = self::isAdmin();
+		$view = 'index';
+		$pagetitle = 'Administration';
+		$template = 'admin';
+		require File::build_path(array('view', 'main_view.php'));
 	}
 
 	// Gestion des chambres : view/admin/viewAllChambre.php
 	public static function displayAllChambre(){
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$powerNeeded = true;
-			$view = 'viewAllChambre';
-			$pagetitle = 'Administration - Gestion des chambres';
-			$template = 'admin';
-			$tab_v = ModelChambre::selectAll();
-			require_once File::build_path(array("view", "main_view.php"));
-
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
+		$powerNeeded = self::isAdmin();
+		$view = 'viewAllChambre';
+		$pagetitle = 'Administration - Gestion des chambres';
+		$template = 'admin';
+		$tab_v = ModelChambre::selectAll();
+		require_once File::build_path(array("view", "main_view.php"));
 	}
 
 	// Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
 	public static function displayAllUtilisateur(){
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$powerNeeded = true;
-			$view = 'viewAllUtilisateur';
-			$pagetitle = 'Administration - Gestion des utilisateurs';
-			$template = 'admin';
-			$tab_v = ModelUtilisateur::selectAll();
-			require_once File::build_path(array("view", "main_view.php"));
-
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
+		$powerNeeded = self::isAdmin();
+		$view = 'viewAllUtilisateur';
+		$pagetitle = 'Administration - Gestion des utilisateurs';
+		$template = 'admin';
+		$tab_v = ModelUtilisateur::selectAll();
+		require_once File::build_path(array("view", "main_view.php"));
 	}
 
 	// Gestion des réservations : view/amin/viewAllReservation.php
 	public static function reservations(){
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$view = 'viewAllReservation';
-			$pagetitle = 'Administration - Gestion des réservations';
-			$template = 'admin';
-			require_once File::build_path(array("view", "main_view.php"));
-
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
+		$powerNeeded = self::isAdmin();
+		$view = 'viewAllReservation';
+		$pagetitle = 'Administration - Gestion des réservations';
+		$template = 'admin';
+		require_once File::build_path(array("view", "main_view.php"));
 	}
 
 	// Modifie l'url de la photo d'une chambre
 	public static function update_url(){
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$view = 'displayChambre';
-			$pagetitle = 'detail de la chambre';
-			$template = 'admin';
-			require_once File::build_path(array("view", "main_view.php"));
-
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-		}
+		$powerNeeded = self::isAdmin();
+		$view = 'displayChambre';
+		$pagetitle = 'detail de la chambre';
+		$template = 'admin';
+		require_once File::build_path(array("view", "main_view.php"));
 	}
 
-	
-
-	
+	// Affiche la liste des chambres : view/amin/listChambres.php
+	public static function chambres() {
+		$powerNeeded = self::isAdmin();
+		$view = 'listChambres';
+		$pagetitle = 'Administration - Liste des chambres';
+		$template = 'admin';
+		$tab_chambres = ModelChambre::selectAll();
+		require_once File::build_path(array("view","main_view.php"));
+	}
 
 	// OPTIONS -----------------------------------------------
 
 	public static function options($message = NULL) {
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-			$view = 'listOptions';
-			$pagetitle = 'Administration - Options du site';
-			$template = 'admin';
-			$tab_options = ModelOption::selectAll();
-			require_once File::build_path(array("view","main_view.php"));
-		} else {
-			ControllerDefault::error('Vous nde pouvez pas accéder à cette page sans être connecté !');
-		}
+		$powerNeeded = self::isAdmin();
+		$view = 'listOptions';
+		$pagetitle = 'Administration - Options du site';
+		$template = 'admin';
+		$tab_options = ModelOption::selectAll();
+		require_once File::build_path(array("view","main_view.php"));
 	}
 
 	public static function updateOptions() {
-		if(ControllerUtilisateur::isConnected()) {
-			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-			if(isset($_POST['name_site'],$_POST['display_news'],$_POST['theme'])) {
-				$name_site = strip_tags($_POST['name_site']);
-				$display_news = strip_tags($_POST['display_news']);
-				$theme = strip_tags($_POST['theme']);
-				$vars = array(
-					'nom_site' => $name_site,
-					'display_news' => $display_news,
-					'theme' => $theme
+		$powerNeeded = self::isAdmin();
+		if(isset($_POST['name_site'],$_POST['display_news'],$_POST['theme'])) {
+			$name_site = strip_tags($_POST['name_site']);
+			$display_news = strip_tags($_POST['display_news']);
+			$theme = strip_tags($_POST['theme']);
+			$vars = array(
+				'nom_site' => $name_site,
+				'display_news' => $display_news,
+				'theme' => $theme
+			);
+			foreach ($vars as $var => $value) {
+				$data = array(
+					'valueOption' => $value,
+					'nameOption' => $var
 				);
-				foreach ($vars as $var => $value) {
-					$data = array(
-						'valueOption' => $value,
-						'nameOption' => $var
-					);
-					$update = ModelOption::update_gen($data, 'nameOption');
-				}
-				if($update != false) {
-					$message = '<div class="alert alert-success">Options modifiées avec succès !</div>';
-				} else {
-					$message = '<div class="alert alert-danger">Impossible de modifier l\'option !</div>';
-				}
-			} else {
-				$message = '<div class="alert alert-danger">Merci d\'envoyer toutes les données du formulaire !</div>';
+				$update = ModelOption::update_gen($data, 'nameOption');
 			}
-			self::options($message);
+			if($update != false) {
+				$message = '<div class="alert alert-success">Options modifiées avec succès !</div>';
+			} else {
+				$message = '<div class="alert alert-danger">Impossible de modifier l\'option !</div>';
+			}
 		} else {
-			ControllerDefault::error('Vous nde pouvez pas accéder à cette page sans être connecté !');
+			$message = '<div class="alert alert-danger">Merci d\'envoyer toutes les données du formulaire !</div>';
 		}
+		self::options($message);
 	}
 
 
@@ -308,6 +284,28 @@ class ControllerAdmin {
 
 	public static function manageDetails() {
 		// Attend un $_GET['idChambre']
+	}
+
+	// Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
+	// renommer la variable $tav_v . C'était dans le td sur les voitures, là on est plus dans des voitures
+	public static function utilisateur(){
+		$powerNeeded = self::isAdmin();
+		$view = 'utilisateur';
+		$pagetitle = 'Administration - Gestion des utilisateurs';
+		$template = 'admin';
+
+		$tab_v = ModelUtilisateur::selectAll();
+
+		require_once File::build_path(array("view", "main_view.php"));
+	}
+
+	public static function news() {
+		$powerNeeded = self::isAdmin();
+		$view = 'listNews';
+		$pagetitle = 'Administration - Gestion des news';
+		$template = 'admin';
+		$tab_news = ModelNews::selectAll();
+		require_once File::build_path(array("view", "main_view.php"));
 	}
 }
 ?>
