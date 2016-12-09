@@ -255,6 +255,10 @@ body {
 	border: 5px solid #841414;
 }
 
+.news {
+	margin-top: 10px;
+}
+
 .news .btn {
 	margin-top: 15px;
 }

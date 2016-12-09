@@ -49,6 +49,12 @@
             }
         }
 
+        public static function checked($a, $b) {
+            if($a == $b) {
+                return 'checked';
+            }
+        }
+
         /**
          *
         */
