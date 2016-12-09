@@ -1,5 +1,11 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 <h1 class="page-header">Liste des prestations</h1>
+
+<?php  
+	if(isset($message)) { echo $message; }
+?>
+
+
 <?php 
 	if(empty($tab_allPrestation)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune prestation pour le moment</div>';

@@ -1,5 +1,10 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 <h1 class="page-header">Liste des chambres</h1>
+
+<?php  
+	if(isset($message)) { echo $message; }
+?>
+
 <?php 
 	if(empty($tab_chambres)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune chambre pour le moment</div>';

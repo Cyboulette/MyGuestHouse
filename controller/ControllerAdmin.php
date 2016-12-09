@@ -139,7 +139,7 @@ class ControllerAdmin {
 	// CHAMBRES -----------------------------------------------
 
 	// Affiche la liste des chambres : view/amin/listChambres.php
-	public static function chambres() {
+	public static function chambres($message = null) {
 		$powerNeeded = self::isAdmin();
 		$view = 'listChambres';
 		$pagetitle = 'Administration - Liste des chambres';
@@ -181,7 +181,7 @@ class ControllerAdmin {
 
 	// PRESTATIONS -----------------------------------------------	
 
-	public static function prestations(){
+	public static function prestations($message = null){
 		if(ControllerUtilisateur::isConnected()) {
 			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
 			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
@@ -189,28 +189,111 @@ class ControllerAdmin {
 			$view = 'listPrestations';
 			$pagetitle = 'Administration - Options du site';
 			$template = 'admin';
-			$tab_options = ModelOption::selectAll();
 
 			$tab_allPrestation = ModelPrestation::selectAll();
 
 			require_once File::build_path(array("view","main_view.php"));
 		} else {
-			ControllerDefault::error('Vous nde pouvez pas accéder à cette page sans être connecté !');
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
 		}
 	}
 
 	public static function addPrestation(){
-		
+		if(ControllerUtilisateur::isConnected()) {
+			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+			$view = 'addPrestation';
+			$pagetitle = 'Administration - Ajout prestation';
+			$template = 'admin';
+
+			require_once File::build_path(array("view","main_view.php"));
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
+
+	public static function addedPrestation(){
+		if(ControllerUtilisateur::isConnected()) {
+			$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+			$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+			
+
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
 	}
 
 	public static function editPrestation(){
 		// Attend un $_GET['idPrestation']
+		if(ControllerUtilisateur::isConnected()) {
+			if(isset($_GET['idPrestation'])){
+				$prestation = ModelPrestation::select($_GET['idPrestation']);
+				if ($prestation!=false) {
+					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+					$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+					$view = 'editPrestation';
+					$pagetitle = 'Administration - modifier ue prestation';
+					$template = 'admin';
+
+					require_once File::build_path(array("view", "main_view.php"));	
+				}else{
+					ControllerDefault::error(" ! ");// je ne sais pas quel error utiliser
+				}
+			}else{
+				ControllerDefault::error("La prestation a modifier n'est pas specifiée ! ");
+			}
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
+	}
+
+	public static function editedPrestation(){
+		// Attend un $_GET['idPrestation']
+		if(ControllerUtilisateur::isConnected()) {
+			if(isset($_POST['idPrestation']) && isset($_POST['nomPrestation']) && $_POST['prix']
+				&& $_POST['idPrestation']!=null && $_POST['nomPrestation'] && $_POST['prix']){
+
+				$prestation = ModelPrestation::select($_POST['idPrestation']);
+
+				if ($prestation!=false) {
+					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+					$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+					$id = $_POST['idPrestation'];
+					$nom = $_POST['nomPrestation'];
+					$prix = $_POST['prix'];
+
+					$dataPrestation = array(
+						'nomPrestation' => $nom,
+						'prix' => $prix,
+						'idPrestation' => $id,
+					);
+
+					$update = ModelPrestation::update_gen($dataPrestation, 'idPrestation');
+					if($update != false) {
+						$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+					} else {
+						$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+					}
+					self::prestations($message);
+				}else{
+					ControllerDefault::error(" ! ");// je ne sais pas quel error utiliser
+				}
+			}else{
+				ControllerDefault::error("La chambre a modifier n'est pas specifiée ! ");
+			}
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
 	}
 
 	public static function managePrestations() {
 		// Attend un $_GET['idChambre']
 		if(ControllerUtilisateur::isConnected()) {
-			if(isset($_GET['idChambre'])){
+			if(isset($_GET['idChambre']) && $_GET['idChambre']!=NULL){
 				$chambre = ModelChambre::select($_GET['idChambre']);
 				if ($chambre!=false) {
 					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
@@ -243,19 +326,21 @@ class ControllerAdmin {
 		if(ControllerUtilisateur::isConnected()) {
 			if(isset($_POST['idChambre'])){
 				$idChambre = $_POST['idChambre'];
-				$prestation = ($_POST['prestations']);
-				ModelPrestation::deleteAllByChambre($idChambre); //TODO vérifier si true
-				foreach ($prestation as $key => $value) {
-					ModelPrestation::saveByChambre($idChambre, $prestation[$key]);
+				$prestation = $_POST['prestations'];
+				$update = true;
+				$update = ModelPrestation::deleteAllByChambre($idChambre); //TODO vérifier si true
+				if ($prestation!=null) {
+					foreach ($prestation as $key => $value) {
+						$update = ModelPrestation::saveByChambre($idChambre, $prestation[$key]);
+					}
 				}
-			
-				// $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-				// $powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
 
-				// $view = 'prestationFor';
-				// $pagetitle = 'Administration - Editeur de chambre';
-				// $template = 'admin';
-				self::chambres();
+				if($update != false) {
+					$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+				} else {
+					$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+				}	
+				self::chambres($message);
 			}else{
 				ControllerDefault::error("La chambre a modifier n'est pas specifiée ! ");
 			}

@@ -38,32 +38,11 @@
 		}
 
 		echo '</table></div>';
-
-		echo '<input type="submit" class="btn btn-s btn-success btn-block" value="Valider">';
+		echo '<div class="col-xs-6 col-sm-5 col-md-2">';
+			echo '<input type="submit" class="btn btn-s btn-success btn-block" value="Valider">';
+		echo "</div>";
         echo '<input type="hidden" name="idChambre" value="'.$idChambre.'"/>';
 		echo '</form>';
-
-		/* BOOTSTRAP MODAL */
-		echo '<div id="deletePrestation" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Confirmation</h4>
-					</div>
-
-					<div class="modal-body">
-						<p>Etes-vous certain de vouloir supprimer cette prestation ?</p>
-					</div>
-
-					<div class="modal-footer">
-					<a href="index.php?controller=admin&action=deletePrestation&idPrestation='.$id.'" class="btn btn-danger">Supprimer</a	>
-					</div>
-					</div>
-
-				</div>
-			</div>';
 	}
 ?>
+
