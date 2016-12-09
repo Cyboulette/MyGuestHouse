@@ -156,8 +156,16 @@ class ModelReservation extends Model{
      */
     public static function getNombreReservationEnAttente(){
         try{
-            $sql = 'SELECT COUNT(*) FROM GH_Reservation WHERE dateDebut >'.time();
+            $dateLocal = new DateTime();
+
+            $sql = 'SELECT COUNT(*) FROM GH_Reservations WHERE dateDebut > :date';
             $getNombre = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'date' => $dateLocal->format('Y-m-d')
+            );
+
+            $getNombre->execute($values);
 
             $getNombre->setFetchMode(PDO::FETCH_NUM);
             $tab = $getNombre->Fetch();
@@ -181,8 +189,16 @@ class ModelReservation extends Model{
      */
     public static function getNombreReservationFinis(){
         try{
-            $sql = 'SELECT COUNT(*) FROM GH_Reservation WHERE dateFin <'.time();
+            $dateLocal = new DateTime();
+
+            $sql = 'SELECT COUNT(*) FROM GH_Reservations WHERE dateDebut < :date ';
             $getNombre = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'date' => $dateLocal->format('Y-m-d')
+            );
+
+            $getNombre->execute($values);
 
             $getNombre->setFetchMode(PDO::FETCH_NUM);
             $tab = $getNombre->Fetch();
