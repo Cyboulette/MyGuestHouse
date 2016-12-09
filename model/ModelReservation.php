@@ -14,6 +14,7 @@ class ModelReservation extends Model{
     protected static $primary = 'idReservation'; // Correspond à la clé primaire de la table (pratique pour faire un read())
 
 
+
     public function __construct( $idReservation=NULL, $idChambre=NULL, $idUtilisateur=NULL, $dateDebut=NULL, $dateFin=NULL ){
         $this->idReservation = $idReservation;
         $this->idChambre = $idChambre ;
@@ -114,14 +115,24 @@ class ModelReservation extends Model{
 
 
 
+/* IN PROGRESS */
+
     /**
      * Return the number of all currents reservations
      * Gérer les formats des dates
      */
     public static function getNombreReservationEnCours(){
         try{
-            $sql = 'SELECT COUNT(*) FROM GH_Reservation WHERE dateDebut <'.time().' AND dateFin >'.time();
+            $dateLocal = new DateTime();
+
+            $sql = 'SELECT COUNT(*) FROM GH_Reservations WHERE dateDebut < :date AND dateFin > :date ';
             $getNombre = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'date' => $dateLocal->format('Y-m-d')
+            );
+
+            $getNombre->execute($values);
 
             $getNombre->setFetchMode(PDO::FETCH_NUM);
             $tab = $getNombre->Fetch();
