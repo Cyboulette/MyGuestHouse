@@ -1,3 +1,4 @@
+
 <?php
 require_once 'Model.php';
 
@@ -25,21 +26,108 @@ class ModelReservation extends Model{
     }
 
 
+    /* GETTERS */
+
+    public static function getReservationsEnCours(){
+        try{
+            $dateLocal = new DateTime();
+
+            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut < :date AND dateFin > :date ';
+            $rep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'date' => $dateLocal->format('Y-m-d')
+            );
+
+            $rep->execute($values);
+
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
+            $tab = $rep->FetchAll();
+
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function getReservationsEnAttente(){
+        try{
+            $dateLocal = new DateTime();
+
+            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut > :date';
+            $rep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'date' => $dateLocal->format('Y-m-d')
+            );
+
+            $rep->execute($values);
+
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
+            $tab = $rep->FetchAll();
+
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function getReservationsFinis(){
+        try{
+            $dateLocal = new DateTime();
+
+            $sql = 'SELECT * FROM GH_Reservations WHERE dateFin < :date ';
+            $rep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'date' => $dateLocal->format('Y-m-d')
+            );
+
+            $rep->execute($values);
+
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
+            $tab = $rep->FetchAll();
+
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    // TODO
+    public static function getReservationsAnnulee(){}
+
     /**
      * Return the name of the user
      */
     public function getNomUtilisateur(){
         try{
-            $sql="SELECT u.nomUtilisateur FROM GH_Utilisateurs u, ".self::$tableName." r WHERE r.idUtilisateur=u.idUtilisateur AND r.idReservation= :idReservation";
+            $sql="SELECT nomUtilisateur FROM GH_Utilisateurs WHERE idUtilisateur= :idUtilisateur";
 
-            $getNombre = Model::$pdo->prepare($sql);
+            $rep = Model::$pdo->prepare($sql);
 
             $value = array(
-                'idReservation' => $this->idReservation
+                'idUtilisateur' => $this->idUtilisateur
             );
 
-            $getNombre->execute($value);
-            return true;
+            $rep->execute($value);
+
+            $rep->setFetchMode();
+            $nom = $rep->fetch();
+
+            return $nom;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
@@ -54,16 +142,20 @@ class ModelReservation extends Model{
      */
     public function getPrenomUtilisateur(){
         try{
-            $sql="SELECT u.prenomUtilisateur FROM GH_Utilisateurs u, ".self::$tableName." r WHERE r.idUtilisateur=u.idUtilisateur AND r.idReservation= :idReservation";
+            $sql="SELECT prenomUtilisateur FROM GH_Utilisateurs WHERE idUtilisateur= :idUtilisateur";
 
-            $getNombre = Model::$pdo->prepare($sql);
+            $rep = Model::$pdo->prepare($sql);
 
             $value = array(
-                'idReservation' => $this->idReservation
+                'idUtilisateur' => $this->idUtilisateur
             );
 
-            $getNombre->execute($value);
-            return true;
+            $rep->execute($value);
+
+            $rep->setFetchMode();
+            $prenom = $rep->fetch();
+
+            return $prenom;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
@@ -94,28 +186,8 @@ class ModelReservation extends Model{
         }
     }
 
-/* IN PROGRESS */
 
-    /**
-     * Return the number of day of the reservation
-     */
-    public static function getNombreJours(){
-
-    }
-
-    /**
-     * Return the total price of the reservation
-     */
-    public static function getPrixTotal(){
-
-    }
-
-
-
-
-
-
-/* IN PROGRESS */
+    /* COUNT */
 
     /**
      * Return the number of all currents reservations
@@ -218,9 +290,27 @@ class ModelReservation extends Model{
     }
 
     /**
-     * I don't know want whe can return x)
+     * Return the number of all canceled reservations
      */
-    public static function getNombreReservationProbleme(){
+    public static function getNombreReservationAnnule(){
+
+    }
+
+
+
+    /* IN PROGRESS */
+
+    /**
+     * Return the number of day of the reservation
+     */
+    public static function getNombreJours(){
+
+    }
+
+    /**
+     * Return the total price of the reservation
+     */
+    public static function getPrixTotal(){
 
     }
 }

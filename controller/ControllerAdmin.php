@@ -33,15 +33,6 @@ class ControllerAdmin {
 		require File::build_path(array('view', 'main_view.php'));
 	}
 
-	// Gestion des chambres : view/admin/viewAllChambre.php
-	public static function displayAllChambre(){
-		$powerNeeded = self::isAdmin();
-		$view = 'viewAllChambre';
-		$pagetitle = 'Administration - Gestion des chambres';
-		$template = 'admin';
-		$tab_v = ModelChambre::selectAll();
-		require_once File::build_path(array("view", "main_view.php"));
-	}
 
 	// Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
 	public static function displayAllUtilisateur(){
@@ -59,6 +50,28 @@ class ControllerAdmin {
 		$view = 'viewAllReservation';
 		$pagetitle = 'Administration - Gestion des réservations';
 		$template = 'admin';
+
+		// appel des methodes de selection
+		switch ($_GET['mode']){
+			case 'encours':
+				$tab_reservations=ModelReservation::getReservationsEnCours();
+				break;
+
+			case 'enattentes':
+				$tab_reservations=ModelReservation::getReservationsEnAttente();
+				break;
+
+			case 'finis':
+				$tab_reservations=ModelReservation::getReservationsFinis();
+				break;
+
+			case 'annulees':
+				$tab_reservations=ModelReservation::getReservationsAnnulee();
+				break;
+		}
+
+
+
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 

@@ -44,7 +44,7 @@
 				echo '<td>
 					<a href="index.php?controller=admin&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChambre" onclick="GETurl(id, '.$id.')">Supprimer</button>
+					<button id="'.$id.'" type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChambre">Supprimer</button>
 
 					</td>';
 			echo '</tr>';

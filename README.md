@@ -4,10 +4,10 @@ The smartest CMS for guest house owner
 # Commits
 
 - 09/12 **News**
-   *        We can now create/update or delete a news. (Only 1 view for update and add)
-   *        `Script.sql` for create the table "GH_News"
-   *        Loader css for design
-   *        Ajax for deleting a news into a modal (it's a good example for the future)
+    *       We can now create/update or delete a news. (Only 1 view for update and add)
+    *       `Script.sql` for create the table "GH_News"
+    *       Loader css for design
+    *       Ajax for deleting a news into a modal (it's a good example for the future)
 
 <br>
 - 06/12 **Back-office**
