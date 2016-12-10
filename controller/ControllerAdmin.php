@@ -195,23 +195,6 @@ class ControllerAdmin {
 
 	// PRESTATIONS -----------------------------------------------	
 
-	// public static function prestations($message = null){
-	// 	if(ControllerUtilisateur::isConnected()) {
-	// 		$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-	// 		$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-
-	// 		$view = 'listPrestations';
-	// 		$pagetitle = 'Administration - Options du site';
-	// 		$template = 'admin';
-
-	// 		$tab_allPrestation = ModelPrestation::selectAll();
-
-	// 		require_once File::build_path(array("view","main_view.php"));
-	// 	} else {
-	// 		ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-	// 	}
-	// }
-
 	public static function prestations($message = null){
 		$powerNeeded = self::isAdmin();
 		//----------
@@ -236,6 +219,31 @@ class ControllerAdmin {
 	public static function addedPrestation(){
 		$powerNeeded = self::isAdmin();
 		//----------
+		if(isset($_POST['nomPrestation']) && isset($_POST['prix'])){
+			if($_POST['nomPrestation']!=null && $_POST['prix']!=null){
+				if($_POST['prix']>= 0){
+					$laPrestation = array(
+						'idPrestation' => null,
+						'nomPrestation' => $_POST['nomPrestation'], 
+						'prix' => $_POST['prix'],
+					);
+
+					$save = ModelPrestation::save($laPrestation);
+					if($save != false) {
+						$message = '<div class="alert alert-success">Prestation ajoutée avec succès !</div>';
+					}else{
+						$message = '<div class="alert alert-danger">Echec de l\'ajout de la prestation !</div>';
+					}
+				}else{
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
+				}	
+			}else{
+				$message = '<div class="alert alert-danger">vous ne pouvez pas laisser un champ vide !</div>';
+			}
+		}else{
+			$message = '<div class="alert alert-danger">Nous navons pas pu recuperer vos choix !</div>';
+		}
+		self::prestations($message);
 	}
 
 
@@ -266,39 +274,38 @@ class ControllerAdmin {
 		if(isset($_POST['idPrestation']) && $_POST['idPrestation']!=null) {
 			$prestation = ModelPrestation::select($_POST['idPrestation']);
 			if($prestation!=false){
-				if(isset($_POST['nomPrestation']) && $_POST['prix']
-					&& $_POST['nomPrestation'] && $_POST['prix']){
+				if(isset($_POST['nomPrestation']) && isset($_POST['prix'])
+					&& $_POST['nomPrestation']!=null && $_POST['prix']!=null){
+					if($_POST['prix']>= 0){
+						$id = $_POST['idPrestation'];
+						$nom = $_POST['nomPrestation'];
+						$prix = $_POST['prix'];
 
-					$id = $_POST['idPrestation'];
-					$nom = $_POST['nomPrestation'];
-					$prix = $_POST['prix'];
+						$dataPrestation = array(
+							'nomPrestation' => $nom,
+							'prix' => $prix,
+							'idPrestation' => $id,
+						);
 
-					$dataPrestation = array(
-						'nomPrestation' => $nom,
-						'prix' => $prix,
-						'idPrestation' => $id,
-					);
-
-					$update = ModelPrestation::update_gen($dataPrestation, 'idPrestation');
-					if($update != false) {
-						$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
-					} else {
-						$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+						$update = ModelPrestation::update_gen($dataPrestation, 'idPrestation');
+						if($update != false) {
+							$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+						} else {
+							$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+						}
+					}else{
+						$message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
 					}
-					self::prestations($message);
-
 				}else{
 					$message = '<div class="alert alert-danger">vous ne pouvez pas laisser un champ vide !</div>';
-					self::prestations($message);
 				}
 			}else{
 				$message = '<div class="alert alert-danger">cette prestation n\'existe plus !</div>';
-				self::prestations($message);
 			}
 		}else{
 			$message = '<div class="alert alert-danger">vous ne pouvez pas modifier une prestation sans connaître son ID !</div>';
-			self::prestations($message);
 		}
+		self::prestations($message);
 	}
 
 	public static function managePrestations() {
@@ -324,11 +331,11 @@ class ControllerAdmin {
 			$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une chambre sans connaître son ID !</div>';
 			self::chambres($message);		
 		}
-		self::chambres($message);
 	}
 
 	public static function managedPrestation(){
 		$powerNeeded = self::isAdmin();
+		//----------
 		if(isset($_POST['idChambre']) && $_POST['idChambre']!=null){
 			$idChambre = $_POST['idChambre'];
 			$prestation = $_POST['prestations'];
