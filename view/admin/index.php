@@ -1,3 +1,4 @@
+
 <?php if(!$powerNeeded) { exit(); } ?>
 <?php
   $nbChambre = ModelChambre::count();

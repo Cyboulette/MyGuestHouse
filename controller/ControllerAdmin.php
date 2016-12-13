@@ -52,6 +52,7 @@ class ControllerAdmin {
 		$template = 'admin';
 
 		// appel des methodes de selection
+		if(!isset($_GET['mode'])){ $_GET['mode'] = 'encours'; }
 		switch ($_GET['mode']){
 			case 'encours':
 				$tab_reservations=ModelReservation::getReservationsEnCours();

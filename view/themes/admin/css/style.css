@@ -2,6 +2,9 @@
  * Base structure
  */
 
+.tableCenter tr, .tableCenter th, .tableCenter td{
+  text-align: center;
+}
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;

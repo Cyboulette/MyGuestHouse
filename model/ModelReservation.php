@@ -17,11 +17,14 @@ class ModelReservation extends Model{
 
 
     public function __construct( $idReservation=NULL, $idChambre=NULL, $idUtilisateur=NULL, $dateDebut=NULL, $dateFin=NULL ){
-        $this->idReservation = $idReservation;
-        $this->idChambre = $idChambre ;
-        $this->idUtilisateur = $idUtilisateur ;
-        $this->dateDebut = $dateDebut ;
-        $this->dateFin = $dateFin ;
+        if(!is_null($idReservation) && !is_null($idChambre) && !is_null($idUtilisateur) && !is_null($dateDebut) && !is_null($dateFin)){
+            $this->idReservation = $idReservation;
+            $this->idChambre = $idChambre ;
+            $this->idUtilisateur = $idUtilisateur ;
+            $this->dateDebut = $dateDebut ;
+            $this->dateFin = $dateFin ;
+
+        }
 
     }
 

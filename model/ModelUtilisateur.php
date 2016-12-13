@@ -7,8 +7,8 @@ class ModelUtilisateur extends Model {
     protected $idUtilisateur;
     protected $emailUtilisateur;
     protected $password;
-    protected $prenom;
-    protected $nom;
+    protected $prenomUtilisateur;
+    protected $nomUtilisateur;
     protected $rang;
     protected $nonce;
 
@@ -16,13 +16,13 @@ class ModelUtilisateur extends Model {
     protected static $object = 'utilisateur'; // Correspond au nom de l'objet à créer
     protected static $primary = 'idUtilisateur'; // Correspond à la clé primaire de la table (pratique pour faire un read())
 
-    public function __construct($idUtilisateur = NULL, $emailUtilisateur = NULL, $password = NULL, $prenom = NULL, $nom = NULL, $rang = NULL, $nonce = NULL) {
-        if (!is_null($idUtilisateur) && !is_null($emailUtilisateur) && !is_null($password) && !is_null($prenom) && !is_null($nom) && !is_null($rang) && !is_null($nonce)) {
+    public function __construct($idUtilisateur = NULL, $emailUtilisateur = NULL, $password = NULL, $prenomUtilisateur = NULL, $nomUtilisateur = NULL, $rang = NULL, $nonce = NULL) {
+        if (!is_null($idUtilisateur) && !is_null($emailUtilisateur) && !is_null($password) && !is_null($prenomUtilisateur) && !is_null($nomUtilisateur) && !is_null($rang) && !is_null($nonce)) {
             $this->idUtilisateur = $idUtilisateur;
             $this->emailUtilisateur = $emailUtilisateur;
             $this->password = $password;
-            $this->prenom = $prenom;
-            $this->nom = $nom;
+            $this->prenom = $prenomUtilisateur;
+            $this->nom = $nomUtilisateur;
             $this->rang = $rang;
             $this->nonce = $nonce;
         }

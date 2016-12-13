@@ -3,6 +3,11 @@ The smartest CMS for guest house owner
 
 # Commits
 
+<br>
+- 13/12 
+    *       CRUD for reservations completed
+    
+<br>
 - 09/12 **News**
     *       We can now create/update or delete a news. (Only 1 view for update and add)
     *       `Script.sql` for creating the table "GH_News"
