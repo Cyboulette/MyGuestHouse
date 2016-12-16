@@ -76,6 +76,28 @@ class ControllerAdmin {
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 
+	// Editer une reservation
+	public static function editReservation(){
+		$powerNeeded = self::isAdmin();
+		//----------
+		if(isset($_GET['idReservation']) && $_GET['idReservation']!=null){
+			$reservation = ModelReservation::select($_GET['idReservation']);
+			if($reservation!=false){
+				$view = 'editReservation';
+				$pagetitle = 'Administration - modifier une reservation';
+				$template = 'admin';
+
+				require_once File::build_path(array("view", "main_view.php"));
+			}else{
+				$message = '<div class="alert alert-danger">cette prestation n\'existe plus !</div>';
+				self::reservation($message);
+			}
+		}else{
+			$message = '<div class="alert alert-danger">vous ne pouvez pas modifier une prestation sans connaitre son ID !</div>';
+			self::reservation($message);
+		}
+	}
+
 	// Modifie l'url de la photo d'une chambre
 	public static function update_url(){
 		$powerNeeded = self::isAdmin();
@@ -125,7 +147,6 @@ class ControllerAdmin {
 		self::options($message);
 	}
 
-
 	
 	// UTILISATEURS -----------------------------------------------
 
@@ -147,7 +168,6 @@ class ControllerAdmin {
 			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
 		}
 	}
-
 	
 
 	// CHAMBRES -----------------------------------------------
@@ -191,7 +211,6 @@ class ControllerAdmin {
 			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
 		}
 	}
-
 	
 
 	// PRESTATIONS -----------------------------------------------	
@@ -246,7 +265,6 @@ class ControllerAdmin {
 		}
 		self::prestations($message);
 	}
-
 
 	public static function editPrestation(){
 		$powerNeeded = self::isAdmin();
@@ -359,12 +377,12 @@ class ControllerAdmin {
 		self::chambres($message);
 	}
 
+
 	// DETAILS -----------------------------------------------	
 
 	public static function manageDetails() {
 		// Attend un $_GET['idChambre']
 	}
-
 
 
 	// NEWS -------------------------------------------------- 
