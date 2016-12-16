@@ -1,4 +1,5 @@
 <?php if(!$powerNeeded) { exit(); } ?>
+<?php if(isset($message)) echo $message; ?>
 
 <div>
     <h1 class="page-header">Gestion des réservations</h1>
@@ -13,9 +14,7 @@
         </ul>
 
 
-
         <!-- IN PROGRESS -->
-
         <?php if(!$powerNeeded) { exit(); }
         elseif(empty($tab_reservations)) {
             echo '<div class="alert alert-danger">Vous ne disposez d\'aucune réservation pour le moment</div>';
@@ -50,11 +49,11 @@
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
-                echo '<td><a href="index.php?controller=admin&action=managePrestations&idChambre=' . $id . '" class="btn btn-xs btn-primary">' . $nbPrestations . ' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                echo '<td><a href="index.php?controller=admin&action=managePrestation&idReservation=' . $id . '" class="btn btn-xs btn-primary">' . $nbPrestations . ' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
                 echo '<td>
-                        <a href="index.php?controller=admin&action=editChambre&idChambre=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+                        <a href="index.php?controller=admin&action=editReservation&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChambre" onclick="GETurl(id, ' . $id . ')">Supprimer</button>
+                        <button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-id="'.$id.'">Supprimer</button>
 
                         </td>';
                 echo '</tr>';
@@ -62,6 +61,19 @@
 
             }
             echo '</table></div>';
+            ?>
+            <div id="deleteReservation" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirmation de suppression</h4>
+                        </div>
+                        <div class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+            <?php
         }
         ?>
 

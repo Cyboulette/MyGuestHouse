@@ -44,18 +44,6 @@ class ControllerAdmin {
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 
-	// Modifie l'url de la photo d'une chambre
-	public static function update_url(){
-		$powerNeeded = self::isAdmin();
-		$view = 'displayChambre';
-		$pagetitle = 'detail de la chambre';
-		$template = 'admin';
-		require_once File::build_path(array("view", "main_view.php"));
-	}
-
-
-	// RESERVATIONS ---------------------------------------------
-
 	// Gestion des réservations : view/amin/viewAllReservation.php
 	public static function reservations(){
 		$powerNeeded = self::isAdmin();
@@ -88,29 +76,35 @@ class ControllerAdmin {
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 
+	// Editer une reservation
 	public static function editReservation(){
-		// Attend un $_GET['idReservation']
-		if(ControllerUtilisateur::isConnected()) {
-			if(isset($_GET['idReservation'])){
-				$reservation = Reservation::select($_GET['idReservation']);
-				if ($reservation!=false) {
-					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-					$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+		$powerNeeded = self::isAdmin();
+		//----------
+		if(isset($_GET['idReservation']) && $_GET['idReservation']!=null){
+			$reservation = ModelReservation::select($_GET['idReservation']);
+			if($reservation!=false){
+				$view = 'editReservation';
+				$pagetitle = 'Administration - modifier une reservation';
+				$template = 'admin';
 
-					// $powerNeeded = true;
-					$view = 'editReservation';
-					$pagetitle = 'Administration - Editeur de reservation';
-					$template = 'admin';
-					require_once File::build_path(array("view", "main_view.php"));
-				}else{
-					ControllerDefault::error(" ! ");// je ne sais pas quel error utiliser
-				}
+				require_once File::build_path(array("view", "main_view.php"));
 			}else{
-				ControllerDefault::error("La reservation a modifier n'est pas specifiée ! ");
+				$message = '<div class="alert alert-danger">cette prestation n\'existe plus !</div>';
+				self::reservation($message);
 			}
-		} else {
-			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}else{
+			$message = '<div class="alert alert-danger">vous ne pouvez pas modifier une prestation sans connaitre son ID !</div>';
+			self::reservation($message);
 		}
+	}
+
+	// Modifie l'url de la photo d'une chambre
+	public static function update_url(){
+		$powerNeeded = self::isAdmin();
+		$view = 'displayChambre';
+		$pagetitle = 'detail de la chambre';
+		$template = 'admin';
+		require_once File::build_path(array("view", "main_view.php"));
 	}
 
 	// OPTIONS -----------------------------------------------
@@ -153,7 +147,6 @@ class ControllerAdmin {
 		self::options($message);
 	}
 
-
 	
 	// UTILISATEURS -----------------------------------------------
 
@@ -175,7 +168,6 @@ class ControllerAdmin {
 			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
 		}
 	}
-
 	
 
 	// CHAMBRES -----------------------------------------------
@@ -197,7 +189,6 @@ class ControllerAdmin {
 
 	public static function editChambre() {
 		// Attend un $_GET['idChambre']
-		self::isAdmin();
 		if(ControllerUtilisateur::isConnected()) {
 			if(isset($_GET['idChambre'])){
 				$chambre = ModelChambre::select($_GET['idChambre']);
@@ -220,7 +211,6 @@ class ControllerAdmin {
 			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
 		}
 	}
-
 	
 
 	// PRESTATIONS -----------------------------------------------	
@@ -275,7 +265,6 @@ class ControllerAdmin {
 		}
 		self::prestations($message);
 	}
-
 
 	public static function editPrestation(){
 		$powerNeeded = self::isAdmin();
@@ -388,12 +377,12 @@ class ControllerAdmin {
 		self::chambres($message);
 	}
 
+
 	// DETAILS -----------------------------------------------	
 
 	public static function manageDetails() {
 		// Attend un $_GET['idChambre']
 	}
-
 
 
 	// NEWS -------------------------------------------------- 
