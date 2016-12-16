@@ -10,10 +10,9 @@ class ModelReservation extends Model{
     protected $dateDebut;
     protected $dateFin;
 
-    protected static $tableName = 'GH_Reservations'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
-    protected static $object = 'reservation'; // Correspond au nom de l'objet à créer
+    protected static $tableName = 'GH_reservations'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
+    protected static $object = 'reservations'; // Correspond au nom de l'objet à créer
     protected static $primary = 'idReservation'; // Correspond à la clé primaire de la table (pratique pour faire un read())
-
 
 
     public function __construct( $idReservation=NULL, $idChambre=NULL, $idUtilisateur=NULL, $dateDebut=NULL, $dateFin=NULL ){
@@ -35,7 +34,7 @@ class ModelReservation extends Model{
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut < :date AND dateFin > :date ';
+            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut < :date AND dateFin > :date ';
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -112,82 +111,7 @@ class ModelReservation extends Model{
     // TODO
     public static function getReservationsAnnulee(){}
 
-    /**
-     * Return the name of the user
-     */
-    public function getNomUtilisateur(){
-        try{
-            $sql="SELECT nomUtilisateur FROM GH_Utilisateurs WHERE idUtilisateur= :idUtilisateur";
-
-            $rep = Model::$pdo->prepare($sql);
-
-            $value = array(
-                'idUtilisateur' => $this->idUtilisateur
-            );
-
-            $rep->execute($value);
-
-            $rep->setFetchMode();
-            $nom = $rep->fetch();
-
-            return $nom;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
-    /**
-     * Return the first name of the user
-     */
-    public function getPrenomUtilisateur(){
-        try{
-            $sql="SELECT prenomUtilisateur FROM GH_Utilisateurs WHERE idUtilisateur= :idUtilisateur";
-
-            $rep = Model::$pdo->prepare($sql);
-
-            $value = array(
-                'idUtilisateur' => $this->idUtilisateur
-            );
-
-            $rep->execute($value);
-
-            $rep->setFetchMode();
-            $prenom = $rep->fetch();
-
-            return $prenom;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
-    public function getNomChambre(){
-        try{
-            $sql="SELECT c.nomChambre FROM GH_Chambres c, ".self::$tableName." r WHERE r.idChambre=c.idChambre AND r.idReservation= :idReservation";
-
-            $getNombre = Model::$pdo->prepare($sql);
-
-            $value = array(
-                'idReservation' => $this->idReservation
-            );
-
-            $getNombre->execute($value);
-            return true;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
+    /* */
 
 
     /* COUNT */

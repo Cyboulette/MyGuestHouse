@@ -208,6 +208,7 @@ class Model
         }
     }
 
+    /* This part is good */
     public static function Init(){
         $hostname = Conf::getHostname();
         $database_name = Conf::getDatabase();
@@ -227,6 +228,5 @@ class Model
             die();
         }
     }
-
 }
 Model::Init();

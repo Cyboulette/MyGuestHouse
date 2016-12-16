@@ -13,7 +13,7 @@
 <?php 
   echo "<h1 class='page-header'>{$nom}</h1>";
   echo "
-    <form method='post' action='index.php' enctype='multipart/form-data'>
+    <form method='post' action='index.php?controller=admin&action=editedChambre' enctype='multipart/form-data'>
 
       <div class='form-group row'>
         <label for='id_nom' class='col-xs-3 col-form-label'>Nom de la chambre : </label>

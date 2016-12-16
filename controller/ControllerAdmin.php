@@ -44,6 +44,18 @@ class ControllerAdmin {
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 
+	// Modifie l'url de la photo d'une chambre
+	public static function update_url(){
+		$powerNeeded = self::isAdmin();
+		$view = 'displayChambre';
+		$pagetitle = 'detail de la chambre';
+		$template = 'admin';
+		require_once File::build_path(array("view", "main_view.php"));
+	}
+
+
+	// RESERVATIONS ---------------------------------------------
+
 	// Gestion des réservations : view/amin/viewAllReservation.php
 	public static function reservations(){
 		$powerNeeded = self::isAdmin();
@@ -76,13 +88,29 @@ class ControllerAdmin {
 		require_once File::build_path(array("view", "main_view.php"));
 	}
 
-	// Modifie l'url de la photo d'une chambre
-	public static function update_url(){
-		$powerNeeded = self::isAdmin();
-		$view = 'displayChambre';
-		$pagetitle = 'detail de la chambre';
-		$template = 'admin';
-		require_once File::build_path(array("view", "main_view.php"));
+	public static function editReservation(){
+		// Attend un $_GET['idReservation']
+		if(ControllerUtilisateur::isConnected()) {
+			if(isset($_GET['idReservation'])){
+				$reservation = Reservation::select($_GET['idReservation']);
+				if ($reservation!=false) {
+					$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+					$powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
+
+					// $powerNeeded = true;
+					$view = 'editReservation';
+					$pagetitle = 'Administration - Editeur de reservation';
+					$template = 'admin';
+					require_once File::build_path(array("view", "main_view.php"));
+				}else{
+					ControllerDefault::error(" ! ");// je ne sais pas quel error utiliser
+				}
+			}else{
+				ControllerDefault::error("La reservation a modifier n'est pas specifiée ! ");
+			}
+		} else {
+			ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
+		}
 	}
 
 	// OPTIONS -----------------------------------------------
@@ -169,6 +197,7 @@ class ControllerAdmin {
 
 	public static function editChambre() {
 		// Attend un $_GET['idChambre']
+		self::isAdmin();
 		if(ControllerUtilisateur::isConnected()) {
 			if(isset($_GET['idChambre'])){
 				$chambre = ModelChambre::select($_GET['idChambre']);
