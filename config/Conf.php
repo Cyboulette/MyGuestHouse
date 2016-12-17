@@ -9,7 +9,7 @@ class Conf {
         'hostname' => 'localhost',
         'database' => 'MyGuestHouse',
         'login' => 'root',
-        'password' => 'tdlepd2803'
+        'password' => 'root'
     );
 
     // Configuration de Clément (HOME)

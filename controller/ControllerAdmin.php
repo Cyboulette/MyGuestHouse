@@ -90,6 +90,8 @@ class ControllerAdmin {
         $template = 'admin';
         require_once File::build_path(array("view", "main_view.php"));
     }
+
+
     // OPTIONS -----------------------------------------------
     public static function options($message = NULL) {
         $powerNeeded = self::isAdmin();
@@ -128,6 +130,7 @@ class ControllerAdmin {
         self::options($message);
     }
 
+
     // UTILISATEURS -----------------------------------------------
     // Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
     public static function utilisateur(){// il faut mettre utilisateurs ... avec un s /!\
@@ -144,6 +147,7 @@ class ControllerAdmin {
         }
     }
 
+
     // CHAMBRES -----------------------------------------------
     // Affiche la liste des chambres : view/amin/listChambres.php
     public static function chambres($message = null) {
@@ -155,34 +159,85 @@ class ControllerAdmin {
         $tab_chambres = ModelChambre::selectAll();
         require_once File::build_path(array("view","main_view.php"));
     }
-    public static function deleteChambre() {
-        // Attend un $_GET['idChambre']
+
+    public static function addChambre(){
+        // TODO :
     }
-    public static function editChambre() {
-        // Attend un $_GET['idChambre']
-        if(ControllerUtilisateur::isConnected()) {
-            if(isset($_GET['idChambre'])){
-                $chambre = ModelChambre::select($_GET['idChambre']);
-                if ($chambre!=false) {
-                    $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                    $powerNeeded = ($currentUser->getPower() == Conf::$power['admin']);
-                    // $powerNeeded = true;
-                    $view = 'editChambre';
-                    $pagetitle = 'Administration - Editeur de chambre';
-                    $template = 'admin';
-                    require_once File::build_path(array("view", "main_view.php"));
-                }else{
-                    ControllerDefault::error(" ! ");// je ne sais pas quel error utiliser
-                }
-            }else{
-                ControllerDefault::error("La chambre a modifier n'est pas specifiée ! ");
-            }
-        } else {
-            ControllerDefault::error('Vous ne pouvez pas accéder à cette page sans être connecté !');
-        }
+    public static function addedChambre(){
+        // TODO :
     }
 
-    // PRESTATIONS -----------------------------------------------
+    public static function editChambre(){
+        $powerNeeded = self::isAdmin();
+        //----------
+        $view = 'editChambre';
+        $pagetitle = 'Administration - Editeur de chambre';
+        $template = 'admin';
+        
+        if(isset($_GET['idChambre'])){
+            $chambre = ModelChambre::select($_GET['idChambre']);
+
+            if($chambre!=false){
+                require_once File::build_path(array("view","main_view.php"));
+            }else{
+                $message = '<div class="alert alert-danger">Cette chambre n\'existe plus !</div>';
+                self::chambres($message);
+            }
+        }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas modifier une chambre sans connaitre son ID !</div>';
+            self::chambres($message);
+        }
+    }  
+
+    public static function editedChambre(){
+        // Attend un $_POST['nom']          avec netoyage   /!\
+        // Attend un $_POST['prix']         >=0             /!\
+        // Attend un $_POST['superficie']   >=0             /!\
+        // Attend un $_POST['description']  avec netoyage   /!\
+
+        $powerNeeded = self::isAdmin();
+
+        if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
+
+            if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
+
+                if($_POST['prix']>=0 && $_POST['superficie']>=0){
+                    // TODO :
+                }else{
+                    $message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
+                }
+            }else{
+                $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide avoir un prix ou une seperficie inferieur a zero !</div>';
+            }   
+        }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder a la modification sans passer par la vue de modification !</div>';
+        }
+        self::chambres($message);
+    }
+
+    public static function deleteChambre() {
+        $powerNeeded = self::isAdmin();
+
+        // Attend un $_GET['idChambre']
+        if (isset($_GET['idChambre']) && $_GET['idChambre']!=null) {
+            $idChambre = $_GET['idChambre'];
+            if(ModelChambre::select($idChambre)!=null){
+                if(ModelChambre::delete($idChambre)){
+                    $message = '<div class="alert alert-success">La suppresion de la chambre a été effectuée avec succes !</div>';
+                }else{
+                    $message = '<div class="alert alert-danger">Un probleme est survenue lors de la suppression de la chambre !</div>';
+                }
+            }else{
+                $message = '<div class="alert alert-danger">Cette chambre n\'existe deja plus !</div>';
+            }
+        }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas supprimer une chambre sans connaitre son ID !</div>';
+        }
+        self::chambres($message);
+    }
+
+
+    // PRESTATIONS ----------------------------------------------- //---FINISHED CRUD---// 
     public static function prestations($message = null){
         $powerNeeded = self::isAdmin();
         //----------
@@ -329,10 +384,14 @@ class ControllerAdmin {
         }
         self::chambres($message);
     }
+
+
     // DETAILS -----------------------------------------------
     public static function manageDetails() {
         // Attend un $_GET['idChambre']
     }
+
+
     // NEWS --------------------------------------------------
     // Fonction qui permet de lister les news
     public static function news($message = NULL) {

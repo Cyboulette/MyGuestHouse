@@ -6,7 +6,8 @@
   $nom = $chambre->get("nomChambre"); 
   $prix = $chambre->get("prixChambre"); 
   $superficie = $chambre->get("superficieChambre"); 
-  $description = $chambre->get("descriptionChambre"); 
+  $description = $chambre->get("descriptionChambre");
+  $id = $chambre->get("idChambre"); 
 ?> 
 
 <!-- description de la chambre -->
@@ -32,17 +33,18 @@
       <div class='form-group row'>
         <label for='id_superficie' class='col-xs-3 col-form-label'>Superficie : </label>
         <div class='col-xs-3'>
-          <input type='number' min='0' value='{$superficie}' name='prix' id='id_superficie'>m<sup>2</sup> 
+          <input type='number' min='0' value='{$superficie}' name='superficie' id='id_superficie'>m<sup>2</sup> 
         </div>
       </div>
                 
       <div class='form-group'>
         <label for='exampleTextarea'>Description : </label>
-        <textarea class='form-control' id='exampleTextarea' rows='3'>{$description} </textarea>
+        <textarea class='form-control' id='exampleTextarea' name='description' rows='3'>{$description} </textarea>
       </div>
 
       <div class='col-xs-6 col-sm-5 col-md-2'>
         <input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
+        <input type='hidden' value='{$id}' name='id'>
       </div>
     </form>
 
@@ -51,8 +53,5 @@
     </div>
   "; 
 ?>
-
-
-
 
 
