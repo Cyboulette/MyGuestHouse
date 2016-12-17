@@ -37,11 +37,13 @@
                 $utilisateur = ModelUtilisateur::select($reservations->get('idUtilisateur'));
                 $nom = $utilisateur->get('nomUtilisateur');
                 $prenom = $utilisateur->get('prenomUtilisateur');
-                $nomchambre = $reservations->getNomChambre();
-                $duree = $reservations->getNombreJours();
-                $prix = $reservations->getPrixTotal();
+                $chambre = ModelChambre::select($reservations->get('idChambre'));
+                $nomchambre = $chambre->get('nomChambre');
                 $nbPrestations = count(ModelPrestation::selectAllByChambre($reservations->get('idChambre')));
-                //$nbPrestations = count(ModelChambre::selectPrestation($id));
+
+                // $prix = $chambre->getPrixTotal();
+                $duree = $reservations->getNombreJours();
+
                 echo '<tr>';
                 echo '<td>' . $id .                 '</td>';
                 echo '<td>' . $nom .                '</td>';

@@ -28,7 +28,7 @@ class ModelReservation extends Model{
     }
 
 
-    /* GETTERS */
+    /* SOME GETTERS WITH DATE */
 
     public static function getReservationsEnCours(){
         try{
@@ -108,39 +108,17 @@ class ModelReservation extends Model{
         }
     }
 
-    // TODO
-    public static function getReservationsAnnulee(){}
-
-    /* */
-
-
-    /* COUNT */
-
-    /**
-     * Return the number of all currents reservations
-     * Gérer les formats des dates
-     */
-    public static function getNombreReservationEnCours(){
+    public static function getReservationsAnnulee(){
         try{
-            $dateLocal = new DateTime();
+            $sql = 'SELECT * FROM GH_Reservations WHERE annulee = 1 ';
+            $rep = Model::$pdo->prepare($sql);
 
-            $sql = 'SELECT COUNT(*) FROM GH_Reservations WHERE dateDebut < :date AND dateFin > :date ';
-            $getNombre = Model::$pdo->prepare($sql);
+            $rep->execute();
 
-            $values = array(
-                'date' => $dateLocal->format('Y-m-d')
-            );
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
+            $tab = $rep->FetchAll();
 
-            $getNombre->execute($values);
-
-            $getNombre->setFetchMode(PDO::FETCH_NUM);
-            $tab = $getNombre->Fetch();
-
-            if(empty($tab)) {
-                return 0;
-            }
-
-            return $tab[0];
+            return $tab;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
@@ -148,79 +126,6 @@ class ModelReservation extends Model{
             return false;
             die();
         }
-    }
-
-    /**
-     * Return the number of all reservations in wait
-     */
-    public static function getNombreReservationEnAttente(){
-        try{
-            $dateLocal = new DateTime();
-
-            $sql = 'SELECT COUNT(*) FROM GH_Reservations WHERE dateDebut > :date';
-            $getNombre = Model::$pdo->prepare($sql);
-
-            $values = array(
-                'date' => $dateLocal->format('Y-m-d')
-            );
-
-            $getNombre->execute($values);
-
-            $getNombre->setFetchMode(PDO::FETCH_NUM);
-            $tab = $getNombre->Fetch();
-
-            if(empty($tab)) {
-                return 0;
-            }
-
-            return $tab[0];
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
-    /**
-     * Return the number of all finished reservations
-     */
-    public static function getNombreReservationFinis(){
-        try{
-            $dateLocal = new DateTime();
-
-            $sql = 'SELECT COUNT(*) FROM GH_Reservations WHERE dateDebut < :date ';
-            $getNombre = Model::$pdo->prepare($sql);
-
-            $values = array(
-                'date' => $dateLocal->format('Y-m-d')
-            );
-
-            $getNombre->execute($values);
-
-            $getNombre->setFetchMode(PDO::FETCH_NUM);
-            $tab = $getNombre->Fetch();
-
-            if(empty($tab)) {
-                return 0;
-            }
-
-            return $tab[0];
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
-    /**
-     * Return the number of all canceled reservations
-     */
-    public static function getNombreReservationAnnule(){
-
     }
 
 
@@ -230,7 +135,25 @@ class ModelReservation extends Model{
     /**
      * Return the number of day of the reservation
      */
-    public static function getNombreJours(){
+    public  function getNombreJours(){
+        try{
+            $sql = "SELECT DATEDIFF('".$this->dateFin."','".$this->dateDebut."')";
+
+            $rep = Model::$pdo->prepare($sql);
+
+            $rep->setFetchMode(PDO::FETCH_UNIQUE);
+            $rep->execute();
+
+            $tab = $rep->Fetch();
+
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
 
     }
 

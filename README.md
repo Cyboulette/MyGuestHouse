@@ -1,10 +1,17 @@
 # MyGuestHouse
-The smartest CMS for guest house owner
+
+A smartest CMS for a smartest guest house.
+You can add, read and comment all the future functionality in `FUTURE.md`.
+For installation read the file `INSTALL.txt`.
 
 # Commits
 
 <br>
-- 13/12 
+- 16/12 
+    *       Add `FUTURE.md` to think about the future of myguesthouse
+
+<br>
+- 13/12 **Reservations**
     *       CRUD for reservations completed
     
 <br>
