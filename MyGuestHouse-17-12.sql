@@ -17,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `myguesthouse`
+-- Base de données :  `MyGuestHouse`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_avis`
+-- Structure de la table `GH_Avis`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_avis` (
+CREATE TABLE IF NOT EXISTS `GH_Avis` (
   `idChambre` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `note` int(11) NOT NULL,
@@ -38,10 +38,10 @@ CREATE TABLE IF NOT EXISTS `gh_avis` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_chambres`
+-- Structure de la table `GH_Chambres`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_chambres` (
+CREATE TABLE IF NOT EXISTS `GH_Chambres` (
   `idChambre` int(11) NOT NULL AUTO_INCREMENT,
   `nomChambre` varchar(32) NOT NULL,
   `descriptionChambre` text NOT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE IF NOT EXISTS `gh_chambres` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Contenu de la table `gh_chambres`
+-- Contenu de la table `GH_Chambres`
 --
 
-INSERT INTO `gh_chambres` (`idChambre`, `nomChambre`, `descriptionChambre`, `prixChambre`, `superficieChambre`) VALUES
+INSERT INTO `GH_Chambres` (`idChambre`, `nomChambre`, `descriptionChambre`, `prixChambre`, `superficieChambre`) VALUES
 (1, 'chambre 1', 'blablablba', 100, 22),
 (2, 'chambre 2', 'blablablba', 100, 22),
 (3, 'chambre 3', 'blablablba', 100, 22),
@@ -63,10 +63,10 @@ INSERT INTO `gh_chambres` (`idChambre`, `nomChambre`, `descriptionChambre`, `pri
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_chambresdetails`
+-- Structure de la table `GH_ChambresDetails`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_chambresdetails` (
+CREATE TABLE IF NOT EXISTS `GH_ChambresDetails` (
   `idChambre` int(11) NOT NULL,
   `idDetail` int(11) NOT NULL,
   `valeurDetail` varchar(32) NOT NULL,
@@ -77,10 +77,10 @@ CREATE TABLE IF NOT EXISTS `gh_chambresdetails` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_chambrespresta`
+-- Structure de la table `GH_ChambresPresta`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_chambrespresta` (
+CREATE TABLE IF NOT EXISTS `GH_ChambresPresta` (
   `idChambre` int(11) NOT NULL,
   `idPrestation` int(11) NOT NULL,
   PRIMARY KEY (`idChambre`,`idPrestation`),
@@ -88,10 +88,10 @@ CREATE TABLE IF NOT EXISTS `gh_chambrespresta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `gh_chambrespresta`
+-- Contenu de la table `GH_ChambresPresta`
 --
 
-INSERT INTO `gh_chambrespresta` (`idChambre`, `idPrestation`) VALUES
+INSERT INTO `GH_ChambresPresta` (`idChambre`, `idPrestation`) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
@@ -104,20 +104,20 @@ INSERT INTO `gh_chambrespresta` (`idChambre`, `idPrestation`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_datesbloquees`
+-- Structure de la table `GH_DatesBloquees`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_datesbloquees` (
+CREATE TABLE IF NOT EXISTS `GH_DatesBloquees` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_details`
+-- Structure de la table `GH_Details`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_details` (
+CREATE TABLE IF NOT EXISTS `GH_Details` (
   `idDetail` int(11) NOT NULL AUTO_INCREMENT,
   `nomDetail` varchar(64) NOT NULL,
   PRIMARY KEY (`idDetail`)
@@ -126,10 +126,10 @@ CREATE TABLE IF NOT EXISTS `gh_details` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_options`
+-- Structure de la table `GH_Options`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_options` (
+CREATE TABLE IF NOT EXISTS `GH_Options` (
   `idOption` int(11) NOT NULL AUTO_INCREMENT,
   `nameOption` varchar(255) NOT NULL,
   `valueOption` varchar(255) DEFAULT NULL,
@@ -137,10 +137,10 @@ CREATE TABLE IF NOT EXISTS `gh_options` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Contenu de la table `gh_options`
+-- Contenu de la table `GH_Options`
 --
 
-INSERT INTO `gh_options` (`idOption`, `nameOption`, `valueOption`) VALUES
+INSERT INTO `GH_Options` (`idOption`, `nameOption`, `valueOption`) VALUES
 (1, 'nom_site', 'MyGuestHouse'),
 (2, 'display_news', 'false'),
 (3, 'theme_site', NULL);
@@ -148,10 +148,10 @@ INSERT INTO `gh_options` (`idOption`, `nameOption`, `valueOption`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_prestations`
+-- Structure de la table `GH_Prestations`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_prestations` (
+CREATE TABLE IF NOT EXISTS `GH_Prestations` (
   `idPrestation` int(11) NOT NULL AUTO_INCREMENT,
   `nomPrestation` varchar(32) NOT NULL,
   `prix` float NOT NULL,
@@ -159,20 +159,20 @@ CREATE TABLE IF NOT EXISTS `gh_prestations` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Contenu de la table `gh_prestations`
+-- Contenu de la table `GH_Prestations`
 --
 
-INSERT INTO `gh_prestations` (`idPrestation`, `nomPrestation`, `prix`) VALUES
+INSERT INTO `GH_Prestations` (`idPrestation`, `nomPrestation`, `prix`) VALUES
 (1, 'repassage', 23),
 (2, 'piscine', 50);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_rangs`
+-- Structure de la table `GH_Rangs`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_rangs` (
+CREATE TABLE IF NOT EXISTS `GH_Rangs` (
   `idRang` int(11) NOT NULL,
   `labelRang` varchar(64) NOT NULL,
   `power` int(11) NOT NULL,
@@ -180,10 +180,10 @@ CREATE TABLE IF NOT EXISTS `gh_rangs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `gh_rangs`
+-- Contenu de la table `GH_Rangs`
 --
 
-INSERT INTO `gh_rangs` (`idRang`, `labelRang`, `power`) VALUES
+INSERT INTO `GH_Rangs` (`idRang`, `labelRang`, `power`) VALUES
 (1, 'Visiteur', 0),
 (2, 'Membre', 10),
 (3, 'Admin', 100);
@@ -191,10 +191,10 @@ INSERT INTO `gh_rangs` (`idRang`, `labelRang`, `power`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_reservations`
+-- Structure de la table `GH_Reservations`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_reservations` (
+CREATE TABLE IF NOT EXISTS `GH_Reservations` (
   `idReservation` int(11) NOT NULL AUTO_INCREMENT,
   `idChambre` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
@@ -211,10 +211,10 @@ CREATE TABLE IF NOT EXISTS `gh_reservations` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_reservationsprestation`
+-- Structure de la table `GH_ReservationsPrestation`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_reservationsprestation` (
+CREATE TABLE IF NOT EXISTS `GH_ReservationsPrestation` (
   `idReservation` int(11) NOT NULL,
   `idPrestation` int(11) NOT NULL,
   PRIMARY KEY (`idReservation`,`idPrestation`),
@@ -224,10 +224,10 @@ CREATE TABLE IF NOT EXISTS `gh_reservationsprestation` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_utilisateurs`
+-- Structure de la table `GH_Utilisateurs`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_utilisateurs` (
+CREATE TABLE IF NOT EXISTS `GH_Utilisateurs` (
   `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `prenomUtilisateur` varchar(32) NOT NULL,
   `nomUtilisateur` varchar(32) NOT NULL,
@@ -240,20 +240,20 @@ CREATE TABLE IF NOT EXISTS `gh_utilisateurs` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Contenu de la table `gh_utilisateurs`
+-- Contenu de la table `GH_Utilisateurs`
 --
 
-INSERT INTO `gh_utilisateurs` (`idUtilisateur`, `prenomUtilisateur`, `nomUtilisateur`, `emailUtilisateur`, `password`, `rang`, `nonce`) VALUES
+INSERT INTO `GH_Utilisateurs` (`idUtilisateur`, `prenomUtilisateur`, `nomUtilisateur`, `emailUtilisateur`, `password`, `rang`, `nonce`) VALUES
 (1, 'Quentin', 'DESBIN', 'cyboulette58@gmail.com', '$2y$10$.QQlz7WEj4gtwG67A9Kql.UdnVRcVRTocxFtWu67RrFn/A.yqEQxi', 3, ''),
 (2, 'clement', 'cisterne', 'lamouche444@hotmail.fr', '$2y$10$VJG81fns9YuJIYtPRLqUYuVq1tY/r9Esi6TZ2tjbpF01T5XpitEeO', 3, '');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `gh_visuelschambres`
+-- Structure de la table `GH_VisuelsChambres`
 --
 
-CREATE TABLE IF NOT EXISTS `gh_visuelschambres` (
+CREATE TABLE IF NOT EXISTS `GH_VisuelsChambres` (
   `idVisuel` int(11) NOT NULL AUTO_INCREMENT,
   `idChambre` int(11) NOT NULL,
   `urlVisuel` text NOT NULL,
@@ -262,56 +262,52 @@ CREATE TABLE IF NOT EXISTS `gh_visuelschambres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour la table `GH_Avis`
 --
+ALTER TABLE `GH_Avis`
+  ADD CONSTRAINT `cf_avisChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_avisUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `GH_Utilisateurs` (`idUtilisateur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `gh_avis`
+-- Contraintes pour la table `GH_ChambresDetails`
 --
-ALTER TABLE `gh_avis`
-  ADD CONSTRAINT `cf_avisChambre` FOREIGN KEY (`idChambre`) REFERENCES `gh_chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_avisUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `gh_utilisateurs` (`idUtilisateur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `GH_ChambresDetails`
+  ADD CONSTRAINT `cf_cdChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_cdDetail` FOREIGN KEY (`idDetail`) REFERENCES `GH_Details` (`idDetail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `gh_chambresdetails`
+-- Contraintes pour la table `GH_ChambresPresta`
 --
-ALTER TABLE `gh_chambresdetails`
-  ADD CONSTRAINT `cf_cdChambre` FOREIGN KEY (`idChambre`) REFERENCES `gh_chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_cdDetail` FOREIGN KEY (`idDetail`) REFERENCES `gh_details` (`idDetail`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_ChambresPresta`
+  ADD CONSTRAINT `cf_cpChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_cpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `GH_Prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `gh_chambrespresta`
+-- Contraintes pour la table `GH_Reservations`
 --
-ALTER TABLE `gh_chambrespresta`
-  ADD CONSTRAINT `cf_cpChambre` FOREIGN KEY (`idChambre`) REFERENCES `gh_chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_cpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `gh_prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_Reservations`
+  ADD CONSTRAINT `cf_resaChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_resaUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `GH_Utilisateurs` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `gh_reservations`
+-- Contraintes pour la table `GH_ReservationsPrestation`
 --
-ALTER TABLE `gh_reservations`
-  ADD CONSTRAINT `cf_resaChambre` FOREIGN KEY (`idChambre`) REFERENCES `gh_chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_resaUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `gh_utilisateurs` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_ReservationsPrestation`
+  ADD CONSTRAINT `cf_rpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `GH_Prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cf_rpReservation` FOREIGN KEY (`idReservation`) REFERENCES `GH_Reservations` (`idReservation`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `gh_reservationsprestation`
+-- Contraintes pour la table `GH_Utilisateurs`
 --
-ALTER TABLE `gh_reservationsprestation`
-  ADD CONSTRAINT `cf_rpPrestation` FOREIGN KEY (`idPrestation`) REFERENCES `gh_prestations` (`idPrestation`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cf_rpReservation` FOREIGN KEY (`idReservation`) REFERENCES `gh_reservations` (`idReservation`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_Utilisateurs`
+  ADD CONSTRAINT `cf_rangUtilisateur` FOREIGN KEY (`rang`) REFERENCES `GH_Rangs` (`idRang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `gh_utilisateurs`
+-- Contraintes pour la table `GH_VisuelsChambres`
 --
-ALTER TABLE `gh_utilisateurs`
-  ADD CONSTRAINT `cf_rangUtilisateur` FOREIGN KEY (`rang`) REFERENCES `gh_rangs` (`idRang`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `gh_visuelschambres`
---
-ALTER TABLE `gh_visuelschambres`
-  ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `gh_chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `GH_VisuelsChambres`
+  ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
