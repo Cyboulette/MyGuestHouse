@@ -161,10 +161,49 @@ class ControllerAdmin {
     }
 
     public static function addChambre(){
-        // TODO :
+        $powerNeeded = self::isAdmin();
+        //----------
+        $view = 'addChambre';
+        $pagetitle = 'Administration - Ajouter une chambre';
+        $template = 'admin';
+
+        require_once File::build_path(array("view","main_view.php"));
     }
+
     public static function addedChambre(){
         // TODO :
+        $powerNeeded = self::isAdmin();
+        //----------
+        if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
+
+            if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
+
+                if($_POST['prix']>=0 && $_POST['superficie']>=0){
+                    // TODO : --------
+                    $laChambre = array(
+                        'idChambre' => NULL,
+                        'nomChambre' => $_POST['nom'],
+                        'descriptionChambre' => $_POST['description'],
+                        'prixChambre' => $_POST['prix'],
+                        'superficieChambre' => $_POST['superficie'],
+                    );
+                    $save = ModelChambre::save($laChambre);
+                    if($save!=false){
+                        $message = '<div class="alert alert-success">Chambre ajoutée avec succès !</div>';
+                    }else{
+                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la creation de la chambre !</div>';
+                    
+                    }
+                }else{
+                    $message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
+                }
+            }else{
+                $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide avoir un prix ou une seperficie inferieur a zero !</div>';
+            }   
+        }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+        }
+        self::chambres($message);
     }
 
     public static function editChambre(){
@@ -188,15 +227,9 @@ class ControllerAdmin {
             self::chambres($message);
         }
     }  
-
     public static function editedChambre(){
-        // Attend un $_POST['nom']          avec netoyage   /!\
-        // Attend un $_POST['prix']         >=0             /!\
-        // Attend un $_POST['superficie']   >=0             /!\
-        // Attend un $_POST['description']  avec netoyage   /!\
-
         $powerNeeded = self::isAdmin();
-
+        //----------
         if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
 
             if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
@@ -211,7 +244,7 @@ class ControllerAdmin {
                         'superficieChambre' => $_POST['superficie'],
                     );
                     $update = ModelChambre::update_gen($laChambre, 'idChambre');
-                    if($update){
+                    if($update!=false){
                         $message = '<div class="alert alert-success">Chambre modifiées avec succès !</div>';
                     }else{
                         $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de la chambre !</div>';
