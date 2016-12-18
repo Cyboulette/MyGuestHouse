@@ -202,7 +202,20 @@ class ControllerAdmin {
             if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
 
                 if($_POST['prix']>=0 && $_POST['superficie']>=0){
-                    // TODO :
+                    // TODO : --------
+                    $laChambre = array(
+                        'idChambre' => $_POST['id'],
+                        'nomChambre' => $_POST['nom'],
+                        'descriptionChambre' => $_POST['description'],
+                        'prixChambre' => $_POST['prix'],
+                        'superficieChambre' => $_POST['superficie'],
+                    );
+                    $update = ModelChambre::update_gen($laChambre, 'idChambre');
+                    if($update){
+                        $message = '<div class="alert alert-success">Chambre modifiées avec succès !</div>';
+                    }else{
+                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de la chambre !</div>';
+                    }
                 }else{
                     $message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
                 }
@@ -210,7 +223,7 @@ class ControllerAdmin {
                 $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide avoir un prix ou une seperficie inferieur a zero !</div>';
             }   
         }else{
-            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder a la modification sans passer par la vue de modification !</div>';
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
         }
         self::chambres($message);
     }
