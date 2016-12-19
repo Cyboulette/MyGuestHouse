@@ -41,3 +41,5 @@ class ModelNews extends Model {
         }
     }
 }
+
+?>

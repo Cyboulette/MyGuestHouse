@@ -86,7 +86,11 @@
                 echo '<div class="container page">';
             }
 
-            $filepath = File::build_path(array("view" , static::$object, $view.".php"));
+            if(file_exists(File::build_path(array('view', 'themes', $template, static::$object, $view.'.php')))) {
+                $filepath = File::build_path(array('view', 'themes', $template, static::$object, $view.'.php'));
+            } else {
+                $filepath = File::build_path(array("view" , static::$object, $view.".php"));
+            }
             require $filepath;
 
             if($view != 'index') {

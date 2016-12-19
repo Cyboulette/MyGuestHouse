@@ -71,6 +71,9 @@
             <li <?php ControllerDefault::active('admin', 'reservations'); ?>>
               <a href="index.php?controller=admin&action=reservations"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservations</a>
             </li>
+            <li <?php ControllerDefault::active('admin', 'slides'); ?>>
+              <a href="index.php?controller=admin&action=slides"><i class="fa fa-hand-rock-o" aria-hidden="true"></i> Images défilantes</a>
+            </li>
             <li <?php ControllerDefault::active('admin', 'news'); ?>>
               <a href="index.php?controller=admin&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Actualités</a>
             </li>

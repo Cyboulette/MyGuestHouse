@@ -446,6 +446,16 @@ class ControllerAdmin {
     }
 
 
+    // SLIDER ------------------------------------------------
+    public static function slides($message = NULL) {
+        $powerNeeded = self::isAdmin();
+        $view = 'listSlides';
+        $pagetitle = 'Administration - Gestion des images défilantes';
+        $template = 'admin';
+        //$tab_news = ModelNews::selectAll();
+        require_once File::build_path(array("view", "main_view.php"));
+    }
+
     // NEWS --------------------------------------------------
     // Fonction qui permet de lister les news
     public static function news($message = NULL) {

@@ -230,3 +230,4 @@ class Model
     }
 }
 Model::Init();
+?>

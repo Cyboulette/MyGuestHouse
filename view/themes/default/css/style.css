@@ -156,12 +156,33 @@ body {
 	height: 100%;
 }
 
+.full-width {
+    width: 100%;
+}
+
+.slideAccueil .carousel-caption {
+    position: absolute;
+    top: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 100%;
+}
+
+.slideAccueil .carousel-caption p {
+	font-size: 14px;
+}
+
 @media screen and (min-width: 768px) {
-	.slideAccueil .carousel-caption {
-	    right: 20%;
-	    left: 20%;
-	    padding-bottom: 20%;
-	    font-size: 2em;
+	.slideAccueil .carousel-caption p {
+		font-size: 2em;
 	}
 }
 /* Gestion de l'icône de chargement */
