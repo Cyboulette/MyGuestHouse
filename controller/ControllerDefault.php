@@ -2,6 +2,7 @@
     require_once File::build_path(array('config', 'Conf.php'));
     require_once File::build_path(array('model', 'ModelOption.php'));
     require_once File::build_path(array('model', 'ModelNews.php'));
+    require_once File::build_path(array('model', 'ModelSlides.php'));
 
     /**
      * This generic class contains all functions that a controller can use
@@ -13,6 +14,19 @@
             $view = 'index';
             $pagetitle = 'MyGuestHouse';
             $powerNeeded = true;
+
+            $imagesSlides = ModelSlides::selectAll();
+            $dataSlides = array();
+            if(!empty($imagesSlides)) {
+                foreach ($imagesSlides as $slide) {
+                    $dataSlides[$slide->get('idSlide')] = array(
+                        'order' => $order,
+                        'url' => $slide->get('urlSlide'),
+                        'texte' => htmlspecialchars($slide->get('textSlide'))
+                    );
+                    $order++;
+                }
+            }
 
             $display_news = ModelOption::selectCustom('nameOption', 'display_news')[0]->get('valueOption');
             if(empty($display_news) && ($display_news != 'true' || $display_news != 'false')) {

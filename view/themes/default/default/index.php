@@ -1,46 +1,52 @@
+<?php
+if(!empty($dataSlides)) { 
+$classAditional = '';
+?>
 <div class="jumbotron text-center">
     <div id="carousel-accueil" class="carousel slideAccueil slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
-        <li data-target="#carousel-accueil" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-accueil" data-slide-to="1"></li>
+        <?php 
+            foreach($dataSlides as $slide) { 
+            $isActive = ($slide['order'] == 0 ? 'class="active"' : '');
+        ?>
+            <li data-target="#carousel-accueil" data-slide-to="<?=$slide['order']?>" <?=$isActive?>></li>
+        <?php } ?>
       </ol>
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="assets/images/slides/1.jpg" alt="">
-            <div class="carousel-caption">
-                <div class="full-width text-center">
-                    <p>Le meilleur endroit de la région Occitanie !<br/>
-                    Profitez de nos chambres rénovées et luxueuses !</p>
+        <?php
+            foreach($dataSlides as $slide) {
+            $isActive = ($slide['order'] == 0 ? 'active' : '');
+        ?>
+            <div class="item <?=$isActive?>">
+                <img src="<?=$slide['url']?>" alt="">
+                <div class="carousel-caption">
+                    <div class="full-width text-center">
+                        <p><?=nl2br($slide['texte'])?></p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="item">
-            <img src="assets/images/slides/2.jpg" alt="">
-            <div class="carousel-caption">
-                <div class="full-width text-center">
-                    <p>Des hôtes au grand ♥</p>
-                </div>
-            </div>
-        </div>
+          <?php } ?>
       </div>
 
       <!-- Controls -->
       <a class="left carousel-control" href="#carousel-accueil" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only">Image précédente</span>
       </a>
       <a class="right carousel-control" href="#carousel-accueil" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">Image Suivante</span>
       </a>
     </div>
 </div>
+<?php } else {
+    $classAditional = 'page';
+} ?>
 
-<div class="container">
+<div class="container <?=$classAditional?>">
     <div class="row rooms">
         <div class="col-lg-12 titleRoom">
             <h1 class="colorCustom">Nos chambres</h1>

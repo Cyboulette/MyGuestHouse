@@ -7,9 +7,7 @@
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune actualité pour le moment</div>';
 		echo '<a href="index.php?controller=admin&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a>';
 	} else {
-		if (ModelChambre::count()<5) {
-			echo '<a href="index.php?controller=admin&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a> <br/><br/>';
-		}
+		echo '<a href="index.php?controller=admin&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a> <br/><br/>';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';

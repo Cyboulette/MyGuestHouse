@@ -17,7 +17,28 @@ $('.btnDeleteNews').on('click', function(e) {
 			console.log(retour);
 		}
 	});
-})
+});
+
+$('.btnDeleteSlide').on('click', function(e) {
+	e.preventDefault();
+	$("#deleteSlide .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
+	$('#deleteSlide').modal('toggle');
+	var idSlide = $(this).attr('data-id');
+	var dataToPost = 'idSlide='+encodeURIComponent(idSlide);
+	$.ajax({
+		type: "POST",
+		url: 'index.php?controller=admin&action=deleteSlideForm',
+		data: dataToPost,
+		dataType: 'json',
+		success: function(retour) {
+			console.log(retour);
+			$("#deleteSlide .modal-body").html(retour.message);
+		},
+		error: function(retour) {
+			console.log(retour);
+		}
+	});
+});
 
 $('.btnDeleteReservation').on('click', function(e) {
 	e.preventDefault();
@@ -38,10 +59,29 @@ $('.btnDeleteReservation').on('click', function(e) {
 			console.log(retour);
 		}
 	});
-})
+});
 
 $('#cpMainColor').colorpicker({
 	format: "hex"
+});
+
+$("#slideToUpload").fileinput({
+	'showUpload': false,
+	'allowedFileExtensions': ['png', 'jpg', 'jpeg', 'gif'],
+	'allowedFileTypes': ['image'],
+	'showPreview': true,
+	'language': 'fr',
+    layoutTemplates: {
+    main1: "{preview}\n" +
+    "<div class=\'input-group {class}\'>\n" +
+    "   <div class=\'input-group-btn\'>\n" +
+    "       {browse}\n" +
+    "       {upload}\n" +
+    "       {remove}\n" +
+    "   </div>\n" +
+    "   {caption}\n" +
+    "</div>"
+	}
 });
 
 function insertTag(startTag, endTag, textareaId, tagType) {

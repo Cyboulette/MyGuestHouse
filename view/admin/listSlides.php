@@ -5,46 +5,37 @@
 <div class="alert alert-info">Les images défilantes sont présentes sur le "carousel" en page d'accueil de votre site</div>
 
 <?php 
-	if(empty($tab_images)) {
+	if(empty($tab_slides)) {
 		echo '<div class="alert alert-danger">Il n\'y a pour le moment aucune image</div>';
 		echo '<a href="index.php?controller=admin&action=manageSlides&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une image</a>';
 	} else {
-		if (ModelChambre::count()<5) {
-			echo '<a href="index.php?controller=admin&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a> <br/><br/>';
-		}
+		echo '<a href="index.php?controller=admin&action=manageSlides&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une image</a> <br/><br/>';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
 				echo '<th>ID</th>';
-				echo '<th>Titre de l\'actualité</th>';
-				echo '<th>Date</th>';
-				echo '<th>Etat</th>';
+				echo '<th>Lien vers l\'image</th>';
 				echo '<th>Actions</th>';
 				echo '</tr>';
 			echo '</thead>';
-		foreach ($tab_news as $news) {
-			$id = $news->get('idNews');
-			$titre = $news->get('titreNews');
-			$date = $news->get('dateNews');
-			$publie = $news->get('publie');
-			$displayEtat = ($publie != 1 ? '<span class="label label-warning">Non publiée</span>':'<span class="label label-success">Publiée</span>');
+		foreach ($tab_slides as $slide) {
+			$id = $slide->get('idSlide');
+			$url = $slide->get('urlSlide');
 
 			echo '<tr>';
 				echo '<td>'.$id.'</td>';
-				echo '<td>'.$titre.'</td>';
-				echo '<td>'.$date.'</td>';
-				echo '<td>'.$displayEtat.'</td>';
+				echo '<td><a href="'.$url.'" target="_blank">'.$url.'</a></td>';
 				echo '<td>
-					<a href="index.php?controller=admin&action=manageNews&type=edit&idNews='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-					<button type="button" class="btn btn-xs btn-danger btnDeleteNews" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
-					<a target="_blank" href="index.php?controller=news&action=read&idNews='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
+					<a href="index.php?controller=admin&action=manageSlides&type=edit&idSlide='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+					<button type="button" class="btn btn-xs btn-danger btnDeleteSlide" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<a target="_blank" href="index.php" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
 					</td>';
 			echo '</tr>';
 		}
 
 		echo '</table></div>';
 		?>
-		<div id="deleteNews" class="modal fade" role="dialog">
+		<div id="deleteSlide" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">

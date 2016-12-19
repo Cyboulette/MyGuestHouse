@@ -15,6 +15,8 @@
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <!-- Bootstrap ColorPicker -->
     <link href="assets/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <!-- Bootstrap FilePicker -->
+    <link href="assets/css/fileinput.min.css" rel="stylesheet">
 
     <!-- THEME CUSTOM -->
     <link href="view/themes/admin/css/style.css" rel="stylesheet">
@@ -102,6 +104,8 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/bootstrap-colorpicker.min.js"></script>
+    <script src="assets/js/fileinput.min.js"></script>
+    <script src="assets/js/locales/fr.js"></script>
     <script src="view/themes/admin/js/script.js"></script>
   </body>
 </html>
