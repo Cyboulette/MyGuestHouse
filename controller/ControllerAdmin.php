@@ -5,6 +5,7 @@ require_once File::build_path(array('model', 'ModelOption.php'));
 require_once File::build_path(array('model', 'ModelReservation.php'));
 require_once File::build_path(array('model', 'ModelPrestation.php'));
 require_once File::build_path(array('model', 'ModelNews.php'));
+
 class ControllerAdmin {
     protected static $object = 'admin';
     public static function isAdmin() {
@@ -21,6 +22,7 @@ class ControllerAdmin {
             exit();
         }
     }
+
     // Charge l'index de l'administration
     public static function index() {
         $powerNeeded = self::isAdmin();
@@ -103,14 +105,20 @@ class ControllerAdmin {
     }
     public static function updateOptions() {
         $powerNeeded = self::isAdmin();
-        if(isset($_POST['name_site'],$_POST['display_news'],$_POST['theme'])) {
+        if(isset($_POST['name_site'],$_POST['display_news'],$_POST['theme'],$_POST['mainColor'])) {
             $name_site = strip_tags($_POST['name_site']);
             $display_news = strip_tags($_POST['display_news']);
             $theme = strip_tags($_POST['theme']);
+            $mainColor = strip_tags($_POST['mainColor']);
+            if(!preg_match('/^#[a-f0-9]{6}$/i', $mainColor)) // Vérifie que la couleur est la bonne.
+            {
+                $mainColor = "#ad1717";
+            }
             $vars = array(
                 'nom_site' => $name_site,
                 'display_news' => $display_news,
-                'theme' => $theme
+                'theme_site' => $theme,
+                'main_color_site' => $mainColor
             );
             foreach ($vars as $var => $value) {
                 $data = array(
@@ -542,7 +550,7 @@ class ControllerAdmin {
         self::isAdmin();
         if(isset($_POST['titreNews'],$_POST['contenuNews'],$_POST['dateNews'],$_POST['etatNews'])) {
             $titreNews = htmlspecialchars($_POST['titreNews']);
-            $contenuNews = nl2br(htmlspecialchars($_POST['contenuNews']));
+            $contenuNews = htmlspecialchars($_POST['contenuNews']);
             $dateNews = htmlspecialchars($_POST['dateNews']);
             $etatNews = htmlspecialchars($_POST['etatNews']);
             if(!empty($titreNews) && !ctype_space($titreNews)) {
@@ -587,7 +595,7 @@ class ControllerAdmin {
         if(isset($_POST['idNews'], $_POST['titreNews'],$_POST['contenuNews'],$_POST['dateNews'],$_POST['etatNews'])) {
             $idNews = htmlspecialchars($_POST['idNews']);
             $titreNews = htmlspecialchars($_POST['titreNews']);
-            $contenuNews = nl2br(htmlspecialchars($_POST['contenuNews']));
+            $contenuNews = htmlspecialchars($_POST['contenuNews']);
             $dateNews = htmlspecialchars($_POST['dateNews']);
             $etatNews = htmlspecialchars($_POST['etatNews']);
             $checkNews = ModelNews::select($idNews);

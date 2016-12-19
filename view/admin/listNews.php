@@ -25,7 +25,7 @@
 			$titre = $news->get('titreNews');
 			$date = $news->get('dateNews');
 			$publie = $news->get('publie');
-			$displayEtat = ($publie != 1 ? '<span class="label label-warning">Non publié</span>':'<span class="label label-success">Publié</span>');
+			$displayEtat = ($publie != 1 ? '<span class="label label-warning">Non publiée</span>':'<span class="label label-success">Publiée</span>');
 
 			echo '<tr>';
 				echo '<td>'.$id.'</td>';
@@ -34,7 +34,8 @@
 				echo '<td>'.$displayEtat.'</td>';
 				echo '<td>
 					<a href="index.php?controller=admin&action=manageNews&type=edit&idNews='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-					<button type="button" class="btn btn-xs btn-danger btnDeleteNews" data-id="'.$id.'">Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger btnDeleteNews" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<a target="_blank" href="index.php?controller=news&action=read&idNews='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
 					</td>';
 			echo '</tr>';
 		}

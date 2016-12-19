@@ -13,6 +13,8 @@
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap ColorPicker -->
+    <link href="assets/css/bootstrap-colorpicker.min.css" rel="stylesheet">
 
     <!-- THEME CUSTOM -->
     <link href="view/themes/admin/css/style.css" rel="stylesheet">
@@ -94,10 +96,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-colorpicker.min.js"></script>
     <script src="view/themes/admin/js/script.js"></script>
   </body>
 </html>

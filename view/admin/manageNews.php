@@ -28,7 +28,25 @@
 	</div>
 
 	<div class="form-group">
-		<label for="contenuNews">Contenu de l'actualité</label>
+		<label for="contenuNews">Contenu de l'actualité</label><br/>
+		<div class="btn-group" role="group" aria-label="BBCODE">
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Taille de police
+				<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+				<li><a href="" onclick="insertTag('[grand]', '[/grand]', 'contenuNews'); return false;"">Grand</a></li>
+				<li><a href="" onclick="insertTag('[moyen]', '[/moyen]', 'contenuNews'); return false;"">Moyen</a></li>
+				<li><a href="" onclick="insertTag('[petit]', '[/petit]', 'contenuNews');return false;"">Petit</a></li>
+				</ul>
+			</div>
+			<button type="button" class="btn btn-default" onclick="insertTag('[b]', '[/b]', 'contenuNews')">Gras</button>
+			<button type="button" class="btn btn-default" onclick="insertTag('[i]', '[/i]', 'contenuNews')">Italique</button>
+			<button type="button" class="btn btn-default" onclick="insertTag('[u]', '[/u]', 'contenuNews')">Souligné</button>
+			<button type="button" class="btn btn-default" onclick="insertTag('', '', 'contenuNews', 'lien')">Lien</button>
+			<button type="button" class="btn btn-default" onclick="insertTag('', '', 'contenuNews', 'liste')">Liste</button>
+		</div><br/><br/>
 		<textarea class="form-control" id="contenuNews" rows="10" name="contenuNews" placeholder="Indiquez le contenu de l'actualité"><?=$contenuNews?></textarea>
 	</div>
 

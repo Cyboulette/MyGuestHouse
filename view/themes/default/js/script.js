@@ -1,0 +1,1 @@
+$('*').html().replace("Administration","colour");

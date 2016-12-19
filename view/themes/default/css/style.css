@@ -180,6 +180,11 @@ body {
 
 /* Contenu principal */
 
+.noMargin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 .page {
 	padding-top: 20px;
 }

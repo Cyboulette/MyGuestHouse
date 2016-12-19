@@ -10,6 +10,29 @@
         <link href="assets/css/style_tablesorter.css" rel="stylesheet">
         <!-- THEME CUSTOM -->
         <link href="view/themes/default/css/style.css" rel="stylesheet">
+        <style>
+            /** CSS GENERE AUTOMATIQUEMENT PAR LE CMS POUR LES COULEURS PERSOS**/
+            .bgCustom {
+                background-color: <?=$customColor?>!important;
+                border-color: <?=$customBorder?>!important;
+            }
+
+            .bgCustom:hover {
+                background-color: <?=$customBorder?>!important;
+            }
+
+            .colorCustom {
+                color: <?=$customColor?>!important;
+            }
+
+            .menuHaut .navbar-nav > .active > a, .menuHaut .navbar-nav>li>a:focus, .menuHaut .navbar-nav>li>a:hover {
+                color: <?=$customColor?>!important;
+            }
+
+            .service:hover {
+                background-color: <?=$customColor?>!important;
+            }
+        </style>
     </head>
 
     <body>
@@ -22,12 +45,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand visible-xs" href="index.php"><?=$websiteName?></a>
+              <a class="navbar-brand visible-xs colorCustom" href="index.php"><?=$websiteName?></a>
             </div>
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="logoBrand"><a href="index.php"><?=$websiteName?></a></li>
+                    <li class="logoBrand "><a href="index.php" class="colorCustom"><?=$websiteName?></a></li>
                     <li <?php ControllerDefault::active('index', ''); ?>><a href="index.php">Accueil</a></li>
                     <li <?php ControllerDefault::active('chambre', 'readAll'); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
                     <li <?php ControllerDefault::active('default', 'aboutus'); ?>><a href="index.php?controller=default&action=aboutus">À propos de nous</a></li>
@@ -45,7 +68,7 @@
                         <li <?php ControllerDefault::active('utilisateur', 'profil'); ?> ><a href="index.php?controller=utilisateur&action=profil">Profil</a></li>
                         <li <?php ControllerDefault::active('utilisateur', 'disconnect'); ?> ><a href="index.php?controller=utilisateur&action=disconnect">Déconnexion</a></li>
                         <?php if($currentUser->getPower() == Conf::$power['admin']) { ?>
-                            <div class="goAdmin"><a href="index.php?controller=admin&action=index" class="btn btn-red"><i class="fa fa-lock" aria-hidden="true"></i> Administration</a></div>
+                            <div class="goAdmin"><a href="index.php?controller=admin&action=index" class="btn btn-red bgCustom"><i class="fa fa-lock" aria-hidden="true"></i> Administration</a></div>
                         <?php } ?>
                     <?php
                         }
@@ -79,6 +102,7 @@
         <script src="assets/js/jquery.tablesorter.min.js"></script>
         <script src="assets/js/jquery.metadata.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
+        <script src="view/themes/default/js/script.js"></script>
 
         <!-- SCRIPTS CUSTOM -->
 

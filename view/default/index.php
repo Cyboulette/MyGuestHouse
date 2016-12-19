@@ -38,7 +38,7 @@
 <div class="container">
     <div class="row rooms">
         <div class="col-lg-12 titleRoom">
-            <h1>Nos chambres</h1>
+            <h1 class="colorCustom">Nos chambres</h1>
             <em>Découvrez quelques-unes de nos chambres et leurs tarifs !</em>
         </div>
 
@@ -46,44 +46,44 @@
             <div class="col-md-3 room">
                 <div class="room-img"><img src="assets/images/chambre/photo1.png" class="img-responsive" alt=""></div>
                 <div class="room-text">
-                    <h2>Deluxe Room</h2>
+                    <h2 class="colorCustom">Deluxe Room</h2>
                     <p>Lorem ipsum dolor sit amet, consect etur adipisicing elit, sed do eiusmod ipsum dolor sit amet</p>
                     <div class="room-buttons">
-                        <a href="single-room.html" class="btn btn-lg btn-red">Détails</a>
-                        <p>50 € <span>Par nuit</span></p>
+                        <a href="single-room.html" class="btn btn-lg btn-red bgCustom">Détails</a>
+                        <p class="colorCustom">50 € <span>Par nuit</span></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 room">
                 <div class="room-img"><img src="assets/images/chambre/photo2.png" class="img-responsive" alt=""></div>
                 <div class="room-text">
-                    <h2>Deluxe Room</h2>
+                    <h2 class="colorCustom">Deluxe Room</h2>
                     <p>Lorem ipsum dolor sit amet, consect etur adipisicing elit, sed do eiusmod ipsum dolor sit amet</p>
                     <div class="room-buttons">
-                        <a href="single-room.html" class="btn btn-lg btn-red">Détails</a>
-                        <p>50 € <span>Par nuit</span></p>
+                        <a href="single-room.html" class="btn btn-lg btn-red bgCustom">Détails</a>
+                        <p class="colorCustom">50 € <span>Par nuit</span></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 room">
                 <div class="room-img"><img src="assets/images/chambre/photo3.png" class="img-responsive" alt=""></div>
                 <div class="room-text">
-                    <h2>Deluxe Room</h2>
+                    <h2 class="colorCustom">Deluxe Room</h2>
                     <p>Lorem ipsum dolor sit amet, consect etur adipisicing elit, sed do eiusmod ipsum dolor sit amet</p>
                     <div class="room-buttons">
-                        <a href="single-room.html" class="btn btn-lg btn-red">Détails</a>
-                        <p>50 € <span>Par nuit</span></p>
+                        <a href="single-room.html" class="btn btn-lg btn-red bgCustom">Détails</a>
+                        <p class="colorCustom">50 € <span>Par nuit</span></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 room">
                 <div class="room-img"><img src="assets/images/chambre/photo1.png" class="img-responsive" alt=""></div>
                 <div class="room-text">
-                    <h2>Deluxe Room</h2>
+                    <h2 class="colorCustom">Deluxe Room</h2>
                     <p>Lorem ipsum dolor sit amet, consect etur adipisicing elit, sed do eiusmod ipsum dolor sit amet</p>
                     <div class="room-buttons">
-                        <a href="single-room.html" class="btn btn-lg btn-red">Détails</a>
-                        <p>50 € <span>Par nuit</span></p>
+                        <a href="single-room.html" class="btn btn-lg btn-red bgCustom">Détails</a>
+                        <p class="colorCustom">50 € <span>Par nuit</span></p>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
 
     <div class="row rooms">
         <div class="col-lg-12 titleRoom">
-            <h1>Nos Prestations</h1>
+            <h1 class="colorCustom">Nos Prestations</h1>
             <em>Vous ne louez pas seulement une chambre ! Mais aussi des prestations</em>
         </div>
 
@@ -103,7 +103,7 @@
                     Ces prestations peuvent-être directement comprises dans la formule d'hébergement, afin de correspondre au mieux à <b>vos besoins</b><br/><br/>
                     Retrouvez donc un service amélioré dans nos chambres d'hôtes !
                 </p>
-                <btn class="btn btn-red">En savoir +</btn>
+                <btn class="btn btn-red bgCustom">En savoir +</btn>
             </div>
             <div class="col-lg-6 text-center">
                 <div class="col-md-5">
@@ -127,7 +127,7 @@
     ?>
     <div class="row rooms">
         <div class="col-lg-12 titleRoom">
-            <h1>Notre actualité</h1>
+            <h1 class="colorCustom">Notre actualité</h1>
             <em>Découvrez les dernières nouveautés de notre chambre d'hôtes !</em>
         </div>
 
@@ -141,13 +141,13 @@
             ?>
                 <div class="col-lg-6 news">
                     <div class="col-md-2 text-center">
-                        <div class="calendar">
+                        <div class="calendar bgCustom">
                             <?=$dateDisplay?>
                         </div>
                     </div>
                     <div class="col-md-10">
                         <b><?=$news->get('titreNews')?></b><br/>
-                        <btn class="btn btn-red btn-xs">Lire la news</btn>
+                        <a href="index.php?controller=news&action=read&idNews=1" class="btn btn-red btn-xs bgCustom">Lire la news</a>
                     </div>
                     <hr/>
                 </div>
