@@ -446,6 +446,37 @@ ALTER TABLE `GH_Utilisateurs`
 ALTER TABLE `GH_VisuelsChambres`
   ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Structure de la table `GH_Slides`
+--
+
+DROP TABLE IF EXISTS `GH_Slides`;
+CREATE TABLE `GH_Slides` (
+  `idSlide` int(11) NOT NULL,
+  `urlSlide` varchar(255) NOT NULL,
+  `textSlide` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `GH_Slides`
+--
+ALTER TABLE `GH_Slides`
+  ADD PRIMARY KEY (`idSlide`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `GH_Slides`
+--
+ALTER TABLE `GH_Slides`
+  MODIFY `idSlide` int(11) NOT NULL AUTO_INCREMENT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
