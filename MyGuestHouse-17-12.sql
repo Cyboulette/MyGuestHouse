@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Mar 06 Décembre 2016 à 19:37
--- Version du serveur :  5.7.16-0ubuntu0.16.04.1
--- Version de PHP :  7.0.8-0ubuntu0.16.04.3
+-- Client :  127.0.0.1
+-- Généré le :  Sam 17 Décembre 2016 à 17:37
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données :  `MyGuestHouse`
@@ -26,11 +26,13 @@ SET time_zone = "+00:00";
 -- Structure de la table `GH_Avis`
 --
 
-CREATE TABLE `GH_Avis` (
+CREATE TABLE IF NOT EXISTS `GH_Avis` (
   `idChambre` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `note` int(11) NOT NULL,
-  `commentaire` text NOT NULL
+  `commentaire` text NOT NULL,
+  PRIMARY KEY (`idChambre`,`idUtilisateur`),
+  KEY `cf_avisUtilisateur` (`idUtilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -39,13 +41,24 @@ CREATE TABLE `GH_Avis` (
 -- Structure de la table `GH_Chambres`
 --
 
-CREATE TABLE `GH_Chambres` (
-  `idChambre` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `GH_Chambres` (
+  `idChambre` int(11) NOT NULL AUTO_INCREMENT,
   `nomChambre` varchar(32) NOT NULL,
   `descriptionChambre` text NOT NULL,
   `prixChambre` float NOT NULL,
-  `superficieChambre` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `superficieChambre` float NOT NULL,
+  PRIMARY KEY (`idChambre`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `GH_Chambres`
+--
+
+INSERT INTO `GH_Chambres` (`idChambre`, `nomChambre`, `descriptionChambre`, `prixChambre`, `superficieChambre`) VALUES
+(1, 'chambre 1', 'blablablba', 100, 22),
+(2, 'chambre 2', 'blablablba', 100, 22),
+(3, 'chambre 3', 'blablablba', 100, 22),
+(4, 'chambre 4', 'blablablba', 100, 22);
 
 -- --------------------------------------------------------
 
@@ -53,10 +66,12 @@ CREATE TABLE `GH_Chambres` (
 -- Structure de la table `GH_ChambresDetails`
 --
 
-CREATE TABLE `GH_ChambresDetails` (
+CREATE TABLE IF NOT EXISTS `GH_ChambresDetails` (
   `idChambre` int(11) NOT NULL,
   `idDetail` int(11) NOT NULL,
-  `valeurDetail` varchar(32) NOT NULL
+  `valeurDetail` varchar(32) NOT NULL,
+  PRIMARY KEY (`idChambre`,`idDetail`),
+  KEY `cf_cdDetail` (`idDetail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -65,10 +80,26 @@ CREATE TABLE `GH_ChambresDetails` (
 -- Structure de la table `GH_ChambresPresta`
 --
 
-CREATE TABLE `GH_ChambresPresta` (
+CREATE TABLE IF NOT EXISTS `GH_ChambresPresta` (
   `idChambre` int(11) NOT NULL,
-  `idPrestation` int(11) NOT NULL
+  `idPrestation` int(11) NOT NULL,
+  PRIMARY KEY (`idChambre`,`idPrestation`),
+  KEY `cf_cpPrestation` (`idPrestation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `GH_ChambresPresta`
+--
+
+INSERT INTO `GH_ChambresPresta` (`idChambre`, `idPrestation`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(1, 2),
+(2, 2),
+(3, 2),
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -76,7 +107,7 @@ CREATE TABLE `GH_ChambresPresta` (
 -- Structure de la table `GH_DatesBloquees`
 --
 
-CREATE TABLE `GH_DatesBloquees` (
+CREATE TABLE IF NOT EXISTS `GH_DatesBloquees` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -86,10 +117,11 @@ CREATE TABLE `GH_DatesBloquees` (
 -- Structure de la table `GH_Details`
 --
 
-CREATE TABLE `GH_Details` (
-  `idDetail` int(11) NOT NULL,
-  `nomDetail` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `GH_Details` (
+  `idDetail` int(11) NOT NULL AUTO_INCREMENT,
+  `nomDetail` varchar(64) NOT NULL,
+  PRIMARY KEY (`idDetail`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -97,11 +129,12 @@ CREATE TABLE `GH_Details` (
 -- Structure de la table `GH_Options`
 --
 
-CREATE TABLE `GH_Options` (
-  `idOption` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `GH_Options` (
+  `idOption` int(11) NOT NULL AUTO_INCREMENT,
   `nameOption` varchar(255) NOT NULL,
-  `valueOption` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `valueOption` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idOption`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `GH_Options`
@@ -118,11 +151,20 @@ INSERT INTO `GH_Options` (`idOption`, `nameOption`, `valueOption`) VALUES
 -- Structure de la table `GH_Prestations`
 --
 
-CREATE TABLE `GH_Prestations` (
-  `idPrestation` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `GH_Prestations` (
+  `idPrestation` int(11) NOT NULL AUTO_INCREMENT,
   `nomPrestation` varchar(32) NOT NULL,
-  `prix` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `prix` float NOT NULL,
+  PRIMARY KEY (`idPrestation`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `GH_Prestations`
+--
+
+INSERT INTO `GH_Prestations` (`idPrestation`, `nomPrestation`, `prix`) VALUES
+(1, 'repassage', 23),
+(2, 'piscine', 50);
 
 -- --------------------------------------------------------
 
@@ -130,10 +172,11 @@ CREATE TABLE `GH_Prestations` (
 -- Structure de la table `GH_Rangs`
 --
 
-CREATE TABLE `GH_Rangs` (
+CREATE TABLE IF NOT EXISTS `GH_Rangs` (
   `idRang` int(11) NOT NULL,
   `labelRang` varchar(64) NOT NULL,
-  `power` int(11) NOT NULL
+  `power` int(11) NOT NULL,
+  PRIMARY KEY (`idRang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -151,13 +194,19 @@ INSERT INTO `GH_Rangs` (`idRang`, `labelRang`, `power`) VALUES
 -- Structure de la table `GH_Reservations`
 --
 
-CREATE TABLE `GH_Reservations` (
-  `idReservation` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `GH_Reservations` (
+  `idReservation` int(11) NOT NULL AUTO_INCREMENT,
   `idChambre` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `dateDebut` date NOT NULL,
-  `dateFin` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `dateFin` date NOT NULL,
+  `annulee` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`idReservation`),
+  KEY `idChambre` (`idChambre`,`idUtilisateur`),
+  KEY `cf_resaUtilisateur` (`idUtilisateur`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+
 
 -- --------------------------------------------------------
 
@@ -165,9 +214,11 @@ CREATE TABLE `GH_Reservations` (
 -- Structure de la table `GH_ReservationsPrestation`
 --
 
-CREATE TABLE `GH_ReservationsPrestation` (
+CREATE TABLE IF NOT EXISTS `GH_ReservationsPrestation` (
   `idReservation` int(11) NOT NULL,
-  `idPrestation` int(11) NOT NULL
+  `idPrestation` int(11) NOT NULL,
+  PRIMARY KEY (`idReservation`,`idPrestation`),
+  KEY `cf_rpPrestation` (`idPrestation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -176,22 +227,25 @@ CREATE TABLE `GH_ReservationsPrestation` (
 -- Structure de la table `GH_Utilisateurs`
 --
 
-CREATE TABLE `GH_Utilisateurs` (
-  `idUtilisateur` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `GH_Utilisateurs` (
+  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `prenomUtilisateur` varchar(32) NOT NULL,
   `nomUtilisateur` varchar(32) NOT NULL,
   `emailUtilisateur` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
   `rang` int(11) NOT NULL,
-  `nonce` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nonce` varchar(100) NOT NULL,
+  PRIMARY KEY (`idUtilisateur`),
+  KEY `rang` (`rang`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `GH_Utilisateurs`
 --
 
 INSERT INTO `GH_Utilisateurs` (`idUtilisateur`, `prenomUtilisateur`, `nomUtilisateur`, `emailUtilisateur`, `password`, `rang`, `nonce`) VALUES
-(1, 'Quentin', 'DESBIN', 'cyboulette58@gmail.com', '$2y$10$.QQlz7WEj4gtwG67A9Kql.UdnVRcVRTocxFtWu67RrFn/A.yqEQxi', 3, '');
+(1, 'Quentin', 'DESBIN', 'cyboulette58@gmail.com', '$2y$10$.QQlz7WEj4gtwG67A9Kql.UdnVRcVRTocxFtWu67RrFn/A.yqEQxi', 3, ''),
+(2, 'clement', 'cisterne', 'lamouche444@hotmail.fr', '$2y$10$VJG81fns9YuJIYtPRLqUYuVq1tY/r9Esi6TZ2tjbpF01T5XpitEeO', 3, '');
 
 -- --------------------------------------------------------
 
@@ -199,138 +253,13 @@ INSERT INTO `GH_Utilisateurs` (`idUtilisateur`, `prenomUtilisateur`, `nomUtilisa
 -- Structure de la table `GH_VisuelsChambres`
 --
 
-CREATE TABLE `GH_VisuelsChambres` (
-  `idVisuel` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `GH_VisuelsChambres` (
+  `idVisuel` int(11) NOT NULL AUTO_INCREMENT,
   `idChambre` int(11) NOT NULL,
-  `urlVisuel` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `GH_Avis`
---
-ALTER TABLE `GH_Avis`
-  ADD PRIMARY KEY (`idChambre`,`idUtilisateur`),
-  ADD KEY `cf_avisUtilisateur` (`idUtilisateur`);
-
---
--- Index pour la table `GH_Chambres`
---
-ALTER TABLE `GH_Chambres`
-  ADD PRIMARY KEY (`idChambre`);
-
---
--- Index pour la table `GH_ChambresDetails`
---
-ALTER TABLE `GH_ChambresDetails`
-  ADD PRIMARY KEY (`idChambre`,`idDetail`),
-  ADD KEY `cf_cdDetail` (`idDetail`);
-
---
--- Index pour la table `GH_ChambresPresta`
---
-ALTER TABLE `GH_ChambresPresta`
-  ADD PRIMARY KEY (`idChambre`,`idPrestation`),
-  ADD KEY `cf_cpPrestation` (`idPrestation`);
-
---
--- Index pour la table `GH_Details`
---
-ALTER TABLE `GH_Details`
-  ADD PRIMARY KEY (`idDetail`);
-
---
--- Index pour la table `GH_Options`
---
-ALTER TABLE `GH_Options`
-  ADD PRIMARY KEY (`idOption`);
-
---
--- Index pour la table `GH_Prestations`
---
-ALTER TABLE `GH_Prestations`
-  ADD PRIMARY KEY (`idPrestation`);
-
---
--- Index pour la table `GH_Rangs`
---
-ALTER TABLE `GH_Rangs`
-  ADD PRIMARY KEY (`idRang`);
-
---
--- Index pour la table `GH_Reservations`
---
-ALTER TABLE `GH_Reservations`
-  ADD PRIMARY KEY (`idReservation`),
-  ADD KEY `idChambre` (`idChambre`,`idUtilisateur`),
-  ADD KEY `cf_resaUtilisateur` (`idUtilisateur`);
-
---
--- Index pour la table `GH_ReservationsPrestation`
---
-ALTER TABLE `GH_ReservationsPrestation`
-  ADD PRIMARY KEY (`idReservation`,`idPrestation`),
-  ADD KEY `cf_rpPrestation` (`idPrestation`);
-
---
--- Index pour la table `GH_Utilisateurs`
---
-ALTER TABLE `GH_Utilisateurs`
-  ADD PRIMARY KEY (`idUtilisateur`),
-  ADD KEY `rang` (`rang`);
-
---
--- Index pour la table `GH_VisuelsChambres`
---
-ALTER TABLE `GH_VisuelsChambres`
-  ADD PRIMARY KEY (`idVisuel`),
-  ADD KEY `idChambre` (`idChambre`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `GH_Chambres`
---
-ALTER TABLE `GH_Chambres`
-  MODIFY `idChambre` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `GH_Details`
---
-ALTER TABLE `GH_Details`
-  MODIFY `idDetail` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `GH_Options`
---
-ALTER TABLE `GH_Options`
-  MODIFY `idOption` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `GH_Prestations`
---
-ALTER TABLE `GH_Prestations`
-  MODIFY `idPrestation` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `GH_Reservations`
---
-ALTER TABLE `GH_Reservations`
-  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `GH_Utilisateurs`
---
-ALTER TABLE `GH_Utilisateurs`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `GH_VisuelsChambres`
---
-ALTER TABLE `GH_VisuelsChambres`
-  MODIFY `idVisuel` int(11) NOT NULL AUTO_INCREMENT;
---
--- Contraintes pour les tables exportées
---
+  `urlVisuel` text NOT NULL,
+  PRIMARY KEY (`idVisuel`),
+  KEY `idChambre` (`idChambre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contraintes pour la table `GH_Avis`
@@ -381,4 +310,4 @@ ALTER TABLE `GH_VisuelsChambres`
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
