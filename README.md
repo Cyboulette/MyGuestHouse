@@ -6,7 +6,19 @@ You can add, read and comment some future functionality in `FUTURE.md`.
 <br>
 To install it, please read the file `INSTALL.txt`.
 
+# Demo
+
+A demo is available here : https://myguesthouse.cyboulette.fr/
+<br>
+**No credencials demo for now**
+
 # Commits
+
+<br>
+- 19/12
+   *       Implementation of ControllerNews for read news, we can now read news on the website by clicking on the button `Lire la news`
+   *       BBCODE for news, you can now edit news and use BBCODE for beautiful style
+   *       New option : `main_color_site` which allow to modify the main color of templates, you can manage this option directly into the Administration and you can use a "ColorPicker" (Thank's to [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/))
 
 <br>
 - 16/12 
