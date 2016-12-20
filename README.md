@@ -10,7 +10,7 @@ To install it, please read the file [`INSTALL.md`](https://github.com/Cyboulette
 
 A demo is available here : https://myguesthouse.cyboulette.fr/
 <br>
-**Credencials for demo are : demo/demo**
+**Credencials for demo are : demo@yopmail.fr/demo**
 
 # Commits
 
