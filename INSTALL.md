@@ -15,6 +15,6 @@ Suivez les instructions d'installation :
     5. Editez le fichier config/Conf.php et indiquez les valeurs de votre connexion BDD
     6. Appréciez votre nouveau site :)
 
-Vous pouvez toujours retrouver une démo [ici](https://myguesthouse.cyboulette.fr/) **(Credencials : demo/demo)**
+Vous pouvez toujours retrouver une démo [ici](https://myguesthouse.cyboulette.fr/) **(Credencials : demo@yopmail.fr/demo)**
 <br/>
 Merci de nous contacter en cas de problème : https://github.com/Cyboulette/MyGuestHouse/issues
