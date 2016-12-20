@@ -17,6 +17,9 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 <br>
 - 20/12
+   *       Manage of Themes directly in the Administration : we can now change the theme of the website through the admin. (Note : The admin theme can't be changed !!)
+   *       Update CSS of the admin and the index page
+   *       Release the first demo version [here](https://github.com/Cyboulette/MyGuestHouse/releases), and updated the `.sql` files
    *       Update autoload function of the routeur for now require_once automatically Controller(s) and Model(s). When we use Controller:: or Model:: we don't need to have included the file before, the auto_loader do it for us.
    
 <br>
