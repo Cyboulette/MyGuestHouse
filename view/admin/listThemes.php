@@ -1,5 +1,6 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 <h1 class="page-header">Liste des thèmes de votre site</h1>
+<?php if(isset($message)) echo $message; ?>
 
 <?php 
 	$nbTemplates = count($folders);
@@ -8,6 +9,7 @@
 			if($folder != '.' && $folder != '..') {
 				$filePath = File::build_path(array("view", "themes", $folder, "template.json"));
 				if(file_exists($filePath)) {
+					// NOTE : Penser à supprimer l'html des potentielles variable, sait-on jamais !
 					$json_source = file_get_contents($filePath);
 					$json_data = json_decode($json_source);
 					if($json_data->type == "admin") {
@@ -20,12 +22,12 @@
 						echo '<p>'.$json_data->template_desc.'</p>';
 						echo '<em>Version : '.$json_data->template_version.' | Développé par : '.$json_data->template_author.'</em>';
 					if($json_data->type == "admin") {
-						echo '<br/><br/><div class="alert alert-info">Ce thème est le thème d\'administration, il est automatiquement sélectionné</div>';
+						echo '<div class="alert alert-info">Ce thème est le thème d\'administration, il est automatiquement sélectionné</div>';
 					}
 					if(Conf::$theme == $json_data->template_name) {
-						echo '<br/><br/><div class="alert alert-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Thème sélectionné</div>';
+						echo '<div class="alert alert-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Thème sélectionné</div>';
 					} else if($json_data->type == "site") {
-						echo '<br/><br/><button class="btn btn-success">Sélectionner</button>';
+						echo '<button class="btn btn-success btnSelectTheme" data-name="'.$json_data->template_name.'">Sélectionner</button>';
 					}
 					echo '</div>';
 				}
@@ -35,21 +37,14 @@
 		echo '<div class="alert alert-danger">Aucun thème n\'est disponible pour votre site !</div>';
 	}
 ?>
-
-<style>
-	.theme {
-		margin: 10px;
-		padding: 15px;
-		border: 1px solid black;
-		border-radius: 3px;
-	}
-
-	.theme-admin {
-		background-color: #222;
-		color: white;
-	}
-
-	.theme h1 {
-		margin-top: 0px;
-	}
-</style>
+<div id="selectTheme" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Confirmation de changement de thème</h4>
+			</div>
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>

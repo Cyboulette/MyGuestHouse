@@ -1,0 +1,8 @@
+{
+	"type": "site",
+	"template_name": "dev",
+	"template_desc": "Thème de développement pour le site <div class=\"alert alert-danger\"><i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> Ce thème est en cours de développement, merci de le sélectionner que si nécessaire</div>",
+	"template_version": "1.0",
+	"template_author": "Quentin DESBIN",
+	"template_author_website": null
+}

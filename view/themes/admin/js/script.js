@@ -40,6 +40,27 @@ $('.btnDeleteSlide').on('click', function(e) {
 	});
 });
 
+$('.btnSelectTheme').on('click', function(e) {
+	e.preventDefault();
+	$("#selectTheme .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
+	$('#selectTheme').modal('toggle');
+	var nameTheme = $(this).attr('data-name');
+	var dataToPost = 'nameTheme='+encodeURIComponent(nameTheme);
+	$.ajax({
+		type: "POST",
+		url: 'index.php?controller=admin&action=changeThemeForm',
+		data: dataToPost,
+		dataType: 'json',
+		success: function(retour) {
+			console.log(retour);
+			$("#selectTheme .modal-body").html(retour.message);
+		},
+		error: function(retour) {
+			console.log(retour);
+		}
+	});
+});
+
 $('.btnDeleteReservation').on('click', function(e) {
 	e.preventDefault();
 	$("#deleteReservation .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');

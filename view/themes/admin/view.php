@@ -73,16 +73,16 @@
             <li <?php ControllerDefault::active('admin', 'reservations'); ?>>
               <a href="index.php?controller=admin&action=reservations"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservations</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'slides'); ?>>
+            <li <?php ControllerDefault::active('admin', 'slides'); ?> <?php ControllerDefault::active('admin', 'manageSlides'); ?> <?php ControllerDefault::active('admin', 'addSlide'); ?> <?php ControllerDefault::active('admin', 'deleteSlide'); ?> <?php ControllerDefault::active('admin', 'editSlide'); ?>>
               <a href="index.php?controller=admin&action=slides"><i class="fa fa-hand-rock-o" aria-hidden="true"></i> Images défilantes</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'news'); ?>>
+            <li <?php ControllerDefault::active('admin', 'news'); ?> <?php ControllerDefault::active('admin', 'manageNews'); ?> <?php ControllerDefault::active('admin', 'addNews'); ?> <?php ControllerDefault::active('admin', 'editNews'); ?> <?php ControllerDefault::active('admin', 'deleteNews'); ?>>
               <a href="index.php?controller=admin&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Actualités</a>
             </li>
             <li <?php ControllerDefault::active('admin', 'options'); ControllerDefault::active('admin', 'updateOptions');?>>
               <a href="index.php?controller=admin&action=options"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'themes');?>>
+            <li <?php ControllerDefault::active('admin', 'themes');?> <?php ControllerDefault::active('admin', 'changeTheme');?>>
               <a href="index.php?controller=admin&action=themes"><i class="fa fa-paint-brush" aria-hidden="true"></i> Thèmes</a>
             </li>
           </ul>

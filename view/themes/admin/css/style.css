@@ -129,3 +129,36 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+.placeholders .fa-lg {
+  font-size: 3em;
+}
+
+
+/*
+ * Affichage de la liste des thèmes
+ */
+.theme {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.theme div, .theme button {
+  margin-top: 10px;
+  display: block;
+}
+
+.theme .alert {
+  margin-bottom: 0px;
+}
+
+.theme-admin {
+  background-color: #222;
+  color: white;
+}
+
+.theme h1 {
+  margin-top: 0px;
+}

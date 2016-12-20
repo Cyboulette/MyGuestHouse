@@ -60,11 +60,8 @@
 
 		<div class="form-group">
 			<label for="theme">Thème du site :</label>
-			<div class="radio">
-				<label>
-					<input type="radio" name="theme" id="theme" value="default" checked readonly="readonly">
-					Par défaut
-				</label>
+			<div class="alert alert-info">
+				Vous pouvez gérer le thème du site depuis le menu <a href="index.php?controller=admin&action=themes">"Thèmes"</a> de l'administration
 			</div>
 		</div>
 
