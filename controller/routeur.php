@@ -3,9 +3,15 @@
 @session_start(); // On démarre la session
 
 // Autoloader permettant d'inclure directement un controller lorsqu'il est instancié
-
-spl_autoload_register(function($controller_name){
-    require_once File::build_path(array('controller', $controller_name.'.php')); // On inclut les fichiers par auto_load
+spl_autoload_register(function($name){
+    $checkChars = substr(strtoupper($name), 0, 10);
+    if($checkChars == "CONTROLLER") {
+        // On essaye de charger un controller
+        require_once File::build_path(array('controller', $name.'.php')); // On inclut le fichier par auto_load
+    } else {
+        // On essaye de charger un model
+        require_once File::build_path(array('model', $name.'.php')); // On inclut le fichier par auto_load
+    }
 });
 
 if(isset($_GET['controller']) && !empty(($_GET['controller']))) {

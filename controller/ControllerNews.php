@@ -1,6 +1,6 @@
 <?php
-require_once File::build_path(array('model', 'ModelOption.php'));
-require_once File::build_path(array('model', 'ModelNews.php'));
+/*require_once File::build_path(array('model', 'ModelOption.php'));
+require_once File::build_path(array('model', 'ModelNews.php'));*/
 
 
 class ControllerNews {

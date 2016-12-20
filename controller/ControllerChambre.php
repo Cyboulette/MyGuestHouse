@@ -1,7 +1,7 @@
 <?php
-require_once File::build_path(array('model', 'ModelChambre.php'));
+/*require_once File::build_path(array('model', 'ModelChambre.php'));
 require_once File::build_path(array('model', 'ModelOption.php'));
-require_once File::build_path(array('model', 'ModelPrestation.php'));
+require_once File::build_path(array('model', 'ModelPrestation.php'));*/
 
 
 class ControllerChambre {

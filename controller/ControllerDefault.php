@@ -1,8 +1,8 @@
 <?php
-    require_once File::build_path(array('config', 'Conf.php'));
+    /*require_once File::build_path(array('config', 'Conf.php'));
     require_once File::build_path(array('model', 'ModelOption.php'));
     require_once File::build_path(array('model', 'ModelNews.php'));
-    require_once File::build_path(array('model', 'ModelSlides.php'));
+    require_once File::build_path(array('model', 'ModelSlides.php'));*/
 
     /**
      * This generic class contains all functions that a controller can use
