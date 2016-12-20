@@ -14,6 +14,11 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # Commits
 
+
+<br>
+- 20/12
+   *       Update autoload function of the routeur for now require_once automatically Controller(s) and Model(s). When we use Controller:: or Model:: we don't need to have included the file before, the auto_loader do it for us.
+   
 <br>
 - 19/12
    *       Migrated templates for default template
