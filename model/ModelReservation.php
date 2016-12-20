@@ -10,8 +10,8 @@ class ModelReservation extends Model{
     protected $dateDebut;
     protected $dateFin;
 
-    protected static $tableName = 'GH_reservations'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
-    protected static $object = 'reservations'; // Correspond au nom de l'objet à créer
+    protected static $tableName = 'GH_Reservations'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
+    protected static $object = 'Reservation'; // Correspond au nom de l'objet à créer
     protected static $primary = 'idReservation'; // Correspond à la clé primaire de la table (pratique pour faire un read())
 
 
@@ -34,7 +34,7 @@ class ModelReservation extends Model{
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut < :date AND dateFin > :date ';
+            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut < :date AND dateFin >= :date ';
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(

@@ -44,12 +44,19 @@
          * Active ...
          * Control if the part of the URL who called the controller ask the good controller with the good action
          *
-         * @param string, string
+         * @param string current controller
+         * @param string current action
+         * @param string current mode (for nav liste with mode)
          * @return boolean
         */
-        public static function active($currentController, $currentAction){
+        public static function active($currentController, $currentAction, $currentMode = null){
             $queryString = $_SERVER['QUERY_STRING'];
-            if(!empty($currentAction)){
+            if($currentMode != null){
+                if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction.'&mode='.$currentMode) !== false) {
+                    echo 'class="active"';
+                }
+            }
+            elseif(!empty($currentAction)){
                 if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction) !== false) {
                     echo 'class="active"';
                 }

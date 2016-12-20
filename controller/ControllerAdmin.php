@@ -12,6 +12,7 @@ require_once File::build_path(array('model', 'ModelSlides.php'));
 
 class ControllerAdmin {
     protected static $object = 'admin';
+
     public static function isAdmin() {
         if(ControllerUtilisateur::isConnected()) {
             $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
@@ -34,67 +35,6 @@ class ControllerAdmin {
         $pagetitle = 'Administration';
         $template = 'admin';
         require File::build_path(array('view', 'main_view.php'));
-    }
-    // Gestion des utilisateurs : view/admin/viewAllUtilisateur.php
-    public static function displayAllUtilisateur(){
-        $powerNeeded = self::isAdmin();
-        $view = 'viewAllUtilisateur';
-        $pagetitle = 'Administration - Gestion des utilisateurs';
-        $template = 'admin';
-        $tab_v = ModelUtilisateur::selectAll();
-        require_once File::build_path(array("view", "main_view.php"));
-    }
-    // Gestion des réservations : view/amin/viewAllReservation.php
-    public static function reservations(){
-        $powerNeeded = self::isAdmin();
-        $view = 'viewAllReservation';
-        $pagetitle = 'Administration - Gestion des réservations';
-        $template = 'admin';
-        // appel des methodes de selection
-        if(!isset($_GET['mode'])){ $_GET['mode'] = 'encours'; }
-        switch ($_GET['mode']){
-            case 'encours':
-                $tab_reservations=ModelReservation::getReservationsEnCours();
-                break;
-            case 'enattentes':
-                $tab_reservations=ModelReservation::getReservationsEnAttente();
-                break;
-            case 'finis':
-                $tab_reservations=ModelReservation::getReservationsFinis();
-                break;
-            case 'annulees':
-                $tab_reservations=ModelReservation::getReservationsAnnulee();
-                break;
-        }
-        require_once File::build_path(array("view", "main_view.php"));
-    }
-    // Editer une reservation
-    public static function editReservation(){
-        $powerNeeded = self::isAdmin();
-        //----------
-        if(isset($_GET['idReservation']) && $_GET['idReservation']!=null){
-            $reservation = ModelReservation::select($_GET['idReservation']);
-            if($reservation!=false){
-                $view = 'editReservation';
-                $pagetitle = 'Administration - modifier une reservation';
-                $template = 'admin';
-                require_once File::build_path(array("view", "main_view.php"));
-            }else{
-                $message = '<div class="alert alert-danger">cette prestation n\'existe plus !</div>';
-                self::reservation($message);
-            }
-        }else{
-            $message = '<div class="alert alert-danger">vous ne pouvez pas modifier une prestation sans connaitre son ID !</div>';
-            self::reservation($message);
-        }
-    }
-    // Modifie l'url de la photo d'une chambre
-    public static function update_url(){
-        $powerNeeded = self::isAdmin();
-        $view = 'displayChambre';
-        $pagetitle = 'detail de la chambre';
-        $template = 'admin';
-        require_once File::build_path(array("view", "main_view.php"));
     }
 
 
@@ -293,6 +233,115 @@ class ControllerAdmin {
         }
         self::chambres($message);
     }
+
+    // RESERVATION ------------------------------------------------ //---IN PROGRESS---//
+    // Gestion des réservations : view/amin/viewAllReservation.php
+    public static function reservations($message = null){
+        $powerNeeded = self::isAdmin();
+        $view = 'viewAllReservation';
+        $pagetitle = 'Administration - Gestion des réservations';
+        $template = 'admin';
+        // appel des methodes de selection
+        if(!isset($_GET['mode'])){ $_GET['mode'] = 'enAttente'; }
+        switch ($_GET['mode']){
+            case 'encours':
+                $tab_reservations=ModelReservation::getReservationsEnCours();
+                break;
+            case 'enattentes':
+                $tab_reservations=ModelReservation::getReservationsEnAttente();
+                break;
+            case 'finis':
+                $tab_reservations=ModelReservation::getReservationsFinis();
+                break;
+            case 'annulees':
+                $tab_reservations=ModelReservation::getReservationsAnnulee();
+                break;
+        }
+        require_once File::build_path(array("view", "main_view.php"));
+    }
+    // Editer une reservation
+    public static function addReservation(){
+        $powerNeeded = self::isAdmin();
+        //----------
+        if(isset($_POST['idReservation'])){
+            if($_POST['nomPrestation']!=null && $_POST['prix']!=null){
+                if($_POST['prix']>= 0){
+                    $laPrestation = array(
+                        'idPrestation' => null,
+                        'nomPrestation' => $_POST['nomPrestation'],
+                        'prix' => $_POST['prix'],
+                    );
+                    $save = ModelPrestation::save($laPrestation);
+                    if($save != false) {
+                        $message = '<div class="alert alert-success">Prestation ajoutée avec succès !</div>';
+                    }else{
+                        $message = '<div class="alert alert-danger">Echec de l\'ajout de la prestation !</div>';
+                    }
+                }else{
+                    $message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
+                }
+            }else{
+                $message = '<div class="alert alert-danger">vous ne pouvez pas laisser un champ vide !</div>';
+            }
+        }else{
+            $message = '<div class="alert alert-danger">Nous navons pas pu recuperer vos choix !</div>';
+        }
+        self::reservations($message);
+    }
+    public static function addedReservation(){}
+    public static function editReservation(){
+        $powerNeeded = self::isAdmin();
+        //----------
+        if(isset($_GET['idReservation']) && $_GET['idReservation']!=null){
+            $reservation = ModelReservation::select($_GET['idReservation']);
+            if($reservation!=false){
+                $view = 'editReservation';
+                $pagetitle = 'Administration - modifier une reservation';
+                $template = 'admin';
+                require_once File::build_path(array("view", "main_view.php"));
+            }else{
+                $message = '<div class="alert alert-danger">cette prestation n\'existe plus !</div>';
+                self::reservation($message);
+            }
+        }else{
+            $message = '<div class="alert alert-danger">vous ne pouvez pas modifier une prestation sans connaitre son ID !</div>';
+            self::reservation($message);
+        }
+    }
+    public static function editedReservation(){}
+    public static function manageReservation(){
+        if(isset($_GET['type'])) {
+            $type = $_GET['type'];
+            if($type == "add" || $type == "edit") {
+                if($type == "add") {
+                    $titreAction = 'Ajouter une reservation';
+                } elseif($type == "edit") {
+                    $titreAction = 'Modifier une reservation';
+                    if(isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
+                        $idReservation = htmlspecialchars($_GET['idReservation']);
+
+                        $readReservation = ModelReservation::select($idReservation);
+                        if(!$readReservation) {
+                            self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
+                        }
+                    } else {
+                        self::reservations('<div class="alert alert-danger">Pour pouvoir modifier une reservation il faut son ID</div>');
+                    }
+                }
+                $powerNeeded = self::isAdmin();
+                $view = 'manageReservation';
+                $template = 'admin';
+                $tab_news = ModelReservation::selectAll();
+                $pagetitle = 'Administration - '.$titreAction;
+                require_once File::build_path(array("view", "main_view.php"));
+            } else {
+                ControllerDefault::error('Vous devez préciser si vous souhaitez modifier ou ajouter une reservation !', 'admin');
+            }
+        } else {
+            ControllerDefault::error('Il faut préciser un paramètre de type de gestion de reservations !', 'admin');
+        }
+    }
+    public static function managedReservation(){}
 
 
     // PRESTATIONS ----------------------------------------------- //---FINISHED CRUD---// 
