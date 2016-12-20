@@ -13,6 +13,10 @@ INSERT INTO `GH_Chambres` (`idChambre`, `nomChambre`, `descriptionChambre`, `pri
 (3, 'chambre 3', 'blablablba', 100, 22),
 (4, 'chambre 4', 'blablablba', 100, 22);
 
+INSERT INTO `GH_Prestations` (`idPrestation`, `nomPrestation`, `prix`) VALUES
+(1, 'Repassage', 23),
+(2, 'Piscine', 50);
+
 INSERT INTO `GH_ChambresPresta` (`idChambre`, `idPrestation`) VALUES
 (1, 1),
 (2, 1),
@@ -30,10 +34,6 @@ INSERT INTO `GH_Options` (`idOption`, `nameOption`, `valueOption`) VALUES
 (2, 'display_news', 'true'),
 (3, 'theme_site', 'default'),
 (4, 'main_color_site', '#ad1717');
-
-INSERT INTO `GH_Prestations` (`idPrestation`, `nomPrestation`, `prix`) VALUES
-(1, 'Repassage', 23),
-(2, 'Piscine', 50);
 
 INSERT INTO `GH_Rangs` (`idRang`, `labelRang`, `power`) VALUES
 (1, 'Visiteur', 0),
