@@ -1,0 +1,8 @@
+{
+	"type": "site",
+	"template_name": "default",
+	"template_desc": "Le thème par défaut pour votre site crée par votre CMS MyGuestHouse",
+	"template_version": "1.0",
+	"template_author": "MyGuestHouse",
+	"template_author_website": null
+}

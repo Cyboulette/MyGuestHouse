@@ -1,0 +1,8 @@
+{
+	"type": "admin",
+	"template_name": "admin",
+	"template_desc": "Le thème par défaut pour votre administration de CMS",
+	"template_version": "1.0",
+	"template_author": "MyGuestHouse",
+	"template_author_website": null
+}

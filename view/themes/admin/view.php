@@ -82,6 +82,9 @@
             <li <?php ControllerDefault::active('admin', 'options'); ControllerDefault::active('admin', 'updateOptions');?>>
               <a href="index.php?controller=admin&action=options"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
             </li>
+            <li <?php ControllerDefault::active('admin', 'themes');?>>
+              <a href="index.php?controller=admin&action=themes"><i class="fa fa-paint-brush" aria-hidden="true"></i> Thèmes</a>
+            </li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

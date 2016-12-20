@@ -449,6 +449,16 @@ class ControllerAdmin {
         // Attend un $_GET['idChambre']
     }
 
+    // THEMES
+    // Fonction qui permet de lister les thèmes
+    public static function themes($message = NULL) {
+        $powerNeeded = self::isAdmin();
+        $view = 'listThemes';
+        $pagetitle = 'Administration - Gestion des thèmes de votre site';
+        $template = 'admin';
+        $folders = scandir(File::build_path(array("view", "themes")));
+        require_once File::build_path(array("view", "main_view.php"));
+    }
 
     // SLIDER ------------------------------------------------
     // Fonction qui permet de lister les news
