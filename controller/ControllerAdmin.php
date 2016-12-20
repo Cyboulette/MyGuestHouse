@@ -233,7 +233,16 @@ class ControllerAdmin {
     }
 
 
-
+    // DETAILS ----------------------------------------------- //---FINISHED CRUD---// 
+    public static function details($message = null){
+        $powerNeeded = self::isAdmin();
+        //----------
+        $view = 'listDetails';
+        $pagetitle = 'Administration - Options du site';
+        $template = 'admin';
+        //$tab_allDetails = ???::selectAll();
+        require_once File::build_path(array("view","main_view.php"));
+    }
 
 
     // PRESTATIONS ----------------------------------------------- //---FINISHED CRUD---// 
