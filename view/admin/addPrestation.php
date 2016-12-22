@@ -1,7 +1,7 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 
 
- <?php  
+<?php  
 
 	echo "<h1 class='page-header'>Ajout d'une prestation</h1>";
 	echo "
@@ -31,4 +31,4 @@
 		</div>
 	"; 
 
- ?>
+?>

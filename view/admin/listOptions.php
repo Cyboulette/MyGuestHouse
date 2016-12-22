@@ -1,4 +1,5 @@
 <?php if(!$powerNeeded) { exit(); } ?>
+
 <h1 class="page-header">Options du site</h1>
 <?php 
 	if(isset($message)) { echo $message; }
