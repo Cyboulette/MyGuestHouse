@@ -40,7 +40,7 @@
 				echo '<td>'.$prix.' €</td>';
 				echo '<td>'.$superficie.' m²</td>';
 				echo '<td><a href="index.php?controller=admin&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
-				echo '<td><button class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></button></td>';
+				echo '<td><a href="index.php?controller=admin&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
 				echo '<td>
 					<a href="index.php?controller=admin&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 

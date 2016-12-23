@@ -19,9 +19,9 @@ class ModelDetail extends Model {
 
     public static function selectAllByChambre($idChambre){
         try {
-            $sql = "SELECT p.idPrestation, p.nomPrestation, p.prix 
-                    FROM `GH_ChambresPresta` cp 
-                    INNER JOIN `GH_Prestations` p ON cp.idPrestation = p.idPrestation 
+            $sql = "SELECT p.idDetail, p.nomDetail
+                    FROM `GH_ChambresDetails` cp 
+                    INNER JOIN `GH_Details` p ON cp.idDetail = p.idDetail
                     WHERE cp.idChambre= :tag_idChambre";
 
             $req_prep = Model::$pdo->prepare($sql);
@@ -31,10 +31,44 @@ class ModelDetail extends Model {
             );
 
             $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelPrestation');
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelDetail');
             $result = $req_prep->fetchAll();
 
             return $result;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function selectValeur($idChambre, $idDetail){
+        try {
+            $sql = "SELECT valeurDetail
+                    FROM `GH_ChambresDetails`
+                    WHERE idChambre = :tag_idChambre 
+                        AND idDetail = :tag_idDetail";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idChambre' => $idChambre,
+                'tag_idDetail' => $idDetail,
+            );
+
+            $req_prep->execute($values);
+            $result = $req_prep->fetch();
+
+            if(!empty($result)){
+                return $result[0];
+            }else{
+                return false;
+            }
+            
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();

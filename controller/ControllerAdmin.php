@@ -109,7 +109,6 @@ class ControllerAdmin {
         $tab_chambres = ModelChambre::selectAll();
         require_once File::build_path(array("view","main_view.php"));
     }
-
     public static function addChambre(){
         $powerNeeded = self::isAdmin();
         //----------
@@ -119,7 +118,6 @@ class ControllerAdmin {
 
         require_once File::build_path(array("view","main_view.php"));
     }
-
     public static function addedChambre(){
         // TODO :
         $powerNeeded = self::isAdmin();
@@ -155,7 +153,6 @@ class ControllerAdmin {
         }
         self::chambres($message);
     }
-
     public static function editChambre(){
         $powerNeeded = self::isAdmin();
         //----------
@@ -210,10 +207,9 @@ class ControllerAdmin {
         }
         self::chambres($message);
     }
-
     public static function deleteChambre() {
         $powerNeeded = self::isAdmin();
-
+        //----------
         // Attend un $_GET['idChambre']
         if (isset($_GET['idChambre']) && $_GET['idChambre']!=null) {
             $idChambre = $_GET['idChambre'];
@@ -323,28 +319,28 @@ class ControllerAdmin {
         }
         self::details($message);
     }
-    // public static function managePrestations() {
-    //     $powerNeeded = self::isAdmin();
-    //     //----------
-    //     if(isset($_GET['idChambre']) && $_GET['idChambre']!=NULL){
-    //         $chambre = ModelChambre::select($_GET['idChambre']);
-    //         if($chambre!=null){
-    //             $view = 'prestationFor';
-    //             $pagetitle = 'Administration - Editeur de chambre';
-    //             $template = 'admin';
-    //             $idChambre = $_GET['idChambre'];
-    //             $tab_prestation = ModelPrestation::selectAllByChambre($_GET['idChambre']);
-    //             $tab_allPrestation = ModelPrestation::selectAll();
-    //             require_once File::build_path(array("view", "main_view.php"));
-    //         }else{
-    //             $message = '<div class="alert alert-danger">Cette chambre n\'existe plus !</div>';
-    //             self::chambres($message);
-    //         }
-    //     }else{
-    //         $message = '<div class="alert alert-danger">Vous ne pouvez modifier les détails d\'une chambre sans connaître son ID !</div>';
-    //         self::chambres($message);
-    //     }
-    // }
+    public static function manageDetails() {
+        $powerNeeded = self::isAdmin();
+        //----------
+        if(isset($_GET['idChambre']) && $_GET['idChambre']!=NULL){
+            $chambre = ModelChambre::select($_GET['idChambre']);
+            if($chambre!=null){
+                $view = 'detailFor';
+                $pagetitle = 'Administration - Editeur de chambre';
+                $template = 'admin';
+                $idChambre = $_GET['idChambre'];
+                $tab_detail = ModelDetail::selectAllByChambre($_GET['idChambre']);
+                $tab_allDetails = ModelDetail::selectAll();
+                require_once File::build_path(array("view", "main_view.php"));
+            }else{
+                $message = '<div class="alert alert-danger">Cette chambre n\'existe plus !</div>';
+                self::chambres($message);
+            }
+        }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez modifier les détails d\'une chambre sans connaître son ID !</div>';
+            self::chambres($message);
+        }
+    }
     // public static function managedPrestation(){
     //     $powerNeeded = self::isAdmin();
     //     //----------
@@ -519,12 +515,7 @@ class ControllerAdmin {
     }
 
 
-    // DETAILS -----------------------------------------------
-    public static function manageDetails() {
-        // Attend un $_GET['idChambre']
-    }
-
-    // THEMES
+    // THEMES --------------------------------------
     // Fonction qui permet de lister les thèmes
     public static function themes($message = NULL) {
         $powerNeeded = self::isAdmin();

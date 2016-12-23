@@ -12,9 +12,9 @@
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
-				echo '<th>Disponibilité</th>';
-				echo '<th>Nom de la prestation</th>';
-				echo '<th>Prix</th>';
+					echo '<th>Disponibilité</th>';
+					echo '<th>Nom de la prestation</th>';
+					echo '<th>Prix</th>';
 				echo '</tr>';
 			echo '</thead>';
 		foreach ($tab_allPrestation as $prestation) { 
@@ -35,6 +35,7 @@
 				echo '></td>';
 				echo '<td><label for="checkbox'.$id.'">'.$nom.'</label></td>';
 				echo '<td>'.$prix.' €</td>';
+			echo '</tr>';
 		}
 
 		echo '</table></div>';
