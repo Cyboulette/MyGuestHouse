@@ -82,7 +82,7 @@ class ModelDetail extends Model {
 
     public static function deleteAllByChambre($idChambre){
         try {
-            $sql = "DELETE FROM GH_ChambresPresta
+            $sql = "DELETE FROM GH_ChambresDetails
                     WHERE idChambre = :tag_idChambre";
 
             $req_prep = Model::$pdo->prepare($sql);
@@ -106,16 +106,17 @@ class ModelDetail extends Model {
         }
     }
 
-    public static function saveByChambre($idChambre, $idPrestation){
+    public static function saveByChambre($idChambre, $idDetail, $valeurDetail){
         try {
-            $sql = "INSERT INTO GH_ChambresPresta (idChambre, idPrestation)
-                    VALUES (:tag_idChambre, :tag_idPrestation)";
+            $sql = "INSERT INTO GH_ChambresDetails (idChambre, idDetail, valeurDetail)
+                    VALUES (:tag_idChambre, :tag_idPrestation, :tag_valeurDetail)";
 
             $req_prep = Model::$pdo->prepare($sql);
 
             $values = array(
                 'tag_idChambre' => $idChambre,
-                'tag_idPrestation' => $idPrestation,
+                'tag_idPrestation' => $idDetail,
+                'tag_valeurDetail' => $valeurDetail,
             );
 
             $req_prep->execute($values);

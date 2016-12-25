@@ -341,29 +341,45 @@ class ControllerAdmin {
             self::chambres($message);
         }
     }
-    // public static function managedPrestation(){
-    //     $powerNeeded = self::isAdmin();
-    //     //----------
-    //     if(isset($_POST['idChambre']) && $_POST['idChambre']!=null){
-    //         $idChambre = $_POST['idChambre'];
-    //         $prestation = $_POST['prestations'];
-    //         $update = true;
-    //         $update = ModelPrestation::deleteAllByChambre($idChambre); //TODO vérifier si true
-    //         if ($prestation!=null) {
-    //             foreach ($prestation as $key => $value) {
-    //                 $update = ModelPrestation::saveByChambre($idChambre, $prestation[$key]);
-    //             }
-    //         }
-    //         if($update != false) {
-    //             $message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
-    //         } else {
-    //             $message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
-    //         }
-    //     }else{
-    //         $message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une chambre sans connaître son ID !</div>';
-    //     }
-    //     self::chambres($message);
-    // }
+    public static function managedDetail(){
+        $powerNeeded = self::isAdmin();
+        //----------
+        if(isset($_POST['idChambre']) && $_POST['idChambre']!=null){
+            $idChambre = $_POST['idChambre'];
+
+            $update = ModelDetail::deleteAllByChambre($idChambre); //TODO vérifier si true
+            if($update){
+                foreach ($_POST as $key => $value){
+                    $valeur = substr($key, 0, 7);
+
+                    if($valeur!="valeur_"){
+                        $todo = false;
+                    }else{
+                        $todo = true;
+                    }
+
+                    if($todo){
+                        $idDetail = str_replace("valeur_", "", $key);
+                        $update = ModelDetail::saveByChambre($idChambre, $idDetail, $value);
+                    }
+
+                    if($update == false){
+                        $message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+                        self::chambres($message);
+                        exit();
+                    }
+                }
+            }
+            if($update != false){
+                $message = '<div class="alert alert-success">Détail modifiée avec succès !</div>';
+            }else{
+                $message = '<div class="alert alert-danger">Echec de la modification de du détail !</div>';
+            }
+        }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez modifier les détails d\'une chambre sans connaître son ID !</div>';
+        }
+        self::chambres($message);
+    }
 
 
     // PRESTATIONS ----------------------------------------------- //---FINISHED CRUD---// 

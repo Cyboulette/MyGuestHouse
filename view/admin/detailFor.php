@@ -25,7 +25,7 @@
 			echo '<tr>';
 				echo '<td><label for="detail'.$id.'">'.$nom.'</label></td>';
 				echo '<td>';
-					echo '<input id="detail'.$id.'" type="text"'; 
+					echo '<input id="detail'.$id.'" type="text" name="valeur_'.$id.'"'; 
 						if($valeur!=false){
 							echo 'value='.$valeur;
 						}else{
