@@ -61,29 +61,29 @@
             <li <?php ControllerDefault::active('admin', 'utilisateurs'); ?>>
               <a href="index.php?controller=admin&action=utilisateurs"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateurs</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'chambres'); ControllerDefault::active('admin', 'managePrestations'); ControllerDefault::active('admin', 'managedPrestation'); ControllerDefault::active('admin', 'editChambre'); ControllerDefault::active('admin', 'editedChambre'); ?>>
-              <a href="index.php?controller=admin&action=chambres"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambres</a>
+            <li <?php ControllerDefault::active('adminChambres');?>>
+              <a href="index.php?controller=adminChambres&action=chambres"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambres</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'prestations'); ControllerDefault::active('admin', 'addPrestation'); ControllerDefault::active('admin', 'addedPrestation'); ControllerDefault::active('admin', 'editPrestation'); ControllerDefault::active('admin', 'editedPrestation'); ?>>
-              <a href="index.php?controller=admin&action=prestations"><i class="fa fa-glass" aria-hidden="true"></i> Prestations</a>
+            <li <?php ControllerDefault::active('adminPrestations');?>>
+              <a href="index.php?controller=adminPrestations&action=prestations"><i class="fa fa-glass" aria-hidden="true"></i> Prestations</a>
             </li>  
-            <li <?php ControllerDefault::active('admin', 'details'); ?>>
-              <a href="index.php?controller=admin&action=details"><i class="fa fa-plug" aria-hidden="true"></i> Details</a>
+            <li <?php ControllerDefault::active('adminDetails');?>>
+              <a href="index.php?controller=adminDetails&action=details"><i class="fa fa-plug" aria-hidden="true"></i> Details</a>
             </li>  
-            <li <?php ControllerDefault::active('admin', 'reservations'); ?>>
-              <a href="index.php?controller=admin&action=reservations"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservations</a>
+            <li <?php ControllerDefault::active('adminReservations');?>>
+              <a href="index.php?controller=adminReservations&action=reservations"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Réservations</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'slides'); ?> <?php ControllerDefault::active('admin', 'manageSlides'); ?> <?php ControllerDefault::active('admin', 'addSlide'); ?> <?php ControllerDefault::active('admin', 'deleteSlide'); ?> <?php ControllerDefault::active('admin', 'editSlide'); ?>>
-              <a href="index.php?controller=admin&action=slides"><i class="fa fa-hand-rock-o" aria-hidden="true"></i> Images défilantes</a>
+            <li <?php ControllerDefault::active('adminSlides');?>>
+              <a href="index.php?controller=adminSlides&action=slides"><i class="fa fa-hand-rock-o" aria-hidden="true"></i> Images défilantes</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'news'); ?> <?php ControllerDefault::active('admin', 'manageNews'); ?> <?php ControllerDefault::active('admin', 'addNews'); ?> <?php ControllerDefault::active('admin', 'editNews'); ?> <?php ControllerDefault::active('admin', 'deleteNews'); ?>>
-              <a href="index.php?controller=admin&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Actualités</a>
+            <li <?php ControllerDefault::active('adminNews');?>>
+              <a href="index.php?controller=adminNews&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Actualités</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'options'); ControllerDefault::active('admin', 'updateOptions');?>>
-              <a href="index.php?controller=admin&action=options"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
+            <li <?php ControllerDefault::active('adminOptions');?>>
+              <a href="index.php?controller=adminOptions&action=list"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
             </li>
-            <li <?php ControllerDefault::active('admin', 'themes');?> <?php ControllerDefault::active('admin', 'changeTheme');?>>
-              <a href="index.php?controller=admin&action=themes"><i class="fa fa-paint-brush" aria-hidden="true"></i> Thèmes</a>
+            <li <?php ControllerDefault::active('adminThemes');?>>
+              <a href="index.php?controller=adminThemes&action=themes"><i class="fa fa-paint-brush" aria-hidden="true"></i> Thèmes</a>
             </li>
           </ul>
         </div>

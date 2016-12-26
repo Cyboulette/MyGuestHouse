@@ -6,7 +6,7 @@ $('.btnDeleteNews').on('click', function(e) {
 	var dataToPost = 'idNews='+encodeURIComponent(idNews);
 	$.ajax({
 		type: "POST",
-		url: 'index.php?controller=admin&action=deleteNewsForm',
+		url: 'index.php?controller=adminNews&action=deleteNewsForm',
 		data: dataToPost,
 		dataType: 'json',
 		success: function(retour) {
@@ -27,7 +27,7 @@ $('.btnDeleteSlide').on('click', function(e) {
 	var dataToPost = 'idSlide='+encodeURIComponent(idSlide);
 	$.ajax({
 		type: "POST",
-		url: 'index.php?controller=admin&action=deleteSlideForm',
+		url: 'index.php?controller=adminSlides&action=deleteSlideForm',
 		data: dataToPost,
 		dataType: 'json',
 		success: function(retour) {
@@ -48,7 +48,7 @@ $('.btnSelectTheme').on('click', function(e) {
 	var dataToPost = 'nameTheme='+encodeURIComponent(nameTheme);
 	$.ajax({
 		type: "POST",
-		url: 'index.php?controller=admin&action=changeThemeForm',
+		url: 'index.php?controller=adminThemes&action=changeThemeForm',
 		data: dataToPost,
 		dataType: 'json',
 		success: function(retour) {
@@ -69,7 +69,7 @@ $('.btnDeleteReservation').on('click', function(e) {
 	var dataToPost = 'idReservation='+encodeURIComponent(idReservation);
 	$.ajax({
 		type: "POST",
-		url: 'index.php?controller=admin&action=deleteReservationForm',
+		url: 'index.php?controller=adminReservations&action=deleteReservationForm',
 		data: dataToPost,
 		dataType: 'json',
 		success: function(retour) {

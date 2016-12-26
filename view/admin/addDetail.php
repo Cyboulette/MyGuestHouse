@@ -5,7 +5,7 @@
 
 	echo "<h1 class='page-header'>Ajout d'un détail</h1>";
 	echo "
-		<form method='post' action='index.php?controller=admin&action=addedDetail' enctype='multipart/form-data'>
+		<form method='post' action='index.php?controller=adminDetails&action=addedDetail' enctype='multipart/form-data'>
 
 			<div class='form-group row'>
 				<label for='id_nom' class='col-xs-3 col-form-label'>Nom du detail : </label>
@@ -20,7 +20,7 @@
 		</form>
 
 		<div class='col-xs-6 col-sm-5 col-md-2'>
-			<a href='?controller=admin&action=details' class='btn btn-s btn-danger btn-block'>Annuler</a>
+			<a href='?controller=adminDetails&action=details' class='btn btn-s btn-danger btn-block'>Annuler</a>
 		</div>
 	"; 
 

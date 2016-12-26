@@ -6,13 +6,13 @@
 	if($type == "add") {
 		$urlSlide = (isset($_POST['urlSlide']) ? htmlspecialchars($_POST['urlSlide']):'');
 		$textSlide = (isset($_POST['textSlide']) ? htmlspecialchars($_POST['textSlide']):'');
-		$urlAction = 'index.php?controller=admin&action=addSlide&type=add';
+		$urlAction = 'index.php?controller=adminSlides&action=addSlide&type=add';
 		$titleBouton = 'Ajouter';
 	} elseif($type == "edit") {
 		$idSlide = $readSlide->get('idSlide');
 		$urlSlide = (isset($_POST['urlSlide']) ? htmlspecialchars($_POST['urlSlide']):$readSlide->get('urlSlide'));
 		$textSlide = (isset($_POST['textSlide']) ? htmlspecialchars($_POST['textSlide']):$readSlide->get('textSlide'));
-		$urlAction = 'index.php?controller=admin&action=editSlide&type=edit&idSlide='.$idSlide;
+		$urlAction = 'index.php?controller=adminSlides&action=editSlide&type=edit&idSlide='.$idSlide;
 		$titleBouton = 'Modifier';
 	}
 ?>

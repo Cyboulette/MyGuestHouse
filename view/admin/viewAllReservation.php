@@ -7,10 +7,10 @@
     <!-- Navigation for reservation -->
     <div class="col-xs-12 row placeholders">
         <ul class="nav nav-tabs" role="tablist">
-            <li <?php ControllerDefault::active('admin', 'reservations', 'enattente'); ?> ><a href="index.php?controller=admin&action=reservations&mode=enattente" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('admin', 'reservations', 'encours'); ?> ><a href="index.php?controller=admin&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('admin', 'reservations', 'annulees'); ?> ><a href="index.php?controller=admin&action=reservations&mode=annulees" > Annulées <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('admin', 'reservations', 'finis'); ?> ><a href="index.php?controller=admin&action=reservations&mode=finis" > Finis <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'enattente'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=enattente" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'encours'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'annulees'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=annulees" > Annulées <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'finis'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=finis" > Finis <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis()) ?> </span></a></li>
         </ul>
         <br>
 
@@ -52,9 +52,9 @@
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
-                echo '<td><a href="index.php?controller=admin&action=managePrestations&idChambre='.$idChambre.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                echo '<td><a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$idChambre.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
                 echo '<td>
-                        <a href="index.php?controller=admin&action=manageReservation&type=edit&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+                        <a href="index.php?controller=adminReservations&action=manageReservation&type=edit&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
                         <button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 
                         </td>';

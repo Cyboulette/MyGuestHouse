@@ -5,9 +5,9 @@
 <?php 
 	if(empty($tab_news)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune actualité pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a>';
+		echo '<a href="index.php?controller=adminNews&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a>';
 	} else {
-		echo '<a href="index.php?controller=admin&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a> <br/><br/>';
+		echo '<a href="index.php?controller=adminNews&action=manageNews&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une actualité</a> <br/><br/>';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
@@ -31,7 +31,7 @@
 				echo '<td>'.$date.'</td>';
 				echo '<td>'.$displayEtat.'</td>';
 				echo '<td>
-					<a href="index.php?controller=admin&action=manageNews&type=edit&idNews='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+					<a href="index.php?controller=adminNews&action=manageNews&type=edit&idNews='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 					<button type="button" class="btn btn-xs btn-danger btnDeleteNews" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 					<a target="_blank" href="index.php?controller=news&action=read&idNews='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
 					</td>';
