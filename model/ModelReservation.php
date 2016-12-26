@@ -34,7 +34,7 @@ class ModelReservation extends Model{
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut < :date AND dateFin >= :date ';
+            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut <= :date AND dateFin >= :date ';
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
