@@ -11,7 +11,7 @@
         $prenom = (isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']):'');
         $idUtilisateur = (isset($_POST['idUtilisateur']) ? htmlspecialchars($_POST['idUtilisateur']):'');
         $idChambre = (isset($_POST['idChambre']) ? htmlspecialchars($_POST['idChambre']):'');
-        $urlAction = 'index.php?controller=admin&action=addReservation&type=add';
+        $urlAction = 'index.php?controller=adminReservations&action=addReservation&type=add';
         $titleBouton = 'Ajouter';
     }
     elseif($type == "edit") {
@@ -23,7 +23,7 @@
         $idUtilisateur = $readReservation->get('idUtilisateur');
         $chambre = ModelChambre::select($readReservation->get('idChambre'));
         $idChambre = $chambre->get('idChambre');
-        $urlAction = 'index.php?controller=admin&action=editReservation&type=edit&idReservation='.$idReservation;
+        $urlAction = 'index.php?controller=adminReservations&action=editReservation&type=edit&idReservation='.$idReservation;
         $titleBouton = 'Modifier';
     }
 ?>

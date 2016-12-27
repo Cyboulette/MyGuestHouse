@@ -1,8 +1,4 @@
 <?php
-    /*require_once File::build_path(array('config', 'Conf.php'));
-    require_once File::build_path(array('model', 'ModelOption.php'));
-    require_once File::build_path(array('model', 'ModelNews.php'));
-    require_once File::build_path(array('model', 'ModelSlides.php'));*/
 
     /**
      * This generic class contains all functions that a controller can use
@@ -49,23 +45,28 @@
          * @param string current mode (for nav liste with mode)
          * @return boolean
         */
-        public static function active($currentController, $currentAction, $currentMode = null){
+        public static function active($currentController, $currentAction = null, $currentMode = null){
             $queryString = $_SERVER['QUERY_STRING'];
             if($currentMode != null){
                 if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction.'&mode='.$currentMode) !== false) {
                     echo 'class="active"';
                 }
-            }
-            elseif(!empty($currentAction)){
+            } elseif(!empty($currentAction) && $currentAction != null) {
                 if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction) !== false) {
                     echo 'class="active"';
                 }
-            }else{
-                if(strpos($queryString, 'controller='.$currentController !== false)) {
-                    echo 'class="active"';
-                }
-                if ($currentController == 'index' && empty($queryString)) {
-                    echo 'class="active"';
+            } else {
+                if($currentAction == NULL && $currentMode == NULL) {
+                    if(isset($_GET['controller']) && $_GET['controller'] == $currentController) {
+                        echo 'class="active"';
+                    }
+                } else {
+                    if(strpos($queryString, 'controller='.$currentController !== false)) {
+                        echo 'class="active"';
+                    }
+                    if ($currentController == 'index' && empty($queryString)) {
+                        echo 'class="active"';
+                    }
                 }
             }
         }

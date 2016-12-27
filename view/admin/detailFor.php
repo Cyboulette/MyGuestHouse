@@ -3,12 +3,12 @@
 <?php 
 	if(empty($tab_allDetails)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucun détail pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a>';
+		echo '<a href="index.php?controller=adminDetails&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a>';
 	} else {
-		echo '<a href="index.php?controller=admin&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a><br/><br/>';
+		echo '<a href="index.php?controller=adminDetails&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a><br/><br/>';
 		
 
-		echo '<form action="index.php?controller=admin&action=managedDetail" method="POST">';
+		echo '<form action="index.php?controller=adminDetails&action=managedDetail" method="POST">';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';

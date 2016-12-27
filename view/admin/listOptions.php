@@ -37,7 +37,7 @@
 			}
 		}
 ?>
-	<form method="post" action="index.php?controller=admin&action=updateOptions" class="form" role="form">
+	<form method="post" action="index.php?controller=adminOptions&action=updateOptions" class="form" role="form">
 		<div class="form-group">
 			<label for="name_site">Nom du site :</label>
 			<input type="text" id="name_site" name="name_site" class="form-control" value="<?=$nom_site?>" placeholder="Indiquez le nom de votre site" />

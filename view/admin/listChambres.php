@@ -8,10 +8,10 @@
 <?php 
 	if(empty($tab_chambres)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune chambre pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a>';
+		echo '<a href="index.php?controller=adminChambres&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a>';
 	} else {
 		if (ModelChambre::count()<5) {
-			echo '<a href="index.php?controller=admin&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a> <br/><br/>';
+			echo '<a href="index.php?controller=adminChambres&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a> <br/><br/>';
 		}
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
@@ -42,7 +42,7 @@
 				echo '<td><a href="index.php?controller=admin&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
 				echo '<td><a href="index.php?controller=admin&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
 				echo '<td>
-					<a href="index.php?controller=admin&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+					<a href="index.php?controller=adminChambres&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
 					<button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-toggle="modal" data-target="#deleteChambre"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 

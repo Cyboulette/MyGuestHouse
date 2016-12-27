@@ -9,9 +9,9 @@
 <?php 
 	if(empty($tab_allDetails)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune prestation pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a>';
+		echo '<a href="index.php?controller=adminDetails&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a>';
 	} else {
-		echo '<a href="index.php?controller=admin&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a><br/><br/>';
+		echo '<a href="index.php?controller=adminDetails&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a><br/><br/>';
 		
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
@@ -27,7 +27,7 @@
 			echo '<tr>';
 				echo '<td>'.$nom.'</td>';
 				echo '<td>
-					<a href="index.php?controller=admin&action=editDetail&idDetail='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+					<a href="index.php?controller=adminDetails&action=editDetail&idDetail='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
 					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteDetail" onclick="GETurl(id, '.$id.')"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 
@@ -53,7 +53,7 @@
 					</div>
 
 					<div class="modal-footer">
-					<a href="index.php?controller=admin&action=deletePrestation&idPrestation='.$id.'" class="btn btn-danger">Supprimer</a	>
+					<a href="index.php?controller=adminDetails&action=deletePrestation&idPrestation='.$id.'" class="btn btn-danger">Supprimer</a>
 					</div>
 					</div>
 

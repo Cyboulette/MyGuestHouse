@@ -7,9 +7,9 @@
 <?php 
 	if(empty($tab_slides)) {
 		echo '<div class="alert alert-danger">Il n\'y a pour le moment aucune image</div>';
-		echo '<a href="index.php?controller=admin&action=manageSlides&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une image</a>';
+		echo '<a href="index.php?controller=adminSlides&action=manageSlides&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une image</a>';
 	} else {
-		echo '<a href="index.php?controller=admin&action=manageSlides&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une image</a> <br/><br/>';
+		echo '<a href="index.php?controller=adminSlides&action=manageSlides&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une image</a> <br/><br/>';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
@@ -26,7 +26,7 @@
 				echo '<td>'.$id.'</td>';
 				echo '<td><a href="'.$url.'" target="_blank">'.$url.'</a></td>';
 				echo '<td>
-					<a href="index.php?controller=admin&action=manageSlides&type=edit&idSlide='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+					<a href="index.php?controller=adminSlides&action=manageSlides&type=edit&idSlide='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 					<button type="button" class="btn btn-xs btn-danger btnDeleteSlide" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 					<a target="_blank" href="index.php" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
 					</td>';

@@ -8,7 +8,7 @@
 		$contenuNews = (isset($_POST['contenuNews']) ? htmlspecialchars($_POST['contenuNews']):'');
 		$dateNews = (isset($_POST['dateNews']) ? date('Y-m-d', strtotime($_POST['dateNews'])):date('Y-m-d'));
 		$etatNews = (isset($_POST['etatNews']) ? $_POST['etatNews']:'0');
-		$urlAction = 'index.php?controller=admin&action=addNews&type=add';
+		$urlAction = 'index.php?controller=adminNews&action=addNews&type=add';
 		$titleBouton = 'Ajouter';
 	} elseif($type == "edit") {
 		$idNews = $readNews->get('idNews');
@@ -16,7 +16,7 @@
 		$contenuNews = (isset($_POST['contenuNews']) ? htmlspecialchars($_POST['contenuNews']):$readNews->get('contenuNews'));
 		$dateNews = (isset($_POST['dateNews']) ? date('Y-m-d', strtotime($_POST['dateNews'])):$readNews->get('dateNews'));
 		$etatNews = (isset($_POST['etatNews']) ? $_POST['etatNews']:$readNews->get('publie'));
-		$urlAction = 'index.php?controller=admin&action=editNews&type=edit&idNews='.$idNews;
+		$urlAction = 'index.php?controller=adminNews&action=editNews&type=edit&idNews='.$idNews;
 		$titleBouton = 'Modifier';
 	}
 ?>
