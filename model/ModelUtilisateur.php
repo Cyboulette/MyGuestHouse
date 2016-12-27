@@ -82,6 +82,49 @@ class ModelUtilisateur extends Model {
         }
     }
 
+    public static function selectByRang($idRang){
+        try {
+            $sql = "SELECT * 
+                    FROM `GH_Utilisateurs`
+                    WHERE rang = :rang";
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+              'rang' => $idRang,
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
+            $tab = $req_prep->fetchAll();
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function selectNonValide(){
+        try {
+            $sql = "SELECT * 
+                    FROM `GH_Utilisateurs`
+                    WHERE nonce = NULL";
+            $rep = Model::$pdo->query($sql);
+
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
+            $tab = $rep->FetchAll();
+            return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
     public static function getNombreActifsAndValid() {
         try {
           $sql = 'SELECT COUNT(*) FROM `'.self::$tableName.'` WHERE rang > :rang AND nonce IS NULL';

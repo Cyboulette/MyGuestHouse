@@ -13,7 +13,7 @@
 
 <div class="row placeholders">
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=adminUtilisateur&action=utilisateurs">
+    <a href="?controller=adminUtilisateurs&action=utilisateurs">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-users fa-inverse fa-stack-1x"></i>

@@ -46,6 +46,34 @@ class ModelDetail extends Model {
         }
     }
 
+    public static function selectForChambre($idChambre){ 
+        try { 
+            $sql = "SELECT d.nomDetail, cd.valeurDetail  
+                    FROM `GH_ChambresDetails` cd  
+                    INNER JOIN `GH_Details` d ON cd.idDetail = d.idDetail  
+                    WHERE cd.idChambre= :tag_idChambre"; 
+ 
+            $rep = Model::$pdo->prepare($sql); 
+ 
+            $values = array( 
+                'tag_idChambre' => $idChambre, 
+            ); 
+ 
+            $rep->execute($values); 
+            $result = $rep->fetchAll(); 
+ 
+            return $result; 
+        } catch(PDOException $e) { 
+            if (Conf::getDebug()) { 
+                echo $e->getMessage(); 
+            } else { 
+                echo "Une erreur est survenue ! Merci de réessayer plus tard"; 
+            } 
+            return false; 
+            die(); 
+        } 
+    }
+
     public static function selectValeur($idChambre, $idDetail){
         try {
             $sql = "SELECT valeurDetail

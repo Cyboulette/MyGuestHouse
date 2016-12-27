@@ -25,7 +25,7 @@ class ControllerChambre {
 	        $chambre = ModelChambre::select($idChambre);
             if ($chambre!=false) {
                 $tab_photo = ModelChambre::selectPhoto($idChambre);
-                $tab_detail = ModelChambre::selectDetail($idChambre);
+                $tab_detail = ModelDetail::selectForChambre($idChambre);
                 $tab_prestation = ModelPrestation::selectAllByChambre($idChambre);
 
                 $compteur = true;
