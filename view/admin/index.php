@@ -4,7 +4,7 @@
   $nbChambre = ModelChambre::count();
   $nbPrestation = ModelPrestation::count();
   $nbDetails = ModelDetail::count();
-  // ICI reservation
+  $nbReservations = ModelReservation::count();
   $nbSlides = ModelSlides::count();
   $nbNews = ModelNews::count();
 ?>
@@ -58,7 +58,7 @@
         <i class="fa fa-calendar fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Réservations</h4>
-      <span class="text-muted">XX Réservations</span>
+      <span class="text-muted"><?php if($nbReservations!=null){echo$nbReservations;}else{echo"0";}?> reservation<?php if($nbReservations>1)echo"s";?> enregistrée<?php if($nbReservations>1)echo"s";?></span>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
     <a href="?controller=adminSlides&action=slides">

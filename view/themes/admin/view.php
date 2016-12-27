@@ -59,7 +59,7 @@
               <a href="index.php?controller=admin&action=index"><i class="fa fa-home" aria-hidden="true"></i> Résumé</a> <!-- pour l'onglet -->
             </li>
             <li <?php ControllerDefault::active('admin', 'utilisateurs'); ?>>
-              <a href="index.php?controller=admin&action=utilisateurs"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateurs</a>
+              <a href="index.php?controller=adminUtilisateurs&action=utilisateurs"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateurs</a>
             </li>
             <li <?php ControllerDefault::active('adminChambres');?>>
               <a href="index.php?controller=adminChambres&action=chambres"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> Chambres</a>
