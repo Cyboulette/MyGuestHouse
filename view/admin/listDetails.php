@@ -29,7 +29,7 @@
 				echo '<td>
 					<a href="index.php?controller=admin&action=editDetail&idDetail='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteDetail" onclick="GETurl(id, '.$id.')">Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteDetail" onclick="GETurl(id, '.$id.')"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 
 					</td>';
 				echo '</tr>';
