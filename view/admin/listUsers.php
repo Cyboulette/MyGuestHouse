@@ -8,9 +8,21 @@
 <?php 
 	if(empty($tab_utilisateurs)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune chambre pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=addUser" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a>';
+		echo '<a href="index.php?controller=adminUtilisateurs&action=addUser" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a>';
 	} else {
 		echo '<a href="index.php?controller=admin&action=addUser" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a> <br/><br/>';
+		// ici
+?>
+	<ul class='nav nav-tabs' role='tablist'>
+        <li <?php if(!isset($_GET['mode'])&&$mode=='all'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'all'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=all' > Tout <span class='badge'>  <?php  ?> </span></a></li>
+        <li <?php if(!isset($_GET['mode'])&&$mode=='admin'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'admin'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=admin' > Admin <span class='badge'>  <?php  ?> </span></a></li>
+        <li <?php if(!isset($_GET['mode'])&&$mode=='membre'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'membre'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=membre' > Membre <span class='badge'>  <?php  ?> </span></a></li>
+        <li <?php if(!isset($_GET['mode'])&&$mode=='visiteur'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'visiteur'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=visiteur' > Visiteur <span class='badge'>  <?php  ?> </span></a></li>
+        <li <?php if(!isset($_GET['mode'])&&$mode=='nonValide'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'nonValide'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=nonValide' > Non Validé <span class='badge'>  <?php  ?> </span></a></li>
+    </ul>
+	<br>
+
+<?php
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';
@@ -62,9 +74,9 @@
 		}
 
 		echo '</table></div>';
-
-		/* BOOTSTRAP MODAL */
-		?>
+?>
+		<!-- BOOTSTRAP MODAL -->
+		
 		 <div id="deleteReservation" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -78,4 +90,7 @@
 		 </div>
 <?php
 	}
-?>
+?>		
+
+
+
