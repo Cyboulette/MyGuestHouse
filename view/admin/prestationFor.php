@@ -3,12 +3,12 @@
 <?php 
 	if(empty($tab_allPrestation)) {
 		echo '<div class="alert alert-danger">Vous ne disposez d\'aucune prestation pour le moment</div>';
-		echo '<a href="index.php?controller=admin&action=addPrestation" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a>';
+		echo '<a href="index.php?controller=adminPrestations&action=addPrestation" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a>';
 	} else {
-		echo '<a href="index.php?controller=admin&action=addPrestation" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a><br/><br/>';
+		echo '<a href="index.php?controller=adminPrestations&action=addPrestation" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a><br/><br/>';
 		
 
-		echo '<form action="index.php?controller=admin&action=managedPrestation" method="POST">';
+		echo '<form action="index.php?controller=adminPrestations&action=managedPrestation" method="POST">';
 		echo '<div class="table-responsive"><table class="table table-bordered">';
 			echo '<thead>';
 				echo '<tr>';

@@ -115,11 +115,11 @@
 					require_once File::build_path(array("view", "main_view.php"));
 				}else{
 					$message = '<div class="alert alert-danger">Cette chambre n\'existe plus !</div>';
-					self::chambres($message);
+					ControllerAdminChambres::chambres($message);
 				}
 			}else{
 				$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une chambre sans connaître son ID !</div>';
-				self::chambres($message);
+				ControllerAdminChambres::chambres($message);
 			}
 		}
 
@@ -143,7 +143,7 @@
 			}else{
 				$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une chambre sans connaître son ID !</div>';
 			}
-			self::chambres($message);
+			ControllerAdminChambres::chambres($message);
 		}
 	}
 ?>
