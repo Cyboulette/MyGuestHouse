@@ -119,15 +119,15 @@
 	            $update = ModelDetail::deleteAllByChambre($idChambre); //TODO vérifier si true
 	            if($update){
 	                foreach ($_POST as $key => $value){
-	                    $valeur = substr($key, 0, 7);
+	                    $idDetail = substr($key, 0, 7);
 
-	                    if($valeur!="valeur_"){
+	                    if($idDetail!="valeur_"){
 	                        $todo = false;
 	                    }else{
 	                        $todo = true;
 	                    }
 
-	                    if($todo){
+	                    if($todo && $value!=null){
 	                        $idDetail = str_replace("valeur_", "", $key);
 	                        $update = ModelDetail::saveByChambre($idChambre, $idDetail, $value);
 	                    }

@@ -1,8 +1,10 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 <?php
-  $nbChambre = ModelChambre::count();
   $nbUtilisateur = ModelUtilisateur::count();
+  $nbChambre = ModelChambre::count();
   $nbPrestation = ModelPrestation::count();
+  $nbDetails = ModelDetail::count();
+  // ICI reservation
   $nbSlides = ModelSlides::count();
   $nbNews = ModelNews::count();
 ?>
@@ -11,15 +13,16 @@
 
 <div class="row placeholders">
   <div class="col-xs-6 col-sm-3 placeholder">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fa fa-users fa-inverse fa-stack-1x"></i>
-    </span>
-    <h4>Utilisateurs</h4>
-    <span class="text-muted"><?php if($nbUtilisateur!=null){echo$nbUtilisateur;}else{echo"0";}?> utilisateur<?php if($nbUtilisateur>1)echo"s";?> inscrit<?php if($nbUtilisateur>1)echo"s";?></span>
+    <a href="?controller=adminUtilisateur&action=utilisateurs">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-users fa-inverse fa-stack-1x"></i>
+      </span>
+      <h4>Utilisateurs</h4>
+      <span class="text-muted"><?php if($nbUtilisateur!=null){echo$nbUtilisateur;}else{echo"0";}?> utilisateur<?php if($nbUtilisateur>1)echo"s";?> inscrit<?php if($nbUtilisateur>1)echo"s";?></span>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=admin&action=chambres">
+    <a href="?controller=adminChambres&action=chambres">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-bed fa-inverse fa-stack-1x"></i>
@@ -29,7 +32,7 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=admin&action=prestations">
+    <a href="?controller=adminPrestations&action=prestations">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-glass fa-inverse fa-stack-1x"></i>
@@ -39,23 +42,26 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
+    <a href="?controller=adminDetails&action=details">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-plug fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Détails</h4>
-      <span class="text-muted">XX Détails</span>
+      <span class="text-muted"><?php if($nbDetails!=null){echo$nbDetails;}else{echo"0";}?> détail<?php if($nbDetails>1)echo"s";?> enregistrée<?php if($nbDetails>1)echo"s";?></span>
+    </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fa fa-calendar fa-inverse fa-stack-1x"></i>
-    </span>
-    <h4>Réservations</h4>
-    <span class="text-muted">XX Réservations</span>
+    <a href="?controller=adminReservations&action=reservations">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-calendar fa-inverse fa-stack-1x"></i>
+      </span>
+      <h4>Réservations</h4>
+      <span class="text-muted">XX Réservations</span>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=admin&action=details">
+    <a href="?controller=adminSlides&action=slides">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa fa-hand-rock-o fa-inverse fa-stack-1x"></i>
@@ -65,7 +71,7 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=admin&action=news">
+    <a href="?controller=adminNews&action=news">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa fa-newspaper-o fa-inverse fa-stack-1x"></i>
@@ -75,7 +81,7 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=admin&action=options">
+    <a href="?controller=adminOptions&action=list">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-cogs fa-inverse fa-stack-1x"></i>
@@ -85,7 +91,7 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=admin&action=themes">
+    <a href="?controller=adminThemes&action=themes">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-paint-brush fa-inverse fa-stack-1x"></i>
