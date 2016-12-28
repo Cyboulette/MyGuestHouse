@@ -216,6 +216,20 @@ ALTER TABLE `GH_Utilisateurs`
 ALTER TABLE `GH_VisuelsChambres`
   ADD CONSTRAINT `cf_visuelChambre` FOREIGN KEY (`idChambre`) REFERENCES `GH_Chambres` (`idChambre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+-- LES RANGS DOIVENT ÊTRE DANS LA BDD QUOIQU'IL ARRIVE
+
+INSERT INTO `GH_Rangs` (`idRang`, `labelRang`, `power`) VALUES
+(1, 'Visiteur', 0),
+(2, 'Membre', 10),
+(3, 'Admin', 100);
+
+-- LES OPTIONS AUSSI
+
+INSERT INTO `GH_Options` (`idOption`, `nameOption`, `valueOption`) VALUES
+(2, 'display_news', 'true'),
+(3, 'theme_site', 'default'),
+(4, 'main_color_site', '#ad1717');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
