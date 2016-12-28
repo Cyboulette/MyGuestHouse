@@ -49,7 +49,7 @@
 					$save = ModelPrestation::save($data);
 					if ($save) {
 						$message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
-						self::news($message);
+						self::reservations($message);
 					} else {
 						$message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
 					}

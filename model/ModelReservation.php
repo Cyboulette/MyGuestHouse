@@ -29,7 +29,6 @@ class ModelReservation extends Model{
 
 
     /* SOME GETTERS WITH DATE */
-
     public static function getReservationsEnCours(){
         try{
             $dateLocal = new DateTime();
@@ -55,7 +54,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function getReservationsEnAttente(){
         try{
             $dateLocal = new DateTime();
@@ -81,7 +79,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function getReservationsFinis(){
         try{
             $dateLocal = new DateTime();
@@ -107,7 +104,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function getReservationsAnnulee(){
         try{
             $sql = 'SELECT * FROM GH_Reservations WHERE annulee = 1 ';
@@ -127,8 +123,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
-
 
     /**
      * Return the number of day of the reservation
@@ -166,7 +160,7 @@ class ModelReservation extends Model{
     public function getPrixTotal(){
         try{
             $sql = "
-                SELECT c.prixChambre*:tag_nombreJour+SUM(p.prix) FROM GH_Chambres c, GH_ReservationsPrestation rp, GH_Prestations p WHERE rp.idPrestation = p.idPrestation AND rp.idReservation = :tag_idReservation AND c.idChambre = :tag_idChambre
+                SELECT c.prixChambre*:tag_nombreJour+IFNULL(SUM(p.prix),0) FROM GH_Chambres c, GH_ReservationsPrestation rp, GH_Prestations p WHERE rp.idPrestation = p.idPrestation AND rp.idReservation = :tag_idReservation AND c.idChambre = :tag_idChambre
 
             ";
 
