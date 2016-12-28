@@ -48,6 +48,35 @@ class ModelPrestation extends Model {
         }
     }
 
+    public static function selectAllByReservation($idReservation){
+        try {
+            $sql = "SELECT p.idPrestation, p.nomPrestation, p.prix
+                    FROM `GH_ReservationsPrestation` rp
+                    INNER JOIN `GH_Prestations` p ON rp.idPrestation = p.idPrestation
+                    WHERE rp.idReservation= :tag_idReservation";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idReservation' => $idReservation,
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelPrestation');
+            $result = $req_prep->fetchAll();
+
+            return $result;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
     public static function deleteAllByChambre($idChambre){
         try {
             $sql = "DELETE FROM GH_ChambresPresta
@@ -74,6 +103,33 @@ class ModelPrestation extends Model {
         }
     }
 
+    public static function deleteAllByReservation($idReservation){
+        try {
+            $sql = "DELETE FROM GH_ReservationsPrestation
+                    WHERE idReservation = :tag_idReservation";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idReservation' => $idReservation,
+            );
+
+            $req_prep->execute($values);
+
+            return true;
+
+        } catch (Exception $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+
+    }
+
     public static function saveByChambre($idChambre, $idPrestation){
         try {
             $sql = "INSERT INTO GH_ChambresPresta (idChambre, idPrestation)
@@ -83,6 +139,33 @@ class ModelPrestation extends Model {
 
             $values = array(
                 'tag_idChambre' => $idChambre,
+                'tag_idPrestation' => $idPrestation,
+            );
+
+            $req_prep->execute($values);
+
+            return true;
+
+        } catch (Exception $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function saveByReservation($idReservation, $idPrestation){
+        try {
+            $sql = "INSERT INTO GH_ReservationsPrestation (idReservation, idPrestation)
+                    VALUES (:tag_idReservation, :tag_idPrestation)";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idReservation' => $idReservation,
                 'tag_idPrestation' => $idPrestation,
             );
 
