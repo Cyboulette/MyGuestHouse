@@ -82,30 +82,6 @@ class ModelUtilisateur extends Model {
         }
     }
 
-    public static function selectByRang($idRang){
-        try {
-            $sql = "SELECT * 
-                    FROM `GH_Utilisateurs`
-                    WHERE rang = :rang";
-            $req_prep = Model::$pdo->prepare($sql);
-
-            $values = array(
-              'rang' => $idRang,
-            );
-
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
-            $tab = $req_prep->fetchAll();
-            return $tab;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
     public static function countSelectByRang($idRang){
         try {
             $sql = "SELECT COUNT(*) 

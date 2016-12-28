@@ -109,7 +109,7 @@ CREATE TABLE `GH_Utilisateurs` (
   `emailUtilisateur` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
   `rang` int(11) NOT NULL,
-  `nonce` varchar(100) NOT NULL
+  `nonce` varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `GH_VisuelsChambres`;
