@@ -14,6 +14,8 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # Commits
 
+- 29/12
+    *       Manage prestations for reservations
 
 <br>
 - 20/12

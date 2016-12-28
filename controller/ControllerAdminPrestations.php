@@ -51,7 +51,7 @@
 				$prestation = ModelPrestation::select($_GET['idPrestation']);
 				if($prestation!=false){
 					$view = 'editPrestation';
-					$pagetitle = 'Administration - modifier ue prestation';
+					$pagetitle = 'Administration - modifier une prestation';
 					$template = 'admin';
 					require_once File::build_path(array("view", "main_view.php"));
 				}else{

@@ -1,34 +1,39 @@
 <?php
-	class ControllerAdminReservations extends ControllerAdmin {
+	class ControllerAdminReservations extends ControllerAdmin
+	{
 		// Gestion des réservations : view/amin/viewAllReservation.php
-		public static function reservations($message = null){
+		public static function reservations($message = null)
+		{
 			$powerNeeded = self::isAdmin();
 			$view = 'viewAllReservation';
 			$pagetitle = 'Administration - Gestion des réservations';
 			$template = 'admin';
 			// appel des methodes de selection
-			if(!isset($_GET['mode'])){ $_GET['mode'] = 'enAttente'; }
-			switch ($_GET['mode']){
+			if (!isset($_GET['mode'])) {
+				$_GET['mode'] = 'enattentes';
+			}
+			switch ($_GET['mode']) {
 				case 'encours':
-					$tab_reservations=ModelReservation::getReservationsEnCours();
+					$tab_reservations = ModelReservation::getReservationsEnCours();
 					break;
 				case 'enattentes':
-					$tab_reservations=ModelReservation::getReservationsEnAttente();
+					$tab_reservations = ModelReservation::getReservationsEnAttente();
 					break;
 				case 'finis':
-					$tab_reservations=ModelReservation::getReservationsFinis();
+					$tab_reservations = ModelReservation::getReservationsFinis();
 					break;
 				case 'annulees':
-					$tab_reservations=ModelReservation::getReservationsAnnulee();
+					$tab_reservations = ModelReservation::getReservationsAnnulee();
 					break;
 			}
 			require_once File::build_path(array("view", "main_view.php"));
 		}
-		
-		public static function addReservation(){ // IN PROGRESS
+
+		public static function addReservation()
+		{ // IN PROGRESS
 			self::isAdmin();
-			if(isset($_POST['idReservation'])){
-				if($_POST['idUtilisateur']!=null && $_POST['dateDebut']!=null && $_POST['dateFin']!=null && $_POST['idChambre']!=null ){
+			if (isset($_POST['idReservation'])) {
+				if ($_POST['idUtilisateur'] != null && $_POST['dateDebut'] != null && $_POST['dateFin'] != null && $_POST['idChambre'] != null) {
 					$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
 					$dateDebut = htmlspecialchars($_POST['dateDebut']);
 					$dateFin = htmlspecialchars($_POST['dateFin']);
@@ -42,9 +47,9 @@
 						'annulee' => null
 					);
 					$save = ModelPrestation::save($data);
-					if($save) {
+					if ($save) {
 						$message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
-						self::news($message);
+						self::reservations($message);
 					} else {
 						$message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
 					}
@@ -57,39 +62,42 @@
 			self::manageReservation($message);
 		}
 
-		public static function editReservation(){
+		// Edition de : idReservation, idChambre, dateDébut, DateFin
+		public static function editReservation()
+		{
 			self::isAdmin();
-			if(isset($_POST['idReservation']) && isset($_POST['idUtilisateur']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['dateDebut']) && isset($_POSTT['dateFin']) && isset($_POST['idChambre'])) {
+			if (isset($_POST['idReservation'], $_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
 				$idReservation = htmlspecialchars($_POST['idReservation']);
 				$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
-				$dateDebut = htmlspecialchars($_POST['dateNews']);
-				$dateFin = htmlspecialchars($_POST['etatNews']);
+				$dateDebut = htmlspecialchars($_POST['dateDebut']);
+				$dateFin = htmlspecialchars($_POST['dateFin']);
 				$idChambre = htmlspecialchars($_POST['idChambre']);
 				$checkReservation = ModelReservation::select($idReservation);
+				//var_dump($checkReservation);
 				if ($checkReservation) {
 					if (!empty($idUtilisateur) && !ctype_space($idUtilisateur)) {
 						if (!empty($idChambre) && !ctype_space($idChambre)) {
 							if (!empty($dateDebut) && !ctype_space($dateDebut)) {
-								if(!empty($dateFin) && !ctype_space($dateFin)){
+								if (!empty($dateFin) && !ctype_space($dateFin)) {
 									if (DateTime::createFromFormat('Y-m-d', $dateDebut) !== false && DateTime::createFromFormat('Y-m-d', $dateFin) !== false) {
 										$data = array(
 											'idReservation' => $idReservation,
 											'idUtilisateur' => $idUtilisateur,
-											'idChambre'     => $idChambre,
-											'dateDebut'     => $dateDebut,
-											'dateFin'       => $dateFin,
-											'annulee'       => null
+											'idChambre' => $idChambre,
+											'dateDebut' => $dateDebut,
+											'dateFin' => $dateFin,
+											'annulee' => null
 										);
-										$testSaveReservation= ModelReservation::update_gen($data, 'idReservation');
+										$testSaveReservation = ModelReservation::update_gen($data, 'idReservation');
 										if ($testSaveReservation) {
 											$message = '<div class="alert alert-success">La réservation a bien été modifiée !</div>';
-											self::news($message);
+											self::reservations($message);
 											exit(); // On ne veut pas que le code self::manageReservation s'exécute :)
 										} else {
 											$message = '<div class="alert alert-danger">Merci de contacter le support de MyGuestHouse !</div>';
 										}
 									} else {
-										$message = '<div class="alert alert-danger">Vous devez saisir un date d\'actualité au format jj/mm/aaaa</div>';
+										$message = '<div class="alert alert-danger">Vous devez saisir des dates au format jj/mm/aaaa</div>';
 									}
 								} else {
 									$message = '<div class="alert alert-danger">Vous devez saisir une date de fin non vide</div>';
@@ -107,7 +115,7 @@
 					$message = '<div class="alert alert-danger">La réservation que vous tentez de modifier n\'existe pas</div>';
 				}
 			}
-		self::manageReservation($message);
+			self::manageReservation($message);
 		}
 
 		public static function manageReservation($message = NULL){ // IN PROGRESS
@@ -131,7 +139,7 @@
 					$powerNeeded = self::isAdmin();
 					$view = 'manageReservation';
 					$template = 'admin';
-					$tab_news = ModelReservation::selectAll();
+					$tab_reservations= ModelReservation::selectAll();
 					$pagetitle = 'Administration - '.$titreAction;
 					require_once File::build_path(array("view", "main_view.php"));
 				} else {
@@ -141,5 +149,52 @@
 				ControllerDefault::error('Il faut préciser un paramètre de type de gestion de reservations !', 'admin');
 			}
 		}
+
+		// Gestion des prestations pour les reservations
+		public static function managePrestationForReservation(){
+			$powerNeeded = self::isAdmin();
+			if(isset($_GET['idReservation']) && $_GET['idReservation'] != NULL){
+				$reservation = ModelReservation::select($_GET['idReservation']);
+				if($reservation != null){
+					$view = 'prestationFor';
+					$pagetitle = 'Administration - Editeur de chambre';
+					$template = 'admin';
+					$idReservation = $_GET['idReservation'];
+					$tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
+					$tab_allPrestation = ModelPrestation::selectAll();
+					require_once File::build_path(array("view", "main_view.php"));
+				}else{
+					$message = '<div class="alert alert-danger">Cette reservation n\'existe plus !</div>';
+					ControllerAdminReservations::reservations($message);
+				}
+			}else{
+				$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une reservation sans connaître son ID !</div>';
+				ControllerAdminReservations::reservations($message);
+			}
+		}
+
+		public static function managedPrestationForReservation(){
+			$powerNeeded = self::isAdmin();
+			if(isset($_POST['idReservation']) && $_POST['idReservation']!=null){
+				$idReservation = $_POST['idReservation'];
+				$prestation = $_POST['prestations'];
+				$update = true;
+				$update = ModelPrestation::deleteAllByReservation($idReservation); //TODO vérifier si true
+				if ($prestation!=null) {
+					foreach ($prestation as $key => $value) {
+						$update = ModelPrestation::saveByReservation($idReservation, $prestation[$key]);
+					}
+				}
+				if($update != false) {
+					$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+				} else {
+					$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+				}
+			}else{
+				$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une resrvation sans connaître son ID !</div>';
+			}
+			ControllerAdminReservations::reservations($message);
+		}
+
 	}
 ?>

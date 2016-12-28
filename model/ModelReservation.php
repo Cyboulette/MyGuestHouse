@@ -29,7 +29,6 @@ class ModelReservation extends Model{
 
 
     /* SOME GETTERS WITH DATE */
-
     public static function getReservationsEnCours(){
         try{
             $dateLocal = new DateTime();
@@ -55,7 +54,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function getReservationsEnAttente(){
         try{
             $dateLocal = new DateTime();
@@ -81,7 +79,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function getReservationsFinis(){
         try{
             $dateLocal = new DateTime();
@@ -107,7 +104,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function getReservationsAnnulee(){
         try{
             $sql = 'SELECT * FROM GH_Reservations WHERE annulee = 1 ';
@@ -128,25 +124,26 @@ class ModelReservation extends Model{
         }
     }
 
-
-
-    /* IN PROGRESS */
-
     /**
      * Return the number of day of the reservation
      */
     public  function getNombreJours(){
         try{
-            $sql = "SELECT DATEDIFF('".$this->dateFin."','".$this->dateDebut."')";
+            $sql = "SELECT DATEDIFF(:dateFin,:dateDebut)";
 
             $rep = Model::$pdo->prepare($sql);
 
+
+            $values = array(
+                'dateDebut' => $this->dateDebut,
+                'dateFin' => $this->dateFin
+            );
             $rep->setFetchMode(PDO::FETCH_UNIQUE);
-            $rep->execute();
+            $rep->execute($values);
 
             $tab = $rep->Fetch();
 
-            return $tab;
+            return $tab[0];
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
@@ -160,8 +157,32 @@ class ModelReservation extends Model{
     /**
      * Return the total price of the reservation
      */
-    public static function getPrixTotal(){
+    public function getPrixTotal(){
+        try{
+            $sql = "
+                SELECT c.prixChambre*:tag_nombreJour+IFNULL(SUM(p.prix),0) FROM GH_Chambres c, GH_ReservationsPrestation rp, GH_Prestations p WHERE rp.idPrestation = p.idPrestation AND rp.idReservation = :tag_idReservation AND c.idChambre = :tag_idChambre
 
+            ";
+
+            $rep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idChambre' => $this->idChambre,
+                'tag_idReservation' => $this->idReservation,
+                'tag_nombreJour' => $this->getNombreJours()
+            );
+            $rep->execute($values);
+
+            $tab = $rep->Fetch();
+
+            return $tab[0];
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
     }
 }
 ?>
