@@ -19,7 +19,7 @@
         <i class="fa fa-users fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Utilisateurs</h4>
-      <span class="text-muted"><?php if($nbUtilisateur!=null){echo$nbUtilisateur;}else{echo"0";}?> utilisateur<?php if($nbUtilisateur>1)echo"s";?> inscrit<?php if($nbUtilisateur>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbUtilisateur; ?> utilisateur<?php if($nbUtilisateur>1)echo"s";?> inscrit<?php if($nbUtilisateur>1)echo"s";?></span>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
     <a href="?controller=adminChambres&action=chambres">
@@ -28,7 +28,7 @@
         <i class="fa fa-bed fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Chambres</h4>
-      <span class="text-muted"><?php if($nbChambre!=null){echo$nbChambre;}else{echo"0";}?> chambre<?php if($nbChambre>1)echo"s";?> enregistrée<?php if($nbChambre>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbChambre; ?> chambre<?php if($nbChambre>1)echo"s";?> enregistrée<?php if($nbChambre>1)echo"s";?></span>
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
@@ -38,7 +38,7 @@
         <i class="fa fa-glass fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Prestations</h4>
-      <span class="text-muted"><?php if($nbPrestation!=null){echo$nbPrestation;}else{echo"0";}?> prestation<?php if($nbPrestation>1)echo"s";?> enregistrée<?php if($nbPrestation>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbPrestation; ?> prestation<?php if($nbPrestation>1)echo"s";?> enregistrée<?php if($nbPrestation>1)echo"s";?></span>
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
@@ -48,7 +48,7 @@
         <i class="fa fa-plug fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Détails</h4>
-      <span class="text-muted"><?php if($nbDetails!=null){echo$nbDetails;}else{echo"0";}?> détail<?php if($nbDetails>1)echo"s";?> enregistrée<?php if($nbDetails>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbDetails; ?> détail<?php if($nbDetails>1)echo"s";?> enregistrée<?php if($nbDetails>1)echo"s";?></span>
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
@@ -58,7 +58,7 @@
         <i class="fa fa-calendar fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Réservations</h4>
-      <span class="text-muted"><?php if($nbReservations!=null){echo$nbReservations;}else{echo"0";}?> reservation<?php if($nbReservations>1)echo"s";?> enregistrée<?php if($nbReservations>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbReservations; ?> reservation<?php if($nbReservations>1)echo"s";?> enregistrée<?php if($nbReservations>1)echo"s";?></span>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
     <a href="?controller=adminSlides&action=slides">
@@ -67,7 +67,7 @@
         <i class="fa fa fa-hand-rock-o fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Images défilantes</h4>
-      <span class="text-muted"><?php if($nbSlides!=null){echo$nbSlides;}else{echo"0";}?> image<?php if($nbSlides>1)echo"s";?> défilante<?php if($nbSlides>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbSlides; ?> image<?php if($nbSlides>1)echo"s";?> défilante<?php if($nbSlides>1)echo"s";?></span>
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
@@ -77,7 +77,7 @@
         <i class="fa fa fa-newspaper-o fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Actualités</h4>
-      <span class="text-muted"><?php if($nbNews!=null){echo$nbNews;}else{echo"0";}?> actualité<?php if($nbNews>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbNews; ?> actualité<?php if($nbNews>1)echo"s";?></span>
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">

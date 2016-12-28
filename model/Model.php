@@ -86,7 +86,7 @@ class Model
             $tab = $rep->Fetch();
 
             if(empty($tab)) {
-                return false;
+                return 0;
             }
     
             return $tab[0];

@@ -3,17 +3,24 @@
 
 <?php  
 	if(isset($message)) { echo $message; }
+
+	$nbAll=ModelUtilisateur::count();
+	$nbAdmin=ModelUtilisateur::countSelectByRang('3');
+	$nbMembre=ModelUtilisateur::countSelectByRang('2');
+	$nbVisiteur=ModelUtilisateur::countSelectByRang('1');
+	$nbVisiteur=ModelUtilisateur::countSelectByRang('1');
+	$nbNonConfirme=ModelUtilisateur::countSelectNonValide();
 ?>
 
 
 	<a href="index.php?controller=adminUtilisateurs&action=addUser" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a><br/><br/>
 
 	<ul class='nav nav-tabs' role='tablist'>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='all'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'all'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=all' > Tout <span class='badge'>  <?php  ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='admin'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'admin'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=admin' > Admin <span class='badge'>  <?php  ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='membre'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'membre'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=membre' > Membre <span class='badge'>  <?php  ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='visiteur'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'visiteur'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=visiteur' > Visiteur <span class='badge'>  <?php  ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='nonValide'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'nonValide'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=nonValide' > Non Validé <span class='badge'>  <?php  ?> </span></a></li>
+	    <li <?php if(!isset($_GET['mode'])&&$mode=='all'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'all'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=all' > Tout <span class='badge'>  <?php echo $nbAll; ?> </span></a></li>
+	    <li <?php if(!isset($_GET['mode'])&&$mode=='admin'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'admin'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=admin' > Admin <span class='badge'>  <?php echo $nbAdmin; ?> </span></a></li>
+	    <li <?php if(!isset($_GET['mode'])&&$mode=='membre'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'membre'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=membre' > Membre <span class='badge'>  <?php echo $nbMembre; ?> </span></a></li>
+	    <li <?php if(!isset($_GET['mode'])&&$mode=='visiteur'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'visiteur'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=visiteur' > Visiteur <span class='badge'>  <?php echo $nbVisiteur; ?> </span></a></li>
+	    <li <?php if(!isset($_GET['mode'])&&$mode=='nonValide'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'nonValide'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=nonValide' > Non Validé <span class='badge'>  <?php echo $nbNonConfirme; ?> </span></a></li>
    	</ul>
    	<br>
 
@@ -40,12 +47,12 @@
 			$statut = $utilisateur->get('rang');
 			$valide = $utilisateur->get('nonce');
 
-			if($statut = 100){
+			if($statut == '3'){
 				$statut = 'Admin';
-			}else if($statut = 10){
-				$statut = 'Memnre';
-			}else if($statut = 0){
-				$statut = 'visiteur';
+			}else if($statut == '2'){
+				$statut = 'Membre';
+			}else if($statut == '1'){
+				$statut = 'Visiteur';
 			}
 
 			if($valide != null){

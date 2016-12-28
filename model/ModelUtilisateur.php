@@ -106,16 +106,73 @@ class ModelUtilisateur extends Model {
         }
     }
 
+    public static function countSelectByRang($idRang){
+        try {
+            $sql = "SELECT COUNT(*) 
+                    FROM `GH_Utilisateurs`
+                    WHERE rang = :rang";
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+              'rang' => $idRang,
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $req_prep->fetch();
+            
+            if(empty($tab)) {
+                return 0;
+            }
+    
+            return $tab[0];
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
     public static function selectNonValide(){
         try {
             $sql = "SELECT * 
-                    FROM `GH_Utilisateurs`
-                    WHERE nonce = NULL";
+                    FROM `GH_Utilisateurs` 
+                    WHERE nonce <> ' '
+            ";
+
             $rep = Model::$pdo->query($sql);
 
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
             $tab = $rep->FetchAll();
             return $tab;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function countSelectNonValide(){
+        try {
+            $sql = "SELECT COUNT(*) 
+                    FROM `GH_Utilisateurs` 
+                    WHERE nonce <> ' '
+            ";
+
+            $rep = Model::$pdo->query($sql);
+
+            $rep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $rep->Fetch();
+            
+            if(empty($tab)) {
+                return 0;
+            }
+    
+            return $tab[0];
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
