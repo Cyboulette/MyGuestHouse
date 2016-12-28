@@ -115,7 +115,7 @@ class ModelUtilisateur extends Model {
         try {
             $sql = "SELECT * 
                     FROM `GH_Utilisateurs` 
-                    WHERE nonce <> ' '
+                    WHERE nonce IS NOT NULL
             ";
 
             $rep = Model::$pdo->query($sql);

@@ -22,8 +22,24 @@
 			}
 			require_once File::build_path(array("view","main_view.php"));
 		}
+
+		public static function read(){
+			$powerNeeded = self::isAdmin();
+			if(isset($_GET['idUtilisateur']) && $_GET['idUtilisateur']!=null){
+				$utilisateur = ModelUtilisateur::select($_GET['idUtilisateur']);
+				if($utilisateur!=false){
+					$view = 'readUser';
+					$pagetitle = 'Administration - un utilisateur';
+					$template = 'admin';
+					require_once File::build_path(array("view", "main_view.php"));
+				}else{
+					$message = '<div class="alert alert-danger">cet Utilisateur n\'existe plus !</div>';
+					self::utilisateurs($message);
+				}
+			}else{
+				$message = '<div class="alert alert-danger">Votre requette n\'a pas pu aboutire !</div>';
+				self::utilisateurs($message);
+			}
+		}
 	}
-
-
-	$arrayName = array('rang' => '3',);
 ?>
