@@ -15,13 +15,15 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 # Commits
 
 - 29/12
+    *       New release is OUT, you can see [here](https://github.com/Cyboulette/MyGuestHouse/releases/tag/v0.2), so you can test our CMS and report bug if you want !
+    *       Install script is out ! It's now possible to "INSTALL" our CMS automatically. No needed to edit config and put default values into phpmyadmin manually, our script do it for us ! It was a MAJOR request of our "client".
     *       Manage prestations for reservations
 
 <br>
 - 20/12
    *       Manage of Themes directly in the Administration : we can now change the theme of the website through the admin. (Note : The admin theme can't be changed !!)
    *       Update CSS of the admin and the index page
-   *       Release the first demo version [here](https://github.com/Cyboulette/MyGuestHouse/releases), and updated the `.sql` files
+   *       Release the first demo version [here](https://github.com/Cyboulette/MyGuestHouse/releases/tag/v0.1), and updated the `.sql` files
    *       Update autoload function of the routeur for now require_once automatically Controller(s) and Model(s). When we use Controller:: or Model:: we don't need to have included the file before, the auto_loader do it for us.
    
 <br>

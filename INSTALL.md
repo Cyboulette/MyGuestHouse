@@ -6,7 +6,7 @@ Vous êtes sur le point d'installer MyGuestHouse, assurez-vous d'avoir :
     4. Une base de données (nous conseillons MySQL ou OracleDB)
 
 -------------------------------------------------------------------------
-Suivez les instructions d'installation :
+Pour installer notre CMS, vous pouvez soit l'installer via l'installateur qui s'exécute lorsque vous lancez n'importe quelle page du site une fois dézippé dans votre hébergement web, OU, effectuer une installation manuelle :
 
     1. Assurez vous que votre dossier d'installation possède tous les droits nécessaires (on recommande un 766 voire un 777)
     2. Téléchargez l'archive du CMS : https://github.com/Cyboulette/MyGuestHouse/releases
