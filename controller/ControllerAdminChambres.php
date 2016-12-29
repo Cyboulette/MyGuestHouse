@@ -38,14 +38,14 @@
 						if($save!=false){
 							$message = '<div class="alert alert-success">Chambre ajoutée avec succès !</div>';
 						}else{
-							$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la creation de la chambre !</div>';
+							$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de la chambre !</div>';
 						
 						}
 					}else{
 						$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
 					}
 				}else{
-					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide avoir un prix ou une seperficie inferieur a zero !</div>';
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide ou avoir un prix ou une seperficie inferieur a zero !</div>';
 				}   
 			}else{
 				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';

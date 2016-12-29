@@ -32,7 +32,7 @@
       </div>
 
       <div class='col-xs-6 col-sm-5 col-md-2'>
-        <input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
+        <input type='submit' class='btn btn-s btn-success btn-block' value='Ajouter'>
       </div>
     </form>
 

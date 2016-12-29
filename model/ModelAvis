@@ -1,0 +1,29 @@
+<?php
+require_once 'Model.php';
+
+class ModelChambre{
+    
+    protected $idChambre;
+    protected $idUtilisateur;
+    protected $note;
+    protected $commentaire;
+
+    // protected static $tableName = 'GH_Chambres'; // Correspond au nom de la table SQL (pratique si différent du nom de l'objet)
+    // protected static $object = 'chambre'; // Correspond au nom de l'objet à créer
+    // protected static $primary = 'idChambre'; // Correspond à la clé primaire de la table (pratique pour faire un read())
+
+    public function __construct($idChambre=null, $idUtilisateur=null, $note=null, $commentaire=null){
+        if(!is_null($idChambre) && !is_null($idUtilisateur) && !is_null($note) && !is_null($commentaire)){
+            $this->idChambre = $idChambre;
+            $this->idUtilisateur = $idUtilisateur;
+            $this->note = $note;
+            $this->commentaire = $commentaire;
+            
+        }
+    }
+
+    // public static function select(){
+        
+    // }
+}
+?>
