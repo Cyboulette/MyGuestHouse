@@ -33,7 +33,17 @@
 				$listNews = ModelNews::getNews(4);
 			}
 
+			$listChambres = ModelChambre::selectAll();
+
 			require File::build_path(array('view', 'main_view.php'));
+		}
+
+		public static function truncate($text, $chars = 25) {
+			$text = $text." ";
+			$text = substr($text,0,$chars);
+			$text = substr($text,0,strrpos($text,' '));
+			$text = $text."...";
+			return $text;
 		}
 
 		/**
@@ -45,7 +55,7 @@
 		 * @param string current mode (for nav liste with mode)
 		 * @return boolean
 		*/
-		public static function active($currentController, $currentAction = null, $currentMode = null){
+		public static function active($currentController = null, $currentAction = null, $currentMode = null, $page = null){
 			$queryString = $_SERVER['QUERY_STRING'];
 			if($currentMode != null){
 				if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction.'&mode='.$currentMode) !== false) {
@@ -53,6 +63,10 @@
 				}
 			} elseif(!empty($currentAction) && $currentAction != null) {
 				if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction) !== false) {
+					echo 'class="active"';
+				}
+			} elseif(!empty($page) && $page != null) {
+				if($page == basename($_SERVER['PHP_SELF']) && empty($queryString)) {
 					echo 'class="active"';
 				}
 			} else {
