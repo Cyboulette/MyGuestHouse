@@ -162,3 +162,8 @@ body {
 .theme h1 {
   margin-top: 0px;
 }
+
+.space-for-according{
+  display: flex;
+  justify-content: space-between;
+}
