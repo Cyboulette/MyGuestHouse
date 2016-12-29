@@ -491,3 +491,8 @@ i.bigCoffee {
 		padding-left: 40px;
 	}
 }
+
+.space-for-according{
+  display: flex;
+  justify-content: space-between;
+}
