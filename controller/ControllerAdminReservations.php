@@ -118,18 +118,19 @@
 			self::manageReservation($message);
 		}
 
-		public static function manageReservation($message = NULL){ // IN PROGRESS
-			if(isset($_GET['type'])) {
+		public static function manageReservation($message = NULL)
+		{ // IN PROGRESS
+			if (isset($_GET['type'])) {
 				$type = $_GET['type'];
-				if($type == "add" || $type == "edit") {
-					if($type == "add") {
+				if ($type == "add" || $type == "edit") {
+					if ($type == "add") {
 						$titreAction = 'Ajouter une reservation';
-					} elseif($type == "edit") {
+					} elseif ($type == "edit") {
 						$titreAction = 'Modifier une reservation';
-						if(isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
+						if (isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
 							$idReservation = htmlspecialchars($_GET['idReservation']);
 							$readReservation = ModelReservation::select($idReservation);
-							if(!$readReservation) {
+							if (!$readReservation) {
 								self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
 							}
 						} else {
@@ -139,8 +140,8 @@
 					$powerNeeded = self::isAdmin();
 					$view = 'manageReservation';
 					$template = 'admin';
-					$tab_reservations= ModelReservation::selectAll();
-					$pagetitle = 'Administration - '.$titreAction;
+					$tab_reservations = ModelReservation::selectAll();
+					$pagetitle = 'Administration - ' . $titreAction;
 					require_once File::build_path(array("view", "main_view.php"));
 				} else {
 					ControllerDefault::error('Vous devez préciser si vous souhaitez modifier ou ajouter une reservation !', 'admin');
@@ -151,11 +152,12 @@
 		}
 
 		// Gestion des prestations pour les reservations
-		public static function managePrestationForReservation(){
+		public static function managePrestationForReservation()
+		{
 			$powerNeeded = self::isAdmin();
-			if(isset($_GET['idReservation']) && $_GET['idReservation'] != NULL){
+			if (isset($_GET['idReservation']) && $_GET['idReservation'] != NULL) {
 				$reservation = ModelReservation::select($_GET['idReservation']);
-				if($reservation != null){
+				if ($reservation != null) {
 					$view = 'prestationFor';
 					$pagetitle = 'Administration - Editeur de chambre';
 					$template = 'admin';
@@ -163,38 +165,98 @@
 					$tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
 					$tab_allPrestation = ModelPrestation::selectAll();
 					require_once File::build_path(array("view", "main_view.php"));
-				}else{
+				} else {
 					$message = '<div class="alert alert-danger">Cette reservation n\'existe plus !</div>';
 					ControllerAdminReservations::reservations($message);
 				}
-			}else{
+			} else {
 				$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une reservation sans connaître son ID !</div>';
 				ControllerAdminReservations::reservations($message);
 			}
 		}
 
-		public static function managedPrestationForReservation(){
+		public static function managedPrestationForReservation()
+		{
 			$powerNeeded = self::isAdmin();
-			if(isset($_POST['idReservation']) && $_POST['idReservation']!=null){
+			if (isset($_POST['idReservation']) && $_POST['idReservation'] != null) {
 				$idReservation = $_POST['idReservation'];
 				$prestation = $_POST['prestations'];
 				$update = true;
 				$update = ModelPrestation::deleteAllByReservation($idReservation); //TODO vérifier si true
-				if ($prestation!=null) {
+				if ($prestation != null) {
 					foreach ($prestation as $key => $value) {
 						$update = ModelPrestation::saveByReservation($idReservation, $prestation[$key]);
 					}
 				}
-				if($update != false) {
+				if ($update != false) {
 					$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
 				} else {
 					$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
 				}
-			}else{
+			} else {
 				$message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une resrvation sans connaître son ID !</div>';
 			}
 			ControllerAdminReservations::reservations($message);
 		}
 
+		public static function deleteReservationForm(){
+			self::isAdmin();
+			$retour = array(); //Tableau de retour
+			if(isset($_POST['idReservation'])) {
+				$idReservation = htmlspecialchars($_POST['idReservation']);
+				$Reservation = ModelReservation::select($idReservation);
+				if($Reservation != false) {
+					$form = '<form method="POST" role="form" action="index.php?controller=adminReservations&action=deleteReservation">
+						<div class="alert alert-info text-center">
+							Confirmez vous la suppression de la reservation <b>'.htmlspecialchars($Reservation->get('idReservation')).'</b> ?
+						</div>
+						<input type="hidden" name="idReservation" value="'.$Reservation->get('idReservation').'">
+						<input type="hidden" name="confirm" value="true">
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Confirmer</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Annuler">Annuler</button>
+						</div>
+					</form>';
+					$retour['result'] = true;
+					$retour['message'] = $form;
+				} else {
+					$retour['result'] = false;
+					$retour['message'] = '<div class="alert alert-danger">La reservation demandée n\'existe pas !</div>';
+				}
+			} else {
+				$retour['result'] = false;
+				$retour['message'] = '<div class="alert alert-danger">Vous n\'avez pas envoyé correctement les données !</div>';
+			}
+			echo json_encode($retour);
+		}
+
+		public static function deleteReservation(){
+			self::isAdmin();
+			if (isset($_POST['idReservation'], $_POST['confirm'])) {
+				$idReservation = htmlspecialchars($_POST['idReservation']);
+				$confirm = htmlspecialchars($_POST['confirm']);
+				$reservation = ModelReservation::select($idReservation);
+				if ($reservation != false) {
+					if ($confirm == true) {
+						$chek = ModelReservation::delete($reservation->get('idReservation'));
+						$chekeleteReservation = ModelReservation::delete($reservation->get('idReservation'));
+						if ($chek) {
+							if ($chekeleteReservation) {
+								$message = '<div class="alert alert-success">La réservation a bien été supprimée !</div>';
+							} else {
+								$message = '<div class="alert alert-danger">Impossible de supprimer cette réservation !</div>';
+							}
+						} else {
+							$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Cette réservation n\'existe pas</div>';
+					}
+				} else {
+					$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
+				}
+				self::reservations($message);
+			}
+		}
 	}
 ?>
