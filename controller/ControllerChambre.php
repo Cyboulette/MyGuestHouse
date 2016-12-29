@@ -1,9 +1,4 @@
 <?php
-/*require_once File::build_path(array('model', 'ModelChambre.php'));
-require_once File::build_path(array('model', 'ModelOption.php'));
-require_once File::build_path(array('model', 'ModelPrestation.php'));*/
-
-
 class ControllerChambre {
     private static $object = 'chambre';
 
@@ -31,7 +26,7 @@ class ControllerChambre {
                 $compteur = true;
                 foreach ($tab_photo as $key => $value) {
                   $photo = $tab_photo[$key][0];
-                  if (!file_exists($photo)) {
+                  if (!file_exists(File::build_path(array($photo)))) {
                     ModelChambre::delatePhoto($photo);// suppression de la photo de la bdd si elle nexiste pas physiquement
                     $compteur = false;
                   }
@@ -50,3 +45,4 @@ class ControllerChambre {
     }
 
 }
+?>

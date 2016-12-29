@@ -51,7 +51,7 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="logoBrand "><a href="index.php" class="colorCustom"><?=$websiteName?></a></li>
-                    <li <?php ControllerDefault::active('index', ''); ?>><a href="index.php">Accueil</a></li>
+                    <li <?php ControllerDefault::active(null, null, null, 'index.php'); ?>><a href="index.php">Accueil</a></li>
                     <li <?php ControllerDefault::active('chambre', 'readAll'); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
                     <li <?php ControllerDefault::active('default', 'aboutus'); ?>><a href="index.php?controller=default&action=aboutus">À propos de nous</a></li>
 

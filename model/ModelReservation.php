@@ -124,6 +124,8 @@ class ModelReservation extends Model{
         }
     }
 
+
+
     /**
      * Return the number of day of the reservation
      */
@@ -159,10 +161,7 @@ class ModelReservation extends Model{
      */
     public function getPrixTotal(){
         try{
-            $sql = "
-                SELECT c.prixChambre*:tag_nombreJour+IFNULL(SUM(p.prix),0) FROM GH_Chambres c, GH_ReservationsPrestation rp, GH_Prestations p WHERE rp.idPrestation = p.idPrestation AND rp.idReservation = :tag_idReservation AND c.idChambre = :tag_idChambre
-
-            ";
+            $sql = "SELECT c.prixChambre*:tag_nombreJour+IFNULL(SUM(p.prix),0) FROM GH_Chambres c, GH_ReservationsPrestation rp, GH_Prestations p WHERE rp.idPrestation = p.idPrestation AND rp.idReservation = :tag_idReservation AND c.idChambre = :tag_idChambre";
 
             $rep = Model::$pdo->prepare($sql);
 

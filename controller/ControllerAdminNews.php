@@ -86,7 +86,7 @@
 					if($confirm == true) {
 						$checkDeleteNews = ModelNews::delete($news->get('idNews'));
 						if($checkDeleteNews) {
-							$message = '<div class="alert alert-success">L\'actualité a bien été supprimé !</div>';
+							$message = '<div class="alert alert-success">L\'actualité a bien été supprimée !</div>';
 						} else {
 							$message = '<div class="alert alert-danger">Impossible de supprimer cette actualité !</div>';
 						}
