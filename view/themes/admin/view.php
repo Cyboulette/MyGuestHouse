@@ -46,7 +46,7 @@
             <li <?php ControllerDefault::active('admin', 'administration'); ?>><a href="#">Administration</a></li>
             <li <?php ControllerDefault::active('admin', 'parametre'); ?>><a href="#">Vos paramètres</a></li>
             <li <?php ControllerDefault::active('admin', 'profil'); ?>><a href="#">Votre profil</a></li>
-            <li <?php ControllerDefault::active('admin', 'aide'); ?>><a href="#">Aide</a></li>
+            <li <?php ControllerDefault::active('admin', 'aide'); ?>><a href="index.php?controller=admin&action=help">Aide</a></li>
           </ul>
         </div>
       </div>

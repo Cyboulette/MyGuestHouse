@@ -1,4 +1,9 @@
-<?php if(!$powerNeeded) { exit(); } ?>
+<?php
+/**
+ * This view provide the updating and adding action for reservation
+ **/
+
+if(!$powerNeeded) { exit(); } ?>
 <h1 class="page-header"><?=$titreAction?></h1>
 <?php if(isset($message)) echo $message; ?>
 

@@ -1,4 +1,8 @@
-<?php if(!$powerNeeded) { exit(); } ?>
+<?php
+/**
+ * This view provide the to add and take off prestations for reservations
+ **/
+if(!$powerNeeded) { exit(); } ?>
 <?php
 	if($_GET['controller'] == 'adminPrestations'){
 		echo '<h1 class="page-header">Liste des prestations</h1>';

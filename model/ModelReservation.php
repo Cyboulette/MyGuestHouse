@@ -124,7 +124,42 @@ class ModelReservation extends Model{
         }
     }
 
+    public static function selectAllByUser($idUtilisateur){
+        try {
+            $sql = "SELECT *
+                    FROM `GH_Reservations` r
+                    WHERE r.idUtilisateur= :tag_idUtilisateur";
 
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idUtilisateur' => $idUtilisateur,
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
+            $result = $req_prep->fetchAll();
+
+            return $result;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function selectAllPrixByUser($idUtilisateur){
+        $Reservations=self::selectAllByUser($idUtilisateur);
+        $result=0;
+        foreach($Reservations as $reservation){
+            $result = $result + $reservation->getPrixTotal();
+        }
+        return $result;
+    }
 
     /**
      * Return the number of day of the reservation
@@ -157,7 +192,7 @@ class ModelReservation extends Model{
     }
 
     /**
-     * Return the total price of the reservation
+     * Return the total price of the reservation, this price of the room plus all the prestations
      */
     public function getPrixTotal(){
         try{

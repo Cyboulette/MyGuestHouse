@@ -200,7 +200,7 @@ class ControllerUtilisateur {
       }
    }
 
-   public static function selectAllRéservation(){
+   public static function selectAllReservation(){
 
    }
 

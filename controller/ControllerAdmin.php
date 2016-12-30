@@ -18,11 +18,19 @@
 	    }
 
 	    public static function index() {
-	        $powerNeeded = self::isAdmin();
-	        $view = 'index';
-	        $pagetitle = 'Administration';
-	        $template = 'admin';
-	        require File::build_path(array('view', 'main_view.php'));
-	    }
+			$powerNeeded = self::isAdmin();
+			$view = 'index';
+			$pagetitle = 'Administration';
+			$template = 'admin';
+			require File::build_path(array('view', 'main_view.php'));
+		}
+
+		public static function help(){
+			$powerNeeded = self::isAdmin();
+			$view = 'help';
+			$pagetitle = 'Administration';
+			$template = 'admin';
+			require File::build_path(array('view', 'main_view.php'));
+		}
 	}
 ?>

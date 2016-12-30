@@ -18,6 +18,8 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
     *       New release is OUT, you can see [here](https://github.com/Cyboulette/MyGuestHouse/releases/tag/v0.2), so you can test our CMS and report bug if you want !
     *       Install script is out ! It's now possible to "INSTALL" our CMS automatically. No needed to edit config and put default values into phpmyadmin manually, our script do it for us ! It was a MAJOR request of our "client".
     *       Manage prestations for reservations
+    *       Detail reservation on user's detail
+    *       Helper documentation
 
 <br>
 - 20/12
