@@ -9,13 +9,11 @@ if(!$powerNeeded) { exit(); } ?>
 
 <?php
     if($type == "add") {
-        $idReservation = (isset($_POST['idReservation']) ? htmlspecialchars($_POST['idReservation']):'');
+        $idReservation = null;
 
         $dateDebut = (isset($_POST['dateDebut']) ? htmlspecialchars($_POST['dateDebut']):'');
         $dateFin = (isset($_POST['dateFin']) ? htmlspecialchars($_POST['dateFin']):'');
 
-        $nom = (isset($_POST['nom']) ? htmlspecialchars($_POST['nom']):'');
-        $prenom = (isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']):'');
         $idUtilisateur = (isset($_POST['idUtilisateur']) ? htmlspecialchars($_POST['idUtilisateur']):'');
 
         $idChambre = (isset($_POST['idChambre']) ? htmlspecialchars($_POST['idChambre']):'');

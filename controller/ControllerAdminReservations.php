@@ -32,32 +32,28 @@
 		public static function addReservation()
 		{ // IN PROGRESS
 			self::isAdmin();
-			if (isset($_POST['idReservation'])) {
-				if ($_POST['idUtilisateur'] != null && $_POST['dateDebut'] != null && $_POST['dateFin'] != null && $_POST['idChambre'] != null) {
-					$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
-					$dateDebut = htmlspecialchars($_POST['dateDebut']);
-					$dateFin = htmlspecialchars($_POST['dateFin']);
-					$idChambre = htmlspecialchars($_POST['idChambre']);
-					$data = array(
-						'idReservation' => null,
-						'idUtilisateur' => $idUtilisateur,
-						'dateDebut' => $dateDebut,
-						'dateFin' => $dateFin,
-						'idChambre' => $idChambre,
-						'annulee' => null
-					);
-					$save = ModelPrestation::save($data);
-					if ($save) {
-						$message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
-						self::reservations($message);
-					} else {
-						$message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
-					}
+			if (isset($_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
+				$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
+				$dateDebut = htmlspecialchars($_POST['dateDebut']);
+				$dateFin = htmlspecialchars($_POST['dateFin']);
+				$idChambre = htmlspecialchars($_POST['idChambre']);
+				$data = array(
+					'idReservation' => NULL,
+					'idChambre' => $idChambre,
+					'idUtilisateur' => $idUtilisateur,
+					'dateDebut' => $dateDebut,
+					'dateFin' => $dateFin,
+					'annulee' => NULL
+				);
+				$save = ModelReservation::save($data);
+				if ($save) {
+					$message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
+					self::reservations($message);
 				} else {
-					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';
+					$message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
 				}
 			} else {
-				$message = '<div class="alert alert-danger">Nous navons pas pu recuperer vos choix !</div>';
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';
 			}
 			self::manageReservation($message);
 		}

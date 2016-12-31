@@ -29,11 +29,16 @@ class ModelReservation extends Model{
 
 
     /* SOME GETTERS WITH DATE */
-    public static function getReservationsEnCours(){
+    public static function getReservationsEnCours($idUtilisateur = null){
+        if($idUtilisateur != null){
+            $where_clause = "AND idUtilisateur = ".$idUtilisateur;
+        } else {
+            $where_clause = "";
+        }
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut <= :date AND dateFin >= :date ';
+            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut <= :date AND dateFin >= :date '.$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -54,11 +59,16 @@ class ModelReservation extends Model{
             die();
         }
     }
-    public static function getReservationsEnAttente(){
+    public static function getReservationsEnAttente($idUtilisateur = null){
+        if($idUtilisateur != null){
+            $where_clause = "AND idUtilisateur = ".$idUtilisateur;
+        } else {
+            $where_clause = "";
+        }
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut > :date';
+            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut > :date '.$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -79,11 +89,16 @@ class ModelReservation extends Model{
             die();
         }
     }
-    public static function getReservationsFinis(){
+    public static function getReservationsFinis($idUtilisateur = null){
+        if($idUtilisateur != null){
+            $where_clause = "AND idUtilisateur = ".$idUtilisateur;
+        } else {
+            $where_clause = "";
+        }
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM GH_Reservations WHERE dateFin < :date ';
+            $sql = 'SELECT * FROM GH_Reservations WHERE dateFin < :date '.$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -104,9 +119,14 @@ class ModelReservation extends Model{
             die();
         }
     }
-    public static function getReservationsAnnulee(){
+    public static function getReservationsAnnulee($idUtilisateur = null){
+        if($idUtilisateur != null){
+            $where_clause = "AND idUtilisateur = ".$idUtilisateur;
+        } else {
+            $where_clause = "";
+        }
         try{
-            $sql = 'SELECT * FROM GH_Reservations WHERE annulee = 1 ';
+            $sql = 'SELECT * FROM GH_Reservations WHERE annulee = 1 '.$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $rep->execute();
@@ -124,6 +144,7 @@ class ModelReservation extends Model{
         }
     }
 
+    /* SOME SELECTOR FOR USER */
     public static function selectAllByUser($idUtilisateur){
         try {
             $sql = "SELECT *
@@ -151,7 +172,6 @@ class ModelReservation extends Model{
             die();
         }
     }
-
     public static function selectAllPrixByUser($idUtilisateur){
         $Reservations=self::selectAllByUser($idUtilisateur);
         $result=0;

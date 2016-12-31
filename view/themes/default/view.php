@@ -8,6 +8,7 @@
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="assets/css/style_tablesorter.css" rel="stylesheet">
+        <link href="assets/calendar/calendar.min.css" rel="stylesheet">
         <!-- THEME CUSTOM -->
         <link href="view/themes/default/css/style.css" rel="stylesheet">
         <style>
@@ -64,7 +65,7 @@
                     } else {
                         $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                     ?>
-                        <li <?php ControllerDefault::active('commande', ''); ?> ><a href="index.php?controller=commande&action=readAll">Réservations</a></li>
+                        <li <?php ControllerDefault::active('commande', ''); ?> ><a href="index.php?controller=reservation&action=reservations">Réservations</a></li>
                         <li <?php ControllerDefault::active('utilisateur', 'profil'); ?> ><a href="index.php?controller=utilisateur&action=profil">Profil</a></li>
                         <li <?php ControllerDefault::active('utilisateur', 'disconnect'); ?> ><a href="index.php?controller=utilisateur&action=disconnect">Déconnexion</a></li>
                         <?php if($currentUser->getPower() == Conf::$power['admin']) { ?>
@@ -106,10 +107,23 @@
         <script src="assets/js/jquery.tablesorter.min.js"></script>
         <script src="assets/js/jquery.metadata.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/calendar/underscore.min.js"></script>
+        <script src="assets/calendar/calendar.min.js"></script>
+        <script src="assets/calendar/fr-FR.js"></script>
         <script src="view/themes/default/js/script.js"></script>
 
-        <!-- SCRIPTS CUSTOM -->
 
+        <!-- SCRIPTS CUSTOM CALENDAR -->
+        <script type="text/javascript">
+            var calendar = $("#calendar").calendar(
+                {
+                    tmpl_path: "/tmpls/",
+                    events_source: function () { return []; }
+                });
+        </script>
+        <script type="text/javascript">
+            var calendar = $('#calendar').calendar({language: 'xx-XX'});
+        </script>
         <footer class="footer" >
                 <div class="container">
                     <p class="text-muted text-center"><?=$websiteName?> &copy;</p>

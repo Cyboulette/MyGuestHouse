@@ -176,8 +176,14 @@
     ?> 
  
     <?php 
-        //TODO : calendar -> resarvation 
-    ?> 
+        //TODO : calendar -> resarvation
+
+    ?>
+
+    <!-- lien vers la reservation -->
+    <?php $idReservation = 1;?>
+    <?='<a class="button" href="index.php?controller=reservation&action=reservationChambre&idChambre="'.$idReservation.'>Réserver la !</a>';?>
+
 
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">

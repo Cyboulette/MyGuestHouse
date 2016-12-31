@@ -1,29 +1,23 @@
-<?php if(!$powerNeeded) { exit(); } ?>
-<?php if(isset($message)) echo $message; ?>
-
 <div>
-    <h1 class="page-header">Gestion des réservations</h1>
+    <h1 class="page-header">Vos réservations</h1>
 
     <!-- Navigation for reservation -->
     <div class="col-xs-12 row placeholders">
         <ul class="nav nav-tabs" role="tablist">
-            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'enattente'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=enattentes" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'encours'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'annulees'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=annulees" > Annulées <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('adminReservations', 'reservations', 'finis'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=finis" > Finis <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('Reservation', 'reservations', 'enattente'); ?> ><a href="index.php?controller=Reservation&action=reservations&mode=enattentes" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente($_SESSION['idUser'])) ?> </span></a></li>
+            <li <?php ControllerDefault::active('Reservation', 'reservations', 'encours'); ?> ><a href="index.php?controller=Reservation&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours($_SESSION['idUser'])) ?> </span></a></li>
+            <li <?php ControllerDefault::active('Reservation', 'reservations', 'annulees'); ?> ><a href="index.php?controller=Reservation&action=reservations&mode=annulees" > Annulées <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee($_SESSION['idUser'])) ?> </span></a></li>
+            <li <?php ControllerDefault::active('Reservation', 'reservations', 'finis'); ?> ><a href="index.php?controller=Reservation&action=reservations&mode=finis" > Finis <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis($_SESSION['idUser'])) ?> </span></a></li>
         </ul>
         <br>
 
-        <?php if(!$powerNeeded) { exit(); }
-        elseif(empty($tab_reservations)) {
+        <?php
+        if(empty($tab_reservations)) {
             echo '<div class="alert alert-danger">Vous ne disposez d\'aucune réservation pour le moment</div>';
         } else {
             echo '<div class="table-responsive"><table class="table table-hover tableCenter">';
             echo '<thead>';
             echo '<tr>';
-            echo '<th>ID                  </th>';
-            echo '<th>Nom                 </th>';
-            echo '<th>Prénom              </th>';
             echo '<th>Nom de la chambre   </th>';
             echo '<th>Durée               </th>';
             echo '<th>Prix                </th>';
@@ -45,15 +39,12 @@
                 $duree = $reservations->getNombreJours();
 
                 echo '<tr>';
-                echo '<td>' . $id .                 '</td>';
-                echo '<td>' . $nom .                '</td>';
-                echo '<td>' . $prenom .             '</td>';
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
-                echo '<td><a href="index.php?controller=adminReservations&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                echo '<td><a href="index.php?controller=Reservations&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
                 echo '<td>
-                        <a href="index.php?controller=adminReservations&action=manageReservation&type=edit&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+                        <a href="index.php?controller=Reservations&action=manageReservation&type=edit&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
                         <button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 
                         </td>';
@@ -77,7 +68,7 @@
             </div>
             <?php
         }
-        echo '<a href="index.php?controller=adminReservations&action=manageReservation&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une réservation</a> <br/><br/>';
+        echo '<a href="index.php?controller=Chambre&action=readAll" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Consulter nos chambres </a> <br/><br/>';
         ?>
 
     </div>
