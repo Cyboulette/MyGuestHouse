@@ -2,7 +2,7 @@
 
 A smartest CMS for a smartest guest house.
 <br>
-You can add, read and comment some future functionality in [`FUTURE.md`](https://github.com/Cyboulette/MyGuestHouse/blob/master/FUTURE.md). .
+You can add, read and comment some future functionality in [`FUTURE.md`](https://github.com/Cyboulette/MyGuestHouse/blob/master/FUTURE.md).
 <br>
 To install it, please read the file [`INSTALL.md`](https://github.com/Cyboulette/MyGuestHouse/blob/master/INSTALL.md).
 
