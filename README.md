@@ -2,7 +2,7 @@
 
 A smartest CMS for a smartest guest house.
 <br>
-You can add, read and comment some future functionality in `FUTURE.md`.
+You can add, read and comment some future functionality in [`FUTURE.md`].
 <br>
 To install it, please read the file [`INSTALL.md`](https://github.com/Cyboulette/MyGuestHouse/blob/master/INSTALL.md).
 
@@ -13,7 +13,10 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 **Credencials for demo are : demo@yopmail.fr/demo**
 
 # Commits
+- 30/12
+    *       Display reservations for user
 
+<br>
 - 29/12
     *       New release is OUT, you can see [here](https://github.com/Cyboulette/MyGuestHouse/releases/tag/v0.2), so you can test our CMS and report bug if you want !
     *       Install script is out ! It's now possible to "INSTALL" our CMS automatically. No needed to edit config and put default values into phpmyadmin manually, our script do it for us ! It was a MAJOR request of our "client".
