@@ -10,6 +10,43 @@
 			require_once File::build_path(array("view","main_view.php"));
 		}
 
+		public static function read(){
+			$powerNeeded = self::isAdmin();
+			$view = 'readChambre';
+			$pagetitle = 'Administration - Liste des chambres';
+			$template = 'admin';
+			
+			if (isset($_GET["idChambre"])) {
+	            $idChambre = $_GET["idChambre"];
+		        $chambre = ModelChambre::select($idChambre);
+	            if ($chambre!=false) {
+	                $tab_photo = ModelChambre::selectPhoto($idChambre);
+	                $tab_detail = ModelDetail::selectForChambre($idChambre);
+	                $tab_prestation = ModelPrestation::selectAllByChambre($idChambre);
+
+	                $compteur = true;
+	                foreach ($tab_photo as $key => $value) {
+	                  $photo = $tab_photo[$key][0];
+	                  if (!file_exists(File::build_path(array($photo)))) {
+	                    ModelChambre::delatePhoto($photo);// suppression de la photo de la bdd si elle nexiste pas physiquement
+	                    $compteur = false;
+	                  }
+	                }
+	                if (!$compteur) {
+	                    $tab_photo = ModelChambre::selectPhoto($idChambre);
+	                }
+	                
+	                require_once File::build_path(array("view","main_view.php"));
+	            }else{
+	            	$message = '<div class="alert alert-danger">Cette chambre n\'existe plus !</div>';
+	                self::chambres($message);
+	            }
+	    	}else{
+	    		$message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer votre requête !</div>';
+	    		self::chambres($message);
+	    	}
+		}
+
 		public static function addChambre(){
 			$powerNeeded = self::isAdmin();
 			$view = 'addChambre';

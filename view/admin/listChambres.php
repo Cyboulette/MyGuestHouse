@@ -42,10 +42,11 @@
 				echo '<td><a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
 				echo '<td><a href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
 				echo '<td>
+					<a href="index.php?controller=adminChambres&action=read&idChambre='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir la chambre</a>
+
 					<a href="index.php?controller=adminChambres&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
 					<button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-toggle="modal" data-target="#deleteChambre"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
-
 					</td>';
 			echo '</tr>';
 		}

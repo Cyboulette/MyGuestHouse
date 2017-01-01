@@ -50,9 +50,9 @@
 	</div>
 	<div class='row'>
 		<div class="col-lg-12 col-lg-offset-0">
-			<a href="index.php?controller=adminUtilisateurs&action=contactUtilisateur&idUtilisateur=ABC" class="btn btn-xs btn-warning"><i class="fa fa-envelope" aria-hidden="true"></i> Contacter</a>
-			<a href="index.php?controller=adminUtilisateurs&action=edit&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-			<button type="button" class="btn btn-xs btn-danger btnDeleteUser" data-toggle="modal" data-target="#deleteUser"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+			<a href="index.php?controller=adminUtilisateurs&action=contactUtilisateur&idUtilisateur=ABC" class="btn btn-xs btn-warning"><i class="fa fa-envelope" aria-hidden="true"></i> Contacter</a><!-- TODO -->
+			<a href="index.php?controller=adminUtilisateurs&action=edit&idUtilisateur=ABC" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a><!-- TODO -->
+			<button type="button" class="btn btn-xs btn-danger btnDeleteUser" data-toggle="modal" data-target="#deleteUser"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button><!-- TODO -->
 		</div>
 	</div>
 </div>
