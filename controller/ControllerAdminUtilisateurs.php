@@ -116,6 +116,7 @@
 		            $passwordBis = strip_tags($_POST['motDePassebis']);
 		            $nom = strip_tags($_POST['nom']);
 		            $prenom = strip_tags($_POST['prenom']);
+		            $rang = $_POST['rang'];
 
 		            if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		               	$checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
@@ -127,7 +128,7 @@
 	                                'nomUtilisateur' => $nom,
 	                                'emailUtilisateur' => $email,
 	                                'password' => password_hash($password, PASSWORD_DEFAULT),
-	                                'rang' => 2,
+	                                'rang' => $rang,
 	                                'nonce' => null
 								);
 								$save = ModelUtilisateur::save($lutilisateur);
