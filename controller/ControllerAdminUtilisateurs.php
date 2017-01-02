@@ -90,5 +90,68 @@
 			}
 			self::utilisateurs($message);
 		}
+
+		public static function add(){
+			$powerNeeded = self::isAdmin();
+			$view = 'addUser';
+			$pagetitle = 'Administration - Liste des utilisateurs';
+			$template = 'admin';
+			require_once File::build_path(array("view", "main_view.php"));
+		}
+
+		public static function added(){
+			$powerNeeded = self::isAdmin();
+			// echo "<pre>";
+			// 	print_r($_POST);
+			// echo "</pre>";
+			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) 
+				&& isset($_POST['rang']) && isset($_POST['motDePasse']) && isset($_POST['motDePassebis']) ){
+
+				if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null 
+					&& $_POST['rang']!=null && $_POST['motDePasse']!=null && $_POST['motDePassebis']!=null
+					&& !ctype_space($_POST['nom']) && !ctype_space($_POST['prenom']) && !ctype_space($_POST['email'])){
+
+					$email = strip_tags($_POST['email']);
+		            $password = strip_tags($_POST['motDePasse']);
+		            $passwordBis = strip_tags($_POST['motDePassebis']);
+		            $nom = strip_tags($_POST['nom']);
+		            $prenom = strip_tags($_POST['prenom']);
+
+		            if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		               	$checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
+		               	if($checkUser == false) {
+		                    if($password == $passwordBis) {
+			            		$lutilisateur = array(
+									'idUtilisateur' => NULL,
+	                                'prenomUtilisateur' => $prenom,
+	                                'nomUtilisateur' => $nom,
+	                                'emailUtilisateur' => $email,
+	                                'password' => password_hash($password, PASSWORD_DEFAULT),
+	                                'rang' => 2,
+	                                'nonce' => null
+								);
+								$save = ModelUtilisateur::save($lutilisateur);
+								if($save!=false){
+									$message = '<div class="alert alert-success">Utilisateur ajoutée avec succès !</div>';
+								}else{
+									$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de l\'utilisateur !</div>';
+								}  
+			                }else{
+			                    $message='<div class="alert alert-danger">Les mots de passe ne sont pas les même !</div>';
+			                }
+		               	} else {
+		                  	$message='<div class="alert alert-danger">Cette adresse mail est deja utiliser !</div>';
+		               	}
+		            } else {
+		              	$message='<div class="alert alert-danger">L\'adresse e-mail renseignée est invalide !</div>';
+		            }
+				}else{
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide ou avoir un prix ou une seperficie inferieur a zero !</div>';
+				}   
+			}else{
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+			}
+			self::utilisateurs($message);
+		}
 	}
 ?>

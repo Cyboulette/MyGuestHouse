@@ -13,7 +13,7 @@
 ?>
 
 
-	<a href="index.php?controller=adminUtilisateurs&action=addUser" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a><br/><br/>
+	<a href="index.php?controller=adminUtilisateurs&action=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a><br/><br/>
 
 	<ul class='nav nav-tabs' role='tablist'>
 	    <li <?php if(!isset($_GET['mode'])&&$mode=='all'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'all'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=all' > Tout <span class='badge'>  <?php echo $nbAll; ?> </span></a></li>
