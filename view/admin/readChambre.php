@@ -88,35 +88,33 @@
 <?php  
   // description de la chambre 
   echo " 
-      <div class='descriptionChambre'> 
-        <div> 
-          <h4>Descriptions :<h4> 
-        </div> 
-        <ul> 
-          <li> 
-            Nom de la chambre : {$nom} 
-          </li> 
-          <li> 
-            Prix<small>/nuit</small> : {$prix}&euro; 
-          </li> 
-          <li> 
-            Superficie : {$superficie}m<sup>2</sup> 
-          </li> 
-          <li> 
-             Description : 
-            <ul> 
-              <li> 
-                {$description} 
-              </li> 
-            </ul> 
-          </li> 
-        </ul> 
+    <div class='descriptionChambre'> 
+      <div> 
+        <h4>Descriptions :<h4> 
       </div> 
-      <a href='index.php?controller=adminChambres&action=editChambre&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier la chambre</a>
-
+      <ul> 
+        <li> 
+          Nom de la chambre : {$nom} 
+        </li> 
+        <li> 
+          Prix<small>/nuit</small> : {$prix}&euro; 
+        </li> 
+        <li> 
+          Superficie : {$superficie}m<sup>2</sup> 
+        </li> 
+        <li> 
+            Description : 
+          <ul> 
+            <li> 
+              {$description} 
+            </li> 
+          </ul> 
+        </li> 
+      </ul> 
+    </div> 
+    <a href='index.php?controller=adminChambres&action=editChambre&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier la chambre</a>
   "; 
 ?>
- 
  
 <?php 
   // Details de la chambre 
@@ -140,18 +138,17 @@
       </div> 
     "; 
      
-    echo "
+    echo '
       </div>
-      <a href='index.php?controller=adminDetails&action=manageDetails&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier les détails</a>
-    "; 
+      <a target="_blank" href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+    '; 
   }else{ 
     echo '
       <div class="alert alert-danger">'."il n'y a pas de details pour cette chambre".'</div>
-      <a href="index.php?controller=adminDetails&action=manageDetails&idChambre={$id}" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      <a href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
     '; 
   } 
 ?> 
- 
  
 <?php 
   // Prestations de la chambre 
@@ -180,12 +177,12 @@
      
     echo '
       </div>
-      <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre{$id}" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
     '; 
   }else{ 
     echo '
       <div class="alert alert-danger">'."il n'y a pas de prestations pour cette chambre".'</div>
-      <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre{$id}" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
     '; 
   } 
 ?> 

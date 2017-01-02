@@ -41,5 +41,54 @@
 				self::utilisateurs($message);
 			}
 		}
+
+		public static function edit(){
+			$powerNeeded = self::isAdmin();
+			$view = 'editUser';
+			$pagetitle = 'Administration - modification de l\'utilisateur';
+			$template = 'admin';
+			
+			if(isset($_GET['idUtilisateur'])){
+				$utilisateur = ModelUtilisateur::select($_GET['idUtilisateur']);
+
+				if($utilisateur!=false){
+					require_once File::build_path(array("view","main_view.php"));
+				}else{
+					$message = '<div class="alert alert-danger">Cet utilisateur n\'existe plus !</div>';
+					self::utilisateurs($message);
+				}
+			}else{
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas modifier un utilisateur sans connaitre son ID !</div>';
+				self::utilisateurs($message);
+			}
+		}
+
+		public static function edited(){
+			$powerNeeded = self::isAdmin();
+			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['rang'])){
+
+				if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null && $_POST['rang']!=null){
+
+					$lutilisateur = array(
+						'idUtilisateur' => $_POST['id'],
+						'emailUtilisateur' => $_POST['email'],
+						'nomUtilisateur' => $_POST['nom'],
+						'prenomUtilisateur' => $_POST['prenom'],
+						'rang' => $_POST['rang'],
+					);
+					$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+					if($update!=false){
+						$message = '<div class="alert alert-success">Utilisateur modifiées avec succès !</div>';
+					}else{
+						$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+					}
+				}else{
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champs vide !</div>';
+				}   
+			}else{
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+			}
+			self::utilisateurs($message);
+		}
 	}
 ?>

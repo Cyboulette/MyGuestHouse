@@ -72,11 +72,13 @@
 
 					<a href="index.php?controller=adminUtilisateurs&action=contactUtilisateur&idUtilisateur='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-envelope" aria-hidden="true"></i> Contacter</a>
 
+					<a href="index.php?controller=adminUtilisateurs&action=edit&idUtilisateur='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+
 					<button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-toggle="modal" data-target="#deleteChambre"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 				</td>';
 			echo '</tr>';
 		}
-
+			
 		echo '</table></div>';
 	}
 ?>
