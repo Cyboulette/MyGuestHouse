@@ -21,20 +21,24 @@
 			$powerNeeded = self::isAdmin();
 			if(isset($_POST['nomPrestation']) && isset($_POST['prix'])){
 				if($_POST['nomPrestation']!=null && $_POST['prix']!=null){
-					if($_POST['prix']>= 0){
-						$laPrestation = array(
-							'idPrestation' => null,
-							'nomPrestation' => $_POST['nomPrestation'],
-							'prix' => $_POST['prix'],
-						);
-						$save = ModelPrestation::save($laPrestation);
-						if($save != false) {
-							$message = '<div class="alert alert-success">Prestation ajoutée avec succès !</div>';
+					if(is_numeric($_POST['prix'])) {
+						if($_POST['prix']>= 0){
+							$laPrestation = array(
+								'idPrestation' => null,
+								'nomPrestation' => htmlspecialchars($_POST['nomPrestation']),
+								'prix' => htmlspecialchars($_POST['prix']),
+							);
+							$save = ModelPrestation::save($laPrestation);
+							if($save != false) {
+								$message = '<div class="alert alert-success">Prestation ajoutée avec succès !</div>';
+							}else{
+								$message = '<div class="alert alert-danger">Echec de l\'ajout de la prestation !</div>';
+							}
 						}else{
-							$message = '<div class="alert alert-danger">Echec de l\'ajout de la prestation !</div>';
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
 						}
-					}else{
-						$message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez saisir une valeur numérique pour le prix en €</div>';
 					}
 				}else{
 					$message = '<div class="alert alert-danger">vous ne pouvez pas laisser un champ vide !</div>';
@@ -55,11 +59,11 @@
 					$template = 'admin';
 					require_once File::build_path(array("view", "main_view.php"));
 				}else{
-					$message = '<div class="alert alert-danger">cette prestation n\'existe plus !</div>';
+					$message = '<div class="alert alert-danger">Cette prestation n\'existe plus, impossible de la modifier !</div>';
 					self::prestations($message);
 				}
 			}else{
-				$message = '<div class="alert alert-danger">vous ne pouvez pas modifier une prestation sans connaitre son ID !</div>';
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas modifier une prestation sans connaitre son ID !</div>';
 				self::prestations($message);
 			}
 		}
@@ -71,23 +75,27 @@
 				if($prestation!=false){
 					if(isset($_POST['nomPrestation']) && isset($_POST['prix'])
 						&& $_POST['nomPrestation']!=null && $_POST['prix']!=null){
-						if($_POST['prix']>= 0){
-							$id = $_POST['idPrestation'];
-							$nom = $_POST['nomPrestation'];
-							$prix = $_POST['prix'];
-							$dataPrestation = array(
-								'nomPrestation' => $nom,
-								'prix' => $prix,
-								'idPrestation' => $id,
-							);
-							$update = ModelPrestation::update_gen($dataPrestation, 'idPrestation');
-							if($update != false) {
-								$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
-							} else {
-								$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+						if(is_numeric($_POST['prix'])) {
+							if($_POST['prix']>= 0){
+								$id = htmlspecialchars($prestation->get('idPrestation'));
+								$nom = htmlspecialchars($_POST['nomPrestation']);
+								$prix = htmlspecialchars($_POST['prix']);
+								$dataPrestation = array(
+									'nomPrestation' => $nom,
+									'prix' => $prix,
+									'idPrestation' => $id,
+								);
+								$update = ModelPrestation::update_gen($dataPrestation, 'idPrestation');
+								if($update != false) {
+									$message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+								} else {
+									$message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+								}
+							}else{
+								$message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
 							}
-						}else{
-							$message = '<div class="alert alert-danger">Vous ne pouvez pas proposer un prix negatif !</div>';
+						} else {
+							$message = '<div class="alert alert-danger">Vous devez saisir une valeur numérique pour le prix en €</div>';
 						}
 					}else{
 						$message = '<div class="alert alert-danger">vous ne pouvez pas laisser un champ vide !</div>';

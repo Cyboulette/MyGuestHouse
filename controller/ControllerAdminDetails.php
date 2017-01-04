@@ -23,7 +23,7 @@
 				if($_POST['nomDetail']!=null){
 					$leDetail = array(
 						'idDetail' => null,
-						'nomDetail' => $_POST['nomDetail'],
+						'nomDetail' => htmlspecialchars($_POST['nomDetail'])
 					);
 					$save = ModelDetail::save($leDetail);
 					if($save != false) {
@@ -65,8 +65,8 @@
 				$detail = ModelDetail::select($_POST['idDetail']);
 				if($detail!=false){
 					if(isset($_POST['nomDetail']) && $_POST['nomDetail']!=null){
-							$id = $_POST['idDetail'];
-							$nom = $_POST['nomDetail'];
+							$id = htmlspecialchars($detail->get('idDetail'));
+							$nom = htmlspecialchars($_POST['nomDetail']);
 							$dataDetail = array(
 								'nomDetail' => $nom,
 								'idDetail' => $id,

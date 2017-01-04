@@ -1,57 +1,51 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 
-
 <?php   
   // variables 
-  $nom = $chambre->get("nomChambre"); 
-  $prix = $chambre->get("prixChambre"); 
-  $superficie = $chambre->get("superficieChambre"); 
-  $description = $chambre->get("descriptionChambre");
-  $id = $chambre->get("idChambre"); 
+  $nom = htmlspecialchars($chambre->get("nomChambre")); 
+  $prix = htmlspecialchars($chambre->get("prixChambre")); 
+  $superficie = htmlspecialchars($chambre->get("superficieChambre")); 
+  $description = htmlspecialchars($chambre->get("descriptionChambre"));
+  $id = htmlspecialchars($chambre->get("idChambre")); 
 ?> 
 
-<!-- description de la chambre -->
-<?php 
-  echo "<h1 class='page-header'>{$nom}</h1>";
-  echo "
-    <form method='post' action='index.php?controller=adminChambres&action=editedChambre' enctype='multipart/form-data'>
+<h1 class="page-header">Modification de la chambre : <?=$nom?></h1>
 
-      <div class='form-group row'>
-        <label for='id_nom' class='col-xs-3 col-form-label'>Nom de la chambre : </label>
-        <div class='col-xs-3'>
-          <input type='text' value='{$nom}' name='nom' id='id_nom'>
-        </div>
-      </div>
-
-      <div class='form-group row'>
-        <label for='id_prix' class='col-xs-3 col-form-label'>Prix<small>/nuit</small> : </label>
-        <div class='col-xs-3'>
-          <input type='number' min='0' value='{$prix}' name='prix' id='id_prix'>&euro;
-        </div>
-      </div>
-              
-      <div class='form-group row'>
-        <label for='id_superficie' class='col-xs-3 col-form-label'>Superficie : </label>
-        <div class='col-xs-3'>
-          <input type='number' min='0' value='{$superficie}' name='superficie' id='id_superficie'>m<sup>2</sup> 
-        </div>
-      </div>
-                
-      <div class='form-group'>
-        <label for='exampleTextarea'>Description : </label>
-        <textarea class='form-control' id='exampleTextarea' name='description' rows='3'>{$description} </textarea>
-      </div>
-
-      <div class='col-xs-6 col-sm-5 col-md-2'>
-        <input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
-        <input type='hidden' value='{$id}' name='id'>
-      </div>
-    </form>
-
-    <div class='col-xs-6 col-sm-5 col-md-2'>
-      <a href='?controller=adminChambres&action=chambres' class='btn btn-s btn-danger btn-block'>Annuler</a>
+<form class="form-horizontal" method="post" action="index.php?controller=adminChambres&action=editedChambre">
+  <div class="form-group">
+    <label for="id_nom" class="col-sm-2 control-label">Nom de la chambre :</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" value="<?=$nom?>" name="nom" id="id_nom">
     </div>
-  "; 
-?>
+  </div>
 
+  <div class="form-group">
+    <label for="id_prix" class="col-sm-2 control-label">Prix<small>/nuit</small> :</label>
+    <div class="col-sm-10">
+      <input type="number" min="0" class="form-control" value="<?=$prix?>" name="prix" id="id_prix">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="id_superficie" class="col-sm-2 control-label">Superficie :</label>
+    <div class="col-sm-10">
+      <input type="number" min="0" class="form-control" value="<?=$superficie?>" name="superficie" id="id_superficie">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="desc_chambre" class="col-sm-2 control-label">Description :</label>
+    <div class="col-sm-10">
+      <textarea id="desc_chambre" name="description" class="form-control"><?=$description?></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-success" value="Ajouter">
+      <input type="hidden" name="id" value="<?=$id?>">
+      <a href="index.php?controller=adminChambres&action=chambres" class="btn btn-danger">Annuler</a>
+    </div>
+  </div>
+</form>
 

@@ -2,30 +2,25 @@
 
 <?php
 	// variables
-	$id = $detail->get("idDetail");  
-	$nom = $detail->get("nomDetail"); 
+	$id = htmlspecialchars($detail->get("idDetail"));  
+	$nom = htmlspecialchars($detail->get("nomDetail")); 
 ?>
 
-<?php
-	echo "<h1 class='page-header'>{$nom}</h1>";
-	echo "
-		<form method='post' action='index.php?controller=adminDetails&action=editedDetail' enctype='multipart/form-data'>
+<h1 class="page-header">Modification du détail : <?=$nom?></h1>
 
-			<div class='form-group row'>
-				<label for='id_nom' class='col-xs-3 col-form-label'>Nom du détail : </label>
-				<div class='col-xs-3'>
-					<input type='text' value='{$nom}' name='nomDetail' id='id_nom'>
-				</div>
-			</div>
-
-			<div class='col-xs-6 col-sm-5 col-md-2'>
-				<input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
-				<input type='hidden' value='{$id}' name='idDetail'/>
-			</div>
-		</form>
-
-		<div class='col-xs-6 col-sm-5 col-md-2'>
-			<a href='index.php?controller=adminDetails&action=details' class='btn btn-s btn-danger btn-block'>Annuler</a>
+<form class="form-horizontal" method="post" action="index.php?controller=adminDetails&action=editedDetail">
+	<div class="form-group">
+		<label for="id_nom" class="col-sm-2 control-label">Nom du détail :</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" value="<?=$nom?>" name="nomDetail" id="id_nom">
 		</div>
-	";  
-?>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input type="submit" class="btn btn-success" value="Ajouter">
+			<input type="hidden" value="<?=$id?>" name="idDetail">
+			<a href="index.php?controller=adminDetails&action=details" class="btn btn-danger">Annuler</a>
+		</div>
+	</div>
+</form>

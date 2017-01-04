@@ -1,27 +1,19 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 
+<h1 class="page-header">Ajout d'un détail</h1>
 
-<?php  
-
-	echo "<h1 class='page-header'>Ajout d'un détail</h1>";
-	echo "
-		<form method='post' action='index.php?controller=adminDetails&action=addedDetail' enctype='multipart/form-data'>
-
-			<div class='form-group row'>
-				<label for='id_nom' class='col-xs-3 col-form-label'>Nom du detail : </label>
-				<div class='col-xs-3'>
-					<input type='text' placeholder='EX : Repassage' name='nomDetail' id='id_nom'>
-				</div>
-			</div>
-
-			<div class='col-xs-6 col-sm-5 col-md-2'>
-				<input type='submit' class='btn btn-s btn-success btn-block' value='Ajouter'>
-			</div>
-		</form>
-
-		<div class='col-xs-6 col-sm-5 col-md-2'>
-			<a href='?controller=adminDetails&action=details' class='btn btn-s btn-danger btn-block'>Annuler</a>
+<form class="form-horizontal" method="post" action="index.php?controller=adminDetails&action=addedDetail">
+	<div class="form-group">
+		<label for="id_nom" class="col-sm-2 control-label">Nom du détail à ajouter :</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" placeholder="EX : Repassage" name="nomDetail" id="id_nom">
 		</div>
-	"; 
+	</div>
 
-?>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input type="submit" class="btn btn-success" value="Ajouter">
+			<a href="index.php?controller=adminDetails&action=details" class="btn btn-danger">Annuler</a>
+		</div>
+	</div>
+</form>

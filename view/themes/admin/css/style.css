@@ -167,3 +167,13 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+
+.found {
+  background-color: #428bca;
+  color: white;
+}
+
+.found:hover {
+  background-color: #1e639e!important;
+}

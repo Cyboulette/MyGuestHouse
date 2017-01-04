@@ -61,25 +61,27 @@
 			if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
 
 				if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
-
-					if($_POST['prix']>=0 && $_POST['superficie']>=0){
-						// TODO : --------
-						$laChambre = array(
-							'idChambre' => NULL,
-							'nomChambre' => $_POST['nom'],
-							'descriptionChambre' => $_POST['description'],
-							'prixChambre' => $_POST['prix'],
-							'superficieChambre' => $_POST['superficie'],
-						);
-						$save = ModelChambre::save($laChambre);
-						if($save!=false){
-							$message = '<div class="alert alert-success">Chambre ajoutée avec succès !</div>';
+					if(is_numeric($_POST['prix']) && is_numeric($_POST['superficie'])) {
+						if($_POST['prix']>=0 && $_POST['superficie']>=0){
+							$laChambre = array(
+								'idChambre' => NULL,
+								'nomChambre' => htmlspecialchars($_POST['nom']),
+								'descriptionChambre' => htmlspecialchars($_POST['description']),
+								'prixChambre' => htmlspecialchars($_POST['prix']),
+								'superficieChambre' => htmlspecialchars($_POST['superficie'])
+							);
+							$save = ModelChambre::save($laChambre);
+							if($save!=false){
+								$message = '<div class="alert alert-success">Chambre ajoutée avec succès !</div>';
+							}else{
+								$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de la chambre !</div>';
+							
+							}
 						}else{
-							$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de la chambre !</div>';
-						
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
 						}
-					}else{
-						$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez saisir un prix et une superficie en valeur numérique !</div>';
 					}
 				}else{
 					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide ou avoir un prix ou une seperficie inferieur a zero !</div>';
@@ -114,25 +116,29 @@
 		public static function editedChambre(){
 			$powerNeeded = self::isAdmin();
 			if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
-
+				// GROS SOUCIS ICI !! Il faut vérifier que la chambre passée en paramètre via son ID existe bel et bien, comme pour les prestations et détails :)
+				// Je te laisses le faire.
 				if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
-
-					if($_POST['prix']>=0 && $_POST['superficie']>=0){
-						$laChambre = array(
-							'idChambre' => $_POST['id'],
-							'nomChambre' => $_POST['nom'],
-							'descriptionChambre' => $_POST['description'],
-							'prixChambre' => $_POST['prix'],
-							'superficieChambre' => $_POST['superficie'],
-						);
-						$update = ModelChambre::update_gen($laChambre, 'idChambre');
-						if($update!=false){
-							$message = '<div class="alert alert-success">Chambre modifiées avec succès !</div>';
+					if(is_numeric($_POST['prix']) && is_numeric($_POST['superficie'])) {
+						if($_POST['prix']>=0 && $_POST['superficie']>=0){
+							$laChambre = array(
+								'idChambre' => $_POST['id'],
+								'nomChambre' => htmlspecialchars($_POST['nom']),
+								'descriptionChambre' => htmlspecialchars($_POST['description']),
+								'prixChambre' => htmlspecialchars($_POST['prix']),
+								'superficieChambre' => htmlspecialchars($_POST['superficie'])
+							);
+							$update = ModelChambre::update_gen($laChambre, 'idChambre');
+							if($update!=false){
+								$message = '<div class="alert alert-success">Chambre modifiées avec succès !</div>';
+							}else{
+								$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de la chambre !</div>';
+							}
 						}else{
-							$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de la chambre !</div>';
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
 						}
-					}else{
-						$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez saisir un prix et une superficie en valeur numérique !</div>';
 					}
 				}else{
 					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide avoir un prix ou une seperficie inferieur a zero !</div>';
@@ -148,7 +154,7 @@
 			// Attend un $_GET['idChambre']
 			if (isset($_GET['idChambre']) && $_GET['idChambre']!=null) {
 				$idChambre = $_GET['idChambre'];
-				if(ModelChambre::select($idChambre)!=null){
+				if(ModelChambre::select($idChambre)!=null){ // c'est plutôt != false
 					if(ModelChambre::delete($idChambre)){
 						$message = '<div class="alert alert-success">La suppresion de la chambre a été effectuée avec succes !</div>';
 					}else{

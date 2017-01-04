@@ -1,43 +1,40 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 
-<?php 
-  echo "<h1 class='page-header'>Ajouter une chambre</h1>";
-  echo "
-    <form method='post' action='index.php?controller=adminChambres&action=addedChambre' enctype='multipart/form-data'>
+<h1 class="page-header">Ajouter une chambre</h1>
 
-      <div class='form-group row'>
-        <label for='id_nom' class='col-xs-3 col-form-label'>Nom de la chambre : </label>
-        <div class='col-xs-3'>
-          <input type='text' placeholder='Nom' name='nom' id='id_nom'>
-        </div>
-      </div>
-
-      <div class='form-group row'>
-        <label for='id_prix' class='col-xs-3 col-form-label'>Prix<small>/nuit</small> : </label>
-        <div class='col-xs-3'>
-          <input type='number' min='0' placeholder='Prix' name='prix' id='id_prix'>&euro;
-        </div>
-      </div>
-              
-      <div class='form-group row'>
-        <label for='id_superficie' class='col-xs-3 col-form-label'>Superficie : </label>
-        <div class='col-xs-3'>
-          <input type='number' min='0' placeholder='Superficie' name='superficie' id='id_superficie'>m<sup>2</sup> 
-        </div>
-      </div>
-
-      <div class='form-group'>
-        <label for='exampleTextarea'>Description : </label>
-        <textarea class='form-control' placeholder='Description' id='exampleTextarea' name='description' rows='3'></textarea>
-      </div>
-
-      <div class='col-xs-6 col-sm-5 col-md-2'>
-        <input type='submit' class='btn btn-s btn-success btn-block' value='Ajouter'>
-      </div>
-    </form>
-
-    <div class='col-xs-6 col-sm-5 col-md-2'>
-      <a href='?controller=adminChambres&action=chambres' class='btn btn-s btn-danger btn-block'>Annuler</a>
+<form class="form-horizontal" method="post" action="index.php?controller=adminChambres&action=addedChambre">
+  <div class="form-group">
+    <label for="id_nom" class="col-sm-2 control-label">Nom de la chambre à ajouter :</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" placeholder="EX : La voile bleue" name="nom" id="id_nom">
     </div>
-  "; 
-?>
+  </div>
+
+  <div class="form-group">
+    <label for="id_prix" class="col-sm-2 control-label">Prix<small>/nuit</small> :</label>
+    <div class="col-sm-10">
+      <input type="number" min="0" class="form-control" placeholder="EX : 50" name="prix" id="id_prix">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="id_superficie" class="col-sm-2 control-label">Superficie :</label>
+    <div class="col-sm-10">
+      <input type="number" min="0" class="form-control" placeholder="EX : 25" name="superficie" id="id_superficie">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="desc_chambre" class="col-sm-2 control-label">Description :</label>
+    <div class="col-sm-10">
+      <textarea id="desc_chambre" name="description" class="form-control" placeholder="Description de la chambre"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-success" value="Ajouter">
+      <a href="index.php?controller=adminChambres&action=chambres" class="btn btn-danger">Annuler</a>
+    </div>
+  </div>
+</form>

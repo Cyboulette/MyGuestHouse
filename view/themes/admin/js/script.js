@@ -105,6 +105,38 @@ $("#slideToUpload").fileinput({
 	}
 });
 
+function detectIdResa() {
+	var hash = window.location.hash;
+	if(hash !== "") {
+		var idResaToShow = hash.replace("#selectResa=", "");
+		idResaToShow = parseInt(idResaToShow);
+		if(!isNaN(idResaToShow)) {
+			var table = $('.tableCenter > tbody > tr');
+			table.each(function() {
+				var td = $(this).find('td');
+				var nbTd = 0;
+				td.each(function() {
+					if(nbTd < 1) {
+						var idTable = parseInt($(this).html());
+						if(idResaToShow == idTable) {
+							$(this).parent().addClass("found");
+						} else {
+							$(this).parent().removeClass("found");
+						}
+						nbTd++;
+					}
+				})
+			});
+		}
+	}
+}
+
+$(window).on('hashchange', function() {
+	detectIdResa();
+});
+
+detectIdResa();
+
 function insertTag(startTag, endTag, textareaId, tagType) {
 	var field = document.getElementById(textareaId);
 	var scroll = field.scrollTop;
