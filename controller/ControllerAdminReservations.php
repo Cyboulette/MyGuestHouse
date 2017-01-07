@@ -30,7 +30,7 @@
 		}
 
 		public static function addReservation()
-		{ // IN PROGRESS
+		{
 			self::isAdmin();
 			if (isset($_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
 				$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);

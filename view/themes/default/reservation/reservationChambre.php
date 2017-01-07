@@ -1,76 +1,68 @@
-<div id="calendar">
+<!-- On attends
+        * la liste des chambres
+        * les dates des réservations effectuées pour les afficher
 
-</div>
-<div class="container">
-    <div class="row">
-        <div class="span12">
-            <table class="table-condensed table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th colspan="7" >
-                        <a class="btn"><i class="icon-chevron-left"></i></a>
-                        <a class="btn">February 2012</a>
-                        <a class="btn"><i class="icon-chevron-right"></i></a>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Su</th>
-                    <th>Mo</th>
-                    <th>Tu</th>
-                    <th>We</th>
-                    <th>Th</th>
-                    <th>Fr</th>
-                    <th>Sa</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="muted">29</td>
-                    <td class="muted">30</td>
-                    <td class="muted">31</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td>18</td>
-                </tr>
-                <tr>
-                    <td>19</td>
-                    <td><strong>20</strong></td>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>26</td>
-                    <td>27</td>
-                    <td>28</td>
-                    <td>29</td>
-                    <td class="muted">1</td>
-                    <td class="muted">2</td>
-                    <td class="muted">3</td>
-                </tr>
-                </tbody>
-            </table>
+-->
+
+<?php if(!is_null($_GET['idChambre']) xor !isset($_POST['idChambre'])) { ?>
+
+    <!-- Selection de l'id de la chambre -->
+    <form role="form" method="POST" action="index.php?controller=reservation&action=reservationChambre">
+    <fieldset>
+        <h2> Réserver un chambre </h2>
+        <hr class="colorgraph">
+
+        <div class="form-group text-center">
+            <label for="idChambre">Sélectionnez la chambre que vous souhaitez réserver :</label>
+            <select class="form-control" id="idChambre" name="idChambre">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
         </div>
-    </div>
-</div>
+
+        <br>
+        <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
+            <input type="submit" class="btn btn-lg btn-success btn-block" value="Selectionner">
+        </div>
+
+    </fieldset>
+</form>
+
+<?php } else { ?>
+
+    <form id="formforchambre" role="form" action="index.php?controller=reservation&action=reserve">
+        <fieldset>
+            <h2> Chambre n°<?=$_POST['idChambre'] + $_GET['idChambre']?></h2>
+            <hr class="colorgraph">
+
+            <br>
+            <div class="form-group text-center">
+                <label for="dateDebut"> Choisissez une date de début</label>
+                <div class="input-group date" data-date-format="mm-dd-yyyy">
+                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="01-01-2017">
+                    <span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-calendar"></i></a></span>
+                </div>
+            </div>
+
+            <br>
+            <div class="form-group text-center">
+                <label for="dateFin"> Choisissez une date de fin</label>
+                <div class="input-group date" data-date-format="mm-dd-yyyy">
+                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="01-01-2017">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+            </div>
+
+
+            <br>
+            <br>
+            <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
+                <input type="submit" class="btn btn-lg btn-success btn-block" value="Réserver">
+            </div>
+        </fieldset>
+    </form>
+
+<?php } ?>
+

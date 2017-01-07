@@ -41,4 +41,34 @@
 
             require File::build_path(array('view', 'main_view.php'));
         }
+
+        /**
+         *
+         */
+        public static function addReservation(){
+            if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
+                $idUtilisateur = $_SESSION['idUser'];
+                $dateDebut = htmlspecialchars($_POST['dateDebut']);
+                $dateFin = htmlspecialchars($_POST['dateFin']);
+                $idChambre = htmlspecialchars($_POST['idChambre']);
+                $data = array(
+                    'idReservation' => NULL,
+                    'idChambre' => $idChambre,
+                    'idUtilisateur' => $idUtilisateur,
+                    'dateDebut' => $dateDebut,
+                    'dateFin' => $dateFin,
+                    'annulee' => NULL
+                );
+                $save = ModelReservation::save($data);
+                if ($save) {
+                    $message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
+                    self::reservations($message);
+                } else {
+                    $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
+                }
+            } else {
+                $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';
+            }
+            self::manageReservation($message);
+        }
     }

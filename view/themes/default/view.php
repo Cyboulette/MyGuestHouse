@@ -11,6 +11,8 @@
         <link href="assets/calendar/calendar.min.css" rel="stylesheet">
         <!-- THEME CUSTOM -->
         <link href="view/themes/default/css/style.css" rel="stylesheet">
+        <!-- FOR DATEPICKER UI THEME -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
         <style>
             /** CSS GENERE AUTOMATIQUEMENT PAR LE CMS POUR LES COULEURS PERSOS**/
             .bgCustom {
@@ -107,22 +109,20 @@
         <script src="assets/js/jquery.tablesorter.min.js"></script>
         <script src="assets/js/jquery.metadata.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/calendar/underscore.min.js"></script>
-        <script src="assets/calendar/calendar.min.js"></script>
-        <script src="assets/calendar/fr-FR.js"></script>
+        <script src="assets/js/jquery-ui-1.9.2.custom.js"></script>
         <script src="view/themes/default/js/script.js"></script>
 
 
-        <!-- SCRIPTS CUSTOM CALENDAR -->
-        <script type="text/javascript">
-            var calendar = $("#calendar").calendar(
-                {
-                    tmpl_path: "/tmpls/",
-                    events_source: function () { return []; }
-                });
-        </script>
-        <script type="text/javascript">
-            var calendar = $('#calendar').calendar({language: 'xx-XX'});
+
+
+        <!-- SCRIPTS FOR DATEPICKER -->
+        <script>
+            $( function() {
+                $("#datepickerDebut").datepicker();
+                $("#datepickerDebut").datepicker("option", "showAnim", "drop");
+                $("#datepickerFin").datepicker();
+                $("#datepickerFin").datepicker("option", "showAnim", "drop");
+            } );
         </script>
         <footer class="footer" >
                 <div class="container">
