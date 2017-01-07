@@ -8,11 +8,9 @@
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="assets/css/style_tablesorter.css" rel="stylesheet">
-        <link href="assets/calendar/calendar.min.css" rel="stylesheet">
+        <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
         <!-- THEME CUSTOM -->
         <link href="view/themes/default/css/style.css" rel="stylesheet">
-        <!-- FOR DATEPICKER UI THEME -->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
         <style>
             /** CSS GENERE AUTOMATIQUEMENT PAR LE CMS POUR LES COULEURS PERSOS**/
             .bgCustom {
@@ -35,6 +33,12 @@
             .service:hover {
                 background-color: <?=$customColor?>!important;
             }
+
+            .disabled-date {
+                background-color: <?=$customColor?>!important;
+                color: white!important;
+            }
+
         </style>
     </head>
 
@@ -108,20 +112,24 @@
         <script src="assets/js/jquery.matchHeight.js"></script>
         <script src="assets/js/jquery.tablesorter.min.js"></script>
         <script src="assets/js/jquery.metadata.js"></script>
+        <script src="assets/js/bootstrap-datepicker.min.js"></script>
+        <script src="assets/js/locales/bootstrap-datepicker.fr.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/jquery-ui-1.9.2.custom.js"></script>
         <script src="view/themes/default/js/script.js"></script>
-
-
 
 
         <!-- SCRIPTS FOR DATEPICKER -->
         <script>
             $( function() {
+            	$('#datepickerDebut, #datepickerFin').datepicker({
+					language: "fr",
+                    datesDisabled : ['01/01/2017', '02/01/2017']
+				});
+            	/*
                 $("#datepickerDebut").datepicker();
                 $("#datepickerDebut").datepicker("option", "showAnim", "drop");
                 $("#datepickerFin").datepicker();
-                $("#datepickerFin").datepicker("option", "showAnim", "drop");
+                $("#datepickerFin").datepicker("option", "showAnim", "drop");*/
             } );
         </script>
         <footer class="footer" >

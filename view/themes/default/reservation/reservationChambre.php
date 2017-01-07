@@ -4,7 +4,17 @@
 
 -->
 
-<?php if(!is_null($_GET['idChambre']) xor !isset($_POST['idChambre'])) { ?>
+<?php 
+    if(isset($_GET['idChambre'])) {
+        $idChambre = htmlspecialchars($_GET['idChambre']);
+    } else if(isset($_POST['idChambre'])) {
+        $idChambre = htmlspecialchars($_POST['idChambre']);
+    } else {
+        $idChambre = null;
+    }
+?>
+
+<?php if(is_null($idChambre)) { ?>
 
     <!-- Selection de l'id de la chambre -->
     <form role="form" method="POST" action="index.php?controller=reservation&action=reservationChambre">
@@ -41,7 +51,7 @@
             <div class="form-group text-center">
                 <label for="dateDebut"> Choisissez une date de début</label>
                 <div class="input-group date" data-date-format="mm-dd-yyyy">
-                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="01-01-2017">
+                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="01/01/2017">
                     <span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-calendar"></i></a></span>
                 </div>
             </div>
@@ -50,7 +60,7 @@
             <div class="form-group text-center">
                 <label for="dateFin"> Choisissez une date de fin</label>
                 <div class="input-group date" data-date-format="mm-dd-yyyy">
-                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="01-01-2017">
+                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="01/01/2017">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
