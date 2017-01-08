@@ -1,7 +1,7 @@
 <?php
 require_once 'Model.php';
 
-class ModelChambre{
+class ModelAvis{
     
     protected $idChambre;
     protected $idUtilisateur;
@@ -31,8 +31,8 @@ class ModelChambre{
             $req_prep = Model::$pdo->prepare($sql);
 
             $values = array(
-                'idUtilisateur' => $idUtilisateur
-                'idChambre' => $idChambre,
+                'idUtilisateur' => $idUtilisateur,
+                'idChambre' => $idChambre
             );
 
             $req_prep->execute($values);
@@ -61,7 +61,7 @@ class ModelChambre{
             $req_prep = Model::$pdo->prepare($sql);
 
             $values = array(
-                'valeur' => $valeur,
+                'valeur' => $valeur
             );
 
             $req_prep->execute($values);
@@ -72,6 +72,35 @@ class ModelChambre{
                 return false;
             } else {
                 return $tab;
+            }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }    
+    }
+
+    public static function countCustomAvis($selecteur, $valeur){
+        try {
+            $sql = "SELECT COUNT(*) 
+                    FROM `GH_Avis` 
+                    WHERE ".$selecteur." = :valeur";
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'valeur' => $valeur
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $req_prep->fetch();
+
+            if(empty($tab)){
+                return false;
+            } else {
+                return $tab[0];
             }
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
@@ -98,7 +127,7 @@ class ModelChambre{
             $rep = Model::$pdo->prepare($sql);
             $values = array(
                 'idUtilisateur' => $idUtilisateur,
-                'idChambre' => $idChambre,
+                'idChambre' => $idChambre
             );
             $rep->execute($values);
             return true;

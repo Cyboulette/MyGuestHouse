@@ -8,6 +8,22 @@
         $nom = $utilisateur->get('nomUtilisateur');
         $prenom = $utilisateur->get('prenomUtilisateur');
         $email = $utilisateur->get('emailUtilisateur');
+
+        $avis = modelAvis::selecCustomAvis('idUtilisateur', $_SESSION['idUser']);
+        $nbAvis = modelAvis::countCustomAvis('idUtilisateur', $_SESSION['idUser']);
+        if($nbAvis>1){
+        	$SOfAvis = 's';
+        }else{
+        	$SOfAvis =	'';
+        }
+
+        $nbReservation = count(ModelReservation::selectAllByUser($id));
+        if($reservation>1){
+        	$SOfReservation = 's';
+        }else{
+        	$SOfReservation =	'';
+        }
+        
     }
 ?>
 
@@ -54,7 +70,7 @@
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						<div class="space-for-according">
-							<span class="text-left">Détails sur les reservations</span><span class="text-right"><?=count(ModelReservation::selectAllByUser($id))?> reservation(s) effectuée(s)</span>
+							<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?></span>
 						</div>
 					</a>
 				</h4>
@@ -72,15 +88,24 @@
 				<h4 class="panel-title">
 					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 						<div class="space-for-according">
-							<span class="text-left">Détails sur les avis</span><span class="text-right"><?php echo "X"; ?> avi(s) enregistré(s)</span>
+							<span class="text-left">Détails sur les avis</span><span class="text-right"><?= $nbAvis?> avis enregistré<?=$SOfAvis?></span>
 						</div>
 					</a>
 				</h4>
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 				<div class="panel-body">
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					<?php 
+						if($nbAvis != 0){
+					?>
+						<!-- tableau des avis -->
+					<?php 
+						}else{
+					?>
+						<div class="alert alert-danger">Vous n'avez pas encore emis d'avis pour le moment !</div>
+					<?php 		
+						}
+					?>
 				</div>
 			</div>
 		</div>
