@@ -52,42 +52,51 @@
 			$view = 'addChambre';
 			$pagetitle = 'Administration - Ajouter une chambre';
 			$template = 'admin';
-
-			require_once File::build_path(array("view","main_view.php"));
+			if(ModelChambre::count()<5){
+				require_once File::build_path(array("view","main_view.php"));
+			}else{
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir plus de 5 chambre (selon la législation mise en place en France) !</div>';
+				self::chambres($message);
+			}
+			
 		}
 
 		public static function addedChambre(){
 			$powerNeeded = self::isAdmin();
-			if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
+			if(ModelChambre::count()<5){
+				if(isset($_POST['nom']) && isset($_POST['prix']) && isset($_POST['superficie']) && isset($_POST['description'])){
 
-				if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
-					if(is_numeric($_POST['prix']) && is_numeric($_POST['superficie'])) {
-						if($_POST['prix']>=0 && $_POST['superficie']>=0){
-							$laChambre = array(
-								'idChambre' => NULL,
-								'nomChambre' => htmlspecialchars($_POST['nom']),
-								'descriptionChambre' => htmlspecialchars($_POST['description']),
-								'prixChambre' => htmlspecialchars($_POST['prix']),
-								'superficieChambre' => htmlspecialchars($_POST['superficie'])
-							);
-							$save = ModelChambre::save($laChambre);
-							if($save!=false){
-								$message = '<div class="alert alert-success">Chambre ajoutée avec succès !</div>';
+					if($_POST['nom']!=null && $_POST['prix']!=null && $_POST['superficie']!=null && $_POST['description']!=null){
+						if(is_numeric($_POST['prix']) && is_numeric($_POST['superficie'])) {
+							if($_POST['prix']>=0 && $_POST['superficie']>=0){
+								$laChambre = array(
+									'idChambre' => NULL,
+									'nomChambre' => htmlspecialchars($_POST['nom']),
+									'descriptionChambre' => htmlspecialchars($_POST['description']),
+									'prixChambre' => htmlspecialchars($_POST['prix']),
+									'superficieChambre' => htmlspecialchars($_POST['superficie'])
+								);
+								$save = ModelChambre::save($laChambre);
+								if($save!=false){
+									$message = '<div class="alert alert-success">Chambre ajoutée avec succès !</div>';
+								}else{
+									$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de la chambre !</div>';
+								
+								}
 							}else{
-								$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de la chambre !</div>';
-							
+								$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
 							}
-						}else{
-							$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
+						} else {
+							$message = '<div class="alert alert-danger">Vous devez saisir un prix et une superficie en valeur numérique !</div>';
 						}
-					} else {
-						$message = '<div class="alert alert-danger">Vous devez saisir un prix et une superficie en valeur numérique !</div>';
-					}
+					}else{
+						$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide ou avoir un prix ou une seperficie inferieur a zero !</div>';
+					}   
 				}else{
-					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide ou avoir un prix ou une seperficie inferieur a zero !</div>';
-				}   
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+				}
 			}else{
-				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir plus de 5 chambre (selon la législation mise en place en France) !</div>';
 			}
 			self::chambres($message);
 		}
