@@ -41,18 +41,18 @@
     	
     	<form method='post' action='?controller=adminUtilisateurs&action=edited&idUtilisateur={$id}' enctype='multipart/form-data'>
 
-    		<div class='form-group row'>
-        		<label for='id_email' class='col-xs-3 col-form-label'>E_mail : </label>
-        		<div class='col-xs-3'>
-        			<input type='email' name='email' id='id_email' value='{$email}'>        		
-        		</div>
+      		<div class='form-group row'>
+          		<label for='id_email' class='col-xs-3 col-form-label'>E_mail : </label>
+          		<div class='col-xs-3'>
+          			<input type='email' name='email' id='id_email' value='{$email}'>        		
+          		</div>
       		</div>
 
-    		<div class='form-group row'>
-    			<label for='id_nom' class='col-xs-3 col-form-label'>Nom de l'utilisateur : </label>
-        		<div class='col-xs-3'>
-        			<input type='text' value='{$nom}' name='nom' id='id_nom'>
-        		</div>
+      		<div class='form-group row'>
+      			<label for='id_nom' class='col-xs-3 col-form-label'>Nom de l'utilisateur : </label>
+          		<div class='col-xs-3'>
+          			<input type='text' value='{$nom}' name='nom' id='id_nom'>
+          		</div>
       		</div>
 
       		<div class='form-group row'>
@@ -65,13 +65,13 @@
       		
                 
       		<div class='form-group row'>
-				<select multiple class='form-control' name='rang' id='id_rang'>
-					<label for='id_rang'>Rang de l'utilisateur</label>
-					<option value='1' {$rang1}>Visiteur</option>
-					<option value='2' {$rang2}>Membre</option>
-					<option value='3' {$rang3}>Administrateur</option>
-				</select>
-			</div>
+    				<select multiple class='form-control' name='rang' id='id_rang'>
+    					<label for='id_rang'>Rang de l'utilisateur</label>
+    					<option value='1' {$rang1}>Visiteur</option>
+    					<option value='2' {$rang2}>Membre</option>
+    					<option value='3' {$rang3}>Administrateur</option>
+    				</select>
+    			</div>
 
       		<div class='col-xs-6 col-sm-5 col-md-2'>
         		<input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>

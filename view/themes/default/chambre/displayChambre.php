@@ -5,7 +5,7 @@
         $nom = $chambre->get("nomChambre"); 
         $prix = $chambre->get("prixChambre"); 
         $superficie = $chambre->get("superficieChambre"); 
-        $description = $chambre->get("descriptionChambre"); 
+        $description = nl2br($chambre->get("descriptionChambre")); 
     ?> 
  
  

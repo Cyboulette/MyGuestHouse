@@ -496,3 +496,8 @@ i.bigCoffee {
   display: flex;
   justify-content: space-between;
 }
+
+.clear-both-left{
+	padding-left: 0px;
+	margin-left: 0px;
+}

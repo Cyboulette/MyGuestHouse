@@ -177,6 +177,32 @@ class ControllerUtilisateur {
       }
    }
 
+   public static function profil(){
+      if(self::isConnected()){
+         $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
+
+         $view = 'displayUser';
+         $pagetitle = 'Détail de l\'utilisateur';
+         $powerNeeded = true;
+         require File::build_path(array('view', 'main_view.php'));
+      } else {
+         ModelUtilisateur::error('Vous n\'êtes pas connecté, impossible d\'acceder a vos informations !');
+      }
+   }
+
+   public static function edit(){
+      if(self::isConnected()){
+         $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
+
+         $view = 'editUser';
+         $pagetitle = 'Détail de l\'utilisateur';
+         $powerNeeded = true;
+         require File::build_path(array('view', 'main_view.php'));
+      } else {
+         ModelUtilisateur::error('Vous n\'êtes pas connecté, impossible d\'acceder a la modifictaions de vos informations !');
+      }
+   }
+
    // Détermine si un utilisateur est connecté ou non
    public static function isConnected() {
       if(isset($_SESSION['login'], $_SESSION['idUser'])) {
