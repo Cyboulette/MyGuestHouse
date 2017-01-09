@@ -1,12 +1,4 @@
-<!-- On attends
-        * la liste des chambres
-        * les dates des réservations effectuées pour les afficher
-
--->
-
-<?php 
-
-?>
+<?php if(isset($message)) echo $message; ?>
 
 <?php if(is_null($idChambre)) { ?>
 
@@ -34,7 +26,7 @@
 
 <?php } else { ?>
 
-    <form id="formforchambre" role="form" action="index.php?controller=reservation&action=reserve">
+    <form id="formforchambre" role="form" method="POST" action="index.php?controller=reservation&action=addReservation">
         <fieldset>
             <h2> Chambre n°<?=$_POST['idChambre'] + $_GET['idChambre']?></h2>
             <hr class="colorgraph">
@@ -57,6 +49,7 @@
                 </div>
             </div>
 
+            <input type="hidden" name="idChambre" value="<?=$idChambre?>">
 
             <br>
             <br>
@@ -68,6 +61,6 @@
 
 <?php } ?>
 
-<?=modelReservation::selectAllDateByChambre($_GET['idChambre']);?>
-
+<!-- Modification du script datePicker pour datesDisabled -->
+<?=$sriptDatesExclues?>
 

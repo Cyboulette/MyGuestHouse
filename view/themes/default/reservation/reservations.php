@@ -1,3 +1,5 @@
+<?php if(isset($message)) echo $message; ?>
+
 <div>
     <h1 class="page-header">Vos réservations</h1>
 

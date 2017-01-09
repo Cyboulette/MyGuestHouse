@@ -210,34 +210,25 @@ class ModelReservation extends Model {
 
     /* SOME GETTERS FOR DATE AVAILABE */
     /**
-     * @return array all the date reserved
+     * @return array all the date reserved for a unique chambre
      */
     public static function selectAllDateByChambre($idChambre){
-        try {
-            $result = array();
+        $result = array();
 
-            foreach (modelReservation::selectAllByChambre($idChambre) as $reservation){
-                $nombreJour = $reservation->getNombreJours();
-                for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
-                    $dateTime = new DateTime($reservation->get('dateDebut'));
-                    $dateTime->modify("+".$nombre." day");
-                    $dateTime = $dateTime->format("Y-m-d");
-                    array_push($result, $dateTime);
-                }
+        foreach (modelReservation::selectAllByChambre($idChambre) as $reservation){
+            $nombreJour = $reservation->getNombreJours();
+            for ($nombre = 0 ; $nombre <= $nombreJour ; $nombre ++) {
+                $dateTime = new DateTime($reservation->get('dateDebut'));
+                $dateTime->modify("+".$nombre." day");
+                $dateTime = $dateTime->format("Y-m-d");
+                array_push($result, $dateTime);
             }
-
-            return $result;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo "Une erreur est survenue ! Merci de réessayer plus tard";
-            }
-            return false;
-            die();
         }
+
+        return $result;
     }
 
+    /* SOME OTHERS GETTERS */
     /**
      * Return the number of day of the reservation
      */
@@ -267,7 +258,6 @@ class ModelReservation extends Model {
         }
 
     }
-
     /**
      * Return the total price of the reservation, this price of the room plus all the prestations
      */
@@ -294,6 +284,14 @@ class ModelReservation extends Model {
             return false;
             die();
         }
+    }
+
+    /** Encode dates for datePicker
+     * @param $idChambre the id of the chambre for select all the reservation
+     * @return string the json encode
+     */
+    public static function encodeDatesForChambre($idChambre){
+        return json_encode(modelReservation::selectAllDateByChambre($idChambre));
     }
 }
 ?>

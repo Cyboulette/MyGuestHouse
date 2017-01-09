@@ -208,7 +208,6 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 $( function() {
 	$('#datepickerDebut, #datepickerFin').datepicker({
 		language: "fr",
-		datesDisabled : ['2017-01-01', '2017-01-01'],
 		format: "yyyy-mm-dd"
 
 	});
