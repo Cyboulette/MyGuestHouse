@@ -113,5 +113,6 @@
     <script src="assets/js/bootstrap-datepicker.min.js"></script>
     <script src="assets/js/locales/bootstrap-datepicker.fr.min.js"></script>
     <script src="view/themes/admin/js/script.js"></script>
+
   </body>
 </html>

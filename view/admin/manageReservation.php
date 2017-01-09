@@ -77,5 +77,5 @@ if(!$powerNeeded) { exit(); } ?>
     <button type="submit" class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 btn btn-success"><?=$titleBouton?></button>
 </form>
 
-
+<?=$sriptDatesExclues?>
 

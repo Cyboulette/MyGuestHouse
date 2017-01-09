@@ -1,3 +1,13 @@
+// Script pour datepicker
+$( function() {
+	$('#datepickerDebut, #datepickerFin').datepicker({
+		language: "fr",
+		format: "yyyy-mm-dd",
+		datesDisabled: date
+
+	});
+});
+
 $('.btnDeleteNews').on('click', function(e) {
 	e.preventDefault();
 	$("#deleteNews .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
@@ -105,6 +115,8 @@ $("#slideToUpload").fileinput({
 	}
 });
 
+
+
 function detectIdResa() {
 	var hash = window.location.hash;
 	if(hash !== "") {
@@ -204,17 +216,5 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 	field.scrollTop = scroll;   
 }
 
-// Script pour datepicker
-$( function() {
-	$('#datepickerDebut, #datepickerFin').datepicker({
-		language: "fr",
-		format: "yyyy-mm-dd"
 
-	});
-	/*
-	 $("#datepickerDebut").datepicker();
-	 $("#datepickerDebut").datepicker("option", "showAnim", "drop");
-	 $("#datepickerFin").datepicker();
-	 $("#datepickerFin").datepicker("option", "showAnim", "drop");*/
-} );
 

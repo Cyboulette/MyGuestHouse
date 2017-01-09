@@ -138,6 +138,12 @@
 					$template = 'admin';
 					$tab_reservations = ModelReservation::selectAll();
 					$pagetitle = 'Administration - ' . $titreAction;
+					$idChambre = $readReservation->get('idChambre');
+
+					// Gestion des dates réservées
+					$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
+					$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
+
 					require_once File::build_path(array("view", "main_view.php"));
 				} else {
 					ControllerDefault::error('Vous devez préciser si vous souhaitez modifier ou ajouter une reservation !', 'admin');
@@ -160,6 +166,7 @@
 					$idReservation = $_GET['idReservation'];
 					$tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
 					$tab_allPrestation = ModelPrestation::selectAll();
+
 					require_once File::build_path(array("view", "main_view.php"));
 				} else {
 					$message = '<div class="alert alert-danger">Cette reservation n\'existe plus !</div>';
