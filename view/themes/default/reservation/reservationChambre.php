@@ -68,4 +68,6 @@
 
 <?php } ?>
 
+<?=modelReservation::selectAllDateByChambre($_GET['idChambre']);?>
+
 

@@ -2,7 +2,7 @@
 <?php
 require_once 'Model.php';
 
-class ModelReservation extends Model{
+class ModelReservation extends Model {
 
     protected $idReservation;
     protected $idChambre;
@@ -144,7 +144,7 @@ class ModelReservation extends Model{
         }
     }
 
-    /* SOME SELECTOR FOR USER */
+    /* SOME SELECTOR */
     public static function selectAllByUser($idUtilisateur){
         try {
             $sql = "SELECT *
@@ -180,18 +180,44 @@ class ModelReservation extends Model{
         }
         return $result;
     }
+    public static function selectAllByChambre($idChambre){
+        try {
+            $sql = "SELECT *
+                    FROM `GH_Reservations`
+                    WHERE idChambre = :tag_idChambre";
+
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'tag_idChambre' => $idChambre,
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
+            $result = $req_prep->fetchAll();
+
+            return $result;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
 
     /* SOME GETTERS FOR DATE AVAILABE */
     /**
      * @return array all the date reserved
      */
-    public static function selectAllDateNonAvailable(){
+    public static function selectAllDateByChambre($idChambre){
         try {
             $result = array();
 
-            foreach (self::selectAll() as $reservation){
+            foreach (modelReservation::selectAllByChambre($idChambre) as $reservation){
                 $nombreJour = $reservation->getNombreJours();
-
                 for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
                     $dateTime = new DateTime($reservation->get('dateDebut'));
                     $dateTime->modify("+".$nombre." day");
