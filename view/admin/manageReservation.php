@@ -41,27 +41,41 @@ if(!$powerNeeded) { exit(); } ?>
 <form class="form" role="form" method="POST" action="<?=$urlAction?>" >
 
     <div class="form-group">
-        <label for="idUtilisateur"> Identifiant du client </label>
-        <input type="text" class="form-control" name="idUtilisateur" id="idUtilisateur" placeholder="Indiquez prenom de du client" value="<?=$idUtilisateur?>">
+        <label for="idUtilisateur"> Selectionnez l'identifiant du client </label>
+        <select class="form-control" name="idUtilisateur" id="idUtilisateur">
+            <?php foreach(ModelUtilisateur::selectAll() as $utilisateur){ echo '<option>'.$utilisateur->get('idUtilisateur').'</option>'; } ?>
+        </select>
     </div>
 
     <div class="form-group">
-        <label for="idChambre"> Id de la chambre </label>
-        <input type="text" class="form-control" name="idChambre" id="idChambre" placeholder="Indiquez l'identifiant de la chambre" value="<?=$idChambre?>">
+        <label for="idChambre"> Selectionnez l'id de la chambre </label>
+        <select class="form-control" name="idChambre" id="idChambre">
+            <?php foreach(ModelChambre::selectAll() as $chambre){ echo '<option>'.$chambre->get('idChambre').'</option>'; } ?>
+        </select>
     </div>
 
+    <br>
     <div class="form-group">
-        <label for="dateDebut"> Date du début de la reservation </label>
-        <input type="date" class="form-control" name="dateDebut" id="dateDebut" placeholder="Indiquez la date du debut de la reservation" value="<?=$dateDebut?>">
+        <label for="dateDebut"> Choisissez une date de début</label>
+        <div class="input-group date" data-date-format="yyyy-mm-dd">
+            <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="2017-01-01">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
     </div>
 
+    <br>
     <div class="form-group">
-        <label for="dateFin"> Date de la fin de la reservation </label>
-        <input type="date" class="form-control" name="dateFin" id="dateFin" placeholder="Indiquez la date de la fin de la reservation" value="<?=$dateFin?>">
+        <label for="dateFin"> Choisissez une date de fin</label>
+        <div class="input-group date" data-date-format="yyyy-mm-dd">
+            <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="2017-01-01">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
     </div>
 
+    <br>
     <?php if($type == "edit") echo '<input type="hidden" name="idReservation" value="'.$idReservation.'">'; ?>
-    <button type="submit" class="btn btn-success"><?=$titleBouton?></button>
+    <button type="submit" class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 btn btn-success"><?=$titleBouton?></button>
 </form>
+
 
 

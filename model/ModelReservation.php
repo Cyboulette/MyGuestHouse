@@ -181,10 +181,41 @@ class ModelReservation extends Model{
         return $result;
     }
 
+    /* SOME GETTERS FOR DATE AVAILABE */
+    /**
+     * @return array all the date reserved
+     */
+    public static function selectAllDateNonAvailable(){
+        try {
+            $result = array();
+
+            foreach (self::selectAll() as $reservation){
+                $nombreJour = $reservation->getNombreJours();
+
+                for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
+                    $dateTime = new DateTime($reservation->get('dateDebut'));
+                    $dateTime->modify("+".$nombre." day");
+                    $dateTime = $dateTime->format("Y-m-d");
+                    array_push($result, $dateTime);
+                }
+            }
+
+            return $result;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Une erreur est survenue ! Merci de réessayer plus tard";
+            }
+            return false;
+            die();
+        }
+    }
+
     /**
      * Return the number of day of the reservation
      */
-    public  function getNombreJours(){
+    public function getNombreJours(){
         try{
             $sql = "SELECT DATEDIFF(:dateFin,:dateDebut)";
 

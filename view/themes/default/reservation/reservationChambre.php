@@ -5,13 +5,7 @@
 -->
 
 <?php 
-    if(isset($_GET['idChambre'])) {
-        $idChambre = htmlspecialchars($_GET['idChambre']);
-    } else if(isset($_POST['idChambre'])) {
-        $idChambre = htmlspecialchars($_POST['idChambre']);
-    } else {
-        $idChambre = null;
-    }
+
 ?>
 
 <?php if(is_null($idChambre)) { ?>
@@ -25,10 +19,8 @@
         <div class="form-group text-center">
             <label for="idChambre">Sélectionnez la chambre que vous souhaitez réserver :</label>
             <select class="form-control" id="idChambre" name="idChambre">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                <?php foreach(ModelChambre::selectAll() as $chambre){ echo '<option>'.$chambre->get('idChambre').'</option>'; } ?>
+
             </select>
         </div>
 
@@ -50,17 +42,17 @@
             <br>
             <div class="form-group text-center">
                 <label for="dateDebut"> Choisissez une date de début</label>
-                <div class="input-group date" data-date-format="mm-dd-yyyy">
-                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="01/01/2017">
-                    <span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-calendar"></i></a></span>
+                <div class="input-group date" data-date-format="yyyy-mm-dd">
+                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="2017-01-01">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
 
             <br>
             <div class="form-group text-center">
                 <label for="dateFin"> Choisissez une date de fin</label>
-                <div class="input-group date" data-date-format="mm-dd-yyyy">
-                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="01/01/2017">
+                <div class="input-group date" data-date-format="yyyy-mm-dd">
+                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="2017-01-01">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
@@ -75,4 +67,5 @@
     </form>
 
 <?php } ?>
+
 

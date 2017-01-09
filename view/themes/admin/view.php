@@ -17,7 +17,8 @@
     <link href="assets/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     <!-- Bootstrap FilePicker -->
     <link href="assets/css/fileinput.min.css" rel="stylesheet">
-
+    <!-- Bootstrap datePicker -->
+    <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <!-- THEME CUSTOM -->
     <link href="view/themes/admin/css/style.css" rel="stylesheet">
 
@@ -109,6 +110,8 @@
     <script src="assets/js/bootstrap-colorpicker.min.js"></script>
     <script src="assets/js/fileinput.min.js"></script>
     <script src="assets/js/locales/fr.js"></script>
+    <script src="assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="assets/js/locales/bootstrap-datepicker.fr.min.js"></script>
     <script src="view/themes/admin/js/script.js"></script>
   </body>
 </html>
