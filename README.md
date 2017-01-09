@@ -13,6 +13,11 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 **Credencials for demo are : demo@yopmail.fr/demo**
 
 # Commits
+
+- 09/01/
+    *       Datepicker format : "yyyy-mm-dd"
+
+<br>
 - 30/12
     *       Display reservations for user
 

@@ -118,20 +118,6 @@
         <script src="view/themes/default/js/script.js"></script>
 
 
-        <!-- SCRIPTS FOR DATEPICKER -->
-        <script>
-            $( function() {
-            	$('#datepickerDebut, #datepickerFin').datepicker({
-					language: "fr",
-                    datesDisabled : ['01/01/2017', '02/01/2017']
-				});
-            	/*
-                $("#datepickerDebut").datepicker();
-                $("#datepickerDebut").datepicker("option", "showAnim", "drop");
-                $("#datepickerFin").datepicker();
-                $("#datepickerFin").datepicker("option", "showAnim", "drop");*/
-            } );
-        </script>
         <footer class="footer" >
                 <div class="container">
                     <p class="text-muted text-center"><?=$websiteName?> &copy;</p>

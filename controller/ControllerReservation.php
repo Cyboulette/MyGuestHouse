@@ -38,6 +38,14 @@
             $view = 'reservationChambre';
             $pagetitle = 'Faire une reservation';
             $powerNeeded = true;
+            $idChambre = null;
+            if(isset($_GET['idChambre'])) {
+                $idChambre = htmlspecialchars($_GET['idChambre']);
+            } else if(isset($_POST['idChambre'])) {
+                $idChambre = htmlspecialchars($_POST['idChambre']);
+            } else {
+                $idChambre = null;
+            }
 
             require File::build_path(array('view', 'main_view.php'));
         }

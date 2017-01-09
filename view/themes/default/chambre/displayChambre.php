@@ -5,7 +5,8 @@
         $nom = $chambre->get("nomChambre"); 
         $prix = $chambre->get("prixChambre"); 
         $superficie = $chambre->get("superficieChambre"); 
-        $description = nl2br($chambre->get("descriptionChambre")); 
+        $description = nl2br($chambre->get("descriptionChambre"));
+        $id = $chambre->get('idChambre');
     ?> 
  
  
@@ -180,9 +181,7 @@
 
     ?>
 
-    <!-- lien vers la reservation -->
-    <?php $idReservation = 1;?>
-    <?='<a class="button" href="index.php?controller=reservation&action=reservationChambre&idChambre="'.$idReservation.'>Réserver la !</a>';?>
+    <?='<a class="button" href="index.php?controller=reservation&action=reservationChambre&idChambre='.$id.'">Réserver la !</a>';?>
 
 
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

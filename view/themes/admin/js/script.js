@@ -203,3 +203,19 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 	
 	field.scrollTop = scroll;   
 }
+
+// Script pour datepicker
+$( function() {
+	$('#datepickerDebut, #datepickerFin').datepicker({
+		language: "fr",
+		datesDisabled : ['2017-01-01', '2017-01-01'],
+		format: "yyyy-mm-dd"
+
+	});
+	/*
+	 $("#datepickerDebut").datepicker();
+	 $("#datepickerDebut").datepicker("option", "showAnim", "drop");
+	 $("#datepickerFin").datepicker();
+	 $("#datepickerFin").datepicker("option", "showAnim", "drop");*/
+} );
+
