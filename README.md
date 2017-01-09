@@ -15,7 +15,10 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 # Commits
 
 - 09/01/
-    *       Datepicker format : "yyyy-mm-dd"
+    *       Datepicker for datesDisabled
+    *       Add and delete reservations for users
+    *       Correction on adminReservation form
+   
 
 <br>
 - 30/12
