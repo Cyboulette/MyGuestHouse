@@ -78,15 +78,15 @@
 					);
 					$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
 					if($update!=false){
-						$message = '<div class="alert alert-success">Utilisateur modifiées avec succès !</div>';
+						$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
 					}else{
 						$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
 					}
 				}else{
-					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champs vide !</div>';
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
 				}   
 			}else{
-				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
 			}
 			self::utilisateurs($message);
 		}
@@ -154,5 +154,50 @@
 			}
 			self::utilisateurs($message);
 		}
+
+		public static function changePassword(){
+	    	$powerNeeded = self::isAdmin();
+	        	$view = 'displayUser';
+	        	$pagetitle = 'Détail de l\'utilisateur';
+	        	$powerNeeded = true;
+
+	         	$checkUser = ModelUtilisateur::select($_SESSION['idUser']);
+
+		        if(isset($_POST['ancienMDP']) && isset($_POST['nouveauMDP']) && isset($_POST['nouveauMDPbis'])){
+		            if($_POST['ancienMDP']!=null && $_POST['nouveauMDP']!=null && $_POST['nouveauMDPbis']!=null){
+		               $ancienMDP = strip_tags($_POST['ancienMDP']);
+		               $nouveauMDP = strip_tags($_POST['nouveauMDP']);
+		               $nouveauMDPbis = strip_tags($_POST['nouveauMDPbis']);
+
+		               	if(password_verify($ancienMDP, $checkUser->get('password'))){
+		                  	if($nouveauMDP == $nouveauMDPbis){
+		                    	$lutilisateur = array(
+		                        	'idUtilisateur' => $_SESSION['idUser'],
+		                        	'password' => password_hash($nouveauMDP, PASSWORD_DEFAULT)
+		                     	);
+
+			                    $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+			                    if($update!=false){
+			                    	$message = '<div class="alert alert-success">Votre changement de mot de passe a bien été effectué !</div>';
+			                    }else{
+			                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la modifictaion de votre mot de passe!</div>';
+			                    }
+		                  	}else{
+		                     	$message = '<div class="alert alert-danger">L\'a validation du nouveau mot de passe n\'est pas correct !</div>';
+		                  	} 
+		               	}else{
+		                  	$message = '<div class="alert alert-danger">L\'ancien mot de passe est incorrect !</div>';
+		               	}   
+		            }else{
+		               $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
+		            }   
+		         }else{
+		            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
+		         }
+		         // pour le vue displayUser ---
+		         $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
+		         require File::build_path(array('view', 'main_view.php'));
+	   	}
+
 	}
 ?>

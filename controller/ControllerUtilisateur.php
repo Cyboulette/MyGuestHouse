@@ -203,6 +203,88 @@ class ControllerUtilisateur {
       }
    }
 
+   public static function edited(){
+      if(self::isConnected()){
+         $view = 'displayUser';
+         $pagetitle = 'Détail de l\'utilisateur';
+         $powerNeeded = true;
+
+         if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email'])){
+            if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null){
+
+               $lutilisateur = array(
+                  'idUtilisateur' => $_SESSION['idUser'],
+                  'emailUtilisateur' => $_POST['email'],
+                  'nomUtilisateur' => $_POST['nom'],
+                  'prenomUtilisateur' => $_POST['prenom']
+               );
+               $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+               if($update!=false){
+                  $message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+               }else{
+                  $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+               }
+            }else{
+               $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
+            }   
+         }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
+         }
+         // pour le vue displayUser ---
+         $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
+         require File::build_path(array('view', 'main_view.php'));
+      }else {
+         ModelUtilisateur::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
+      }
+   }
+
+   public static function changePassword(){
+      if(self::isConnected()){
+         $view = 'displayUser';
+         $pagetitle = 'Détail de l\'utilisateur';
+         $powerNeeded = true;
+
+         $checkUser = ModelUtilisateur::select($_SESSION['idUser']);
+
+         if(isset($_POST['ancienMDP']) && isset($_POST['nouveauMDP']) && isset($_POST['nouveauMDPbis'])){
+            if($_POST['ancienMDP']!=null && $_POST['nouveauMDP']!=null && $_POST['nouveauMDPbis']!=null){
+               $ancienMDP = strip_tags($_POST['ancienMDP']);
+               $nouveauMDP = strip_tags($_POST['nouveauMDP']);
+               $nouveauMDPbis = strip_tags($_POST['nouveauMDPbis']);
+
+               if(password_verify($ancienMDP, $checkUser->get('password'))){
+                  if($nouveauMDP == $nouveauMDPbis){
+                     $lutilisateur = array(
+                        'idUtilisateur' => $_SESSION['idUser'],
+                        'password' => password_hash($nouveauMDP, PASSWORD_DEFAULT)
+                     );
+
+                     $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+                     if($update!=false){
+                        $message = '<div class="alert alert-success">Votre changement de mot de passe a bien été effectué !</div>';
+                     }else{
+                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la modifictaion de votre mot de passe!</div>';
+                     }
+                  }else{
+                     $message = '<div class="alert alert-danger">L\'a validation du nouveau mot de passe n\'est pas correct !</div>';
+                  } 
+               }else{
+                  $message = '<div class="alert alert-danger">L\'ancien mot de passe est incorrect !</div>';
+               }   
+            }else{
+               $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
+            }   
+         }else{
+            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
+         }
+         // pour le vue displayUser ---
+         $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
+         require File::build_path(array('view', 'main_view.php'));
+      }else {
+         ModelUtilisateur::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
+      }
+   }
+
    // Détermine si un utilisateur est connecté ou non
    public static function isConnected() {
       if(isset($_SESSION['login'], $_SESSION['idUser'])) {

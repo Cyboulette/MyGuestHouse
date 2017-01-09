@@ -56,7 +56,7 @@
 		<h4>Changement de mot de passe :</h4>
 		</br>
 
-		<form class='col-xs-offset-1' method='post' action='' enctype='multipart/form-data'>
+		<form class='col-xs-offset-1' method='post' action='?controller=utilisateur&action=changePassword' enctype='multipart/form-data'>
 
       <div class='form-group row'>
         <label for='id_ancienMDP' class='col-xs-6 col-form-label'>Ancien mot de passe : </label>
