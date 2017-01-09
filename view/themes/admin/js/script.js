@@ -2,7 +2,7 @@
 $( function() {
 	$('#datepickerDebut, #datepickerFin').datepicker({
 		language: "fr",
-		format: "yyyy-mm-dd",
+		format: "dd/mm/yyyy",
 		datesDisabled: date
 
 	});

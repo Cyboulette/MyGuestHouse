@@ -59,7 +59,7 @@
             <li <?php ControllerDefault::active('admin', 'index'); ?>>  <!-- pour la classe active -->
               <a href="index.php?controller=admin&action=index"><i class="fa fa-home" aria-hidden="true"></i> Résumé</a> <!-- pour l'onglet -->
             </li>
-            <li <?php ControllerDefault::active('admin', 'utilisateurs'); ?>>
+            <li <?php ControllerDefault::active('adminUtilisateurs'); ?>>
               <a href="index.php?controller=adminUtilisateurs&action=utilisateurs"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateurs</a>
             </li>
             <li <?php ControllerDefault::active('adminChambres');?>>
