@@ -1,6 +1,6 @@
 <?php
 
-class ControllerUtilisateur{
+class ControllerAvis{
 
 	protected static $object = 'utilisateur';
 

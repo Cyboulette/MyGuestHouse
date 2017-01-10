@@ -88,7 +88,7 @@
 <?php  
   // description de la chambre 
   echo " 
-    <div class='descriptionChambre'> 
+    <div class='descriptionChambre margin-top-30px'> 
       <div> 
         <h4>Descriptions :<h4> 
       </div> 
@@ -112,14 +112,14 @@
         </li> 
       </ul> 
     </div> 
-    <a href='index.php?controller=adminChambres&action=editChambre&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier la chambre</a>
+    <a href='index.php?controller=adminChambres&action=editChambre&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier les descriptions</a>
   "; 
 ?>
  
 <?php 
   // Details de la chambre 
   if (isset($tab_detail) && !empty($tab_detail)) { 
-    echo "<div>"; 
+    echo "<div class ='margin-top-30px'>"; 
      
     echo " 
       <div> 
@@ -153,7 +153,7 @@
 <?php 
   // Prestations de la chambre 
   if (isset($tab_prestation) && !empty($tab_prestation)) { 
-    echo "<div>"; 
+    echo "<div class ='margin-top-30px'>"; 
      
     echo " 
       <div> 
@@ -177,17 +177,17 @@
      
     echo '
       </div>
-      <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier lesprestations</a>
     '; 
   }else{ 
     echo '
       <div class="alert alert-danger">'."il n'y a pas de prestations pour cette chambre".'</div>
-      <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les prestations</a>
     '; 
   } 
 ?> 
 
-  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel-group margin-top-30px" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
       <div class="panel-heading" role="tab" id="headingTwo">
         <h4 class="panel-title">

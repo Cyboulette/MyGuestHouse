@@ -9,8 +9,8 @@
         $prenom = $utilisateur->get('prenomUtilisateur');
         $email = $utilisateur->get('emailUtilisateur');
 
-        $avis = modelAvis::selecCustomAvis('idUtilisateur', $_SESSION['idUser']);
-        $nbAvis = modelAvis::countCustomAvis('idUtilisateur', $_SESSION['idUser']);
+        $avis = ModelAvis::selecCustomAvis('idUtilisateur', $_SESSION['idUser']);
+        $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $_SESSION['idUser']);
         if($nbAvis>1){
         	$SOfAvis = 's';
         }else{
