@@ -26,7 +26,7 @@ $prix = htmlspecialchars($prestation->get("prix"));
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<input type="submit" class="btn btn-success" value="Ajouter">
+			<input type="submit" class="btn btn-success" value="Modifier">
 			<input type="hidden" value="<?=$id?>" name="idPrestation">
 			<a href="index.php?controller=adminPrestations&action=prestations" class="btn btn-danger">Annuler</a>
 		</div>

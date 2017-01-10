@@ -43,6 +43,5 @@ class ControllerChambre {
     		self::readAll();
     	}  	
     }
-
 }
 ?>

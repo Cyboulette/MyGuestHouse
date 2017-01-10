@@ -177,3 +177,23 @@ body {
 .found:hover {
   background-color: #1e639e!important;
 }
+
+.clear-both-left{
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.border-avis{
+  border: #D7D7D7 2px solid;
+  margin: 3px;
+  padding: 6px;
+}
+
+.no-puce{
+  list-style:none;
+}
+
+.border{
+  border: #D7D7D7 0.5px solid;
+  padding: 5px;
+}

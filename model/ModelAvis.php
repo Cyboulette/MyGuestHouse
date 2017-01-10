@@ -111,6 +111,111 @@ class ModelAvis{
         }    
     }
 
+    public static function listeChambresPourAvis($idUtilisateur){
+        try {
+            $sql = "SELECT DISTINCT(r.idChambre) 
+                    FROM GH_Reservations r 
+                    WHERE idUtilisateur = :idUtilisateur 
+                        AND NOT EXISTS( 
+                            SELECT * FROM GH_Avis a 
+                            WHERE idUtilisateur = :idUtilisateur 
+                                AND r.idChambre=a.idChambre 
+                        )
+                    ";
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'idUtilisateur' => $idUtilisateur
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $req_prep->fetchAll();
+
+            if(empty($tab)){
+                return false;
+            } else {
+                return $tab;
+            }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        } 
+    }
+
+    public static function canPosteReviews($idUtilisateur, $idChambre){
+        if(self::haveReservedRoom($idUtilisateur, $idChambre) && self::haventPostedReviews($idUtilisateur, $idChambre)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private static function haveReservedRoom($idUtilisateur, $idChambre){
+        try {
+            $sql = "SELECT COUNT(*) 
+                    FROM `GH_Reservations` 
+                    WHERE `idUtilisateur` = :idUtilisateur
+                        AND `idChambre` = :idChambre";
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'idUtilisateur' => $idUtilisateur,
+                'idChambre' => $idChambre
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $req_prep->fetchAll();
+
+            if(empty($tab)){
+                return false;
+            } else {
+                return true;
+            }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }    
+    }
+
+    private static function haventPostedReviews($idUtilisateur, $idChambre){
+        try {
+            $sql = "SELECT COUNT(*) 
+                    FROM `GH_Avis` 
+                    WHERE `idUtilisateur` = :idUtilisateur
+                        AND `idChambre` = :idChambre";
+            $req_prep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'idUtilisateur' => $idUtilisateur,
+                'idChambre' => $idChambre
+            );
+
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $req_prep->fetchAll();
+
+            if(empty($tab)){
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }    
+    }
+
     // public static function selectByUser(){
 
     // }

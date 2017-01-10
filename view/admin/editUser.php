@@ -39,7 +39,7 @@
   		<p><h4>Modification de l'utilisateur :</h4></p> 
   		</br>
     	
-    	<form method='post' action='?controller=adminUtilisateurs&action=edited&idUtilisateur={$id}' enctype='multipart/form-data'>
+    	<form class='col-xs-offset-1' method='post' action='?controller=adminUtilisateurs&action=edited&idUtilisateur={$id}' enctype='multipart/form-data'>
 
       		<div class='form-group row'>
           		<label for='id_email' class='col-xs-3 col-form-label'>E_mail : </label>
@@ -63,7 +63,6 @@
       		</div>
               
       		
-                
       		<div class='form-group row'>
     				<select multiple class='form-control' name='rang' id='id_rang'>
     					<label for='id_rang'>Rang de l'utilisateur</label>
@@ -73,7 +72,7 @@
     				</select>
     			</div>
 
-      		<div class='col-xs-6 col-sm-5 col-md-2'>
+      		<div class='col-xs-6 col-sm-5 col-lg-3 clear-both-left'>
         		<input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
         		<input type='hidden' value='{$id}' name='id'>
       		</div>
@@ -87,7 +86,7 @@
 		<h4>Changement de mot de passe :</h4>
 		</br>
 
-		<form method='post' action='' enctype='multipart/form-data'>
+		<form class='col-xs-offset-1' method='post' action='' enctype='multipart/form-data'>
 
     		<div class='form-group row'>
         		<label for='id_ancienMDP' class='col-xs-3 col-form-label'>Ancien mot de passe : </label>
@@ -110,7 +109,7 @@
         		</div>
       		</div>
 
-      		<div class='col-xs-6 col-sm-5 col-md-2'>
+      		<div class='col-xs-6 col-sm-5 col-md-3 clear-both-left'>
         		<input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
         		<input type='hidden' value='{$id}' name='id'>
       		</div>

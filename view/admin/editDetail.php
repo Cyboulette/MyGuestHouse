@@ -18,7 +18,7 @@
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<input type="submit" class="btn btn-success" value="Ajouter">
+			<input type="submit" class="btn btn-success" value="Modifier">
 			<input type="hidden" value="<?=$id?>" name="idDetail">
 			<a href="index.php?controller=adminDetails&action=details" class="btn btn-danger">Annuler</a>
 		</div>

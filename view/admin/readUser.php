@@ -4,7 +4,7 @@
     if(!isset($utilisateur)){
         exit();
     }else{
-    	$id = $utilisateur->get('idUtilisateur');
+    	$idUtilisateur = $utilisateur->get('idUtilisateur');
         $nom = $utilisateur->get('nomUtilisateur');
         $prenom = $utilisateur->get('prenomUtilisateur');
         $email = $utilisateur->get('emailUtilisateur');
@@ -23,6 +23,23 @@
 		    case '1': $rang='Visiteur'; break;
 		    default: $rang='Inconnue'; break;
         }
+
+        $avis = ModelAvis::selecCustomAvis('idUtilisateur', $idUtilisateur);
+        $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $idUtilisateur);
+        if($nbAvis>1){
+        	$SOfAvis = 's';
+        }else{
+        	$SOfAvis =	'';
+        }
+
+        $nbReservation = count(ModelReservation::selectAllByUser($id));
+        if($reservation>1){
+        	$SOfReservation = 's';
+        }else{
+        	$SOfReservation =	'';
+        }
+
+        $listeChambreForAvis = ModelAvis::listeChambresPourAvis($idUtilisateur);
     }
 ?>
 
@@ -65,7 +82,7 @@
 			<h4 class="panel-title">
 				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 					<div class="space-for-according">
-						<span class="text-left">Détails sur les reservations</span><span class="text-right"><?=count(ModelReservation::selectAllByUser($id))?> reservation(s) effectuée(s)</span>
+						<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?></span>
 					</div>
 				</a>
 			</h4>
@@ -83,15 +100,92 @@
 			<h4 class="panel-title">
 				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 					<div class="space-for-according">
-						<span class="text-left">Détails sur les avis</span><span class="text-right"><?php echo "X"; ?> avi(s) enregistré(s)</span>
+						<span class="text-left">Détails sur les avis</span><span class="text-right"><?= $nbAvis?> avis enregistré<?=$SOfAvis?></span>
 					</div>
 				</a>
 			</h4>
 		</div>
 		<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 			<div class="panel-body">
-				Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-				Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+				<?php 
+					if(!empty($listeChambreForAvis)){
+						echo "<pre>";
+							print_r($listeChambreForAvis);
+						echo "</pre>";
+
+						foreach ($listeChambreForAvis as $value) {
+							echo $value[0];
+						}
+
+					}else{
+						echo "string";
+					}
+				?>
+
+				<?php 
+					if($nbAvis != 0){
+				?>
+						<div class="row border-avis">
+							<div class='descriptionChambre'>  
+					            <ul> 
+					                <li class="no-puce"> 
+					                 	Nom de la chambre : nom
+					                </li> 
+					                <li class="no-puce"> 
+					                 	Note : <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> 
+					                </li> 
+					                <li class="no-puce"> 
+					                	Avis : 
+					                	<ul> 
+					                		<li class="no-puce border"> 
+					                			ljbviuebiv eiubvedv izuhochi zaoihnvihe iub vhzb ihj ouzb ihbouih oub i hb  b sjd hxid s 
+					                		</li> 
+					               		</ul> 
+					                </li> 
+					            </ul> 
+					            <a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
+					            <a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>
+				            </div>
+						</div>
+
+						<div class="row border-avis">
+							<form class="form-horizontal" method="post" action="index.php?controller=adminChambres&action=editedChambre">
+								<div class="form-group">
+								    <label for="id_nom" class="col-xs-2 control-label">Nom de la chambre :</label>
+								    <div class="col-xs-10">
+								      <input type="text" class="form-control" value="nom" name="nom" id="id_nom">
+								    </div>
+								</div>
+
+								<div class="form-group">
+								    <label for="id_superficie" class="col-xs-2 control-label">Note :</label>
+								    <div class="col-xs-10">
+								      <input type="number" min="0" max="5" class="form-control" value="superficie" name="superficie" id="id_superficie">
+								    </div>
+								</div>
+
+								<div class="form-group">
+								    <label for="desc_chambre" class="col-xs-2 control-label">Avis :</label>
+								    <div class="col-xs-10">
+								      <textarea id="desc_chambre" name="description" class="form-control"><?=$description?></textarea>
+								    </div>
+								</div>
+
+								<div class="form-group">
+								    <div class="col-sm-offset-2 col-sm-10">
+								      <input type="submit" class="btn btn-success" value="Ajouter">
+								      <input type="hidden" name="id" value="123">
+								    </div>
+								</div>
+							</form>
+						</div>
+				<?php 
+					}else{
+				?>
+						<div class="alert alert-danger">Cet utilisateur n'a pas encore emis d'avis !</div>
+				<?php 		
+					}
+				?>
 			</div>
 		</div>
 	</div>

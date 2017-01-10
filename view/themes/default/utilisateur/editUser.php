@@ -59,7 +59,7 @@
 		<form class='col-xs-offset-1' method='post' action='?controller=utilisateur&action=changePassword' enctype='multipart/form-data'>
 
       <div class='form-group row'>
-        <label for='id_ancienMDP' class='col-xs-6 col-form-label'>Ancien mot de passe : </label>
+        <label for='id_ancienMDP' class='col-xs-6  col-form-label'>Ancien mot de passe : </label>
         <div class='col-xs-6'>
           <input type='password' name='ancienMDP' id='id_ancienMDP' placeholder='ancien mot de passe'>        		
         </div>
