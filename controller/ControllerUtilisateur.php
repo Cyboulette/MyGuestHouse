@@ -151,13 +151,13 @@ class ControllerUtilisateur {
       }
    }
 
-    public static function errorForm($error, $view, $titlePage) {
-        $displayError = $error;
-        $view = $view;
-        $pagetitle = $titlePage;
-        $powerNeeded = true;
-        require File::build_path(array('view', 'main_view.php'));
-    }
+   public static function errorForm($error, $view, $titlePage) {
+      $displayError = $error;
+      $view = $view;
+      $pagetitle = $titlePage;
+      $powerNeeded = true;
+      require File::build_path(array('view', 'main_view.php'));
+   }
 
    // Valide l'adresse e-mail après une inscription
    public static function validate() {
@@ -194,7 +194,7 @@ class ControllerUtilisateur {
       }
    }
 
-   public static function profil(){
+   public static function profil($message=null){
       if(self::isConnected()){
          $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
 
@@ -204,6 +204,57 @@ class ControllerUtilisateur {
          require File::build_path(array('view', 'main_view.php'));
       } else {
          ControllerDefault::error('Vous n\'êtes pas connecté, impossible d\'acceder a vos informations !');
+      }
+   }
+
+   public static function addAvis(){
+      if(self::isConnected()){
+         
+         if(isset($_POST['idUtilisateur'], $_POST['avis'], $_POST['note'], $_POST['idChambre'])){
+            if($_POST['idUtilisateur']!=null && $_POST['avis']!=null && $_POST['idChambre']!=null){
+               if(is_numeric($_POST['note']) && $_POST['note']>=0 && $_POST['note']<=5){
+                  $utilisateur = ModelUtilisateur::select($_POST['idUtilisateur']);
+                  $chambre = ModelChambre::select($_POST['idChambre']);
+
+                  if($utilisateur!=false){
+                     if($chambre!=false){
+
+                        $avis = htmlspecialchars($_POST['avis']);
+                        $idUtilisateur = $utilisateur->get('idUtilisateur');
+                        $idChambre = $chambre->get('idChambre');
+                        $note = htmlspecialchars($_POST['note']);
+
+                        $data = array (
+                           'idChambre' => $idChambre,
+                           'idUtilisateur' => $idUtilisateur,
+                           'note' => $note,
+                           'commentaire' => $avis
+                        );
+                        $resultSave = ModelAvis::save($data);
+                        if($resultSave){
+                           $message = '<div class="alert alert-success">Votre avis a été ajouté avec succés !</div>';
+                        }else{
+                           $message = '<div class="alert alert-danger">Nous n\'avons pas pu proceder a la sauvegarde de l\'avis !</div>';
+                        }
+                     }else{
+                        $message = '<div class="alert alert-danger">La chambre sur laquelle vous voulez émettre un avis n\'existe plus !</div>';
+                     }
+                  }else{
+                     ControllerDefault::error('Vous n\'avez pas de compte chez nous pour l\'instant !');
+                  }
+               }else{   
+                  $message = '<div class="alert alert-danger">Vous devez donner une note entre 0 et 5 (en valeur numerique) !</div>';
+               }
+            }else{
+               $message = '<div class="alert alert-danger">Vous devez renseigner touts les champs afin d\'émettre un avis !</div>';
+            }
+         }else{
+            $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer vos infomations sur l\'avis !</div>';
+         }
+         // require File::build_path(array('view', 'main_view.php'));
+         self::profil($message);
+      } else {
+         ControllerDefault::error('Vous n\'êtes pas connecté, impossible d\'acceder a la modifictaions de vos informations !');
       }
    }
 

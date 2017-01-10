@@ -4,26 +4,26 @@
     if(!isset($utilisateur)){
         exit();
     }else{
-    	$id = $utilisateur->get('idUtilisateur');
+    	$idUtilisateur = $utilisateur->get('idUtilisateur');
         $nom = $utilisateur->get('nomUtilisateur');
         $prenom = $utilisateur->get('prenomUtilisateur');
         $email = $utilisateur->get('emailUtilisateur');
 
-        $avis = ModelAvis::selecCustomAvis('idUtilisateur', $_SESSION['idUser']);
-        $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $_SESSION['idUser']);
+        $avis = ModelAvis::selectCustomAvis('idUtilisateur', $idUtilisateur);
+        $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $idUtilisateur);
         if($nbAvis>1){
         	$SOfAvis = 's';
         }else{
         	$SOfAvis =	'';
         }
+        $listeChambreForAvis = ModelAvis::listeChambresPourAvis($idUtilisateur);
 
-        $nbReservation = count(ModelReservation::selectAllByUser($id));
+        $nbReservation = count(ModelReservation::selectAllByUser($idUtilisateur));
         if($reservation>1){
         	$SOfReservation = 's';
         }else{
         	$SOfReservation =	'';
         }
-        
     }
 ?>
 
@@ -96,18 +96,120 @@
 			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 				<div class="panel-body">
 					<?php 
-						if($nbAvis != 0){
+						if(!empty($listeChambreForAvis)){				
+					?>	
+							<div class="row border-avis">
+								<form class="form-horizontal" method="post" action="index.php?controller=utilisateur&action=addAvis">
+									<div class="form-group">
+										<label for="id_chambre" class="col-xs-2 control-label">Nom de la chambre :</label>
+									    <select class="form-control col-xs-10" name='idChambre' id='id_chambre'>
+											<?php
+												foreach ($listeChambreForAvis as $key => $value) {
+													$idChambre = $value[0];
+													$chambre = ModelChambre::select($idChambre);
+													if($chambre!=false){
+														if($key==0){
+															$select="selected='selected'";
+														}else{
+															$select="";
+														}
+														$nomChambre = $chambre->get('nomChambre');
+											?>
+														<option value=<?=$idChambre?> <?=$select?> ><?=$nomChambre?></option>
+											<?php
+													}
+												}
+											?>
+										</select>
+									</div>
+
+									<div class="form-group row">
+									    <label for="id_note" class="col-xs-2 control-label">Note :</label>
+									    <div class="col-xs-10">
+									      <input type="number" min="0" max="5" class="form-control" placeholder='0..5' name="note" id="id_note">
+									    </div>
+									</div>
+
+									<div class="form-group row">
+									    <label for="id_avis" class="col-xs-2 control-label">Avis :</label>
+									    <div class="col-xs-10">
+									      <textarea id="id_avis" name="avis" placeholder='Vote avis sur la chambre !' class="form-control"></textarea>
+									    </div>
+									</div>
+
+									<div class="form-group row">
+									    <div class="col-sm-offset-2 col-sm-10">
+									      <input type="submit" class="btn btn-success" value="Ajouter">
+									      <input type="hidden" name="idUtilisateur" value=<?=$idUtilisateur?>>
+									    </div>
+									</div>
+								</form>
+							</div>
+
+					<?php
+						}
 					?>
-						<!-- tableau des avis -->
+
 					<?php 
+						if($nbAvis != 0){
+							foreach ($avis as $key => $value) {
+
+								// echo "<pre>";
+								// 	var_dump($value);
+								// echo "</pre>";
+								// echo "<pre>";
+								// 	var_dump($avis);
+								// echo "</pre>";
+					?>
+								<div class="row border-avis">
+									<div class='descriptionChambre'>  
+							            <ul> 
+							                <li class="no-puce"> 
+							                 	Nom de la chambre :
+							                </li> 
+							                <li class="no-puce"> 
+							                 	Note : <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> 
+							                </li> 
+							                <li class="no-puce"> 
+							                	Avis : 
+							                	<ul> 
+							                		<li class="no-puce border"> 
+							                			ljbviuebiv eiubvedv izuhochi zaoihnvihe iub vhzb ihj ouzb ihbouih oub i hb  b sjd hxid s 
+							                		</li> 
+							               		</ul> 
+							                </li> 
+							            </ul> 
+							            <a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
+							            <a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>
+						            </div>
+								</div>
+
+
+					<?php
+								// echo "<pre>";
+								// 	print_r($value);
+								// echo "<pre>";
+							}
+						// echo $avis;
+						// echo "<pre>";
+						// 	print_r($avis);
+						// echo "<pre>";
 						}else{
 					?>
-						<div class="alert alert-danger">Vous n'avez pas encore emis d'avis pour le moment !</div>
-					<?php 		
+							<div class="alert alert-danger">Vous n'avez pas encore emis d'avis !</div>
+					<?php
 						}
 					?>
 				</div>
 			</div>
 		</div>
 	</div>
+	<?php 
+		foreach ($avis as $key => $value) {
+			echo $value->get('idChambre');
+		}
+	?>
+
+
+
 </div>

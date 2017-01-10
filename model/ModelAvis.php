@@ -53,7 +53,7 @@ class ModelAvis{
         }
     }
 
-    public static function selecCustomAvis($selecteur, $valeur){
+    public static function selectCustomAvis($selecteur, $valeur){
         try {
             $sql = "SELECT * 
                     FROM `GH_Avis` 
@@ -70,7 +70,7 @@ class ModelAvis{
 
             if(empty($tab)){
                 return false;
-            } else {
+            }else{
                 return $tab;
             }
         } catch(PDOException $e) {
@@ -217,11 +217,9 @@ class ModelAvis{
     }
 
     // public static function selectByUser(){
-
     // }
 
     // public static function selectByChambre(){
-
     // }
 
     public static function delete($idUtilisateur, $idChambre){
@@ -268,7 +266,35 @@ class ModelAvis{
         }
     }
 
-    //save on Model.php
+    public static function save($data, $typeReturn = NULL) {
+        try {
+            $sql = 'INSERT INTO `GH_Avis` VALUES (';
+
+
+            foreach ($data as $key => $value) {
+                $sql .= ':'.$key.',';
+            }
+
+            $sql = substr($sql, 0, -1);
+            $sql .= ')';
+
+            $add = Model::$pdo->prepare($sql);
+            $add->execute($data);
+            if($typeReturn == 'id') {
+                $lastId = Model::$pdo->lastInsertId();
+                return $lastId;
+            } else {
+                return true;
+            }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
 
 }
 ?>

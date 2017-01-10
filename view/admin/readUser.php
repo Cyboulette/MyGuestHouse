@@ -38,8 +38,6 @@
         }else{
         	$SOfReservation =	'';
         }
-
-        $listeChambreForAvis = ModelAvis::listeChambresPourAvis($idUtilisateur);
     }
 ?>
 
@@ -107,21 +105,7 @@
 		</div>
 		<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 			<div class="panel-body">
-				<?php 
-					if(!empty($listeChambreForAvis)){
-						echo "<pre>";
-							print_r($listeChambreForAvis);
-						echo "</pre>";
-
-						foreach ($listeChambreForAvis as $value) {
-							echo $value[0];
-						}
-
-					}else{
-						echo "string";
-					}
-				?>
-
+				
 				<?php 
 					if($nbAvis != 0){
 				?>
@@ -146,38 +130,6 @@
 					            <a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
 					            <a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>
 				            </div>
-						</div>
-
-						<div class="row border-avis">
-							<form class="form-horizontal" method="post" action="index.php?controller=adminChambres&action=editedChambre">
-								<div class="form-group">
-								    <label for="id_nom" class="col-xs-2 control-label">Nom de la chambre :</label>
-								    <div class="col-xs-10">
-								      <input type="text" class="form-control" value="nom" name="nom" id="id_nom">
-								    </div>
-								</div>
-
-								<div class="form-group">
-								    <label for="id_superficie" class="col-xs-2 control-label">Note :</label>
-								    <div class="col-xs-10">
-								      <input type="number" min="0" max="5" class="form-control" value="superficie" name="superficie" id="id_superficie">
-								    </div>
-								</div>
-
-								<div class="form-group">
-								    <label for="desc_chambre" class="col-xs-2 control-label">Avis :</label>
-								    <div class="col-xs-10">
-								      <textarea id="desc_chambre" name="description" class="form-control"><?=$description?></textarea>
-								    </div>
-								</div>
-
-								<div class="form-group">
-								    <div class="col-sm-offset-2 col-sm-10">
-								      <input type="submit" class="btn btn-success" value="Ajouter">
-								      <input type="hidden" name="id" value="123">
-								    </div>
-								</div>
-							</form>
 						</div>
 				<?php 
 					}else{
