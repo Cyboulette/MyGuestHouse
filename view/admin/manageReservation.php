@@ -58,7 +58,7 @@ if(!$powerNeeded) { exit(); } ?>
     <div class="form-group">
         <label for="dateDebut"> Choisissez une date de début</label>
         <div class="input-group date" data-date-format="yyyy-mm-dd">
-            <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="2017-01-01">
+            <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="<?=getdate();?>">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
     </div>
@@ -67,7 +67,7 @@ if(!$powerNeeded) { exit(); } ?>
     <div class="form-group">
         <label for="dateFin"> Choisissez une date de fin</label>
         <div class="input-group date" data-date-format="yyyy-mm-dd">
-            <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="2017-01-01">
+            <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="<?=getdate();?>">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
     </div>

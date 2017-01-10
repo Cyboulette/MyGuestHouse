@@ -220,7 +220,7 @@ class ModelReservation extends Model {
             for ($nombre = 0 ; $nombre <= $nombreJour ; $nombre ++) {
                 $dateTime = new DateTime($reservation->get('dateDebut'));
                 $dateTime->modify("+".$nombre." day");
-                $dateTime = $dateTime->format("Y-m-d");
+                $dateTime = $dateTime->format("d/m/Y");
                 array_push($result, $dateTime);
             }
         }
