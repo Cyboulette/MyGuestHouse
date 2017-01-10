@@ -274,6 +274,32 @@ class Conf {
 													);
 													$addOption = Model::$pdo->prepare($sql);
 													$addOption->execute($data);
+													// Ajout de la news par défaut
+													$sql = 'INSERT INTO `GH_News` VALUES (:idNews, :titreNews, :contenuNews, :dateNews, :publie)';
+													// Insertion du nom du site
+													$contenuNews = "[grand]Bienvenue à vous ![/grand]
+													L'installation est un grand [b]succès ![/b]
+													Vous pouvez maintenant accéder à  [lien url=index.php?controller=admin&amp;action=index]l'administration[/lien] avec le compte crée lors de l'installation et supprimer cette actualité de présentation.
+
+													[liste titre=Ma liste][li]Item 1[/li][li]Item 2[/li][li]Item 3[/li][/liste]
+
+													[b][u]Exemple de BBCODE :[/u][/b]
+													[b]Gras[/b]
+													[i]Italique[/i]
+													[u]Souligné[/u]
+													[lien url=https://google.fr/]Lien[/lien]
+													[grand]Grand[/grand]
+													[moyen]Moyen[/moyen]
+													[petit]Petit[/petit]";
+													$data = array(
+														'idNews' => NULL,
+														'titreNews' => 'Bienvenue sur MyGuestHouse',
+														'contenuNews' => $contenuNews,
+														'dateNews' =>, date('Y-m-d')
+														'publie' => 1
+													);
+													$addNews = Model::$pdo->prepare($sql);
+													$addNews->execute($data);
 													// Maintenant il faut passer le $installed dans Conf à true.
 													$path_to_file = File::build_path(array('config', 'Conf.php'));
 													$file_contents = file_get_contents($path_to_file);
