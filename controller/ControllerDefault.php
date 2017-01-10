@@ -295,7 +295,7 @@ class Conf {
 														'idNews' => NULL,
 														'titreNews' => 'Bienvenue sur MyGuestHouse',
 														'contenuNews' => $contenuNews,
-														'dateNews' =>, date('Y-m-d')
+														'dateNews' => date('Y-m-d'),
 														'publie' => 1
 													);
 													$addNews = Model::$pdo->prepare($sql);

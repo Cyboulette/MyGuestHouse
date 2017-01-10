@@ -83,18 +83,19 @@ class ControllerUtilisateur {
       $titlePage = "S'inscrire";
       if(!self::isConnected()) {
          if(isset($_POST['email'],$_POST['password'],$_POST['password_confirm'],$_POST['prenom'], $_POST['nom'])) {
-            $email = strip_tags($_POST['email']);
+            $email = htmlspecialchars($_POST['email']);
             if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
                $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
                if($checkUser == false) {
-                  $password = strip_tags($_POST['password']);
-                  $password_confirm = strip_tags($_POST['password_confirm']);
+                  $password = htmlspecialchars($_POST['password']);
+                  $password_confirm = htmlspecialchars($_POST['password_confirm']);
                   if(!empty($password) &&  !ctype_space($password)) {
                      if($password_confirm == $password) {
-                        $prenom = strip_tags($_POST['prenom']);
+                        $prenom = htmlspecialchars($_POST['prenom']);
                         if(!empty($prenom) && !ctype_space($prenom)) {
-                           $nom = strip_tags($_POST['nom']);
+                           $nom = htmlspecialchars($_POST['nom']);
                            if(!empty($nom) && !ctype_space($nom)) {
+                              $nonce = ModelUtilisateur::generateRandomHex();
                               $data = array (
                                  'idUtilisateur' => NULL,
                                  'prenomUtilisateur' => $prenom,
@@ -102,7 +103,7 @@ class ControllerUtilisateur {
                                  'emailUtilisateur' => $email,
                                  'password' => password_hash($password, PASSWORD_DEFAULT),
                                  'rang' => 2,
-                                 'nonce' => ModelUtilisateur::generateRandomHex()
+                                 'nonce' => $nonce
                               );
 
                               $resultSave = ModelUtilisateur::save($data);
