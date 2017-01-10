@@ -99,9 +99,10 @@
 						if(!empty($listeChambreForAvis)){				
 					?>	
 							<div class="row border-avis">
+								<h2 class='text-center'>Ajouter un avis a nos chambres</h2>
 								<form class="form-horizontal" method="post" action="index.php?controller=utilisateur&action=addAvis">
 									<div class="form-group">
-										<label for="id_chambre" class="col-xs-2 control-label">Nom de la chambre :</label>
+										<label for="id_chambre" class="col-xs-3 control-label text-left">Nom de la chambre :</label>
 									    <select class="form-control col-xs-10" name='idChambre' id='id_chambre'>
 											<?php
 												foreach ($listeChambreForAvis as $key => $value) {
@@ -133,7 +134,7 @@
 									<div class="form-group row">
 									    <label for="id_avis" class="col-xs-2 control-label">Avis :</label>
 									    <div class="col-xs-10">
-									      <textarea id="id_avis" name="avis" placeholder='Vote avis sur la chambre !' class="form-control"></textarea>
+									      <textarea id="id_avis" name="avis" placeholder='Votre avis sur la chambre !' class="form-control"></textarea>
 									    </div>
 									</div>
 
@@ -153,7 +154,12 @@
 					<?php 
 						if($nbAvis != 0){
 							foreach ($avis as $key => $value) {
+								$note = $value->get('note');
+								$commentaire = nl2br($value->get('commentaire'));
+								$idUtilisateur = $value->get('idUtilisateur');
+								$idChambre = $value->get('idChambre');
 
+								$nomChambre = (ModelChambre::select($idChambre))->get('nomChambre');
 								// echo "<pre>";
 								// 	var_dump($value);
 								// echo "</pre>";
@@ -165,21 +171,35 @@
 									<div class='descriptionChambre'>  
 							            <ul> 
 							                <li class="no-puce"> 
-							                 	Nom de la chambre :
+							                 	Nom de la chambre : <?=$nomChambre?>
 							                </li> 
 							                <li class="no-puce"> 
-							                 	Note : <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> 
+							                 	Note : 
+							                 	<?php  
+							                 		if( is_numeric($note) && $note>=0 && $note<=5){
+							                 			for ($i=0; $i<$note ; $i++) { 
+							                 	?>
+							                 				<i class="fa fa-star" aria-hidden="true"></i>
+							                 	<?php			
+							                 			}
+							                 			for ($i=0; $i < (5-$note) ; $i++) { 
+							                 	?>
+							                 				<i class="fa fa-star-o" aria-hidden="true"></i>
+							                 	<?php
+							                 			}
+
+							                 		}
+							                 	?>
+							                 	<small>(<?=$note?>/5)</small>
 							                </li> 
 							                <li class="no-puce"> 
 							                	Avis : 
 							                	<ul> 
-							                		<li class="no-puce border"> 
-							                			ljbviuebiv eiubvedv izuhochi zaoihnvihe iub vhzb ihj ouzb ihbouih oub i hb  b sjd hxid s 
-							                		</li> 
+							                		<li class="no-puce border"><?=$commentaire?></li> 
 							               		</ul> 
 							                </li> 
 							            </ul> 
-							            <a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
+							            <?php echo "<a href='?controller=avis&action=edit&idUtilisateur={$idUtilisateur}&idChambre={$idChambre}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>" ?>
 							            <a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>
 						            </div>
 								</div>
@@ -204,12 +224,4 @@
 			</div>
 		</div>
 	</div>
-	<?php 
-		foreach ($avis as $key => $value) {
-			echo $value->get('idChambre');
-		}
-	?>
-
-
-
 </div>

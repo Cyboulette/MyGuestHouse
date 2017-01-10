@@ -22,6 +22,20 @@ class ModelAvis{
         }
     }
 
+    public function get($nom_attribut) {
+        if (property_exists($this, $nom_attribut)) {
+            return $this->$nom_attribut;
+        }
+        return false;
+    }
+
+    public function set($nom_attribut, $valeur) {
+        if (property_exists($this, $nom_attribut)) {
+            $this->$nom_attribut = $valeur;
+        }
+        return false;
+    }
+
     public static function select($idUtilisateur, $idChambre){
         try {
             $sql = "SELECT * 
@@ -265,36 +279,6 @@ class ModelAvis{
             die();
         }
     }
-
-    public static function save($data, $typeReturn = NULL) {
-        try {
-            $sql = 'INSERT INTO `GH_Avis` VALUES (';
-
-
-            foreach ($data as $key => $value) {
-                $sql .= ':'.$key.',';
-            }
-
-            $sql = substr($sql, 0, -1);
-            $sql .= ')';
-
-            $add = Model::$pdo->prepare($sql);
-            $add->execute($data);
-            if($typeReturn == 'id') {
-                $lastId = Model::$pdo->lastInsertId();
-                return $lastId;
-            } else {
-                return true;
-            }
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }
-    }
-
 
 }
 ?>

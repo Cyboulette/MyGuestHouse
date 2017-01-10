@@ -353,6 +353,8 @@ class ControllerUtilisateur {
       }
    }
 
+   
+
    // Détermine si un utilisateur est connecté ou non
    public static function isConnected() {
       if(isset($_SESSION['login'], $_SESSION['idUser'])) {
