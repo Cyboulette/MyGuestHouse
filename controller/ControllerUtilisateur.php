@@ -105,9 +105,17 @@ class ControllerUtilisateur {
                                  'rang' => 2,
                                  'nonce' => $nonce
                               );
-
                               $resultSave = ModelUtilisateur::save($data);
-                              //ENVOYER MAIL ICI
+                              $lien = 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']).'/index.php?controller=utilisateur&action=validate&key='.$nonce.'&email='.$email.'';
+                              $contenu = '
+                                 Cher futur client(e), <br/>
+                                 Nous avons bien reçu votre demande d\'inscription à notre site et par mesure de sécurité vous devez valider votre e-mail.<br/><br/>
+                                 Pour ce faire, il vous suffit de cliquer sur le lien ci-dessous ou de recopier l\'adresse dans votre navigateur : <br/>
+                                 <a href="'.$lien.'" target="_blank">'.$lien.'</a> <br/><br/>
+
+                                 Nous vous remercions pour l\'intérêt que vous portez à nos services !
+                              ';
+                              ControllerMail::sendMail($email, 'Confirmez votre inscription à notre site web', $contenu);
                               if($resultSave) {
                                  $message = 'Inscription réalisée avec succès !';
                                  $view = 'success_action';
@@ -115,33 +123,41 @@ class ControllerUtilisateur {
                                  $powerNeeded = !self::isConnected();
                                  require File::build_path(array('view', 'main_view.php'));
                               } else {
-                                 ModelUtilisateur::errorForm('Impossible de vous inscrire, merci de nous contacter', 'register', $titlePage);
+                                 self::errorForm('Impossible de vous inscrire, merci de nous contacter', 'register', $titlePage);
                               }
                            } else {
-                              ModelUtilisateur::errorForm('Vous devez saisir votre nom', 'register', $titlePage);
+                              self::errorForm('Vous devez saisir votre nom', 'register', $titlePage);
                            }
                         } else {
-                           ModelUtilisateur::errorForm('Vous devez saisir votre prénom', 'register', $titlePage);
+                           self::errorForm('Vous devez saisir votre prénom', 'register', $titlePage);
                         }
                      } else {
-                        ModelUtilisateur::errorForm('Les mots de passe ne correspondent pas', 'register', $titlePage);
+                        self::errorForm('Les mots de passe ne correspondent pas', 'register', $titlePage);
                      }
                   } else {
-                     ModelUtilisateur::errorForm('Vous ne pouvez pas avoir un mot de passe vide !', 'register', $titlePage);
+                     self::errorForm('Vous ne pouvez pas avoir un mot de passe vide !', 'register', $titlePage);
                   }
                } else {
-                  ModelUtilisateur::errorForm('Cette adresse e-mail est déjà inscrite sur notre site', 'register', $titlePage);
+                  self::errorForm('Cette adresse e-mail est déjà inscrite sur notre site', 'register', $titlePage);
                }
             } else {
-               ModelUtilisateur::errorForm('Vous devez saisir une adresse e-mail valide !', 'register', $titlePage);
+               self::errorForm('Vous devez saisir une adresse e-mail valide !', 'register', $titlePage);
             }
          } else {
-            ModelUtilisateur::error('Merci de saisir tous les champs !');
+            ControllerDefault::error('Merci de saisir tous les champs !');
          }
       } else {
-         ModelUtilisateur::error('Vous ne pouvez pas vous inscrire en étant déjà connecté !');
+         ControllerDefault::error('Vous ne pouvez pas vous inscrire en étant déjà connecté !');
       }
    }
+
+    public static function errorForm($error, $view, $titlePage) {
+        $displayError = $error;
+        $view = $view;
+        $pagetitle = $titlePage;
+        $powerNeeded = true;
+        require File::build_path(array('view', 'main_view.php'));
+    }
 
    // Valide l'adresse e-mail après une inscription
    public static function validate() {
@@ -160,21 +176,21 @@ class ControllerUtilisateur {
                      $view = 'success_action';
                      $pagetitle = 'Validation de l\'adresse e-mail';
                      $powerNeeded = !self::isConnected();
-                     require File::build_path(array('view', 'view.php'));
+                     require File::build_path(array('view', 'main_view.php'));
                   } else {
-                     ModelUtilisateur::error('Impossible de valider votre adresse e-mail, veuillez nous contacter');
+                     ControllerDefault::error('Impossible de valider votre adresse e-mail, veuillez nous contacter');
                   }
                } else {
-                  ModelUtilisateur::error('Cette clé de validation est invalide !');
+                  ControllerDefault::error('Cette clé de validation est invalide !');
                }
             } else {
-               ModelUtilisateur::error('Ce mail n\'est pas inscrit sur notre site !');
+               ControllerDefault::error('Ce mail n\'est pas inscrit sur notre site !');
             }
          } else {
-            ModelUtilisateur::error('Impossible de valider sans recevoir les données');
+            ControllerDefault::error('Impossible de valider sans recevoir les données');
          }
       } else {
-         ModelUtilisateur::error('Impossible de valider sans recevoir les données');
+         ControllerDefault::error('Impossible de valider sans recevoir les données');
       }
    }
 
@@ -187,7 +203,7 @@ class ControllerUtilisateur {
          $powerNeeded = true;
          require File::build_path(array('view', 'main_view.php'));
       } else {
-         ModelUtilisateur::error('Vous n\'êtes pas connecté, impossible d\'acceder a vos informations !');
+         ControllerDefault::error('Vous n\'êtes pas connecté, impossible d\'acceder a vos informations !');
       }
    }
 
@@ -200,7 +216,7 @@ class ControllerUtilisateur {
          $powerNeeded = true;
          require File::build_path(array('view', 'main_view.php'));
       } else {
-         ModelUtilisateur::error('Vous n\'êtes pas connecté, impossible d\'acceder a la modifictaions de vos informations !');
+         ControllerDefault::error('Vous n\'êtes pas connecté, impossible d\'acceder a la modifictaions de vos informations !');
       }
    }
 
@@ -235,7 +251,7 @@ class ControllerUtilisateur {
          $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
          require File::build_path(array('view', 'main_view.php'));
       }else {
-         ModelUtilisateur::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
+         ControllerDefault::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
       }
    }
 
@@ -282,7 +298,7 @@ class ControllerUtilisateur {
          $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
          require File::build_path(array('view', 'main_view.php'));
       }else {
-         ModelUtilisateur::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
+         ControllerDefault::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
       }
    }
 

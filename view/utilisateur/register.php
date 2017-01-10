@@ -3,11 +3,11 @@
     if(isset($displayError) && !empty($displayError)) {
       echo '<div class="alert alert-danger">'.$displayError.'</div>';
     }
-    $email = (isset($_POST['email']) ? strip_tags($_POST['email']) : '');
+    $email = (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '');
     $password = (isset($_POST['password']) ? $_POST['password'] : '');
     $password_confirm = (isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '');
-    $prenom = (isset($_POST['prenom']) ? strip_tags($_POST['prenom']) : '');
-    $nom = (isset($_POST['nom']) ? strip_tags($_POST['nom']) : '');
+    $prenom = (isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : '');
+    $nom = (isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : '');
   ?>
   <form role="form" action="index.php?controller=utilisateur&action=registered" method="POST">
     <fieldset>

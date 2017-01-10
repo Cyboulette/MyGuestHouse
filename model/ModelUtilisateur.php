@@ -179,14 +179,6 @@ class ModelUtilisateur extends Model {
         }       
     }
 
-    public static function errorForm($error, $view, $titlePage) {
-        $displayError = $error;
-        $view = $view;
-        $pagetitle = $titlePage;
-        $powerNeeded = true;
-        require File::build_path(array('view', 'main_view.php'));
-    }
-
     // Select toutes les réservations d'un utilisateur
     public static function selectAllRéservation(){
         $idUtilisateur = static::$idUtilisateur;
