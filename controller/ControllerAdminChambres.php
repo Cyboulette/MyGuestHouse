@@ -139,12 +139,12 @@
 							);
 							$update = ModelChambre::update_gen($laChambre, 'idChambre');
 							if($update!=false){
-								$message = '<div class="alert alert-success">Chambre modifiées avec succès !</div>';
+								$message = '<div class="alert alert-success">Chambre modifiée avec succès !</div>';
 							}else{
 								$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de la chambre !</div>';
 							}
 						}else{
-							$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zero !</div>';
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir un prix ou une seperficie inferieur a zéro !</div>';
 						}
 					} else {
 						$message = '<div class="alert alert-danger">Vous devez saisir un prix et une superficie en valeur numérique !</div>';
