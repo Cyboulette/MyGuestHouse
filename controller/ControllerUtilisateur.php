@@ -36,22 +36,22 @@ class ControllerUtilisateur {
                         $powerNeeded = self::isConnected();
                         require File::build_path(array('view', 'main_view.php'));
                      } else {
-                        ModelUtilisateur::errorForm('Le mot de passe est incorrect', 'connexion', $titlePage);
+                        self::errorForm('Le mot de passe est incorrect', 'connexion', $titlePage);
                      }
                   } else {
-                     ModelUtilisateur::errorForm('Vous devez valider votre adresse email en cliquant sur le lien qui vous a été envoyé par mail', 'connexion', $titlePage);
+                     self::errorForm('Vous devez valider votre adresse email en cliquant sur le lien qui vous a été envoyé par mail', 'connexion', $titlePage);
                   }
                } else {
-                  ModelUtilisateur::errorForm('Cette adresse e-mail ne correspond à aucun compte !', 'connexion', $titlePage);
+                  self::errorForm('Cette adresse e-mail ne correspond à aucun compte !', 'connexion', $titlePage);
                }
             } else {
-               ModelUtilisateur::errorForm('L\'adresse e-mail renseignée est invalide !', 'connexion', $titlePage);
+               self::errorForm('L\'adresse e-mail renseignée est invalide !', 'connexion', $titlePage);
             }
          } else {
-            ModelUtilisateur::error('Vous devez renseigner tous les champs !');
+            ControllerDefault::error('Vous devez renseigner tous les champs !');
          }
       } else {
-         ModelUtilisateur::error('Vous êtes déjà connecté !');
+         ControllerDefault::error('Vous êtes déjà connecté !');
       }
    }
 
@@ -66,7 +66,7 @@ class ControllerUtilisateur {
          $powerNeeded = !self::isConnected();
          require File::build_path(array('view', 'main_view.php'));
       } else {
-         ModelUtilisateur::error('Vous n\'êtes pas connecté, impossible de vous déconnecter !');
+         ControllerDefault::error('Vous n\'êtes pas connecté, impossible de vous déconnecter !');
       }
    }
 
