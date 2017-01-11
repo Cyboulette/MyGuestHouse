@@ -81,7 +81,7 @@
               <a href="index.php?controller=adminNews&action=news"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Actualités</a>
             </li>
             <li <?php ControllerDefault::active('adminOptions');?>>
-              <a href="index.php?controller=adminOptions&action=list"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
+              <a href="index.php?controller=adminOptions&action=liste"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
             </li>
             <li <?php ControllerDefault::active('adminThemes');?>>
               <a href="index.php?controller=adminThemes&action=themes"><i class="fa fa-paint-brush" aria-hidden="true"></i> Thèmes</a>

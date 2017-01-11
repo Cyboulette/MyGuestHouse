@@ -1,7 +1,7 @@
 <?php 
 	class ControllerAdminOptions extends ControllerAdmin {
 
-	    public static function list($message = NULL) {
+	    public static function liste($message = NULL) {
 	        $powerNeeded = self::isAdmin();
 	        $view = 'listOptions';
 	        $pagetitle = 'Administration - Options du site';
@@ -40,7 +40,7 @@
 	        } else {
 	            $message = '<div class="alert alert-danger">Merci d\'envoyer toutes les données du formulaire !</div>';
 	        }
-	        self::list($message);
+	        self::liste($message);
 	    }
 	}
 ?>

@@ -81,7 +81,7 @@
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
-    <a href="?controller=adminOptions&action=list">
+    <a href="?controller=adminOptions&action=liste">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-cogs fa-inverse fa-stack-1x"></i>
