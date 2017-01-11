@@ -98,7 +98,7 @@
 					<?php 
 						if(!empty($listeChambreForAvis)){				
 					?>	
-							<div class="row border-avis">
+							<div class="row border-avis margin-bottom-30px">
 								<h2 class='text-center'>Ajouter un avis a nos chambres</h2>
 								<form class="form-horizontal" method="post" action="index.php?controller=avis&action=add">
 									<div class="form-group">
