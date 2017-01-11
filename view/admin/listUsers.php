@@ -16,11 +16,11 @@
 	<a href="index.php?controller=adminUtilisateurs&action=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un utilisateur</a><br/><br/>
 
 	<ul class='nav nav-tabs' role='tablist'>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='all'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'all'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=all' > Tout <span class='badge'>  <?php echo $nbAll; ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='admin'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'admin'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=admin' > Admin <span class='badge'>  <?php echo $nbAdmin; ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='membre'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'membre'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=membre' > Membre <span class='badge'>  <?php echo $nbMembre; ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='visiteur'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'visiteur'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=visiteur' > Visiteur <span class='badge'>  <?php echo $nbVisiteur; ?> </span></a></li>
-	    <li <?php if(!isset($_GET['mode'])&&$mode=='nonValide'){echo'class="active"';} ControllerDefault::active('adminUtilisateurs', 'utilisateurs', 'nonValide'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=nonValide' > Non Validé <span class='badge'>  <?php echo $nbNonConfirme; ?> </span></a></li>
+	    <li <?php ControllerDefault::active('adminUtilisateurs', '', 'all'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=all' > Tout <span class='badge'>  <?php echo $nbAll; ?> </span></a></li>
+	    <li <?php ControllerDefault::active('adminUtilisateurs', '', 'admin'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=admin' > Admin <span class='badge'>  <?php echo $nbAdmin; ?> </span></a></li>
+	    <li <?php ControllerDefault::active('adminUtilisateurs', '', 'membre'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=membre' > Membre <span class='badge'>  <?php echo $nbMembre; ?> </span></a></li>
+	    <li <?php ControllerDefault::active('adminUtilisateurs', '', 'visiteur'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=visiteur' > Visiteur <span class='badge'>  <?php echo $nbVisiteur; ?> </span></a></li>
+	    <li <?php ControllerDefault::active('adminUtilisateurs', '', 'nonValide'); ?> ><a href='index.php?controller=adminUtilisateurs&action=utilisateurs&mode=nonValide' > Non Validé <span class='badge'>  <?php echo $nbNonConfirme; ?> </span></a></li>
    	</ul>
    	<br>
 
@@ -40,12 +40,12 @@
 				echo '</tr>';
 			echo '</thead>';
 		foreach ($tab_utilisateurs as $utilisateur) {
-			$id = $utilisateur->get('idUtilisateur');
-			$nom = $utilisateur->get('nomUtilisateur');
-			$prenom = $utilisateur->get('prenomUtilisateur');
-			$login = $utilisateur->get('emailUtilisateur');
-			$statut = $utilisateur->get('rang');
-			$valide = $utilisateur->get('nonce');
+			$id = htmlspecialchars($utilisateur->get('idUtilisateur'));
+			$nom = htmlspecialchars($utilisateur->get('nomUtilisateur'));
+			$prenom = htmlspecialchars($utilisateur->get('prenomUtilisateur'));
+			$login = htmlspecialchars($utilisateur->get('emailUtilisateur'));
+			$statut = htmlspecialchars($utilisateur->get('rang'));
+			$valide = htmlspecialchars($utilisateur->get('nonce'));
 
 			if($statut == '3'){
 				$statut = 'Admin';
@@ -74,7 +74,7 @@
 
 					<a href="index.php?controller=adminUtilisateurs&action=edit&idUtilisateur='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-					<button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-toggle="modal" data-target="#deleteChambre"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 				</td>';
 			echo '</tr>';
 		}
@@ -84,7 +84,7 @@
 ?>
 		<!-- BOOTSTRAP MODAL -->
 		
-		 <div id="deleteReservation" class="modal fade" role="dialog">
+		 <div id="deleteItem" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">

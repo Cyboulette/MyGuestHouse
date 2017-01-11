@@ -27,7 +27,7 @@
 				echo '<td><a href="'.$url.'" target="_blank">'.$url.'</a></td>';
 				echo '<td>
 					<a href="index.php?controller=adminSlides&action=manageSlides&type=edit&idSlide='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-					<button type="button" class="btn btn-xs btn-danger btnDeleteSlide" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminSlides" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 					<a target="_blank" href="index.php" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
 					</td>';
 			echo '</tr>';
@@ -35,7 +35,7 @@
 
 		echo '</table></div>';
 		?>
-		<div id="deleteSlide" class="modal fade" role="dialog">
+		<div id="deleteItem" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">

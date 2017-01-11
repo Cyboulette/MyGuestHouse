@@ -158,22 +158,32 @@
 			self::chambres($message);
 		}
 
-		public static function deleteChambre() {
-			$powerNeeded = self::isAdmin();
-			// Attend un $_GET['idChambre']
-			if (isset($_GET['idChambre']) && $_GET['idChambre']!=null) {
-				$idChambre = $_GET['idChambre'];
-				if(ModelChambre::select($idChambre)!=null){ // c'est plutôt != false
-					if(ModelChambre::delete($idChambre)){
-						$message = '<div class="alert alert-success">La suppresion de la chambre a été effectuée avec succes !</div>';
-					}else{
-						$message = '<div class="alert alert-danger">Un probleme est survenue lors de la suppression de la chambre !</div>';
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminChambres", "ModelChambre", "de la chambre", "nomChambre", 'idChambre');
+		}
+
+		public static function deleteItem() {
+			self::isAdmin();
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
+				$confirm = htmlspecialchars($_POST['confirm']);
+				$item = ModelChambre::select($idItem);
+				if($item != false) {
+					if($confirm == true) {
+						$checkDeleteItem = ModelChambre::delete($item->get('idChambre'));
+						if($checkDeleteItem) {
+							$message = '<div class="alert alert-success">La chambre a bien été supprimée !</div>';
+						} else {
+							$message = '<div class="alert alert-danger">Impossible de supprimer cette chambre !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
 					}
-				}else{
-					$message = '<div class="alert alert-danger">Cette chambre n\'existe deja plus !</div>';
+				} else {
+					$message = '<div class="alert alert-danger">Cette chambre n\'existe pas</div>';
 				}
-			}else{
-				$message = '<div class="alert alert-danger">Vous ne pouvez pas supprimer une chambre sans connaitre son ID !</div>';
+			} else {
+				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
 			}
 			self::chambres($message);
 		}

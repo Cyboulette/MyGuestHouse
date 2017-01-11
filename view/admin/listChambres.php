@@ -26,10 +26,10 @@
 				echo '</tr>';
 			echo '</thead>';
 		foreach ($tab_chambres as $chambre) {
-			$id = $chambre->get('idChambre');
-			$nom = $chambre->get('nomChambre');
-			$prix = $chambre->get('prixChambre');
-			$superficie = $chambre->get('superficieChambre');
+			$id = htmlspecialchars($chambre->get('idChambre'));
+			$nom = htmlspecialchars($chambre->get('nomChambre'));
+			$prix = htmlspecialchars($chambre->get('prixChambre'));
+			$superficie = htmlspecialchars($chambre->get('superficieChambre'));
 			// $nbPrestations = count(ModelChambre::selectPrestation($id));
 			// $nbDetails = count(ModelChambre::selectDetail($id));
 			$nbPrestations = count(ModelPrestation::selectAllByChambre($id));
@@ -46,7 +46,7 @@
 
 					<a href="index.php?controller=adminChambres&action=editChambre&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-					<button type="button" class="btn btn-xs btn-danger btnDeleteReservation" data-toggle="modal" data-target="#deleteChambre"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminChambres" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 					</td>';
 			echo '</tr>';
 		}
@@ -55,7 +55,7 @@
 
 		/* BOOTSTRAP MODAL */
 		?>
-		 <div id="deleteReservation" class="modal fade" role="dialog">
+		<div id="deleteItem" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -65,7 +65,7 @@
 					<div class="modal-body"></div>
 				</div>
 			</div>
-		 </div>
+		</div>
 <?php
 	}
 ?>

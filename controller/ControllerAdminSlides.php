@@ -157,43 +157,14 @@
 			self::manageSlides($message);
 		}
 
-		// Fonction qui permet de générer le formulaire final de suppression d'une news
-		public static function deleteSlideForm() {
-			self::isAdmin();
-			$retour = array(); //Tableau de retour
-			if(isset($_POST['idSlide'])) {
-				$idSlide = htmlspecialchars($_POST['idSlide']);
-				$slide = ModelSlides::select($idSlide);
-				if($slide != false) {
-					$form = '<form method="POST" role="form" action="index.php?controller=adminSlides&action=deleteSlide">
-						<div class="alert alert-info text-center">
-							Confirmez vous la suppression de l\'image <b><a href="'.$slide->get('urlSlide').'" target="_blank">'.htmlspecialchars($slide->get('urlSlide')).'</a></b> ?
-						</div>
-						<input type="hidden" name="idSlide" value="'.$slide->get('idSlide').'">
-						<input type="hidden" name="confirm" value="true">
-						<div class="form-group">
-							<button type="submit" class="btn btn-success">Confirmer</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Annuler">Annuler</button>
-						</div>
-					</form>';
-					$retour['result'] = true;
-					$retour['message'] = $form;
-				} else {
-					$retour['result'] = false;
-					$retour['message'] = '<div class="alert alert-danger">L\'image demandée n\'existe pas !</div>';
-				}
-			} else {
-				$retour['result'] = false;
-				$retour['message'] = '<div class="alert alert-danger">Vous n\'avez pas envoyé correctement les données !</div>';
-			}
-			echo json_encode($retour);
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminSlides", "ModelSlides", "de l'image", "urlSlide", 'idSlide');
 		}
 
-		// Fonction qui supprime une slide
-		public static function deleteSlide() {
+		public static function deleteItem() {
 			self::isAdmin();
-			if(isset($_POST['idSlide'], $_POST['confirm'])) {
-				$idSlide = htmlspecialchars($_POST['idSlide']);
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idSlide = htmlspecialchars($_POST['idItem']);
 				$confirm = htmlspecialchars($_POST['confirm']);
 				$slide = ModelSlides::select($idSlide);
 				if($slide != false) {

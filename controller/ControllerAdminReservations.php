@@ -141,7 +141,7 @@
 					$idChambre = $readReservation->get('idChambre');
 
 					// Gestion des dates réservées
-					$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
+					$datesEncode = ModelReservation::encodeDatesForChambre($idChambre);
 					$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
 
 					require_once File::build_path(array("view", "main_view.php"));
@@ -202,64 +202,34 @@
 			ControllerAdminReservations::reservations($message);
 		}
 
-		public static function deleteReservationForm(){
-			self::isAdmin();
-			$retour = array(); //Tableau de retour
-			if(isset($_POST['idReservation'])) {
-				$idReservation = htmlspecialchars($_POST['idReservation']);
-				$Reservation = ModelReservation::select($idReservation);
-				if($Reservation != false) {
-					$form = '<form method="POST" role="form" action="index.php?controller=adminReservations&action=deleteReservation">
-						<div class="alert alert-info text-center">
-							Confirmez vous la suppression de la reservation <b>'.htmlspecialchars($Reservation->get('idReservation')).'</b> ?
-						</div>
-						<input type="hidden" name="idReservation" value="'.$Reservation->get('idReservation').'">
-						<input type="hidden" name="confirm" value="true">
-						<div class="form-group">
-							<button type="submit" class="btn btn-success">Confirmer</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Annuler">Annuler</button>
-						</div>
-					</form>';
-					$retour['result'] = true;
-					$retour['message'] = $form;
-				} else {
-					$retour['result'] = false;
-					$retour['message'] = '<div class="alert alert-danger">La reservation demandée n\'existe pas !</div>';
-				}
-			} else {
-				$retour['result'] = false;
-				$retour['message'] = '<div class="alert alert-danger">Vous n\'avez pas envoyé correctement les données !</div>';
-			}
-			echo json_encode($retour);
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminReservations", "ModelReservation", "de la réservation n°", "idReservation", 'idReservation');
 		}
 
-		public static function deleteReservation(){
+		public static function deleteItem() {
 			self::isAdmin();
-			if (isset($_POST['idReservation'], $_POST['confirm'])) {
-				$idReservation = htmlspecialchars($_POST['idReservation']);
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
 				$confirm = htmlspecialchars($_POST['confirm']);
-				$reservation = ModelReservation::select($idReservation);
-				if ($reservation != false) {
-					if ($confirm == true) {
-						$chek = ModelReservation::delete($reservation->get('idReservation'));
-						$chekeleteReservation = ModelReservation::delete($reservation->get('idReservation'));
-						if ($chek) {
-							if ($chekeleteReservation) {
-								$message = '<div class="alert alert-success">La réservation a bien été supprimée !</div>';
-							} else {
-								$message = '<div class="alert alert-danger">Impossible de supprimer cette réservation !</div>';
-							}
+				$item = ModelReservation::select($idItem);
+				if($item != false) {
+					if($confirm == true) {
+						$checkDeleteItem = ModelReservation::delete($item->get('idReservation'));
+						if($checkDeleteItem) {
+							$message = '<div class="alert alert-success">La réservation a bien été supprimée !</div>';
 						} else {
-							$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
+							$message = '<div class="alert alert-danger">Impossible de supprimer cette réservation !</div>';
 						}
 					} else {
-						$message = '<div class="alert alert-danger">Cette réservation n\'existe pas</div>';
+						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
 					}
 				} else {
-					$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
+					$message = '<div class="alert alert-danger">Cette réservation n\'existe pas</div>';
 				}
-				self::reservations($message);
+			} else {
+				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
 			}
+			self::reservations($message);
 		}
 	}
 ?>

@@ -111,6 +111,36 @@
 			}
 		}
 
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminDetails", "ModelDetail", "du détail", "nomDetail", 'idDetail');
+		}
+
+		public static function deleteItem() {
+			self::isAdmin();
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
+				$confirm = htmlspecialchars($_POST['confirm']);
+				$item = ModelDetail::select($idItem);
+				if($item != false) {
+					if($confirm == true) {
+						$checkDeleteItem = ModelDetail::delete($item->get('idDetail'));
+						if($checkDeleteItem) {
+							$message = '<div class="alert alert-success">Le détail a bien été supprimé !</div>';
+						} else {
+							$message = '<div class="alert alert-danger">Impossible de supprimer ce détail !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
+					}
+				} else {
+					$message = '<div class="alert alert-danger">Ce détail n\'existe pas</div>';
+				}
+			} else {
+				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
+			}
+			self::details($message);
+		}
+
 		public static function managedDetail(){
 	        $powerNeeded = self::isAdmin();
 	        if(isset($_POST['idChambre']) && $_POST['idChambre']!=null){
@@ -133,7 +163,7 @@
 	                    }
 
 	                    if($update == false){
-	                        $message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+	                        $message = '<div class="alert alert-danger">Echec de la modification du détail !</div>';
 	                        ControllerAdminChambres::chambres($message);
 	                        exit();
 	                    }

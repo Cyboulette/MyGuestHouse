@@ -32,7 +32,7 @@
 				echo '<td>'.$displayEtat.'</td>';
 				echo '<td>
 					<a href="index.php?controller=adminNews&action=manageNews&type=edit&idNews='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-					<button type="button" class="btn btn-xs btn-danger btnDeleteNews" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminNews" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 					<a target="_blank" href="index.php?controller=news&action=read&idNews='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir en ligne</a>
 					</td>';
 			echo '</tr>';
@@ -40,7 +40,7 @@
 
 		echo '</table></div>';
 		?>
-		<div id="deleteNews" class="modal fade" role="dialog">
+		<div id="deleteItem" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">

@@ -153,5 +153,35 @@
 			}
 			ControllerAdminChambres::chambres($message);
 		}
+
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminPrestations", "ModelPrestation", "de la prestation", "nomPrestation", 'idPrestation');
+		}
+
+		public static function deleteItem() {
+			self::isAdmin();
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
+				$confirm = htmlspecialchars($_POST['confirm']);
+				$item = ModelPrestation::select($idItem);
+				if($item != false) {
+					if($confirm == true) {
+						$checkDeleteItem = ModelPrestation::delete($item->get('idPrestation'));
+						if($checkDeleteItem) {
+							$message = '<div class="alert alert-success">La prestation a bien été supprimée !</div>';
+						} else {
+							$message = '<div class="alert alert-danger">Impossible de supprimer cette prestation !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
+					}
+				} else {
+					$message = '<div class="alert alert-danger">Cette prestation n\'existe pas</div>';
+				}
+			} else {
+				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
+			}
+			self::prestations($message);
+		}
 	}
 ?>

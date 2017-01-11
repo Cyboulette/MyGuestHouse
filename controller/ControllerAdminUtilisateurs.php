@@ -6,7 +6,9 @@
 			$view = 'listUsers';
 			$pagetitle = 'Administration - Liste des utilisateurs';
 			$template = 'admin';
-
+			if (!isset($_GET['mode'])) {
+				$_GET['mode'] = 'all';
+			}
 			if(isset($_GET['mode']) && $_GET['mode']!=null){
 				switch ($_GET['mode']) {
 		            case 'admin': $tab_utilisateurs = ModelUtilisateur::selectCustom('rang', '3'); $mode='admin'; break;
@@ -151,6 +153,40 @@
 				}   
 			}else{
 				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
+			}
+			self::utilisateurs($message);
+		}
+
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminUtilisateurs", "ModelUtilisateur", "de l'utilisateur", "emailUtilisateur", 'idUtilisateur');
+		}
+
+		public static function deleteItem() {
+			self::isAdmin();
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
+				$confirm = htmlspecialchars($_POST['confirm']);
+				$item = ModelUtilisateur::select($idItem);
+				if($item != false) {
+					if($confirm == true) {
+						if($item->get('idUtilisateur') != $_SESSION['idUser']) {
+							$checkDeleteItem = ModelUtilisateur::delete($item->get('idUtilisateur'));
+							if($checkDeleteItem) {
+								$message = '<div class="alert alert-success">L\'utilisateur a bien été supprimé !</div>';
+							} else {
+								$message = '<div class="alert alert-danger">Impossible de supprimer cet utilisateur !</div>';
+							}
+						} else {
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas vous auto-supprimer !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
+					}
+				} else {
+					$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas</div>';
+				}
+			} else {
+				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
 			}
 			self::utilisateurs($message);
 		}

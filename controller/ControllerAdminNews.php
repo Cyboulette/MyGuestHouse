@@ -43,49 +43,20 @@
 			}
 		}
 
-		// Fonction qui permet de générer le formulaire final de suppression d'une news
-		public static function deleteNewsForm() {
-			self::isAdmin();
-			$retour = array(); //Tableau de retour
-			if(isset($_POST['idNews'])) {
-				$idNews = htmlspecialchars($_POST['idNews']);
-				$news = ModelNews::select($idNews);
-				if($news != false) {
-					$form = '<form method="POST" role="form" action="index.php?controller=adminNews&action=deleteNews">
-						<div class="alert alert-info text-center">
-							Confirmez vous la suppression de l\'actualité <b>'.htmlspecialchars($news->get('titreNews')).'</b> ?
-						</div>
-						<input type="hidden" name="idNews" value="'.$news->get('idNews').'">
-						<input type="hidden" name="confirm" value="true">
-						<div class="form-group">
-							<button type="submit" class="btn btn-success">Confirmer</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Annuler">Annuler</button>
-						</div>
-					</form>';
-					$retour['result'] = true;
-					$retour['message'] = $form;
-				} else {
-					$retour['result'] = false;
-					$retour['message'] = '<div class="alert alert-danger">L\'actualité demandée n\'existe pas !</div>';
-				}
-			} else {
-				$retour['result'] = false;
-				$retour['message'] = '<div class="alert alert-danger">Vous n\'avez pas envoyé correctement les données !</div>';
-			}
-			echo json_encode($retour);
+		public static function preDeleteItem() {
+			self::deleteItemForm("adminNews", "ModelNews", "de l'actualité", "titreNews", 'idNews');
 		}
 
-		// Fonction qui supprime une news
-		public static function deleteNews() {
+		public static function deleteItem() {
 			self::isAdmin();
-			if(isset($_POST['idNews'], $_POST['confirm'])) {
-				$idNews = htmlspecialchars($_POST['idNews']);
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
 				$confirm = htmlspecialchars($_POST['confirm']);
-				$news = ModelNews::select($idNews);
-				if($news != false) {
+				$item = ModelNews::select($idItem);
+				if($item != false) {
 					if($confirm == true) {
-						$checkDeleteNews = ModelNews::delete($news->get('idNews'));
-						if($checkDeleteNews) {
+						$checkDeleteItem = ModelNews::delete($item->get('idNews'));
+						if($checkDeleteItem) {
 							$message = '<div class="alert alert-success">L\'actualité a bien été supprimée !</div>';
 						} else {
 							$message = '<div class="alert alert-danger">Impossible de supprimer cette actualité !</div>';

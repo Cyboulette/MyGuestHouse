@@ -57,11 +57,7 @@
 		*/
 		public static function active($currentController = null, $currentAction = null, $currentMode = null, $page = null){
 			$queryString = $_SERVER['QUERY_STRING'];
-			if($currentMode != null){
-				if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction.'&mode='.$currentMode) !== false) {
-					echo 'class="active"';
-				}
-			} elseif(!empty($currentAction) && $currentAction != null) {
+			if(!empty($currentAction) && $currentAction != null) {
 				if(strpos($queryString, 'controller='.$currentController.'&action='.$currentAction) !== false) {
 					echo 'class="active"';
 				}
@@ -75,6 +71,9 @@
 						echo 'class="active"';
 					}
 				} else {
+					if($currentMode != null && isset($_GET['mode']) && $currentMode == $_GET['mode']) {
+						echo 'class="active"';
+					}
 					if(strpos($queryString, 'controller='.$currentController !== false)) {
 						echo 'class="active"';
 					}

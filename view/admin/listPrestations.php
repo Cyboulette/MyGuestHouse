@@ -22,9 +22,9 @@
 				echo '</tr>';
 			echo '</thead>';
 		foreach ($tab_allPrestation as $prestation) {
-			$id = $prestation->get('idPrestation');
-			$nom = $prestation->get('nomPrestation');
-			$prix = $prestation->get('prix');
+			$id = htmlspecialchars($prestation->get('idPrestation'));
+			$nom = htmlspecialchars($prestation->get('nomPrestation'));
+			$prix = htmlspecialchars($prestation->get('prix'));
 			
 			echo '<tr>';
 				echo '<td>'.$nom.'</td>';
@@ -32,35 +32,25 @@
 				echo '<td>
 					<a href="index.php?controller=adminPrestations&action=editPrestation&idPrestation='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
 
-					<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deletePrestation" onclick="GETurl(id, '.$id.')"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminPrestations" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 
 					</td>';
 				echo '</tr>';
 		}
 
 		echo '</table></div>';
-
-		/* BOOTSTRAP MODAL */
-		echo '<div id="deletePrestation" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-
-				<!-- Modal content-->
+		?>
+		<div id="deleteItem" class="modal fade" role="dialog">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Confirmation</h4>
+						<h4 class="modal-title">Confirmation de suppression</h4>
 					</div>
-
-					<div class="modal-body">
-						<p>Etes-vous certain de vouloir supprimer cette prestation ?</p>
-					</div>
-
-					<div class="modal-footer">
-					<a href="index.php?controller=adminPrestations&action=deletePrestation&idPrestation='.$id.'" class="btn btn-danger">Supprimer</a>
-					</div>
-					</div>
-
+					<div class="modal-body"></div>
 				</div>
-			</div>';
+			</div>
+		</div>
+		<?php
 	}
 ?>

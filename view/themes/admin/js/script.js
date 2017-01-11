@@ -8,41 +8,41 @@ $( function() {
 	});
 });
 
-$('.btnDeleteNews').on('click', function(e) {
-	e.preventDefault();
-	$("#deleteNews .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
-	$('#deleteNews').modal('toggle');
-	var idNews = $(this).attr('data-id');
-	var dataToPost = 'idNews='+encodeURIComponent(idNews);
-	$.ajax({
-		type: "POST",
-		url: 'index.php?controller=adminNews&action=deleteNewsForm',
-		data: dataToPost,
-		dataType: 'json',
-		success: function(retour) {
-			console.log(retour);
-			$("#deleteNews .modal-body").html(retour.message);
-		},
-		error: function(retour) {
-			console.log(retour);
+function GetQueryStringParams(sParam)
+{
+	var sPageURL = window.location.search.substring(1);
+	var sURLVariables = sPageURL.split('&');
+	for (var i = 0; i < sURLVariables.length; i++)
+	{
+		var sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] == sParam)
+		{
+			return sParameterName[1];
 		}
-	});
-});
+	}
+}
 
-$('.btnDeleteSlide').on('click', function(e) {
+//Script générique pour la suppression
+$('.btnDelete').on('click', function(e) {
 	e.preventDefault();
-	$("#deleteSlide .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
-	$('#deleteSlide').modal('toggle');
-	var idSlide = $(this).attr('data-id');
-	var dataToPost = 'idSlide='+encodeURIComponent(idSlide);
+	$("#deleteItem .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
+	$("#deleteItem").modal('toggle');
+	var urlAction = $(this).attr('data-url');
+	var idToDelete = $(this).attr('data-id');
+	var dataToPost = 'idToDelete='+encodeURIComponent(idToDelete);
+	var currentMode = GetQueryStringParams('mode');
+	if(currentMode != null) {
+		urlAction += '&mode='+currentMode;
+	}
+	console.log(urlAction);
 	$.ajax({
 		type: "POST",
-		url: 'index.php?controller=adminSlides&action=deleteSlideForm',
+		url: 'index.php?controller='+urlAction+'&action=preDeleteItem',
 		data: dataToPost,
 		dataType: 'json',
-		success: function(retour) {
+		success : function(retour) {
 			console.log(retour);
-			$("#deleteSlide .modal-body").html(retour.message);
+			$("#deleteItem .modal-body").html(retour.message);
 		},
 		error: function(retour) {
 			console.log(retour);
@@ -64,27 +64,6 @@ $('.btnSelectTheme').on('click', function(e) {
 		success: function(retour) {
 			console.log(retour);
 			$("#selectTheme .modal-body").html(retour.message);
-		},
-		error: function(retour) {
-			console.log(retour);
-		}
-	});
-});
-
-$('.btnDeleteReservation').on('click', function(e) {
-	e.preventDefault();
-	$("#deleteReservation .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
-	$('#deleteReservation').modal('toggle');
-	var idReservation = $(this).attr('data-id');
-	var dataToPost = 'idReservation='+encodeURIComponent(idReservation);
-	$.ajax({
-		type: "POST",
-		url: 'index.php?controller=adminReservations&action=deleteReservationForm',
-		data: dataToPost,
-		dataType: 'json',
-		success: function(retour) {
-			console.log(retour);
-			$("#deleteReservation .modal-body").html(retour.message);
 		},
 		error: function(retour) {
 			console.log(retour);
