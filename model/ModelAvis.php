@@ -160,15 +160,15 @@ class ModelAvis{
         } 
     }
 
-    public static function canPosteReviews($idUtilisateur, $idChambre){
-        if(self::haveReservedRoom($idUtilisateur, $idChambre) && self::haventPostedReviews($idUtilisateur, $idChambre)){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    // public static function canPosteReviews($idUtilisateur, $idChambre){
+    //     if(self::haveReservedRoom($idUtilisateur, $idChambre) && self::haventPostedReviews($idUtilisateur, $idChambre)){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
 
-    private static function haveReservedRoom($idUtilisateur, $idChambre){
+    public static function haveReservedRoom($idUtilisateur, $idChambre){
         try {
             $sql = "SELECT COUNT(*) 
                     FROM `GH_Reservations` 
@@ -199,36 +199,36 @@ class ModelAvis{
         }    
     }
 
-    private static function haventPostedReviews($idUtilisateur, $idChambre){
-        try {
-            $sql = "SELECT COUNT(*) 
-                    FROM `GH_Avis` 
-                    WHERE `idUtilisateur` = :idUtilisateur
-                        AND `idChambre` = :idChambre";
-            $req_prep = Model::$pdo->prepare($sql);
+    // private static function haventPostedReviews($idUtilisateur, $idChambre){
+    //     try {
+    //         $sql = "SELECT COUNT(*) 
+    //                 FROM `GH_Avis` 
+    //                 WHERE `idUtilisateur` = :idUtilisateur
+    //                     AND `idChambre` = :idChambre";
+    //         $req_prep = Model::$pdo->prepare($sql);
 
-            $values = array(
-                'idUtilisateur' => $idUtilisateur,
-                'idChambre' => $idChambre
-            );
+    //         $values = array(
+    //             'idUtilisateur' => $idUtilisateur,
+    //             'idChambre' => $idChambre
+    //         );
 
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_NUM);
-            $tab = $req_prep->fetchAll();
+    //         $req_prep->execute($values);
+    //         $req_prep->setFetchMode(PDO::FETCH_NUM);
+    //         $tab = $req_prep->fetchAll();
 
-            if(empty($tab)){
-                return true;
-            } else {
-                return false;
-            }
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            }
-            return false;
-            die();
-        }    
-    }
+    //         if(empty($tab)){
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     } catch(PDOException $e) {
+    //         if (Conf::getDebug()) {
+    //             echo $e->getMessage();
+    //         }
+    //         return false;
+    //         die();
+    //     }    
+    // }
 
     // public static function selectByUser(){
     // }
@@ -257,7 +257,7 @@ class ModelAvis{
         }
     }
 
-    public static function update(){
+    public static function update($data){
         try {
             $sql = 'UPDATE `GH_Avis` SET ';
 
@@ -265,14 +265,38 @@ class ModelAvis{
                 $sql .= $key.' = :'.$key.', ';
             }
             $sql = substr($sql, 0, -2);
-            $sql .= "WHERE `idUtilisateur` = :idUtilisateur
-                    AND `idChambre` = :idChambre";
+            $sql .= ' WHERE `idUtilisateur` = :idUtilisateur
+                        AND `idChambre` = :idChambre ';
             
             $update = Model::$pdo->prepare($sql);
             $update->execute($data);
             return true;
         } catch(PDOException $e) {
             if(Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    public static function save($data) {
+        try {
+            $sql = 'INSERT INTO `GH_Avis` VALUES (';
+
+
+            foreach ($data as $key => $value) {
+                $sql .= ':'.$key.',';
+            }
+
+            $sql = substr($sql, 0, -1);
+            $sql .= ')';
+
+            $add = Model::$pdo->prepare($sql);
+            $add->execute($data);
+            return true;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
                 echo $e->getMessage();
             }
             return false;

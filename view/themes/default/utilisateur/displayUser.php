@@ -100,7 +100,7 @@
 					?>	
 							<div class="row border-avis">
 								<h2 class='text-center'>Ajouter un avis a nos chambres</h2>
-								<form class="form-horizontal" method="post" action="index.php?controller=utilisateur&action=addAvis">
+								<form class="form-horizontal" method="post" action="index.php?controller=avis&action=add">
 									<div class="form-group">
 										<label for="id_chambre" class="col-xs-3 control-label text-left">Nom de la chambre :</label>
 									    <select class="form-control col-xs-10" name='idChambre' id='id_chambre'>
@@ -200,7 +200,7 @@
 							                </li> 
 							            </ul> 
 							            <?php echo "<a href='?controller=avis&action=edit&idUtilisateur={$idUtilisateur}&idChambre={$idChambre}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>" ?>
-							            <a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>
+							            <?php echo "<a href='?controller=avis&action=delete&idUtilisateur={$idUtilisateur}&idChambre={$idChambre}' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> supprimer</a>" ?>
 						            </div>
 								</div>
 

@@ -24,8 +24,8 @@
 		    default: $rang='Inconnue'; break;
         }
 
-        $avis = ModelAvis::selecCustomAvis('idUtilisateur', $idUtilisateur);
-        $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $idUtilisateur);
+        $avis = ModelAvis::selectCustomAvis('idUtilisateur', $idUtilisateur);
+        $nbAvis = ModelAvis::selectCustomAvis('idUtilisateur', $idUtilisateur);
         if($nbAvis>1){
         	$SOfAvis = 's';
         }else{
