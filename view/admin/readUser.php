@@ -25,7 +25,7 @@
         }
 
         $avis = ModelAvis::selectCustomAvis('idUtilisateur', $idUtilisateur);
-        $nbAvis = ModelAvis::selectCustomAvis('idUtilisateur', $idUtilisateur);
+        $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $idUtilisateur);
         if($nbAvis>1){
         	$SOfAvis = 's';
         }else{
@@ -98,44 +98,66 @@
 			<h4 class="panel-title">
 				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 					<div class="space-for-according">
-						<span class="text-left">Détails sur les avis</span><span class="text-right"><?= $nbAvis?> avis enregistré<?=$SOfAvis?></span>
+						<span class="text-left">Détails sur les avis</span><span class="text-right"><?=$nbAvis?> avis enregistré<?=$SOfAvis?></span>
 					</div>
 				</a>
 			</h4>
 		</div>
 		<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 			<div class="panel-body">
-				
 				<?php 
 					if($nbAvis != 0){
+						foreach ($avis as $key => $value) {
+							$note = $value->get('note');
+							$commentaire = nl2br($value->get('commentaire'));
+							$idUtilisateur = $value->get('idUtilisateur');
+							$idChambre = $value->get('idChambre');
+
+							$nomChambre = (ModelChambre::select($idChambre))->get('nomChambre');
 				?>
-						<div class="row border-avis">
-							<div class='descriptionChambre'>  
-					            <ul> 
-					                <li class="no-puce"> 
-					                 	Nom de la chambre : nom
-					                </li> 
-					                <li class="no-puce"> 
-					                 	Note : <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> 
-					                </li> 
-					                <li class="no-puce"> 
-					                	Avis : 
-					                	<ul> 
-					                		<li class="no-puce border"> 
-					                			ljbviuebiv eiubvedv izuhochi zaoihnvihe iub vhzb ihj ouzb ihbouih oub i hb  b sjd hxid s 
-					                		</li> 
-					               		</ul> 
-					                </li> 
-					            </ul> 
-					            <a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
-					            <a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>
-				            </div>
-						</div>
-				<?php 
+							<div class="row border-avis">
+								<div class='descriptionChambre'>  
+						            <ul> 
+						                <li class="no-puce"> 
+						                 	Nom de la chambre : <?=$nomChambre?>
+						                </li> 
+						                <li class="no-puce"> 
+						                 	Note : 
+						                 	<?php  
+						                 		if( is_numeric($note) && $note>=0 && $note<=5){
+						                 			for ($i=0; $i<$note ; $i++) { 
+						                 	?>
+						                 				<i class="fa fa-star" aria-hidden="true"></i>
+						                 	<?php			
+						                 			}
+						                 			for ($i=0; $i < (5-$note) ; $i++) { 
+						                 	?>
+						                 				<i class="fa fa-star-o" aria-hidden="true"></i>
+						                 	<?php
+						                 			}
+							                 	}
+						                 	?>
+							                <small>(<?=$note?>/5)</small>
+							            </li> 
+							            <li class="no-puce"> 
+							                Avis : 
+							                <ul> 
+							                	<li class="no-puce border"><?=$commentaire?></li> 
+							              	</ul> 
+							            </li> 
+							        </ul> 
+							        <?php echo "<a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>" ?>
+							        <?php echo "<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> supprimer</a>" ?>
+						        </div>
+							</div>
+
+
+				<?php
+						}
 					}else{
 				?>
 						<div class="alert alert-danger">Cet utilisateur n'a pas encore emis d'avis !</div>
-				<?php 		
+				<?php
 					}
 				?>
 			</div>

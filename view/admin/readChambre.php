@@ -7,7 +7,15 @@
   $superficie = $chambre->get("superficieChambre"); 
   $description = nl2br($chambre->get("descriptionChambre"));
   //id
-  $id = $chambre->get("idChambre"); 
+  $id = $chambre->get("idChambre");
+
+  $avis = ModelAvis::selectCustomAvis('idChambre', $id);
+  $nbAvis = ModelAvis::countCustomAvis('idChambre', $id);
+  if($nbAvis>1){
+    $SOfAvis = 's';
+  }else{
+    $SOfAvis =  '';
+  }
 ?> 
  
  
@@ -193,15 +201,74 @@
         <h4 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <div class="space-for-according">
-              <span class="text-left">Détails sur les avis</span><span class="text-right"><?php echo "X"; ?> avi(s) enregistré(s)</span>
+              <span class="text-left">Détails sur les avis</span><span class="text-right"><?=$nbAvis?> avis enregistré<?=$SOfAvis?></span>
             </div>
           </a>
         </h4>
       </div>
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+
+        <?php 
+          if($nbAvis != 0){
+            foreach ($avis as $key => $value) {
+              $note = $value->get('note');
+              $commentaire = nl2br($value->get('commentaire'));
+              $idUtilisateur = $value->get('idUtilisateur');
+              $idChambre = $value->get('idChambre');
+
+              $utilisateur = ModelUtilisateur::select($idUtilisateur);
+              $nomUtilisateur = $utilisateur->get('nomUtilisateur');
+              $prenomUtilisateur = $utilisateur->get('prenomUtilisateur');
+        ?>
+              <div class="row border-avis">
+                <div class='descriptionChambre'>  
+                  <ul> 
+                    <li class="no-puce"> 
+                      Avis de : <?=$prenomUtilisateur?> <?=$nomUtilisateur?>
+                    </li> 
+                    <li class="no-puce"> 
+                      Note : 
+                    <?php  
+                      if( is_numeric($note) && $note>=0 && $note<=5){
+                        for ($i=0; $i<$note ; $i++) { 
+                    ?>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                    <?php     
+                        }
+                        for ($i=0; $i < (5-$note) ; $i++) { 
+                    ?>
+                          <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <?php
+                        }
+
+                      }
+                    ?>
+                      <small>(<?=$note?>/5)</small>
+                    </li> 
+                    <li class="no-puce"> 
+                      Avis : 
+                      <ul> 
+                        <li class="no-puce border"><?=$commentaire?></li> 
+                      </ul> 
+                    </li> 
+                  </ul>   
+                    <?php echo "<a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?> 
+                     <?php echo "<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> supprimer</a>" ?>
+                </div>
+              </div>
+
+
+        <?php
+            }
+          }else{
+        ?>
+            <div class="alert alert-danger">Cette chambre ne possede pas encore d'avis !</div>
+        <?php
+          }
+        ?>
+
         </div>
       </div>
     </div>
