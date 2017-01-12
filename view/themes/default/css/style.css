@@ -334,6 +334,14 @@ body {
     top: 25%;
 }
 
+.messageCalcul {
+	display: none;
+}
+
+.infoCalcul {
+	display: none;
+}
+
 /* Responsive du menu */
 
 @media (max-width: 767px) {

@@ -46,6 +46,10 @@
             } else {
                 $idChambre = null;
             }
+            $chambre = ModelChambre::select($idChambre);
+            if($chambre == false) {
+                $idChambre = null;
+            }
 
             // Gestion des dates réservées
             $datesEncode = ModelReservation::encodeDatesForChambre($idChambre);
