@@ -19,7 +19,6 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 - Corrections on the list of reservations on user side
 - Verification for the reservation addition in DB on user side (see the 11/01's commits)
 - Details for reservations on user profil page
-- Bug on update reservations for admin
 - Provide to cancel a reservation for user
 
 # Commits

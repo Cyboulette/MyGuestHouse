@@ -21,7 +21,7 @@
             echo '<thead>';
             echo '<tr>';
             echo '<th>Nom de la chambre   </th>';
-            echo '<th>Durée               </th>';
+            echo '<th>Nombre de nuits     </th>';
             echo '<th>Prix                </th>';
             echo '<th>Prestations         </th>';
             echo '</tr>';
@@ -37,7 +37,7 @@
                 $nbPrestations = count(ModelPrestation::selectAllByReservation($reservations->get('idReservation')));
 
                 $prix = $reservations->getPrixTotal();
-                $duree = $reservations->getNombreJours();
+                $duree = ControllerDefault::getDiffJours($reservations->get('dateDebut'), $reservations->get('dateFin'));
 
                 echo '<tr>';
                 echo '<td>' . $nomchambre .         '</td>';

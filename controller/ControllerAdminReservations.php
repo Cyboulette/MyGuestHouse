@@ -33,7 +33,7 @@
 		{ // Vérifications à faire
 			self::isAdmin();
 			if (isset($_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-				if(ControllerDefault::getNombreJours($_POST['dateFin'],$_POST['dateDebut']) < 0){
+				if(ControllerDefault::getDiffJours($_POST['dateFin'],$_POST['dateDebut']) > 0){
 					if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
 
 						$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
@@ -82,19 +82,19 @@
 				$dateFin = htmlspecialchars($_POST['dateFin']);
 				$idChambre = htmlspecialchars($_POST['idChambre']);
 				$checkReservation = ModelReservation::select($idReservation);
-				//var_dump($checkReservation);
 				if ($checkReservation) {
 					if (!empty($idUtilisateur) && !ctype_space($idUtilisateur)) {
 						if (!empty($idChambre) && !ctype_space($idChambre)) {
 							if (!empty($dateDebut) && !ctype_space($dateDebut)) {
 								if (!empty($dateFin) && !ctype_space($dateFin)) {
-									if (DateTime::createFromFormat('Y-m-d', $dateDebut) !== false && DateTime::createFromFormat('Y-m-d', $dateFin) !== false) {
+									$dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
+									if (DateTime::createFromFormat('Y-m-d', $dates['dateDebut']) !== false && DateTime::createFromFormat('Y-m-d', $dates['dateFin']) !== false) {
 										$data = array(
 											'idReservation' => $idReservation,
 											'idUtilisateur' => $idUtilisateur,
 											'idChambre' => $idChambre,
-											'dateDebut' => $dateDebut,
-											'dateFin' => $dateFin,
+											'dateDebut' => $dates['dateDebut'],
+											'dateFin' => $dates['dateFin'],
 											'annulee' => null
 										);
 										$testSaveReservation = ModelReservation::update_gen($data, 'idReservation');

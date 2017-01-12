@@ -74,7 +74,7 @@ if(!$powerNeeded) { exit(); } ?>
     <div class="form-group">
         <label for="idChambre"> Selectionnez la chambre </label>
         <select class="form-control" name="idChambre" id="idChambre">
-            <?php foreach(ModelChambre::selectAll() as $chambre){ echo '<option>'.$chambre->get('nomChambre').'</option>'; } ?>
+            <?php foreach(ModelChambre::selectAll() as $chambre){ echo '<option value="'.$chambre->get('idChambre').'">'.$chambre->get('nomChambre').'</option>'; } ?>
         </select>
     </div>
 

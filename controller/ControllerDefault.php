@@ -364,7 +364,7 @@ class Conf {
 		 */
 		public static function verifToDatesDisabled($date1, $date2, $idChambre){
 			$tab_reservations = ModelReservation::selectAllDateByChambre($idChambre);
-			$nombreJour = ControllerDefault::getnombreJours($date1, $date2);
+			$nombreJour = ControllerDefault::getDiffJours($date1, $date2);
 			$result = array();
 			for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
 				$dateTime = ControllerDefault::getDateTime($date1);
@@ -471,7 +471,7 @@ class Conf {
 			return $result;
 		}
 
-		/**
+		/** TODO : à revoir
 		 * @param $mois
 		 * @return int
 		 */
@@ -479,7 +479,7 @@ class Conf {
 			$result = 0;
 			if($mois > 1) {
 				if($mois > 2) {
-					if($mois > 6 ) {
+					if($mois > 6) {
 						$result = 29+31+153+153;
 					} else {
 						$result = 29+31+153;
@@ -491,6 +491,22 @@ class Conf {
 				return 31;
 			}
 		return $result;
+		}
+
+
+		/**
+		 * @param string the dateDebut
+		 * @param string the dateFin
+		 * @return int
+		 */
+		public static function getDiffJours($date1, $date2){
+			$datetime1 = new DateTime($date1);
+			$datetime2 = new DateTime($date2);
+			if($datetime1 > $datetime2){
+				return null;
+			} else {
+				return $datetime1->diff($datetime2)->format("%a");
+			}
 		}
 	}
 ?>
