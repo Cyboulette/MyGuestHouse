@@ -4,12 +4,12 @@
     if(!isset($utilisateur)){
         exit();
     }else{
-    	$idUtilisateur = $utilisateur->get('idUtilisateur');
-        $nom = $utilisateur->get('nomUtilisateur');
-        $prenom = $utilisateur->get('prenomUtilisateur');
-        $email = $utilisateur->get('emailUtilisateur');
-	    $rang = $utilisateur->get('rang') ;
-	    $statut = $utilisateur->get('nonce');
+    	$idUtilisateur = htmlspecialchars($utilisateur->get('idUtilisateur'));
+        $nom = htmlspecialchars($utilisateur->get('nomUtilisateur'));
+        $prenom = htmlspecialchars($utilisateur->get('prenomUtilisateur'));
+        $email = htmlspecialchars($utilisateur->get('emailUtilisateur'));
+	    $rang = htmlspecialchars($utilisateur->get('rang'));
+	    $statut = htmlspecialchars($utilisateur->get('nonce'));
 
 	    if($statut != null){
 	    	$statut = 'Non activé';
@@ -32,7 +32,7 @@
         	$SOfAvis =	'';
         }
 
-        $nbReservation = count(ModelReservation::selectAllByUser($id));
+        $nbReservation = count(ModelReservation::selectAllByUser($idUtilisateur));
         if($reservation>1){
         	$SOfReservation = 's';
         }else{
@@ -66,8 +66,8 @@
 	<div class='row'>
 		<div class="col-lg-12 col-lg-offset-0">
 			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=contact&idUtilisateur=ABC' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>"; ?>
-			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=edit&idUtilisateur={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?>
-			<button type="button" class="btn btn-xs btn-danger btnDeleteUser" data-toggle="modal" data-target="#deleteUser"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button><!-- TODO -->
+			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=edit&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?>
+			<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="<?=$idUtilisateur?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 		</div>
 	</div>
 </div>
@@ -87,7 +87,7 @@
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 			<div class="panel-body">
-				Argent perdu : <?=ModelReservation::selectAllPrixByUser($id)?> € <!-- j'ai pas compris pourquoi 'argent perdu' ??? -->
+				Argent perdu : <?=ModelReservation::selectAllPrixByUser($idUtilisateur)?> € <!-- j'ai pas compris pourquoi 'argent perdu' ??? -->
 				<br>
 			</div>
 		</div>
@@ -113,7 +113,7 @@
 							$idUtilisateur = $value->get('idUtilisateur');
 							$idChambre = $value->get('idChambre');
 
-							$nomChambre = (ModelChambre::select($idChambre))->get('nomChambre');
+							$nomChambre = ModelChambre::select($idChambre)->get('nomChambre');
 				?>
 							<div class="row border-avis">
 								<div class='descriptionChambre'>  
@@ -147,7 +147,7 @@
 							            </li> 
 							        </ul> 
 							        <?php echo "<a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>" ?>
-							        <?php echo "<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> supprimer</a>" ?>
+							        <?php echo "<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>" ?>
 						        </div>
 							</div>
 
@@ -165,3 +165,14 @@
 	</div>
 </div>
 
+<div id="deleteItem" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Confirmation de suppression</h4>
+			</div>
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>
