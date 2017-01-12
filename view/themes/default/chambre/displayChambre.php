@@ -16,15 +16,26 @@
           $SOfAvis =  '';
         }
         $listeChambreForAvis = ModelAvis::listeChambresPourAvis($id);
-    ?> 
- 
- 
-    <?php 
-        // titre de la page 
-        echo "<h1 class='page-header'>{$nom}</h1>";
-  
-    ?> 
 
+        $canPosteReviews = false;
+
+        if(ControllerUtilisateur::isConnected()){
+          $utilisateurExists = ModelUtilisateur::select($_SESSION['idUser']);
+          if($utilisateurExists!=false){
+            if(ModelAvis::canPosteReviews($_SESSION['idUser'], $id)){
+              $canPosteReviews = true;
+              $idUtilisateur = $_SESSION['idUser'];
+            }
+          }
+        }
+
+
+    ?> 
+ 
+ 
+
+    <h1 class='page-header'><?=$nom?></h1>
+    <?php if(isset($message)) echo $message; ?>
  
     <?php  
         //photo avec une futur carousel 
@@ -184,11 +195,6 @@
           echo '<div class="alert alert-danger">'."il n'y a pas de prestations pour cette chambre".'</div>'; 
         } 
     ?> 
- 
-    <?php 
-        //TODO : calendar -> resarvation
-
-    ?>
 
     <?='<a class="button" href="index.php?controller=reservation&action=reservationChambre&idChambre='.$id.'">Réserver la !</a>';?>
 
@@ -206,6 +212,42 @@
       </div>
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
+
+          <?php 
+            if($canPosteReviews){       
+          ?>  
+              <div class="row border-avis margin-bottom-30px">
+                <h2 class='text-center'>Ajouter un avis a nos chambres</h2>
+                <?php echo "<form class='form-horizontal' method='post' action='index.php?controller=avis&action=add&forChambre={$id}'>"; ?>
+
+                  <div class="form-group row">
+                      <label for="id_note" class="col-xs-2 control-label">Note :</label>
+                      <div class="col-xs-10">
+                        <input type="number" min="0" max="5" class="form-control" placeholder='0..5' name="note" id="id_note">
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="id_avis" class="col-xs-2 control-label">Avis :</label>
+                      <div class="col-xs-10">
+                        <textarea id="id_avis" name="avis" placeholder='Votre avis sur la chambre !' class="form-control"></textarea>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" class="btn btn-success" value="Ajouter">
+                        <input type="hidden" name="idUtilisateur" value=<?=$idUtilisateur?>>
+                        <input type="hidden" name="idChambre" value=<?=$id?>>
+                      </div>
+                  </div>
+                </form>
+              </div>
+
+          <?php
+            }
+          ?>
+
           <?php 
             if($nbAvis != 0){
               foreach ($avis as $key => $value) {
@@ -217,64 +259,50 @@
                 $utilisateur = ModelUtilisateur::select($idUtilisateur);
                 $nomUtilisateur = $utilisateur->get('nomUtilisateur');
                 $prenomUtilisateur = $utilisateur->get('prenomUtilisateur');
-
-                // echo "<pre>";
-                //  var_dump($value);
-                // echo "</pre>";
-                // echo "<pre>";
-                //  var_dump($avis);
-                // echo "</pre>";
           ?>
                 <div class="row border-avis">
                   <div class='descriptionChambre'>  
-                          <ul> 
-                              <li class="no-puce"> 
-                                Avis de : <?=$prenomUtilisateur?> <?=$nomUtilisateur?>
-                              </li> 
-                              <li class="no-puce"> 
-                                Note : 
-                                <?php  
-                                  if( is_numeric($note) && $note>=0 && $note<=5){
-                                    for ($i=0; $i<$note ; $i++) { 
-                                ?>
-                                      <i class="fa fa-star" aria-hidden="true"></i>
-                                <?php     
-                                    }
-                                    for ($i=0; $i < (5-$note) ; $i++) { 
-                                ?>
-                                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                                <?php
-                                    }
-
-                                  }
-                                ?>
-                                <small>(<?=$note?>/5)</small>
-                              </li> 
-                              <li class="no-puce"> 
-                                Avis : 
-                                <ul> 
-                                  <li class="no-puce border"><?=$commentaire?></li> 
-                                </ul> 
-                              </li> 
-                          </ul> 
-                          <?php
-                            if(controllerUtilisateur::isConnected() && $_SESSION['idUser']==$idUtilisateur){
-                              echo "<a href='?controller=utilisateur&action=profil' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; 
+                    <ul> 
+                      <li class="no-puce"> 
+                        Avis de : <?=$prenomUtilisateur?> <?=$nomUtilisateur?>
+                      </li> 
+                      <li class="no-puce"> 
+                        Note : 
+                        <?php  
+                          if( is_numeric($note) && $note>=0 && $note<=5){
+                            for ($i=0; $i<$note ; $i++) { 
+                        ?>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                        <?php     
                             }
-                          ?>
-                        </div>
+                            for ($i=0; $i < (5-$note) ; $i++) { 
+                        ?>
+                              <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <?php
+                            }
+
+                          }
+                        ?>
+                        <small>(<?=$note?>/5)</small>
+                      </li> 
+                      <li class="no-puce"> 
+                        Avis : 
+                        <ul> 
+                          <li class="no-puce border"><?=$commentaire?></li> 
+                        </ul> 
+                      </li> 
+                    </ul> 
+                  <?php
+                    if(ControllerUtilisateur::isConnected() && $_SESSION['idUser']==$idUtilisateur){
+                      echo "<a href='?controller=utilisateur&action=profil' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; 
+                    }
+                  ?>
+                  </div>
                 </div>
 
 
           <?php
-                // echo "<pre>";
-                //  print_r($value);
-                // echo "<pre>";
               }
-            // echo $avis;
-            // echo "<pre>";
-            //  print_r($avis);
-            // echo "<pre>";
             }else{
           ?>
               <div class="alert alert-danger">Cette chambre ne possede pas encore d'avis !</div>

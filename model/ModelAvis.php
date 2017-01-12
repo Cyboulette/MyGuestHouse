@@ -160,13 +160,13 @@ class ModelAvis{
         } 
     }
 
-    // public static function canPosteReviews($idUtilisateur, $idChambre){
-    //     if(self::haveReservedRoom($idUtilisateur, $idChambre) && self::haventPostedReviews($idUtilisateur, $idChambre)){
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
-    // }
+    public static function canPosteReviews($idUtilisateur, $idChambre){
+        if(self::haveReservedRoom($idUtilisateur, $idChambre) && self::haventPostedReviews($idUtilisateur, $idChambre)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public static function haveReservedRoom($idUtilisateur, $idChambre){
         try {
@@ -183,9 +183,9 @@ class ModelAvis{
 
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_NUM);
-            $tab = $req_prep->fetchAll();
+            $tab = $req_prep->fetch();
 
-            if(empty($tab)){
+            if($tab[0]==0){
                 return false;
             } else {
                 return true;
@@ -199,36 +199,36 @@ class ModelAvis{
         }    
     }
 
-    // private static function haventPostedReviews($idUtilisateur, $idChambre){
-    //     try {
-    //         $sql = "SELECT COUNT(*) 
-    //                 FROM `GH_Avis` 
-    //                 WHERE `idUtilisateur` = :idUtilisateur
-    //                     AND `idChambre` = :idChambre";
-    //         $req_prep = Model::$pdo->prepare($sql);
+    public static function haventPostedReviews($idUtilisateur, $idChambre){
+        try {
+            $sql = "SELECT COUNT(*) 
+                    FROM `GH_Avis` 
+                    WHERE `idUtilisateur` = :idUtilisateur
+                        AND `idChambre` = :idChambre";
+            $req_prep = Model::$pdo->prepare($sql);
 
-    //         $values = array(
-    //             'idUtilisateur' => $idUtilisateur,
-    //             'idChambre' => $idChambre
-    //         );
+            $values = array(
+                'idUtilisateur' => $idUtilisateur,
+                'idChambre' => $idChambre
+            );
 
-    //         $req_prep->execute($values);
-    //         $req_prep->setFetchMode(PDO::FETCH_NUM);
-    //         $tab = $req_prep->fetchAll();
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab = $req_prep->fetch();
 
-    //         if(empty($tab)){
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     } catch(PDOException $e) {
-    //         if (Conf::getDebug()) {
-    //             echo $e->getMessage();
-    //         }
-    //         return false;
-    //         die();
-    //     }    
-    // }
+            if($tab[0]==0){
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }    
+    }
 
     // public static function selectByUser(){
     // }

@@ -10,13 +10,21 @@ class ControllerChambre {
         require_once File::build_path(array("view","main_view.php"));
     }
 
-    public static function read(){
+    public static function read($message=null){
     	$view = 'displayChambre';
     	$pagetitle = 'detail de la chambre';
     	$powerNeeded = true;
 
-    	if (isset($_GET["idChambre"])) {
-            $idChambre = $_GET["idChambre"];
+
+
+    	if (isset($_GET["idChambre"]) || isset($_GET["forChambre"])){
+
+            if (isset($_GET['idChambre'])) {
+               $idChambre = htmlspecialchars($_GET['idChambre']);
+            }elseif(isset($_GET['forChambre'])){
+               $idChambre = htmlspecialchars($_GET['forChambre']);
+            }
+
 	        $chambre = ModelChambre::select($idChambre);
             if ($chambre!=false) {
                 $tab_photo = ModelChambre::selectPhoto($idChambre);

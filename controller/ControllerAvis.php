@@ -7,13 +7,24 @@ class ControllerAvis{
 
    public static function add(){
       if(ControllerUtilisateur::isConnected()){
-         if(isset($_POST['idUtilisateur'], $_POST['avis'], $_POST['note'], $_POST['idChambre'])){
-            if($_POST['idUtilisateur']!=null && $_POST['avis']!=null && $_POST['idChambre']!=null){
+         if( isset($_POST['avis'], $_POST['note']) && (isset($_POST['idChambre']) || isset($_POST['forChambre'])) && (isset($_GET['idUtilisateur']) || isset($_POST['idUtilisateur'])) ){
+
+            if (isset($_POST['idChambre'])) {
+               $idChambre = htmlspecialchars($_POST['idChambre']);
+            }elseif(isset($_POST['forChambre'])){
+               $idChambre = htmlspecialchars($_POST['forChambre']);
+            }
+
+            if (isset($_GET['idUtilisateur'])) {
+               $idUtilisateur = htmlspecialchars($_GET['idUtilisateur']);
+            }elseif(isset($_POST['idUtilisateur'])){
+               $idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
+            }
+
+            // echo 'utilisateur : '.$idUtilisateur."<br> chambre = ".$idChambre."<br> avis = ".$_POST['avis'];
+            if($idUtilisateur!=null && $_POST['avis']!=null && $idChambre!=null){
                if(is_numeric($_POST['note']) && $_POST['note']>=0 && $_POST['note']<=5){
-                  $idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
-                  $idChambre = htmlspecialchars($_POST['idChambre']);
-
-
+                  
                   $utilisateur = ModelUtilisateur::select($idUtilisateur);
                   $chambre = ModelChambre::select($idChambre);
                   $avis = ModelAvis::select($idUtilisateur, $idChambre);
@@ -59,7 +70,16 @@ class ControllerAvis{
             $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer vos infomations sur l\'avis !</div>';
          }
          // require File::build_path(array('view', 'main_view.php'));
-         ControllerUtilisateur::profil($message);
+         if(isset($_GET['forChambre'])){
+            if(ModelChambre::select(htmlspecialchars($_GET['forChambre']))){
+               ControllerChambre::read($message);
+            }else{
+               ControllerUtilisateur::profil($message);
+            }
+         }else{
+            ControllerUtilisateur::profil($message);
+         }
+         
       } else {
          ControllerDefault::error('Vous n\'êtes pas connecté, impossible d\'acceder a la modifictaions de vos informations !');
       }
