@@ -7,14 +7,14 @@
     <!-- Selection de l'id de la chambre -->
     <form role="form" method="POST" action="index.php?controller=reservation&action=reservationChambre">
     <fieldset>
-        <h2> Réserver un chambre </h2>
+        <h2>Réserver une chambre</h2>
         <hr class="colorgraph">
 
         <div class="form-group text-center">
             <label for="idChambre">Sélectionnez la chambre que vous souhaitez réserver :</label>
             <select class="form-control" id="idChambre" name="idChambre">
                 <?php foreach(ModelChambre::selectAll() as $chambre){
-                    echo '<option value="'.strval($chambre->get('idChambre')).'">'.$chambre->get('nomChambre').'</option>';
+                    echo '<option value="'.strval($chambre->get('idChambre')).'">'.htmlspecialchars($chambre->get('nomChambre')).'</option>';
                 } ?>
 
             </select>

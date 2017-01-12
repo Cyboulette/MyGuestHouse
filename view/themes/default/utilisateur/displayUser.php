@@ -34,11 +34,12 @@
 	<div class="row col-lg-offset-0">
 		<div class="row">
 			<div class=" col-lg-12">
-				<div class="col-sm-3">
+				<div class="col-sm-3 text-center">
 					<span class="fa-stack fa-5x">
 						<i class="fa fa-circle fa-stack-2x"></i>
 						<i class="fa fa-users fa-inverse fa-stack-1x"></i>
 					</span>
+					<a href="index.php?controller=utilisateur&action=edit" class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
 				</div>
 				<div class=" col-sm-9">
 					<div class="col-md-12">
@@ -52,12 +53,6 @@
 					</div>
 					
 				 </div>
-			</div>
-		</div>
-		<div class='row'>
-			<div class="col-lg-12 col-lg-offset-0">
-				<a href="index.php?controller=utilisateur&action=edit" class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
-				<button type="button" class="btn btn-xs btn-danger btnDeleteUser" data-toggle="modal" data-target="#deleteUser"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button><!-- TODO -->
 			</div>
 		</div>
 	</div>
@@ -77,7 +72,7 @@
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 				<div class="panel-body">
-					Argent perdu : <?=ModelReservation::selectAllPrixByUser($id)?> € <!-- j'ai pas compris pourquoi 'argent perdu' ??? -->
+					Argent dépensé : <?=ModelReservation::selectAllPrixByUser($id)?> €
 					<br>
 				</div>
 			</div>
@@ -103,7 +98,7 @@
 								<form class="form-horizontal" method="post" action="index.php?controller=avis&action=add">
 									<div class="form-group">
 										<label for="id_chambre" class="col-xs-3 control-label text-left">Nom de la chambre :</label>
-									    <select class="form-control col-xs-10" name='idChambre' id='id_chambre'>
+									    <select class="form-control" name='idChambre' id='id_chambre'>
 											<?php
 												foreach ($listeChambreForAvis as $key => $value) {
 													$idChambre = $value[0];

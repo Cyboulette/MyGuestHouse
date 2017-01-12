@@ -59,8 +59,7 @@
                 <ul class="nav navbar-nav">
                     <li class="logoBrand "><a href="index.php" class="colorCustom"><?=$websiteName?></a></li>
                     <li <?php ControllerDefault::active(null, null, null, 'index.php'); ?>><a href="index.php">Accueil</a></li>
-                    <li <?php ControllerDefault::active('chambre', 'readAll'); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
-                    <li <?php ControllerDefault::active('default', 'aboutus'); ?>><a href="index.php?controller=default&action=aboutus">À propos de nous</a></li>
+                    <li <?php ControllerDefault::active('chambre'); ?>><a href="index.php?controller=chambre&action=readAll">Chambres</a></li>
 
                     <?php
                     if(!ControllerUtilisateur::isConnected()) {
@@ -71,7 +70,7 @@
                     } else {
                         $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                     ?>
-                        <li <?php ControllerDefault::active('commande', ''); ?> ><a href="index.php?controller=reservation&action=reservations">Réservations</a></li>
+                        <li <?php ControllerDefault::active('reservation', ''); ?> ><a href="index.php?controller=reservation&action=reservations">Réservations</a></li>
                         <li <?php ControllerDefault::active('utilisateur', 'profil'); ?> ><a href="index.php?controller=utilisateur&action=profil">Profil</a></li>
                         <li <?php ControllerDefault::active('utilisateur', 'disconnect'); ?> ><a href="index.php?controller=utilisateur&action=disconnect">Déconnexion</a></li>
                         <?php if($currentUser->getPower() == Conf::$power['admin']) { ?>
