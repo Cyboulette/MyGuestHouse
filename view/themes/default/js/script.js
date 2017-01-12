@@ -23,15 +23,12 @@ $('.btnDeleteReservation').on('click', function(e) {
 
 // Script for datePicker
 $( function() {
-    $('#datepickerDebut, #datepickerFin').datepicker({
-        language: "fr",
-        format: "dd/mm/yyyy",
-        datesDisabled: date
+    if(typeof date !== "undefined") {
+        $('#datepickerDebut, #datepickerFin').datepicker({
+            language: "fr",
+            format: "dd/mm/yyyy",
+            datesDisabled: date
 
-    });
-    /*
-     $("#datepickerDebut").datepicker();
-     $("#datepickerDebut").datepicker("option", "showAnim", "drop");
-     $("#datepickerFin").datepicker();
-     $("#datepickerFin").datepicker("option", "showAnim", "drop");*/
+        });
+    }
 } );
