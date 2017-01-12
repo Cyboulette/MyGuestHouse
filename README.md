@@ -12,9 +12,18 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 <br>
 **Credencials for demo are : demo@yopmail.fr/demo**
 
+# TODO
+
+- Calculator module for reservations on user side
+- Allow to select some prestations when add reservations on user side
+- Bug fixed on ControllerDefault::active() uses on view reservations on user side
+- Corrections on the list of reservations on user side
+- Verification for the reservation addition in DB on user side (see the 11/01's commits)
+- Details for reservations on user profil page
+    
 # Commits
 
-
+<br>
 - 11/01
     *       Insert date format fixed
     *       Display the current date for input default value
