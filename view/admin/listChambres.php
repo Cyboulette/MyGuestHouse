@@ -13,7 +13,7 @@ if(empty($tab_chambres)) {
 	if (ModelChambre::count()<5) {
 		echo '<a href="index.php?controller=adminChambres&action=addChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une chambre</a> <br/><br/>';
 	}
-	echo '<div class="table-responsive"><table class="table table-bordered">';
+	echo '<div class="table-responsive"><table class="table table-hover tableCenter">';
 	echo '<thead>';
 	echo '<tr>';
 	echo '<th>ID</th>';

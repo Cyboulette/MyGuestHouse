@@ -49,7 +49,7 @@ class ControllerAvis{
                                  $message = '<div class="alert alert-danger">Nous n\'avons pas pu proceder a la sauvegarde de l\'avis !</div>';
                               }
                            }else{
-                              $message = '<div class="alert alert-danger">Vous ne pouvez pas emettre d\'avis pour cette chambre !</div>';
+                              $message = '<div class="alert alert-danger">Vous ne pouvez pas émettre d\'avis pour cette chambre !</div>';
                            }
                         }else{
                            $message = '<div class="alert alert-danger">La chambre sur laquelle vous voulez émettre un avis n\'existe plus !</div>';
@@ -58,7 +58,7 @@ class ControllerAvis{
                         ControllerDefault::error('Vous n\'avez pas de compte chez nous pour l\'instant !');
                      }
                   }else{
-                     $message = '<div class="alert alert-danger">Vous avez deja emis un avis sur cette chambre !</div>';
+                     $message = '<div class="alert alert-danger">Vous avez deja émis un avis sur cette chambre !</div>';
                   }
                }else{   
                   $message = '<div class="alert alert-danger">Vous devez donner une note entre 0 et 5 (en valeur numerique) !</div>';
@@ -67,7 +67,7 @@ class ControllerAvis{
                $message = '<div class="alert alert-danger">Vous devez renseigner touts les champs afin d\'émettre un avis !</div>';
             }
          }else{
-            $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer vos infomations sur l\'avis !</div>';
+            $message = '<div class="alert alert-danger">Nous n\'avons pas pu récuperer vos infomations sur l\'avis !</div>';
          }
          // require File::build_path(array('view', 'main_view.php'));
          if(isset($_GET['forChambre'])){
@@ -99,7 +99,7 @@ class ControllerAvis{
 
                   require File::build_path(array('view', 'main_view.php'));
                }else{
-                  $message = '<div class="alert alert-danger">Cette avis n\'exists plus !</div>';
+                  $message = '<div class="alert alert-danger">Cet avis n\'existe plus !</div>';
                   ControllerUtilisateur::profil($message);
                }
             }else{
@@ -107,11 +107,11 @@ class ControllerAvis{
                ControllerUtilisateur::profil($message);
             }
          }else{
-         	$message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer les information necessaire a la modification de l\'avis !</div>';
+         	$message = '<div class="alert alert-danger">Nous n\'avons pas pu récuperer les informations nécessaires à la modification de l\'avis !</div>';
             ControllerUtilisateur::profil($message);
          }
       }else{
-         ControllerDefault::error('Vous devez être connecter pour effectuer cette action !');
+         ControllerDefault::error('Vous devez être connecté pour effectuer cette action !');
       }
    }
 
@@ -145,7 +145,7 @@ class ControllerAvis{
                            if($update){
                               $message = '<div class="alert alert-success">Votre avis a été modifié avec succés !</div>';
                            }else{
-                              $message = '<div class="alert alert-danger">Nous n\'avons pas pu proceder a la modification de l\'avis !</div>';
+                              $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder a la modification de l\'avis !</div>';
                            }     
                         }else{   
                            $message = '<div class="alert alert-danger">Vous devez donner une note entre 0 et 5 (en valeur numerique) !</div>';
@@ -154,20 +154,20 @@ class ControllerAvis{
                         $message = '<div class="alert alert-danger">La chambre sur laquelle vous voulez modifier l\'avis n\'existe plus !</div>';
                      }
                   }else{
-                     $message = '<div class="alert alert-danger">Vous ne pouvez pas modifier un avis que vous n\'avez pas emis !</div>';
+                     $message = '<div class="alert alert-danger">Vous ne pouvez pas modifier un avis que vous n\'avez pas émis !</div>';
                   }
                }else{
                   ControllerDefault::error('Vous n\'avez pas de compte chez nous pour l\'instant !');
                }
             }else{
-               $message = '<div class="alert alert-danger">Vous devez renseigner touts les champs afin de modifier votre avis !</div>';
+               $message = '<div class="alert alert-danger">Vous devez renseigner tous les champs afin de modifier votre avis !</div>';
             }
          }else{
-            $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer vos infomations sur l\'avis !</div>';
+            $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer vos informations sur l\'avis !</div>';
          }
          ControllerUtilisateur::profil($message);
       }else{
-         ControllerDefault::error('Vous devez être connecter pour effectuer cette action !');
+         ControllerDefault::error('Vous devez être connecté pour effectuer cette action !');
       }
    }
 
@@ -181,22 +181,22 @@ class ControllerAvis{
                if($avis!=null){
                   $delete = ModelAvis::delete($idUtilisateur, $idChambre);
                   if($delete){
-                     $message = '<div class="alert alert-success">la suppression de l\'avis est un succes !</div>';
+                     $message = '<div class="alert alert-success">La suppression de l\'avis est un succès !</div>';
                   }else{
                      $message = '<div class="alert alert-danger">Nous n\'avons pas pu supprimer l\'avis, merci de réessayer plus tard !</div>';
                   }
                }else{
-                  $message = '<div class="alert alert-danger">Cette avis n\'exists déja plus !</div>';
+                  $message = '<div class="alert alert-danger">Cet avis n\'existe déja plus !</div>';
                }
             }else{
-               $message = '<div class="alert alert-danger">Vous ne pouvez pas supprimmer un avis que vous n\'avez pas emis !</div>';
+               $message = '<div class="alert alert-danger">Vous ne pouvez pas supprimmer un avis que vous n\'avez pas émis !</div>';
             }
          }else{
-            $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer les information necessaire a la suppression de l\'avis !</div>';
+            $message = '<div class="alert alert-danger">Nous n\'avons pas pu récuperer les informations necessaires à la suppression de l\'avis !</div>';
          }
          ControllerUtilisateur::profil($message);
       }else{
-         ControllerDefault::error('Vous devez être connecter pour effectuer cette action !');
+         ControllerDefault::error('Vous devez être connecté pour effectuer cette action !');
       }
    }
 

@@ -46,9 +46,13 @@
             } else {
                 $idChambre = null;
             }
+            $chambre = ModelChambre::select($idChambre);
+            if($chambre == false) {
+                $idChambre = null;
+            }
 
             // Gestion des dates réservées
-            $datesEncode = modelReservation::encodeDatesForChambre($idChambre);
+            $datesEncode = ModelReservation::encodeDatesForChambre($idChambre);
             $sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
 
             require File::build_path(array('view', 'main_view.php'));

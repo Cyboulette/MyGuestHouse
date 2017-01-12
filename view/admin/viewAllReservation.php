@@ -25,7 +25,7 @@
             echo '<th>Nom                 </th>';
             echo '<th>Prénom              </th>';
             echo '<th>Nom de la chambre   </th>';
-            echo '<th>Durée               </th>';
+            echo '<th>Durée (jours)         </th>';
             echo '<th>Prix                </th>';
             echo '<th>Prestations         </th>';
             echo '<th>Actions             </th>';

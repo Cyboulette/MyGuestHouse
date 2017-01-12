@@ -195,7 +195,6 @@ class Model
             }
             $sql = substr($sql, 0, -2);
             $sql .= ' WHERE '.$whereCle.' = :'.$whereCle;
-            
             $update = Model::$pdo->prepare($sql);
             $update->execute($data);
             return true;

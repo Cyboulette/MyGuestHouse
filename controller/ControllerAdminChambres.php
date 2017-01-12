@@ -58,7 +58,6 @@
 				$message = '<div class="alert alert-danger">Vous ne pouvez pas avoir plus de 5 chambre (selon la législation mise en place en France) !</div>';
 				self::chambres($message);
 			}
-			
 		}
 
 		public static function addedChambre(){

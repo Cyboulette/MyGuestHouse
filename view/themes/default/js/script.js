@@ -23,15 +23,49 @@ $('.btnDeleteReservation').on('click', function(e) {
 
 // Script for datePicker
 $( function() {
-    $('#datepickerDebut, #datepickerFin').datepicker({
-        language: "fr",
-        format: "dd/mm/yyyy",
-        datesDisabled: date
+    if(typeof date !== "undefined") {
+        $('#datepickerDebut, #datepickerFin').datepicker({
+            language: "fr",
+            format: "dd/mm/yyyy",
+            datesDisabled: date
 
+        });
+    }
+
+    $('#btnCalcul').on('click', function(e) {
+        e.preventDefault();
+        $(".infoCalcul").hide();
+        var dateDebut = new Date($('#datepickerDebut').val().split(/\//).reverse().join('-'));
+        var dateFin = new Date($('#datepickerFin').val().split(/\//).reverse().join('-'));
+        var timeDiff = dateFin.getTime() - dateDebut.getTime();
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        var message, prix, duree = null;
+
+        if(diffDays < 0) {
+            message = '<div class="alert alert-danger">Vous ne pouvez pas choisir une date de fin inférieure à votre date de début</div>';
+        } else {
+            message = null;
+            var prixChambre = $('.prixChambre').val();
+            if(prixChambre != null && prixChambre > 0) {
+                var prixTotal = diffDays * prixChambre;
+                if(diffDays > 1) {
+                    var text = ' nuits';
+                } else {
+                    var text = ' nuit';
+                }
+                $(".duree").html(diffDays + text);
+                $(".prix").html(prixTotal + ' €');
+                $(".infoCalcul").show();
+            } else {
+                message = '<div class="alert alert-danger">Impossible de récupérer le prix de la chambre</div>';
+            }
+        }
+        if(message != null) {
+            $(".messageCalcul").show();
+            $(".messageCalcul").html(message);
+        } else {
+            $(".messageCalcul").hide();
+            $(".messageCalcul").html("");
+        }
     });
-    /*
-     $("#datepickerDebut").datepicker();
-     $("#datepickerDebut").datepicker("option", "showAnim", "drop");
-     $("#datepickerFin").datepicker();
-     $("#datepickerFin").datepicker("option", "showAnim", "drop");*/
 } );

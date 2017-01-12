@@ -1,11 +1,12 @@
 // Script pour datepicker
 $( function() {
-	$('#datepickerDebut, #datepickerFin').datepicker({
-		language: "fr",
-		format: "dd/mm/yyyy",
-		datesDisabled: date
-
-	});
+	if(date != null) {
+		$('#datepickerDebut, #datepickerFin').datepicker({
+			language: "fr",
+			format: "dd/mm/yyyy",
+			datesDisabled: date
+		});
+	}
 });
 
 function GetQueryStringParams(sParam)
