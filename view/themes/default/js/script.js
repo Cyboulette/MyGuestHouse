@@ -49,9 +49,9 @@ $( function() {
             if(prixChambre != null && prixChambre > 0) {
                 var prixTotal = diffDays * prixChambre;
                 if(diffDays > 1) {
-                    var text = ' jours';
+                    var text = ' nuits';
                 } else {
-                    var text = ' jour';
+                    var text = ' nuit';
                 }
                 $(".duree").html(diffDays + text);
                 $(".prix").html(prixTotal + ' €');
