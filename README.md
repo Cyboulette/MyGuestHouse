@@ -14,6 +14,7 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # Commits
 
+
 - 11/01
     *       Insert date format fixed
     *       Display the current date for input default value
