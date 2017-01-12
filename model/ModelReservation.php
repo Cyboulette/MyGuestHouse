@@ -28,7 +28,8 @@ class ModelReservation extends Model {
     }
 
 
-    /* SOME GETTERS WITH DATE */
+    /* SOME GETTERS */
+
     public static function getReservationsEnCours($idUtilisateur = null){
         if($idUtilisateur != null){
             $where_clause = "AND idUtilisateur = ".$idUtilisateur;
@@ -144,7 +145,9 @@ class ModelReservation extends Model {
         }
     }
 
+
     /* SOME SELECTOR */
+
     public static function selectAllByUser($idUtilisateur){
         try {
             $sql = "SELECT *
@@ -208,7 +211,9 @@ class ModelReservation extends Model {
         }
     }
 
+
     /* SOME GETTERS FOR DATE AVAILABE */
+
     /**
      * @return array all the date reserved for a unique chambre
      */
@@ -217,7 +222,7 @@ class ModelReservation extends Model {
 
         foreach (modelReservation::selectAllByChambre($idChambre) as $reservation){
             $nombreJour = $reservation->getNombreJours();
-            for ($nombre = 0 ; $nombre <= $nombreJour ; $nombre ++) {
+            for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
                 $dateTime = new DateTime($reservation->get('dateDebut'));
                 $dateTime->modify("+".$nombre." day");
                 $dateTime = $dateTime->format("d/m/Y");
@@ -228,7 +233,9 @@ class ModelReservation extends Model {
         return $result;
     }
 
+
     /* SOME OTHERS GETTERS */
+
     /**
      * Return the number of day of the reservation
      */
@@ -248,7 +255,10 @@ class ModelReservation extends Model {
 
             $tab = $rep->Fetch();
 
-            return $tab[0];
+            if($tab[0] < 0) {
+                return "#!ERREUR";
+            }
+            return $tab[0]+1;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
@@ -258,8 +268,10 @@ class ModelReservation extends Model {
         }
 
     }
+
     /**
      * Return the total price of the reservation, this price of the room plus all the prestations
+     * TODO : fixed return for negatives values
      */
     public function getPrixTotal(){
         try{
@@ -286,9 +298,12 @@ class ModelReservation extends Model {
         }
     }
 
+
+
+
     /** Encode dates for datePicker
      * @param $idChambre the id of the chambre for select all the reservation
-     * @return string the json encode
+     * @return string the json encode format
      */
     public static function encodeDatesForChambre($idChambre){
         return json_encode(modelReservation::selectAllDateByChambre($idChambre));

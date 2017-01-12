@@ -1,3 +1,5 @@
+<!-- Todo : calculator module -->
+
 <?php if(isset($message)) echo $message; ?>
 
 <?php if(is_null($idChambre)) { ?>
@@ -11,7 +13,9 @@
         <div class="form-group text-center">
             <label for="idChambre">Sélectionnez la chambre que vous souhaitez réserver :</label>
             <select class="form-control" id="idChambre" name="idChambre">
-                <?php foreach(ModelChambre::selectAll() as $chambre){ echo '<option>'.$chambre->get('idChambre').'</option>'; } ?>
+                <?php foreach(ModelChambre::selectAll() as $chambre){
+                    echo '<option value="'.strval($chambre->get('idChambre')).'">'.$chambre->get('nomChambre').'</option>';
+                } ?>
 
             </select>
         </div>
@@ -35,7 +39,7 @@
             <div class="form-group text-center">
                 <label for="dateDebut"> Choisissez une date de début</label>
                 <div class="input-group date" data-date-format="yyyy-mm-dd">
-                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="<?=getdate();?>">
+                    <input id="datepickerDebut" class="form-control" type="text" name="dateDebut" value="<?=ControllerDefault::getCurrentDateForDatePicker();?>">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
@@ -44,7 +48,7 @@
             <div class="form-group text-center">
                 <label for="dateFin"> Choisissez une date de fin</label>
                 <div class="input-group date" data-date-format="yyyy-mm-dd">
-                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="<?=getdate();?>">
+                    <input id="datepickerFin" class="form-control" type="text" name="dateFin" value="<?=ControllerDefault::getCurrentDateForDatePicker();?>">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </div>
@@ -54,7 +58,7 @@
             <!-- Module de calcul -->
             <br>
             <div class="text-center">
-                <h3>Durée : </h3>
+                <h4>Durée : </h4>
                     <script>
                         $("btnCalcul").onclick(function(){
                             var dateDebut = new Date($('#datepickerDebut', 'value'));
@@ -63,7 +67,7 @@
                             print(Math.floor(timediff / day));
                         });
                     </script>
-                <h3>Prix : </h3>
+                <h4>Prix : </h4>
             </div>
 
             <br>

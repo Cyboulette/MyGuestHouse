@@ -14,12 +14,19 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # Commits
 
-- 09/01/
+- 11/01
+    *       Insert date format fixed
+    *       Display the current date for input default value
+    *       Display the name of chambre and user for input value
+    *       Bug fixed on function ModelReservation::getPrixTotal() and ModelReservation::getNombreJours() 
+    *       Verification dates disabled for reservations
+    
+<br>
+- 09/01
     *       Datepicker for datesDisabled
     *       Add and delete reservations for users
     *       Correction on adminReservation form
    
-
 <br>
 - 30/12
     *       Display reservations for user

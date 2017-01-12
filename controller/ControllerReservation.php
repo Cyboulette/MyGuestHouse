@@ -62,19 +62,26 @@
                 $idUtilisateur = $_SESSION['idUser'];
                 $dateDebut = htmlspecialchars($_POST['dateDebut']);
                 $dateFin = htmlspecialchars($_POST['dateFin']);
+
+                // Chargement des dates au bon format pour l'insertion dans la BD
+                $dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
+                var_dump($dates['dateDebut']);
+                var_dump($dates['dateFin']);
+
                 $idChambre = htmlspecialchars($_POST['idChambre']);
                 $data = array(
                     'idReservation' => NULL,
                     'idChambre' => $idChambre,
                     'idUtilisateur' => $idUtilisateur,
-                    'dateDebut' => $dateDebut,
-                    'dateFin' => $dateFin,
+                    'dateDebut' => $dates['dateDebut'],
+                    'dateFin' => $dates['dateFin'],
                     'annulee' => NULL
                 );
                 $save = ModelReservation::save($data);
                 if ($save) {
                     $message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
-                    self::reservations($message);
+
+                    //self::reservations($message);
                 } else {
                     $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
                 }

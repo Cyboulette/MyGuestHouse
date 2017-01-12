@@ -344,16 +344,153 @@ class Conf {
 			require File::build_path(array('view', 'default', 'install.php'));
 		}
 
-
-		/**
-		 *
-		*/
 		public static function error($error, $template = NULL) {
 			$displayError = $error;
 			$view = 'error';
 			$pagetitle= 'MyGuestHouse - Erreur';
 			$powerNeeded = true;
 			require File::build_path(array('view', 'main_view.php'));
+		}
+
+
+		/* SOME VERIFICATION'S FUNCTIONS */
+
+
+		/**
+		 * @param string the date of the begining
+		 * @param string the date of the end
+		 * @param int the id of the chambre
+		 * @return array
+		 */
+		public static function verifToDatesDisabled($date1, $date2, $idChambre){
+			$tab_reservations = ModelReservation::selectAllDateByChambre($idChambre);
+			$nombreJour = ControllerDefault::getnombreJours($date1, $date2);
+			$result = array();
+			for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
+				$dateTime = ControllerDefault::getDateTime($date1);
+				$dateTime->modify("+".$nombre." day");
+				$dateTime = $dateTime->format("d/m/Y");
+				array_push($result, $dateTime);
+			}
+
+			return array_intersect($result, $tab_reservations)==null;
+		}
+
+
+		/* SOME FUNCTION FOR RESERVATION'S DATE */
+
+
+		/**
+		 * @param $string the date with the format : d/m/Y
+		 * @return DateTime
+		 */
+		public static function getDateTime($string){
+			$dayFin = $string[0] . $string[1];
+			$monthFin = $string[3] . $string[4];
+			$yearFin = $string[6] . $string[7] . $string[8] . $string[9];
+
+			$dateTime = new DateTime();
+			return $dateTime->setDate($yearFin, $monthFin, $dayFin);
+		}
+
+		/**
+		 * @param $dateDebut
+		 * @param $dateFin
+		 * @return array Return the 2 dates with the format 'Y-d-m' with 'dateDebut' and 'dateFin' index
+		 */
+		public static function getDateForBdFormat($dateDebut, $dateFin){
+			$dayDebut = $dateDebut[0] . $dateDebut[1];
+			$monthDebut = $dateDebut[3] . $dateDebut[4];
+			$yearDebut = $dateDebut[6] . $dateDebut[7] . $dateDebut[8] . $dateDebut[9];
+
+			$dayFin = $dateFin[0] . $dateFin[1];
+			$monthFin = $dateFin[3] . $dateFin[4];
+			$yearFin = $dateFin[6] . $dateFin[7] . $dateFin[8] . $dateFin[9];
+
+			$dateDebut = new DateTime();
+			$dateFin = new DateTime();
+
+			$dateDebut->setDate($yearDebut, $monthDebut, $dayDebut);
+			$dateFin->setDate($yearFin, $monthFin, $dayFin);
+
+			$dateDebut = $dateDebut->format('Y-m-d');
+			$dateFin = $dateFin->format('Y-m-d');
+
+			$result = Array(
+				"dateDebut" => $dateDebut,
+				"dateFin" => $dateFin
+			);
+
+			return $result;
+		}
+
+		/**
+		 * @param $getDate
+		 * @return string Return the current date or any else date (with the same format of getDate() object) convert to the french format
+		 */
+		public static function getCurrentDateForDatePicker($getDate = null){
+			$zeroDay = null;
+			$zeroMonth = null;
+			if($getDate === null){
+				$getDate = getDate();
+			}
+
+			// Gestion des 0 qu'il faut rajouter
+			if(intval($getDate['mday']) < 10){
+				$zeroDay = 0;
+			} elseif (intval($getDate['mon']) < 10) {
+				$zeroMonth = 0;
+			}
+
+
+			return $zeroDay.$getDate['mday'].'/'.$zeroMonth.$getDate['mon'].'/'.$getDate['year'];
+		}
+
+
+		/* Some usefull functions */
+
+		/**
+		 * @param $dateDebut
+		 * @param $dateFin
+		 * @return int the difference between the 2 dates in days
+		 */
+		public static function getNombreJours($dateDebut, $dateFin){
+			$dayDebut = intval($dateDebut[0] . $dateDebut[1]);
+			$monthDebut = intval($dateDebut[3] . $dateDebut[4]);
+			$yearDebut = intval($dateDebut[6] . $dateDebut[7] . $dateDebut[8] . $dateDebut[9]);
+
+			$dayFin = intval($dateFin[0] . $dateFin[1]);
+			$monthFin = intval($dateFin[3] . $dateFin[4]);
+			$yearFin = intval($dateFin[6] . $dateFin[7] . $dateFin[8] . $dateFin[9]);
+
+			$nombreJour1 = ControllerDefault::getNombreJoursMois($monthDebut) + $dayDebut;
+			$nombreJour2 = ControllerDefault::getNombreJoursMois($monthFin) + $dayFin;
+
+			$result = $nombreJour2 - $nombreJour1;
+
+			return $result;
+		}
+
+		/**
+		 * @param $mois
+		 * @return int
+		 */
+		public static function getNombreJoursMois($mois){
+			$result = 0;
+			if($mois > 1) {
+				if($mois > 2) {
+					if($mois > 6 ) {
+						$result = 29+31+153+153;
+					} else {
+						$result = 29+31+153;
+					}
+				} else {
+					$result = 29+31;
+				}
+			} else {
+				return 31;
+			}
+		return $result;
 		}
 	}
 ?>
