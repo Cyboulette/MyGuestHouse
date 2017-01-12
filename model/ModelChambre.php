@@ -69,26 +69,6 @@ class ModelChambre extends Model {
         }
     }
 
-    // public function update_url($url){
-    //     try{
-    //         $sql='UPDATE `'.self::$tableName.'` SET urlVisuel = '.$url.' WHERE idVisuel = :idVisuel';
-    //         $updateUrl=Model::$pdo->prepare($sql);
-
-    //         $value=array(
-    //             'idVisuel' => $this->idVisuel
-    //         );
-
-    //         $updateUrl->execute($value);
-    //         return true;
-    //     } catch(PDOException $e) {
-    //         if (Conf::getDebug()) {
-    //             echo $e->getMessage();
-    //         }
-    //         return false;
-    //         die();
-    //     }
-    // }
-
     public static function delatePhoto($url){
         try{
             $sql= "DELETE FROM `GH_VisuelsChambres` WHERE `urlVisuel`= :tag_url";
@@ -107,33 +87,6 @@ class ModelChambre extends Model {
             return false;
             die();
         }
-    } 
- 
-    // //se trouve maintenant dans ModelPrestation
-    // public static function selectPrestation($idChambre){
-    //     try {
-    //         $sql = "SELECT p.nomPrestation, p.prix 
-    //                 FROM `GH_ChambresPresta` cp 
-    //                 INNER JOIN `GH_Prestations` p ON cp.idPrestation = p.idPrestation 
-    //                 WHERE cp.idChambre= :tag_idChambre";
-    //         $rep = Model::$pdo->prepare($sql);
-    //         $values = array(
-    //             'tag_idChambre' => $idChambre,
-    //         );
-    //         $rep->execute($values);
-    //         $result = $rep->fetchAll();
-    //         return $result;
-    //     } catch(PDOException $e) {
-    //         if (Conf::getDebug()) {
-    //             echo $e->getMessage();
-    //         } else {
-    //             echo "Une erreur est survenue ! Merci de réessayer plus tard";
-    //         }
-    //         return false;
-    //         die();
-    //     }
-    // }
-
-
+    }
 }
 ?>
