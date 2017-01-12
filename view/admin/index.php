@@ -1,12 +1,12 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 <?php
-  $nbUtilisateur = ModelUtilisateur::count();
-  $nbChambre = ModelChambre::count();
-  $nbPrestation = ModelPrestation::count();
-  $nbDetails = ModelDetail::count();
-  $nbReservations = ModelReservation::count();
-  $nbSlides = ModelSlides::count();
-  $nbNews = ModelNews::count();
+$nbUtilisateur = ModelUtilisateur::count();
+$nbChambre = ModelChambre::count();
+$nbPrestation = ModelPrestation::count();
+$nbDetails = ModelDetail::count();
+$nbReservations = ModelReservation::count();
+$nbSlides = ModelSlides::count();
+$nbNews = ModelNews::count();
 ?>
 
 <h1 class="page-header">Résumé usuel</h1>

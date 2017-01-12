@@ -81,16 +81,16 @@ $("#slideToUpload").fileinput({
 	'allowedFileTypes': ['image'],
 	'showPreview': true,
 	'language': 'fr',
-    layoutTemplates: {
-    main1: "{preview}\n" +
-    "<div class=\'input-group {class}\'>\n" +
-    "   <div class=\'input-group-btn\'>\n" +
-    "       {browse}\n" +
-    "       {upload}\n" +
-    "       {remove}\n" +
-    "   </div>\n" +
-    "   {caption}\n" +
-    "</div>"
+	layoutTemplates: {
+		main1: "{preview}\n" +
+		"<div class=\'input-group {class}\'>\n" +
+		"   <div class=\'input-group-btn\'>\n" +
+		"       {browse}\n" +
+		"       {upload}\n" +
+		"       {remove}\n" +
+		"   </div>\n" +
+		"   {caption}\n" +
+		"</div>"
 	}
 });
 
@@ -132,10 +132,10 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 	var field = document.getElementById(textareaId);
 	var scroll = field.scrollTop;
 	field.focus();
-	
-	
+
+
 	if (window.ActiveXObject) {
-		var textRange = document.selection.createRange();            
+		var textRange = document.selection.createRange();
 		var currentSelection = textRange.text;
 	} else {
 		var startSelection   = field.value.substring(0, field.selectionStart);
@@ -149,12 +149,12 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 				endTag = "[/lien]";
 				if (currentSelection) {
 					if (currentSelection.indexOf("http://") == 0 || currentSelection.indexOf("https://") == 0 || currentSelection.indexOf("ftp://") == 0 || currentSelection.indexOf("www.") == 0) {
-							var label = prompt("Quel est le libellé du lien ?") || "";
-							startTag = "[lien url=" + currentSelection + "]";
-							currentSelection = label;
+						var label = prompt("Quel est le libellé du lien ?") || "";
+						startTag = "[lien url=" + currentSelection + "]";
+						currentSelection = label;
 					} else {
-							var URL = prompt("Quelle est l'url ?");
-							startTag = "[lien url=" + URL + "]";
+						var URL = prompt("Quelle est l'url ?");
+						startTag = "[lien url=" + URL + "]";
 					}
 				} else {
 					var URL = prompt("Quelle est l'url ?") || "";
@@ -162,7 +162,7 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 					startTag = "[lien url=" + URL + "]";
 					currentSelection = label;
 				}
-			break;
+				break;
 			case "liste":
 				endTag = "[/liste]";
 				var titreListe = prompt("Quel est le titre de cette liste ?") || "";
@@ -177,7 +177,7 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 				}
 				startTag = "[liste titre="+titreListe+"]";
 				currentSelection = elements;
-			break;
+				break;
 		}
 	}
 
@@ -185,14 +185,14 @@ function insertTag(startTag, endTag, textareaId, tagType) {
 		textRange.text = startTag + currentSelection + endTag;
 		textRange.moveStart('character', -endTag.length-currentSelection.length);
 		textRange.moveEnd('character', -endTag.length);
-		textRange.select();  
+		textRange.select();
 	} else { // Ce n'est pas IE
 		field.value = startSelection + startTag + currentSelection + endTag + endSelection;
 		field.focus();
 		field.setSelectionRange(startSelection.length + startTag.length, startSelection.length + startTag.length + currentSelection.length);
-	}  
-	
-	field.scrollTop = scroll;   
+	}
+
+	field.scrollTop = scroll;
 }
 
 

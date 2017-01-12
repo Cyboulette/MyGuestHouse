@@ -30,27 +30,40 @@
 		}
 
 		public static function addReservation()
-		{
+		{ // Vérifications à faire
 			self::isAdmin();
 			if (isset($_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-				$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
-				$dateDebut = htmlspecialchars($_POST['dateDebut']);
-				$dateFin = htmlspecialchars($_POST['dateFin']);
-				$idChambre = htmlspecialchars($_POST['idChambre']);
-				$data = array(
-					'idReservation' => NULL,
-					'idChambre' => $idChambre,
-					'idUtilisateur' => $idUtilisateur,
-					'dateDebut' => $dateDebut,
-					'dateFin' => $dateFin,
-					'annulee' => NULL
-				);
-				$save = ModelReservation::save($data);
-				if ($save) {
-					$message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
-					self::reservations($message);
+				if(ControllerDefault::getNombreJours($_POST['dateFin'],$_POST['dateDebut']) < 0){
+					if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
+
+						$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
+						$dateDebut = htmlspecialchars($_POST['dateDebut']);
+						$dateFin = htmlspecialchars($_POST['dateFin']);
+
+						// Chargement des dates au bon format pour l'insertion dans la BD
+						$dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
+
+						$idChambre = htmlspecialchars($_POST['idChambre']);
+						$data = array(
+							'idReservation' => NULL,
+							'idChambre' => $idChambre,
+							'idUtilisateur' => $idUtilisateur,
+							'dateDebut' => $dates['dateDebut'],
+							'dateFin' => $dates['dateFin'],
+							'annulee' => NULL
+						);
+						$save = ModelReservation::save($data);
+						if ($save) {
+							$message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
+							self::reservations($message);
+						} else {
+							$message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Vous devez effectuer 2 reservations distincts s\'il y a deja eu des reservations entre la date de début. </div>';
+					}
 				} else {
-					$message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas réserver avec une date de fin antèrieur à la date de début. Veuillez réessayer</div>';
 				}
 			} else {
 				$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';
@@ -126,6 +139,7 @@
 						if (isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
 							$idReservation = htmlspecialchars($_GET['idReservation']);
 							$readReservation = ModelReservation::select($idReservation);
+
 							if (!$readReservation) {
 								self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
 							}
@@ -138,10 +152,16 @@
 					$template = 'admin';
 					$tab_reservations = ModelReservation::selectAll();
 					$pagetitle = 'Administration - ' . $titreAction;
-					$idChambre = $readReservation->get('idChambre');
+
 
 					// Gestion des dates réservées
-					$datesEncode = ModelReservation::encodeDatesForChambre($idChambre);
+					if(isset($_GET['idReservation'])){
+						$idChambre = ModelReservation::select($_GET['idReservation'])->get('idChambre');
+
+					} else {
+						$idChambre = $_POST['idChambre'];
+					}
+					$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
 					$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
 
 					require_once File::build_path(array("view", "main_view.php"));
@@ -202,10 +222,10 @@
 			ControllerAdminReservations::reservations($message);
 		}
 
+
 		public static function preDeleteItem() {
 			self::deleteItemForm("adminReservations", "ModelReservation", "de la réservation n°", "idReservation", 'idReservation');
 		}
-
 		public static function deleteItem() {
 			self::isAdmin();
 			if(isset($_POST['idItem'], $_POST['confirm'])) {

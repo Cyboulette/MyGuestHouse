@@ -74,7 +74,7 @@
                         <div class="modal-body"></div>
                     </div>
                 </div>
-        </div>
+            </div>
             <?php
         }
         echo '<a href="index.php?controller=adminReservations&action=manageReservation&type=add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une réservation</a> <br/><br/>';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 	class ControllerAdminUtilisateurs extends ControllerAdmin {
 
 		public static function utilisateurs($message = null) {
@@ -6,9 +6,7 @@
 			$view = 'listUsers';
 			$pagetitle = 'Administration - Liste des utilisateurs';
 			$template = 'admin';
-			if (!isset($_GET['mode'])) {
-				$_GET['mode'] = 'all';
-			}
+
 			if(isset($_GET['mode']) && $_GET['mode']!=null){
 				switch ($_GET['mode']) {
 		            case 'admin': $tab_utilisateurs = ModelUtilisateur::selectCustom('rang', '3'); $mode='admin'; break;
@@ -49,7 +47,7 @@
 			$view = 'editUser';
 			$pagetitle = 'Administration - modification de l\'utilisateur';
 			$template = 'admin';
-			
+
 			if(isset($_GET['idUtilisateur'])){
 				$utilisateur = ModelUtilisateur::select($_GET['idUtilisateur']);
 
@@ -86,7 +84,7 @@
 					}
 				}else{
 					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
-				}   
+				}
 			}else{
 				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
 			}
@@ -106,10 +104,10 @@
 			// echo "<pre>";
 			// 	print_r($_POST);
 			// echo "</pre>";
-			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) 
+			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email'])
 				&& isset($_POST['rang']) && isset($_POST['motDePasse']) && isset($_POST['motDePassebis']) ){
 
-				if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null 
+				if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null
 					&& $_POST['rang']!=null && $_POST['motDePasse']!=null && $_POST['motDePassebis']!=null
 					&& !ctype_space($_POST['nom']) && !ctype_space($_POST['prenom']) && !ctype_space($_POST['email'])){
 
@@ -138,7 +136,7 @@
 									$message = '<div class="alert alert-success">Utilisateur ajoutée avec succès !</div>';
 								}else{
 									$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la création de l\'utilisateur !</div>';
-								}  
+								}
 			                }else{
 			                    $message='<div class="alert alert-danger">Les mots de passe ne sont pas les même !</div>';
 			                }
@@ -150,43 +148,9 @@
 		            }
 				}else{
 					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide ou avoir un prix ou une seperficie inferieur a zero !</div>';
-				}   
+				}
 			}else{
 				$message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par la vue de modification !</div>';
-			}
-			self::utilisateurs($message);
-		}
-
-		public static function preDeleteItem() {
-			self::deleteItemForm("adminUtilisateurs", "ModelUtilisateur", "de l'utilisateur", "emailUtilisateur", 'idUtilisateur');
-		}
-
-		public static function deleteItem() {
-			self::isAdmin();
-			if(isset($_POST['idItem'], $_POST['confirm'])) {
-				$idItem = htmlspecialchars($_POST['idItem']);
-				$confirm = htmlspecialchars($_POST['confirm']);
-				$item = ModelUtilisateur::select($idItem);
-				if($item != false) {
-					if($confirm == true) {
-						if($item->get('idUtilisateur') != $_SESSION['idUser']) {
-							$checkDeleteItem = ModelUtilisateur::delete($item->get('idUtilisateur'));
-							if($checkDeleteItem) {
-								$message = '<div class="alert alert-success">L\'utilisateur a bien été supprimé !</div>';
-							} else {
-								$message = '<div class="alert alert-danger">Impossible de supprimer cet utilisateur !</div>';
-							}
-						} else {
-							$message = '<div class="alert alert-danger">Vous ne pouvez pas vous auto-supprimer !</div>';
-						}
-					} else {
-						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
-					}
-				} else {
-					$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas</div>';
-				}
-			} else {
-				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
 			}
 			self::utilisateurs($message);
 		}
@@ -220,13 +184,13 @@
 		// 	                    }
 		//                   	}else{
 		//                      	$message = '<div class="alert alert-danger">L\'a validation du nouveau mot de passe n\'est pas correct !</div>';
-		//                   	} 
+		//                   	}
 		//                	}else{
 		//                   	$message = '<div class="alert alert-danger">L\'ancien mot de passe est incorrect !</div>';
-		//                	}   
+		//                	}
 		//             }else{
 		//                $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
-		//             }   
+		//             }
 		//          }else{
 		//             $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
 		//          }
