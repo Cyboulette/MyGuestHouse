@@ -46,7 +46,7 @@
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
-                echo '<td><a href="index.php?controller=Reservations&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
 
 

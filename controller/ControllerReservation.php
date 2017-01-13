@@ -102,9 +102,53 @@
             self::reservationChambre($message);
         }
 
-        /**
-         *
-         */
+        public static function managePrestationForReservation(){
+            if (isset($_SESSION['idUser'])) { $powerNeeded = true; }
+            else { $powerNeeded = false; }
+            if (isset($_GET['idReservation']) && $_GET['idReservation'] != NULL) {
+                $reservation = ModelReservation::select($_GET['idReservation']);
+                if ($reservation != null) {
+                    $view = 'prestationFor';
+                    $pagetitle = 'Nos prestations';
+                    $idReservation = $_GET['idReservation'];
+                    $tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
+                    $tab_allPrestation = ModelPrestation::selectAll();
+
+                    require_once File::build_path(array("view", "main_view.php"));
+                } else {
+                    $message = '<div class="alert alert-danger">Cette reservation n\'existe plus !</div>';
+                    ControllerAdminReservations::reservations($message);
+                }
+            } else {
+                $message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une reservation sans connaître son ID !</div>';
+                self::reservations($message);
+            }
+        }
+
+        public static function managedPrestationForReservation(){
+            if (isset($_SESSION['idUser'])) { $powerNeeded = true; }
+            else { $powerNeeded = false; }
+            if (isset($_POST['idReservation']) && $_POST['idReservation'] != null) {
+                $idReservation = $_POST['idReservation'];
+                $prestation = $_POST['prestations'];
+                $update = true;
+                $update = ModelPrestation::deleteAllByReservation($idReservation); //TODO vérifier si true
+                if ($prestation != null) {
+                    foreach ($prestation as $key => $value) {
+                        $update = ModelPrestation::saveByReservation($idReservation, $prestation[$key]);
+                    }
+                }
+                if ($update != false) {
+                    $message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+                } else {
+                    $message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+                }
+            } else {
+                $message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une resrvation sans connaître son ID !</div>';
+            }
+            self::reservations($message);
+        }
+
         public static function deleteReservationForm(){
             $retour = array(); //Tableau de retour
             if(isset($_POST['idReservation'])) {

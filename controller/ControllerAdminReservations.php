@@ -181,7 +181,7 @@
 				$reservation = ModelReservation::select($_GET['idReservation']);
 				if ($reservation != null) {
 					$view = 'prestationFor';
-					$pagetitle = 'Administration - Editeur de chambre';
+					$pagetitle = 'Administration';
 					$template = 'admin';
 					$idReservation = $_GET['idReservation'];
 					$tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);

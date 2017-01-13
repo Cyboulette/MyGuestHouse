@@ -14,14 +14,16 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # TODO
 
-- Allow to select some prestations when add reservations on user side
-- Validate the reservation on user side
+- develop some otpions :)
+- Remake the form for view all chambres !   
+- Ask to validate when a user add a reservation and add a prestations on reservation 
 - Provide to cancel a reservation for user
 
 # Commits
 
 
 - 13/01 
+    *       Allow to select some prestations when add reservations on user side
     *       Corrections on the list of reservations on user side       
     *       Verification for the reservation addition in DB on user side (see the 11/01's commits)
     *       Details for reservations on user profil page
@@ -54,18 +56,18 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 <br>
 - 20/12
-   *       Manage of Themes directly in the Administration : we can now change the theme of the website through the admin. (Note : The admin theme can't be changed !!)
-   *       Update CSS of the admin and the index page
-   *       Release the first demo version [here](https://github.com/Cyboulette/MyGuestHouse/releases/tag/v0.1), and updated the `.sql` files
-   *       Update autoload function of the routeur for now require_once automatically Controller(s) and Model(s). When we use Controller:: or Model:: we don't need to have included the file before, the auto_loader do it for us.
+   *        Manage of Themes directly in the Administration : we can now change the theme of the website through the admin. (Note : The admin theme can't be changed !!)
+   *        Update CSS of the admin and the index page
+   *        Release the first demo version [here](https://github.com/Cyboulette/MyGuestHouse/releases/tag/v0.1), and updated the `.sql` files
+   *        Update autoload function of the routeur for now require_once automatically Controller(s) and Model(s). When we use Controller:: or Model:: we don't need to have included the file before, the auto_loader do it for us.
    
 <br>
 - 19/12
-   *       Migrated templates for default template
-   *       You can now manage "sliders/caroussel" images from the administration
-   *       Implementation of ControllerNews for read news, we can now read news on the website by clicking on the button `Lire la news`
-   *       BBCODE for news, you can now edit news and use BBCODE for beautiful style
-   *       New option : `main_color_site` which allow to modify the main color of templates, you can manage this option directly into the Administration and you can use a "ColorPicker" (Thank's to [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/))
+   *        Migrated templates for default template
+   *        You can now manage "sliders/caroussel" images from the administration
+   *        Implementation of ControllerNews for read news, we can now read news on the website by clicking on the button `Lire la news`
+   *        BBCODE for news, you can now edit news and use BBCODE for beautiful style
+   *        New option : `main_color_site` which allow to modify the main color of templates, you can manage this option directly into the Administration and you can use a "ColorPicker" (Thank's to [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/))
 
 <br>
 - 16/12 
