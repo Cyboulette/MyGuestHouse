@@ -38,6 +38,7 @@
             $view = 'reservationChambre';
             $pagetitle = 'Faire une reservation';
             $powerNeeded = true;
+
             $idChambre = null;
             if(isset($_GET['idChambre'])) {
                 $idChambre = htmlspecialchars($_GET['idChambre']);
@@ -63,31 +64,39 @@
          */
         public static function addReservation($message = null){
             if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-                $idUtilisateur = $_SESSION['idUser'];
-                $dateDebut = htmlspecialchars($_POST['dateDebut']);
-                $dateFin = htmlspecialchars($_POST['dateFin']);
+                if(ControllerDefault::getNombreJours($_POST['dateDebut'], $_POST['dateFin']) != null) {
+                    if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
+                        $idUtilisateur = $_SESSION['idUser'];
+                        $dateDebut = htmlspecialchars($_POST['dateDebut']);
+                        $dateFin = htmlspecialchars($_POST['dateFin']);
 
-                // Chargement des dates au bon format pour l'insertion dans la BD
-                $dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
-                var_dump($dates['dateDebut']);
-                var_dump($dates['dateFin']);
+                        // Chargement des dates au bon format pour l'insertion dans la BD
+                        $dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
+                        var_dump($dates['dateDebut']);
+                        var_dump($dates['dateFin']);
 
-                $idChambre = htmlspecialchars($_POST['idChambre']);
-                $data = array(
-                    'idReservation' => NULL,
-                    'idChambre' => $idChambre,
-                    'idUtilisateur' => $idUtilisateur,
-                    'dateDebut' => $dates['dateDebut'],
-                    'dateFin' => $dates['dateFin'],
-                    'annulee' => NULL
-                );
-                $save = ModelReservation::save($data);
-                if ($save) {
-                    $message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
+                        $idChambre = htmlspecialchars($_POST['idChambre']);
+                        $data = array(
+                            'idReservation' => NULL,
+                            'idChambre' => $idChambre,
+                            'idUtilisateur' => $idUtilisateur,
+                            'dateDebut' => $dates['dateDebut'],
+                            'dateFin' => $dates['dateFin'],
+                            'annulee' => NULL
+                        );
+                        $save = ModelReservation::save($data);
+                        if ($save) {
+                            $message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
 
-                    //self::reservations($message);
+                            self::reservations($message);
+                        } else {
+                            $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
+                        }
+                    } else {
+                        $message = '<div class="alert alert-danger">Vous devez effectuer 2 reservations distincts s\'il y a deja eu des reservations entre la date de début.</div>';
+                    }
                 } else {
-                    $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
+                    $message = '<div class="alert alert-danger">Vous ne pouvez pas réserver avec une date de fin antèrieur à la date de début. Veuillez réessayer</div>';
                 }
             } else {
                 $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';

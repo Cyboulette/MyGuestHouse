@@ -477,18 +477,43 @@ class Conf {
 		 */
 		public static function getNombreJoursMois($mois){
 			$result = 0;
-			if($mois > 1) {
-				if($mois > 2) {
-					if($mois > 6) {
-						$result = 29+31+153+153;
-					} else {
-						$result = 29+31+153;
-					}
-				} else {
-					$result = 29+31;
-				}
-			} else {
-				return 31;
+			switch ($mois) {
+				case 1:
+					return 31;
+					break;
+				case 2:
+					return 31+29;
+					break;
+				case 3:
+					return 31+29+31;
+					break;
+				case 4:
+					return 31+29+31+30;
+					break;
+				case 5:
+					return 31+29+31+30+31;
+					break;
+				case 6:
+					return 31+29+31+30+31+30;
+					break;
+				case 7:
+					return 31+29+31+30+31+30+31;
+					break;
+				case 8:
+					return 31+29+31+30+31+30+31+31;
+					break;
+				case 9:
+					return 31+29+31+30+31+30+31+31+30;
+					break;
+				case 10:
+					return 31+29+31+30+31+30+31+31+30+31;
+					break;
+				case 11:
+					return 31+29+31+30+31+30+31+31+30+31+30;
+					break;
+				case 12:
+					return 31+29+31+30+31+30+31+31+30+31+30+31;
+					break;
 			}
 		return $result;
 		}
@@ -502,11 +527,27 @@ class Conf {
 		public static function getDiffJours($date1, $date2){
 			$datetime1 = new DateTime($date1);
 			$datetime2 = new DateTime($date2);
+
+			var_dump($datetime1);
+			var_dump($datetime2);
+			var_dump($datetime1->diff($datetime2)->format("%a"));
+
 			if($datetime1 > $datetime2){
 				return null;
 			} else {
 				return $datetime1->diff($datetime2)->format("%a");
 			}
+		}
+
+		public static function getDiffJours2($dateDebut, $dateFin) {
+			$format = '%d/%m/%Y';
+			$dateDebut = strftime($dateDebut, $format);
+			$dateFin = strftime($dateFin, $format);
+
+			var_dump($dateDebut);
+			var_dump($dateFin);
+
+			return null;
 		}
 	}
 ?>

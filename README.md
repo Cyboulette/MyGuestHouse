@@ -14,7 +14,6 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # TODO
 
-- Calculator module for reservations on user side
 - Allow to select some prestations when add reservations on user side
 - Corrections on the list of reservations on user side
 - Verification for the reservation addition in DB on user side (see the 11/01's commits)

@@ -49,8 +49,6 @@
 
             }
             echo '</table></div>';
-            ?>
-            <?php
         }
         ?>
 
