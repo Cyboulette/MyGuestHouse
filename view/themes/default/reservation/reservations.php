@@ -1,3 +1,4 @@
+<?php if(!$powerNeeded) { exit(); } ?>
 <?php if(isset($message)) echo $message; ?>
 
 <div>
