@@ -42,7 +42,7 @@
                 $nbPrestations = count(ModelPrestation::selectAllByReservation($reservations->get('idReservation')));
 
                 $prix = $reservations->getPrixTotal();
-                $duree = $reservations->getNombreJours();
+                $duree = $reservations->getNombreNuits  ();
 
                 echo '<tr>';
                 echo '<td>' . $id .                 '</td>';

@@ -454,7 +454,7 @@ class Conf {
 		 * @param $dateFin
 		 * @return int the difference between the 2 dates in days
 		 */
-		public static function getNombreJours($dateDebut, $dateFin){
+		public static function getNombreNuits($dateDebut, $dateFin){
 			$dayDebut = intval($dateDebut[0] . $dateDebut[1]);
 			$monthDebut = intval($dateDebut[3] . $dateDebut[4]);
 			$yearDebut = intval($dateDebut[6] . $dateDebut[7] . $dateDebut[8] . $dateDebut[9]);
@@ -463,8 +463,8 @@ class Conf {
 			$monthFin = intval($dateFin[3] . $dateFin[4]);
 			$yearFin = intval($dateFin[6] . $dateFin[7] . $dateFin[8] . $dateFin[9]);
 
-			$nombreJour1 = ControllerDefault::getNombreJoursMois($monthDebut) + $dayDebut;
-			$nombreJour2 = ControllerDefault::getNombreJoursMois($monthFin) + $dayFin;
+			$nombreJour1 = ControllerDefault::getNombreNuitsMois($monthDebut) + $dayDebut;
+			$nombreJour2 = ControllerDefault::getNombreNuitsMois($monthFin) + $dayFin;
 
 			$result = $nombreJour2 - $nombreJour1;
 
@@ -475,7 +475,7 @@ class Conf {
 		 * @param $mois
 		 * @return int
 		 */
-		public static function getNombreJoursMois($mois){
+		public static function getNombreNuitsMois($mois){
 			$result = 0;
 			switch ($mois) {
 				case 1:
@@ -543,7 +543,7 @@ class Conf {
 		 * @param $dateFin	the date with the format Y-m-d
 		 * @return int|null
 		 */
-		public static function getDiffJoursWithBDFormat($dateDebut, $dateFin) {
+		public static function getDiffNuitsWithBDFormat($dateDebut, $dateFin) {
 			$datetime1 = new DateTime($dateDebut);
 			$datetime2 = new DateTime($dateFin);
 			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
@@ -553,6 +553,18 @@ class Conf {
 			} else {
 				return $interval;
 			}
+		}
+
+		/**
+		 * @param object a list of php object
+		 * @return mixed the last object in $listObject
+		 */
+		public static function getLastObject(Array $listObject){
+			$result = null;
+			foreach ($listObject as $object) {
+				$result = $object;
+ 			}
+			return $result;
 		}
 	}
 ?>

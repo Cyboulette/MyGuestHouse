@@ -47,7 +47,6 @@ class ModelReservation extends Model {
             );
 
             $rep->execute($values);
-
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelReservation');
             $tab = $rep->FetchAll();
 
@@ -220,9 +219,9 @@ class ModelReservation extends Model {
     public static function selectAllDateByChambre($idChambre){
         $result = array();
 
-        foreach (modelReservation::selectAllByChambre($idChambre) as $reservation){
-            $nombreJour = $reservation->getNombreJours();
-            for ($nombre = 0 ; $nombre < $nombreJour ; $nombre ++) {
+        foreach (ModelReservation::selectAllByChambre($idChambre) as $reservation){
+            $nombreNuits = $reservation->getNombreNuits();
+            for ($nombre = 0 ; $nombre < $nombreNuits ; $nombre ++) {
                 $dateTime = new DateTime($reservation->get('dateDebut'));
                 $dateTime->modify("+".$nombre." day");
                 $dateTime = $dateTime->format("d/m/Y");
@@ -239,7 +238,7 @@ class ModelReservation extends Model {
     /**
      * Return the number of day of the reservation
      */
-    public function getNombreJours(){
+    public function getNombreNuits(){
         try{
             $sql = "SELECT DATEDIFF(:dateFin,:dateDebut)";
 
@@ -282,7 +281,7 @@ class ModelReservation extends Model {
             $values = array(
                 'tag_idChambre' => $this->idChambre,
                 'tag_idReservation' => $this->idReservation,
-                'tag_nombreJour' => $this->getNombreJours()
+                'tag_nombreJour' => $this->getNombreNuits()
             );
             $rep->execute($values);
 

@@ -38,10 +38,9 @@
 
                 $prix = $reservations->getPrixTotal();
 
-                var_dump($reservations->get('dateDebut'));
                 // Gestion des dates
                 $dates = ControllerDefault::getDateForBdFormat($reservations->get('dateDebut'), $reservations->get('dateFin'));
-                $duree = ControllerDefault::getDiffJoursWithBDFormat($reservations->get('dateDebut'), $reservations->get('dateFin'));
+                $duree = ControllerDefault::getDiffNuitsWithBDFormat($reservations->get('dateDebut'), $reservations->get('dateFin'));
 
                 echo '<tr>';
                 echo '<td>' . $nomchambre .         '</td>';

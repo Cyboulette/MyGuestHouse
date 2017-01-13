@@ -3,7 +3,7 @@
 <?php 
     if(!isset($utilisateur)){
         exit();
-    }else{
+    } else {
     	$idUtilisateur = htmlspecialchars($utilisateur->get('idUtilisateur'));
         $nom = htmlspecialchars($utilisateur->get('nomUtilisateur'));
         $prenom = htmlspecialchars($utilisateur->get('prenomUtilisateur'));
@@ -41,10 +41,11 @@
     }
 ?>
 
-<h1 class="page-header"><?php echo $prenom.' '.$nom;?></h1>
+<h1 class="page-header text-xs-center"><?php echo $prenom.' '.$nom;?></h1>
 <?php if(isset($message)) echo $message; ?>
 
-<div class="row col-lg-offset-0">
+<!-- haut de la page avec email et rang-->
+<div class="row col-sm-offset-0 col-xs-offset-4">
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="col-lg-4">
@@ -80,15 +81,35 @@
 			<h4 class="panel-title">
 				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 					<div class="space-for-according">
-						<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?></span>
+						<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?> au total</span>
 					</div>
 				</a>
 			</h4>
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 			<div class="panel-body">
-				Argent perdu : <?=ModelReservation::selectAllPrixByUser($idUtilisateur)?> € <!-- j'ai pas compris pourquoi 'argent perdu' ??? -->
-				<br>
+				<div class="container">
+					<ul class="no-puce">
+						<li>Recapitulatif du client :</li>
+						<ul class="no-puce">
+							<li><?=count(ModelReservation::getReservationsEnCours($idUtilisateur))?> réservation en cours.</li>
+							<li><?=count(ModelReservation::getReservationsEnAttente($idUtilisateur))?> réservation en attente.</li>
+							<li><?=count(ModelReservation::getReservationsFinis($idUtilisateur))?> réservation finie.</li>
+							<li class="text-danger"><?=count(ModelReservation::getReservationsAnnulee($idUtilisateur))?> réservation annulée.</li>
+						</ul>
+					</ul>
+				</div>
+				<div class="container">
+					<ul class="no-puce">
+						<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
+					</ul>
+				</div>
+				<div class="container">
+					<ul class="no-puce">
+						<li class="text-success">Argent dépensé : <?=ModelReservation::selectAllPrixByUser($idUtilisateur)?> €</li>
+					</ul>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -165,6 +186,7 @@
 	</div>
 </div>
 
+<!-- Delete modal-->
 <div id="deleteItem" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">

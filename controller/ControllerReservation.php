@@ -64,7 +64,7 @@
          */
         public static function addReservation($message = null){
             if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-                if(ControllerDefault::getNombreJours($_POST['dateDebut'], $_POST['dateFin']) > 0) {
+                if(ControllerDefault::getNombreNuits($_POST['dateDebut'], $_POST['dateFin']) > 0) {
                     if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
                         $idUtilisateur = $_SESSION['idUser'];
                         $dateDebut = htmlspecialchars($_POST['dateDebut']);
@@ -72,8 +72,6 @@
 
                         // Chargement des dates au bon format pour l'insertion dans la BD
                         $dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
-                        var_dump($dates['dateDebut']);
-                        var_dump($dates['dateFin']);
 
                         $idChambre = htmlspecialchars($_POST['idChambre']);
                         $data = array(

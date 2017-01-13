@@ -15,19 +15,23 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 # TODO
 
 - Allow to select some prestations when add reservations on user side
-- Corrections on the list of reservations on user side
-- Verification for the reservation addition in DB on user side (see the 11/01's commits)
-- Details for reservations on user profil page
+- Validate the reservation on user side
 - Provide to cancel a reservation for user
 
 # Commits
+
+
+- 13/01 
+    *       Corrections on the list of reservations on user side       
+    *       Verification for the reservation addition in DB on user side (see the 11/01's commits)
+    *       Details for reservations on user profil page
 
 <br>
 - 11/01
     *       Insert date format fixed
     *       Display the current date for input default value
     *       Display the name of chambre and user for input value
-    *       Bug fixed on function ModelReservation::getPrixTotal() and ModelReservation::getNombreJours() 
+    *       Bug fixed on function ModelReservation::getPrixTotal() and ModelReservation::getNombreNuits() 
     *       Verification dates disabled for reservations 
     
 <br>
