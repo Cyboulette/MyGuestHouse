@@ -33,7 +33,7 @@
 		{ // Vérifications à faire
 			self::isAdmin();
 			if (isset($_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-				if(ControllerDefault::getDiffJours($_POST['dateFin'],$_POST['dateDebut']) > 0){
+				if(ControllerDefault::getDiffJours($_POST['dateDebut'], $_POST['dateFin']) > 0){
 					if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
 
 						$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);

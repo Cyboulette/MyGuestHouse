@@ -37,7 +37,11 @@
                 $nbPrestations = count(ModelPrestation::selectAllByReservation($reservations->get('idReservation')));
 
                 $prix = $reservations->getPrixTotal();
-                $duree = ControllerDefault::getDiffJours($reservations->get('dateDebut'), $reservations->get('dateFin'));
+
+                var_dump($reservations->get('dateDebut'));
+                // Gestion des dates
+                $dates = ControllerDefault::getDateForBdFormat($reservations->get('dateDebut'), $reservations->get('dateFin'));
+                $duree = ControllerDefault::getDiffJoursWithBDFormat($reservations->get('dateDebut'), $reservations->get('dateFin'));
 
                 echo '<tr>';
                 echo '<td>' . $nomchambre .         '</td>';

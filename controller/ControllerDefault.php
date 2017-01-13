@@ -520,34 +520,39 @@ class Conf {
 
 
 		/**
-		 * @param string the dateDebut
-		 * @param string the dateFin
-		 * @return int
+		 * @param $date1 the date with the format d/m/Y
+		 * @param $date2 the date with the format d/m/Y
+		 * @return int|null
 		 */
 		public static function getDiffJours($date1, $date2){
-			$datetime1 = new DateTime($date1);
-			$datetime2 = new DateTime($date2);
+			$dates = ControllerDefault::getDateForBdFormat($date1, $date2);
+			$datetime1 = date_create($dates['dateDebut']);
+			$datetime2 = date_create($dates['dateFin']);
+			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
 
-			var_dump($datetime1);
-			var_dump($datetime2);
-			var_dump($datetime1->diff($datetime2)->format("%a"));
-
-			if($datetime1 > $datetime2){
-				return null;
+			if($interval < 0){
+				return $interval;
 			} else {
-				return $datetime1->diff($datetime2)->format("%a");
+				return $interval;
 			}
 		}
 
-		public static function getDiffJours2($dateDebut, $dateFin) {
-			$format = '%d/%m/%Y';
-			$dateDebut = strftime($dateDebut, $format);
-			$dateFin = strftime($dateFin, $format);
 
-			var_dump($dateDebut);
-			var_dump($dateFin);
+		/**
+		 * @param $dateDebut the date with the format Y-m-d
+		 * @param $dateFin	the date with the format Y-m-d
+		 * @return int|null
+		 */
+		public static function getDiffJoursWithBDFormat($dateDebut, $dateFin) {
+			$datetime1 = new DateTime($dateDebut);
+			$datetime2 = new DateTime($dateFin);
+			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
 
-			return null;
+			if($interval < 0){
+				return $interval;
+			} else {
+				return $interval;
+			}
 		}
 	}
 ?>

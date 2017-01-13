@@ -64,7 +64,7 @@
          */
         public static function addReservation($message = null){
             if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-                if(ControllerDefault::getNombreJours($_POST['dateDebut'], $_POST['dateFin']) != null) {
+                if(ControllerDefault::getNombreJours($_POST['dateDebut'], $_POST['dateFin']) > 0) {
                     if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
                         $idUtilisateur = $_SESSION['idUser'];
                         $dateDebut = htmlspecialchars($_POST['dateDebut']);
