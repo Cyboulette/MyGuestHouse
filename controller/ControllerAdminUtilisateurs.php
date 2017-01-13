@@ -70,19 +70,24 @@
 			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['rang'])){
 
 				if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null && $_POST['rang']!=null){
-
-					$lutilisateur = array(
-						'idUtilisateur' => $_POST['id'],
-						'emailUtilisateur' => $_POST['email'],
-						'nomUtilisateur' => $_POST['nom'],
-						'prenomUtilisateur' => $_POST['prenom'],
-						'rang' => $_POST['rang'],
-					);
-					$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
-					if($update!=false){
-						$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+					//if is admin  rang = admin
+					$checkUser = ModelUtilisateur::select($_POST['id']);
+					if($checkUser){
+						$lutilisateur = array(
+							'idUtilisateur' => $_POST['id'],
+							'emailUtilisateur' => $_POST['email'],
+							'nomUtilisateur' => $_POST['nom'],
+							'prenomUtilisateur' => $_POST['prenom'],
+							'rang' => $_POST['rang']
+						);
+						$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+						if($update!=false){
+							$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+						}else{
+							$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+						}
 					}else{
-						$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+						$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas !</div>';
 					}
 				}else{
 					$message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';

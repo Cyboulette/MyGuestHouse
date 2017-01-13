@@ -5,9 +5,9 @@
         exit();
     }else{
     	$id = $utilisateur->get('idUtilisateur');
-        $nom = $utilisateur->get('nomUtilisateur');
-        $prenom = $utilisateur->get('prenomUtilisateur');
-        $email = $utilisateur->get('emailUtilisateur');
+      $nom = $utilisateur->get('nomUtilisateur');
+      $prenom = $utilisateur->get('prenomUtilisateur');
+      $email = $utilisateur->get('emailUtilisateur');
 	    $rang = $utilisateur->get('rang') ;
 	    $statut = $utilisateur->get('nonce');
 
@@ -42,7 +42,7 @@
     	<form class='col-xs-offset-1' method='post' action='?controller=adminUtilisateurs&action=edited&idUtilisateur={$id}' enctype='multipart/form-data'>
 
       		<div class='form-group row'>
-          		<label for='id_email' class='col-sm-3 control-label'>E_mail : </label>
+          		<label for='id_email' class='col-sm-3 control-label'>E-mail : </label>
           		<div class="col-sm-9">
           			<?php  echo "<input class='form-control' type='email' name='email' id='id_email' value='{$email}'>"; ?>       		
           		</div>
@@ -65,7 +65,7 @@
       		<div class='form-group row'>
             <label class='col-sm-3 control-label' for='id_rang'>Rang de l'utilisateur :</label>
             <div class="col-sm-9">
-      				<select multiple class='form-control' name='rang' id='id_rang'>
+      				<select multiple class='form-control'  name='rang' id='id_rang'>
       					<?php echo "<option value='1' {$rang1}>Visiteur</option>"; ?>
       					<?php echo "<option value='2' {$rang2}>Membre</option>"; ?>
       					<?php echo "<option value='3' {$rang3}>Administrateur</option>"; ?>
