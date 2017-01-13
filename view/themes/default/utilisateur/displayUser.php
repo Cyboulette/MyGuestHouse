@@ -97,38 +97,40 @@
 								<h2 class='text-center'>Ajouter un avis a nos chambres</h2>
 								<form class="form-horizontal" method="post" action="index.php?controller=avis&action=add">
 									<div class="form-group">
-										<label for="id_chambre" class="col-xs-3 control-label text-left">Nom de la chambre :</label>
-									    <select class="form-control" name='idChambre' id='id_chambre'>
-											<?php
-												foreach ($listeChambreForAvis as $key => $value) {
-													$idChambre = $value[0];
-													$chambre = ModelChambre::select($idChambre);
-													if($chambre!=false){
-														if($key==0){
-															$select="selected='selected'";
-														}else{
-															$select="";
+										<label for="id_chambre" class="col-lg-2 control-label">Nom de la chambre :</label>
+										<div class="col-lg-10">
+										    <select class="form-control" name='idChambre' id='id_chambre'>
+												<?php
+													foreach ($listeChambreForAvis as $key => $value) {
+														$idChambre = $value[0];
+														$chambre = ModelChambre::select($idChambre);
+														if($chambre!=false){
+															if($key==0){
+																$select="selected='selected'";
+															}else{
+																$select="";
+															}
+															$nomChambre = $chambre->get('nomChambre');
+												?>
+															<option class="form-control" value=<?=$idChambre?> <?=$select?> ><?=$nomChambre?></option>
+												<?php
 														}
-														$nomChambre = $chambre->get('nomChambre');
-											?>
-														<option value=<?=$idChambre?> <?=$select?> ><?=$nomChambre?></option>
-											<?php
 													}
-												}
-											?>
-										</select>
+												?>
+											</select>
+										</div>
 									</div>
 
 									<div class="form-group row">
-									    <label for="id_note" class="col-xs-2 control-label">Note :</label>
-									    <div class="col-xs-10">
+									    <label for="id_note" class="col-lg-2 control-label">Note :</label>
+									    <div class="col-lg-10">
 									      <input type="number" min="0" max="5" class="form-control" placeholder='0..5' name="note" id="id_note">
 									    </div>
 									</div>
 
 									<div class="form-group row">
-									    <label for="id_avis" class="col-xs-2 control-label">Avis :</label>
-									    <div class="col-xs-10">
+									    <label for="id_avis" class="col-lg-2 control-label">Avis :</label>
+									    <div class="col-lg-10">
 									      <textarea id="id_avis" name="avis" placeholder='Votre avis sur la chambre !' class="form-control"></textarea>
 									    </div>
 									</div>
