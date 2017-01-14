@@ -30,9 +30,11 @@
 			if( (isset($_GET['idUtilisateur']) && $_GET['idUtilisateur']!=null) || (isset($idUser) && $idUser!=null) ){
 
 				if(isset($_GET['idUtilisateur'])){
-					$utilisateur = ModelUtilisateur::select(htmlspecialchars($_GET['idUtilisateur']));
+					$idUtilisateur = htmlspecialchars($_GET['idUtilisateur']);
+					$utilisateur = ModelUtilisateur::select($idUtilisateur);
 				}else if(isset($idUser)){
-					$utilisateur = ModelUtilisateur::select(htmlspecialchars($idUser));
+					$idUtilisateur = htmlspecialchars($idUser);
+					$utilisateur = ModelUtilisateur::select($idUtilisateur);
 				}
 
 				
