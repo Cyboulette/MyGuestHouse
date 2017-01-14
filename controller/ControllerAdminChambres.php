@@ -20,15 +20,15 @@
 	            $idChambre = $_GET["idChambre"];
 		        $chambre = ModelChambre::select($idChambre);
 	            if ($chambre!=false) {
-	                $tab_photo = ModelChambre::selectPhoto($idChambre);
+	                $tab_photo = $chambre->selectPhoto();
 	                $tab_detail = ModelDetail::selectForChambre($idChambre);
 	                $tab_prestation = ModelPrestation::selectAllByChambre($idChambre);
 
 	                $compteur = true;
-	                foreach ($tab_photo as $key => $value) {
-	                  $photo = $tab_photo[$key][0];
-	                  if (!file_exists(File::build_path(array($photo)))) {
-	                    ModelChambre::delatePhoto($photo);// suppression de la photo de la bdd si elle nexiste pas physiquement
+	                foreach ($tab_photo as $photo) {
+	                  $image = $photo['urlVisuel'];
+	                  if (!file_exists(File::build_path(array($image)))) {
+	                    ModelChambre::deleteImage($photo['idVisuel']);// suppression de la photo de la bdd si elle nexiste pas physiquement
 	                    $compteur = false;
 	                  }
 	                }

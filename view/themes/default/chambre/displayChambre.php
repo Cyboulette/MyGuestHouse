@@ -109,7 +109,7 @@
         echo " 
             <div class='descriptionChambre'> 
               <div> 
-                <h4>Descriptions :<h4> 
+                <h4>Description :<h4> 
               </div> 
               <ul> 
                 <li> 

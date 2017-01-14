@@ -19,7 +19,7 @@
         $listeChambreForAvis = ModelAvis::listeChambresPourAvis($idUtilisateur);
 
         $nbReservation = count(ModelReservation::selectAllByUser($idUtilisateur));
-        if($reservation>1){
+        if($nbReservation>1){
         	$SOfReservation = 's';
         }else{
         	$SOfReservation =	'';

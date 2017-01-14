@@ -35,7 +35,7 @@
 
 
     foreach ($tab_photo as $key => $value) { 
-      $photo = $tab_photo[$key][0];
+      
       echo "
         <li data-target='#myCarousel' data-slide-to=$key
       ";
@@ -56,7 +56,7 @@
     ";
 
     foreach ($tab_photo as $key => $value) { 
-      $photo = $tab_photo[$key][0];
+      $photo = $value['urlVisuel'];
       echo "
         <div class='item  
       ";
