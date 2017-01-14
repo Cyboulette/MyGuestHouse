@@ -66,7 +66,7 @@
 	</div>
 	<div class='row'>
 		<div class="col-lg-12 col-lg-offset-0">
-			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=contact&idUtilisateur=ABC' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>"; ?>
+			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=contact&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>"; ?>
 			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=edit&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?>
 			<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="<?=$idUtilisateur?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 		</div>
@@ -88,14 +88,17 @@
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 			<div class="panel-body">
+
+				<?php if ($tab_reservations != null) { ?>
+
 				<div class="container">
 					<ul class="no-puce">
 						<li>Recapitulatif du client :</li>
 						<ul class="no-puce">
-							<li><?=count(ModelReservation::getReservationsEnCours($idUtilisateur))?> réservation en cours.</li>
-							<li><?=count(ModelReservation::getReservationsEnAttente($idUtilisateur))?> réservation en attente.</li>
-							<li><?=count(ModelReservation::getReservationsFinis($idUtilisateur))?> réservation finie.</li>
-							<li class="text-danger"><?=count(ModelReservation::getReservationsAnnulee($idUtilisateur))?> réservation annulée.</li>
+							<li><?=count($reservationsEnCours)?> réservation en cours.</li>
+							<li><?=count($reservationsEnAttente)?> réservation en attente.</li>
+							<li><?=count($reservationsFinies)?> réservation finie.</li>
+							<li class="text-danger"><?=count($reservationsAnnulees)?> réservation annulée.</li>
 						</ul>
 					</ul>
 				</div>
@@ -114,9 +117,17 @@
 					
 				<div class="container">
 					<ul class="no-puce">
-						<li class="text-success">Argent dépensé : <?=ModelReservation::selectAllPrixByUser($idUtilisateur)?> €</li>
+						<li class="text-success">Argent dépensé : <?=$argentDepense?> €</li>
 					</ul>
 				</div>
+
+				<?php } else { ?>
+					<div class="container">
+						<ul class="no-puce">
+							<li class="text-danger">Ce client n'a réservé aucune chambre ! <a href="#">envoyez lui un e-mail</a> </li>
+						</ul>
+					</div>
+				<?php } ?>
 
 			</div>
 		</div>

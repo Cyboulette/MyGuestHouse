@@ -1,4 +1,3 @@
-<!-- Todo : calculator module -->
 <?php if(!$powerNeeded) { exit(); } ?>
 <?php if(isset($message)) echo $message; ?>
 

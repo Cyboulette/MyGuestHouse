@@ -40,6 +40,19 @@
 					$view = 'readUser';
 					$pagetitle = 'Administration - un utilisateur';
 					$template = 'admin';
+
+					$reservationsEnCours = ModelReservation::getReservationsEnCours($idUtilisateur);
+					$reservationsEnAttente = ModelReservation::getReservationsEnAttente($idUtilisateur);
+					$reservationsFinies = ModelReservation::getReservationsFinis($idUtilisateur);
+					$reservationsAnnulees = ModelReservation::getReservationsAnnulee($idUtilisateur);
+					$argentDepense = ModelReservation::selectAllPrixByUser($idUtilisateur);
+					$tab_reservations = ModelReservation::selectAllByUser($idUtilisateur);
+
+					if ($tab_reservations != null) {
+						$dateDebutLastReservation = ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut');
+						$dateFinLastReservation = ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin');
+					}
+
 					require_once File::build_path(array("view", "main_view.php"));
 				}else{
 					$message = '<div class="alert alert-danger">Cet Utilisateur n\'existe plus !</div>';
@@ -61,6 +74,33 @@
 				$utilisateur = ModelUtilisateur::select($_GET['idUtilisateur']);
 
 				if($utilisateur!=false){
+					$id = $utilisateur->get('idUtilisateur');
+					$nom = $utilisateur->get('nomUtilisateur');
+					$prenom = $utilisateur->get('prenomUtilisateur');
+					$email = $utilisateur->get('emailUtilisateur');
+					$rang = $utilisateur->get('rang') ;
+					$statut = $utilisateur->get('nonce');
+
+					if($statut != null){
+						$statut = 'Non activé';
+					}else{
+						$statut = 'Activé';
+					}
+
+					if($rang=='1'){
+						$rang1="selected='selected'";
+						$rang2='';
+						$rang3='';
+					}else if($rang=='2'){
+						$rang1='';
+						$rang2="selected='selected'";
+						$rang3='';
+					}else if($rang=='3'){
+						$rang1='';
+						$rang2='';
+						$rang3="selected='selected'";
+					}
+
 					require_once File::build_path(array("view","main_view.php"));
 				}else{
 					$message = '<div class="alert alert-danger">Cet utilisateur n\'existe plus !</div>';
@@ -169,11 +209,11 @@
 			self::utilisateurs($message);
 		}
 
-	public static function preDeleteItem() {
+		public static function preDeleteItem() {
 		self::deleteItemForm("adminUtilisateurs", "ModelUtilisateur", "de l'utilisateur", "emailUtilisateur", 'idUtilisateur');
 	}
 
-	public static function deleteItem() {
+		public static function deleteItem() {
 		self::isAdmin();
 		if(isset($_POST['idItem'], $_POST['confirm'])) {
 			$idItem = htmlspecialchars($_POST['idItem']);
