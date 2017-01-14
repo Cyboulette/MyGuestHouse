@@ -4,13 +4,19 @@
       echo '<h1 class="page-header">Nos chambres</h1>'; 
   		echo'<div class="row placeholders">';
 		  	foreach ($tab_v as $chambre){
-		  		$nom = $chambre->get("nomChambre");
-		  		$prix = $chambre->get("prixChambre");
-          $id = $chambre->get("idChambre");
+		  		$nom = htmlspecialchars($chambre->get("nomChambre"));
+		  		$prix = htmlspecialchars($chambre->get("prixChambre"));
+          $id = htmlspecialchars($chambre->get("idChambre"));
+          $latestPhoto = $chambre->selectPhoto(true);
+          if($latestPhoto != false && file_exists(File::build_path(array($latestPhoto['urlVisuel'])))) {
+            $image = $latestPhoto['urlVisuel'];
+          } else {
+            $image = 'data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
+          }
 		        echo "
               <a href='?controller=chambre&action=read&idChambre=$id'>
-  		       		<div class='col-xs-12 col-sm-10 col-md-4 col-lg-4 placeholder'>
-                  <img src='data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' width='750' height='750' class='img-responsive' alt='Generic placeholder thumbnail'>
+  		       		<div class='col-xs-12 col-sm-10 col-md-4 col-lg-4 placeholder' data-mh='chambre-da'>
+                  <img src='".$image."' class='img-responsive imgChambreDA'>
          		 			<h4>{$nom}</h4>
           				<span class='text-muted'>{$prix} <span class='glyphicon glyphicon-eur' aria-hidden='true'></span></span>
       				  </div>
@@ -19,7 +25,7 @@
 		    }
 		  echo '</div>';	
   	}else{
-  		echo '<div class="alert alert-danger">'."Il n'y a aucune chambre pour l'instant".'</div>';
+  		echo '<div class="alert alert-danger">Il n\'y a aucune chambre pour l\'instant</div>';
   	}
   ?>
 </div>

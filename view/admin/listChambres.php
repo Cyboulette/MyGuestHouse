@@ -22,6 +22,7 @@ if(empty($tab_chambres)) {
 	echo '<th>Superficie</th>';
 	echo '<th>Prestations</th>';
 	echo '<th>Détails</th>';
+	echo '<th>Images</th>';
 	echo '<th>Actions</th>';
 	echo '</tr>';
 	echo '</thead>';
@@ -30,10 +31,9 @@ if(empty($tab_chambres)) {
 		$nom = htmlspecialchars($chambre->get('nomChambre'));
 		$prix = htmlspecialchars($chambre->get('prixChambre'));
 		$superficie = htmlspecialchars($chambre->get('superficieChambre'));
-		// $nbPrestations = count(ModelChambre::selectPrestation($id));
-		// $nbDetails = count(ModelChambre::selectDetail($id));
 		$nbPrestations = count(ModelPrestation::selectAllByChambre($id));
 		$nbDetails = count(ModelDetail::selectAllByChambre($id));
+		$nbImages = count($chambre->selectPhoto());
 		echo '<tr>';
 		echo '<td>'.$id.'</td>';
 		echo '<td>'.$nom.'</td>';
@@ -41,6 +41,7 @@ if(empty($tab_chambres)) {
 		echo '<td>'.$superficie.' m²</td>';
 		echo '<td><a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
 		echo '<td><a href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-primary">'.$nbDetails.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+		echo '<td><button type="button" class="btn btn-xs btn-primary btnImages" data-action="imagesForm" data-id="'.$id.'">'.$nbImages.' <i class="fa fa-cog" aria-hidden="true"></i></button></td>';
 		echo '<td>
 					<a href="index.php?controller=adminChambres&action=read&idChambre='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir la chambre</a>
 
@@ -55,6 +56,17 @@ if(empty($tab_chambres)) {
 
 	/* BOOTSTRAP MODAL */
 	?>
+	<div id="imagesModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Gestion des images d'une chambre</h4>
+				</div>
+				<div class="modal-body"></div>
+			</div>
+		</div>
+	</div>
 	<div id="deleteItem" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">

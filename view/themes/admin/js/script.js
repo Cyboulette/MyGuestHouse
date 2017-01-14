@@ -1,6 +1,6 @@
 // Script pour datepicker
 $( function() {
-	if(date != null) {
+	if(typeof date !== "undefined") {
 		$('#datepickerDebut, #datepickerFin').datepicker({
 			language: "fr",
 			format: "dd/mm/yyyy",
@@ -35,7 +35,6 @@ $('.btnDelete').on('click', function(e) {
 	if(currentMode != null) {
 		urlAction += '&mode='+currentMode;
 	}
-	console.log(urlAction);
 	$.ajax({
 		type: "POST",
 		url: 'index.php?controller='+urlAction+'&action=preDeleteItem',
@@ -50,6 +49,41 @@ $('.btnDelete').on('click', function(e) {
 		}
 	});
 });
+function imagesBtn() {
+$('.btnImages').unbind('click').on('click', function(e) {
+	e.preventDefault();
+	$("#imagesModal .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
+	var idChambre = $(this).attr('data-id');
+	var action = $(this).attr('data-action');
+	if(action == "deleteImageForm") {
+		var idChambre = $(this).parent().parent().attr('data-chambre');
+		var idVisuel = $(this).parent().parent().attr('data-visuel');
+		var dataToPost = 'idChambre='+encodeURIComponent(idChambre)+'&idVisuel='+encodeURIComponent(idVisuel);
+	} else {
+		var dataToPost = 'idChambre='+encodeURIComponent(idChambre);
+	}
+
+	if(action != "deleteImageForm") {
+		$("#imagesModal").modal('toggle');
+	}
+
+	$.ajax({
+		type: "POST",
+		url: 'index.php?controller=adminChambres&action='+action,
+		data: dataToPost,
+		dataType: 'json',
+		success : function(retour) {
+			console.log(retour);
+			$("#imagesModal .modal-body").html(retour.message);
+		},
+		error: function(retour) {
+			console.log(retour);
+		}
+	});
+});
+};
+
+imagesBtn();
 
 $('.btnSelectTheme').on('click', function(e) {
 	e.preventDefault();

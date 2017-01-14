@@ -11,45 +11,39 @@ class ControllerChambre {
     }
 
     public static function read($message=null){
-    	$view = 'displayChambre';
-    	$pagetitle = 'detail de la chambre';
-    	$powerNeeded = true;
+        $view = 'displayChambre';
+        $pagetitle = 'detail de la chambre';
+        $powerNeeded = true;
 
 
 
-    	if (isset($_GET["idChambre"]) || isset($_GET["forChambre"])){
-
+        if (isset($_GET["idChambre"]) || isset($_GET["forChambre"])){
             if (isset($_GET['idChambre'])) {
-               $idChambre = htmlspecialchars($_GET['idChambre']);
-            }elseif(isset($_GET['forChambre'])){
-               $idChambre = htmlspecialchars($_GET['forChambre']);
+                $idChambre = htmlspecialchars($_GET['idChambre']);
+            } elseif(isset($_GET['forChambre'])) {
+                $idChambre = htmlspecialchars($_GET['forChambre']);
             }
 
-	        $chambre = ModelChambre::select($idChambre);
+            $chambre = ModelChambre::select($idChambre);
             if ($chambre!=false) {
-                $tab_photo = ModelChambre::selectPhoto($idChambre);
+                $tab_photo = $chambre->selectPhoto();
                 $tab_detail = ModelDetail::selectForChambre($idChambre);
                 $tab_prestation = ModelPrestation::selectAllByChambre($idChambre);
 
-                $compteur = true;
-                foreach ($tab_photo as $key => $value) {
-                  $photo = $tab_photo[$key][0];
-                  if (!file_exists(File::build_path(array($photo)))) {
-                    ModelChambre::delatePhoto($photo);// suppression de la photo de la bdd si elle nexiste pas physiquement
-                    $compteur = false;
-                  }
+                foreach ($tab_photo as $photo) {
+                    $image = $photo['urlVisuel'];
+                    if (!file_exists(File::build_path(array($image)))) {
+                        ModelChambre::deleteImage($photo['idVisuel']);
+                    }
                 }
-                if (!$compteur) {
-                    $tab_photo = ModelChambre::selectPhoto($idChambre);
-                }
-                
+
                 require_once File::build_path(array("view","main_view.php"));
-            }else{
+            } else {
                 self::readAll();
             }
-    	}else{
-    		self::readAll();
-    	}  	
+        } else {
+            self::readAll();
+        }  	
     }
 }
 ?>

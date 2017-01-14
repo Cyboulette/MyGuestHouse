@@ -65,25 +65,13 @@ $classAditional = '';
 					$nomChambre = htmlspecialchars($chambre->get('nomChambre'));
 					$descriptionChambre = ControllerDefault::truncate(htmlspecialchars($chambre->get('descriptionChambre')), 255);
 					$prixChambre = htmlspecialchars($chambre->get('prixChambre'));
-					$tab_photos = ModelChambre::selectPhoto($idChambre);
-					if(!empty($tab_photos)) {
-						$compteur = 0;
-						foreach($tab_photos as $photo) {
-							if($compteur < 1) {
-								if(file_exists(File::build_path(array($photo['urlVisuel'])))) {
-									$compteur++;
-									break;
-								}
-							} else {
-								break;
-							}
+					$latestPhoto = $chambre->selectPhoto(true);
+					if($latestPhoto != false) {
+						if(file_exists(File::build_path(array($latestPhoto['urlVisuel'])))) {
+							$image = '<img data-mh="group-img" src="'.$latestPhoto['urlVisuel'].'" class="img-responsive" alt="">';
+						} else {
+							$image = '<div data-mh="group-img" class="alert alert-info text-center">Nous ne disposons d\'aucune photo pour cette chambre</div>';
 						}
-					} else {
-						$compteur = 0;
-					}
-
-					if($compteur == 1) {
-						$image = '<img data-mh="group-img" src="'.$photo['urlVisuel'].'" class="img-responsive" alt="">';
 					} else {
 						$image = '<div data-mh="group-img" class="alert alert-info text-center">Nous ne disposons d\'aucune photo pour cette chambre</div>';
 					}

@@ -23,42 +23,67 @@ class ModelChambre extends Model {
         }
     }
 
-    public static function selectPhoto($idChambre){
+    public function selectPhoto($latest = false){
         try {
-            $sql = "SELECT `urlVisuel` FROM `GH_VisuelsChambres` WHERE idChambre=:tag_idChambre";
+            $sql = "SELECT * FROM `GH_VisuelsChambres` WHERE `idChambre` = :tag_idChambre";
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
-                'tag_idChambre' => $idChambre
+                'tag_idChambre' => $this->idChambre
             );
 
             $rep->execute($values);
-            $result = $rep->fetchAll();
+            if($latest) {
+                $result = $rep->fetch();
+            } else {
+                $result = $rep->fetchAll();
+            }
 
             return $result;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else {
-                echo "Une erreur est survenue ! Merci de réessayer plus tard";
             }
             return false;
             die();
         }
     }
 
-    //a verifier//
-    public static function updatePhoto($before_p, $after_p){
-        try{
-            $sql= "UPDATE `GH_VisuelsChambres` SET urlVisuel = :tag_after_p WHERE idVisuel = :tag_before_p";
-            $updateUrl=Model::$pdo->prepare($sql);
+    public static function getImage($idChambre, $idVisuel) {
+        try {
+            $sql = "SELECT * FROM `GH_VisuelsChambres` WHERE `idChambre` = :idChambre AND `idVisuel` = :idVisuel";
+            $rep = Model::$pdo->prepare($sql);
 
-            $value=array(
-                'tag_before_p' => $before_p,
-                'tag_after_p' => $after_p,
+            $values = array(
+                'idChambre' => $idChambre,
+                'idVisuel' => $idVisuel
             );
 
-            $updateUrl->execute($value);
+            $rep->execute($values);
+            $result = $rep->fetch();
+
+            return $result;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
+
+    public function addPhoto($urlVisuel){
+        try {
+            $sql = "INSERT INTO `GH_VisuelsChambres` VALUES(:idVisuel, :idChambre, :urlVisuel)";
+            $rep = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'idVisuel' => NULL,
+                'idChambre' => $this->idChambre,
+                'urlVisuel' => $urlVisuel
+            );
+
+            $rep->execute($values);
             return true;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
@@ -69,16 +94,17 @@ class ModelChambre extends Model {
         }
     }
 
-    public static function delatePhoto($url){
-        try{
-            $sql= "DELETE FROM `GH_VisuelsChambres` WHERE `urlVisuel`= :tag_url";
-            $updateUrl=Model::$pdo->prepare($sql);
 
-            $value=array(
-                'tag_url' => $url,
+    public static function deleteImage($idVisuel){
+        try{
+            $sql = "DELETE FROM `GH_VisuelsChambres` WHERE `idVisuel` = :idVisuel";
+            $delete = Model::$pdo->prepare($sql);
+
+            $values = array(
+                'idVisuel' => $idVisuel,
             );
 
-            $updateUrl->execute($value);
+            $delete->execute($values);
             return true;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {

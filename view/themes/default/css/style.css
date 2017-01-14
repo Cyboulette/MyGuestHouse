@@ -26,60 +26,11 @@ body {
 	padding-left: 15px;
 }
 
-/* Gestion des produits */
-
-.produit {
-	border: 1px solid #e7e7e7;
-	padding: 5px;
-	border-radius: 5px;
-	text-align: center;
-	background-color: #f8f8f8;
-	margin-bottom: 15px;
-}
-
-.produit:not(.noHover):hover {
-	background: rgb(200, 154, 91);
-	color: white;
-}
-
-.produit:hover .description {
-	color: #333;
-}
-
-.produit:hover img {
-	background: white;
-}
-
-.produit img {
-	height: 150px;
-}
-
-.produit .details {
-	margin-bottom: 5px;
-}
-
 .input-group .input-number, .quantity {
 	width: 50px;
 	text-align: center;
 }
 
-.quantity {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.produit .description {
-	background: url('../images/last-products-bg.png');
-	padding: 20px;
-	border: 1px solid #e7e7e7;
-	border-left: none;
-	border-right: none;
-	margin-top: 15px;
-	margin-bottom: 10px;
-	margin-left: -5px;
-	margin-right: 0px;
-	width: calc(100% + 10px);
-}
 
 /* Correction des titles sur bootstrap */
 
@@ -232,6 +183,11 @@ body {
 .room-img img {
 	height: 200px;
 	width: 100%;
+}
+
+.imgChambreDA {
+	width: 200px;
+	height: 200px;
 }
 
 .room-img .alert {

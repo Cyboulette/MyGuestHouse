@@ -46,8 +46,7 @@
             ";
 
 
-            foreach ($tab_photo as $key => $value) { 
-                $photo = $tab_photo[$key][0];
+            foreach ($tab_photo as $key => $value) {
                 echo "
                         <li data-target='#myCarousel' data-slide-to=$key
                 ";
@@ -68,7 +67,7 @@
             ";
 
             foreach ($tab_photo as $key => $value) { 
-                $photo = $tab_photo[$key][0];
+                $photo = $value['urlVisuel'];
                 echo "
                     <div class='item  
                 ";
@@ -196,8 +195,8 @@
         } 
     ?> 
 
-    <?='<a class="button" href="index.php?controller=reservation&action=reservationChambre&idChambre='.$id.'">Réserver la !</a>';?>
-
+    <div class="text-center"><a class="btn btn-success btn-lg" href="index.php?controller=reservation&action=reservationChambre&idChambre=<?=$id?>"><i class="fa fa-calendar" aria-hidden="true"></i> Réserver cette chambre</a></div>
+    <hr/>
 
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
