@@ -66,7 +66,7 @@
 	</div>
 	<div class='row'>
 		<div class="col-lg-12 col-lg-offset-0">
-			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=contact&idUtilisateur=ABC' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>"; ?>
+			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=contact&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>"; ?>
 			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=edit&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?>
 			<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="<?=$idUtilisateur?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
 		</div>
