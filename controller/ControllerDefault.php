@@ -560,6 +560,9 @@ class Conf {
 		 * @return mixed the last object in $listObject
 		 */
 		public static function getLastObject(Array $listObject){
+			if($listObject === null ) {
+				return null;
+			}
 			$result = null;
 			foreach ($listObject as $object) {
 				$result = $object;

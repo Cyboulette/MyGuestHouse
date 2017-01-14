@@ -18,6 +18,7 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 - Remake the form for view all chambres !   
 - Ask to validate when a user add a reservation and add a prestations on reservation 
 - Provide to cancel a reservation for user
+- Display good prestations for chambre whe user want to add some in the reservation
 
 # Commits
 

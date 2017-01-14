@@ -28,11 +28,25 @@
 		public static function read(){
 			$powerNeeded = self::isAdmin();
 			if(isset($_GET['idUtilisateur']) && $_GET['idUtilisateur']!=null){
-				$utilisateur = ModelUtilisateur::select($_GET['idUtilisateur']);
+				$idUtilisateur = htmlspecialchars($_GET['idUtilisateur']);
+				$utilisateur = ModelUtilisateur::select($idUtilisateur);
 				if($utilisateur!=false){
 					$view = 'readUser';
 					$pagetitle = 'Administration - un utilisateur';
 					$template = 'admin';
+
+					$reservationsEnCours = ModelReservation::getReservationsEnCours($idUtilisateur);
+					$reservationsEnAttente = ModelReservation::getReservationsEnAttente($idUtilisateur);
+					$reservationsFinies = ModelReservation::getReservationsFinis($idUtilisateur);
+					$reservationsAnnulees = ModelReservation::getReservationsAnnulee($idUtilisateur);
+					$argentDepense = ModelReservation::selectAllPrixByUser($idUtilisateur);
+					$tab_reservations = ModelReservation::selectAllByUser($idUtilisateur);
+
+					if ($tab_reservations != null) {
+						$dateDebutLastReservation = ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut');
+						$dateFinLastReservation = ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin');
+					}
+
 					require_once File::build_path(array("view", "main_view.php"));
 				}else{
 					$message = '<div class="alert alert-danger">cet Utilisateur n\'existe plus !</div>';

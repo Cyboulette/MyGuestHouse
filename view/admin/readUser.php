@@ -88,27 +88,40 @@
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 			<div class="panel-body">
+
+				<?php if ($tab_reservations != null) { ?>
+
 				<div class="container">
 					<ul class="no-puce">
 						<li>Recapitulatif du client :</li>
 						<ul class="no-puce">
-							<li><?=count(ModelReservation::getReservationsEnCours($idUtilisateur))?> réservation en cours.</li>
-							<li><?=count(ModelReservation::getReservationsEnAttente($idUtilisateur))?> réservation en attente.</li>
-							<li><?=count(ModelReservation::getReservationsFinis($idUtilisateur))?> réservation finie.</li>
-							<li class="text-danger"><?=count(ModelReservation::getReservationsAnnulee($idUtilisateur))?> réservation annulée.</li>
+							<li><?=count($reservationsEnCours)?> réservation en cours.</li>
+							<li><?=count($reservationsEnAttente)?> réservation en attente.</li>
+							<li><?=count($reservationsFinies)?> réservation finie.</li>
+							<li class="text-danger"><?=count($reservationsAnnulees)?> réservation annulée.</li>
 						</ul>
 					</ul>
 				</div>
+
 				<div class="container">
 					<ul class="no-puce">
-						<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
+						<li>Dernière réservation : du <?=$dateDebutLastReservation?> au <?=$dateFinLastReservation?></li>
 					</ul>
 				</div>
+
 				<div class="container">
 					<ul class="no-puce">
-						<li class="text-success">Argent dépensé : <?=ModelReservation::selectAllPrixByUser($idUtilisateur)?> €</li>
+						<li class="text-success">Argent dépensé : <?=$argentDepense?> €</li>
 					</ul>
 				</div>
+
+				<?php } else { ?>
+					<div class="container">
+						<ul class="no-puce">
+							<li class="text-danger">Ce client n'a réservé aucune chambre ! <a href="#">envoyez lui un e-mail</a> </li>
+						</ul>
+					</div>
+				<?php } ?>
 
 			</div>
 		</div>

@@ -18,13 +18,14 @@
         if(empty($tab_reservations)) {
             echo '<div class="alert alert-danger">Vous ne disposez d\'aucune réservation pour le moment</div>';
         } else {
-            echo '<div class="table-responsive"><table class="table table-hover tableCenter">';
+            echo '<div class="table-responsive"><table class="table tableCenter table-hover">';
             echo '<thead>';
             echo '<tr>';
             echo '<th>Nom de la chambre   </th>';
             echo '<th>Nombre de nuits     </th>';
             echo '<th>Prix                </th>';
             echo '<th>Prestations         </th>';
+            echo '<th>Action         </th>';
             echo '</tr>';
             echo '</thead>';
             foreach ($tab_reservations as $reservations) {
@@ -48,8 +49,8 @@
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
                 echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                echo '<td><a href="index.php?controller=reservation&action=annuleeReservation&idReservation=' . $id . '" class="btn btn-xs btn-danger btnDelete"><i class="fa fa-delete" aria-hidden="true"></i> Annuler</a></td>';
                 echo '</tr>';
-
 
             }
             echo '</table></div>';
