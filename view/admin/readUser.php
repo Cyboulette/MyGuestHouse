@@ -102,19 +102,11 @@
 						</ul>
 					</ul>
 				</div>
-				<?php  
-					if($nbReservation>0){
-				?>
-					<div class="container">
-						<ul class="no-puce">
-							<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
-						</ul>
-					</div>
-				<?php
-					}
-				?>
-
-					
+				<div class="container">
+					<ul class="no-puce">
+						<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
+					</ul>
+				</div>	
 				<div class="container">
 					<ul class="no-puce">
 						<li class="text-success">Argent dépensé : <?=$argentDepense?> €</li>

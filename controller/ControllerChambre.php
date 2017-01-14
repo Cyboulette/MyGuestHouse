@@ -34,6 +34,10 @@ class ControllerChambre {
                     $image = $photo['urlVisuel'];
                     if (!file_exists(File::build_path(array($image)))) {
                         ModelChambre::deleteImage($photo['idVisuel']);
+                        $pbPhoto = true;
+                    }
+                    if($pbPhoto=true){
+                        $tab_photo = $chambre->selectPhoto();
                     }
                 }
 
