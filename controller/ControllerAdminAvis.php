@@ -17,7 +17,7 @@
 		// 	$template = 'admin';
 			
 		// 	if (isset($_GET["idChambre"])) {
-	 //            $idChambre = $_GET["idChambre"];
+	 	//         $idChambre = $_GET["idChambre"];
 		//         $chambre = ModelChambre::select($idChambre);
 	 //            if ($chambre!=false) {
 	 //                $tab_photo = ModelChambre::selectPhoto($idChambre);
@@ -181,6 +181,10 @@
 
 
 
+		//--------------------------------------------------
+
+
+
 	   // 	public static function edit(){
 	   //    	if(ControllerUtilisateur::isConnected()){
 	   //       	if(isset($_GET['idUtilisateur'], $_GET['idChambre']) && $_GET['idUtilisateur']!=null && $_GET['idChambre']!=null ){
@@ -267,34 +271,74 @@
 	   //    }
 	   // }
 
-	   // public static function delete(){
-	   //    if(ControllerUtilisateur::isConnected()){
-	   //       if(isset($_GET['idUtilisateur'], $_GET['idChambre']) && $_GET['idUtilisateur']!=null && $_GET['idChambre']!=null ){
-	   //          $idUtilisateur = htmlspecialchars($_GET['idUtilisateur']);
-	   //          if($idUtilisateur=$_SESSION['idUser']){
-	   //             $idChambre = htmlspecialchars($_GET['idChambre']);
-	   //             $avis = ModelAvis::select($idUtilisateur, $idChambre);
-	   //             if($avis!=null){
-	   //                $delete = ModelAvis::delete($idUtilisateur, $idChambre);
-	   //                if($delete){
-	   //                   $message = '<div class="alert alert-success">la suppression de l\'avis est un succes !</div>';
-	   //                }else{
-	   //                   $message = '<div class="alert alert-danger">Nous n\'avons pas pu supprimer l\'avis, merci de réessayer plus tard !</div>';
-	   //                }
-	   //             }else{
-	   //                $message = '<div class="alert alert-danger">Cette avis n\'exists déja plus !</div>';
-	   //             }
-	   //          }else{
-	   //             $message = '<div class="alert alert-danger">Vous ne pouvez pas supprimmer un avis que vous n\'avez pas emis !</div>';
-	   //          }
-	   //       }else{
-	   //          $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer les information necessaire a la suppression de l\'avis !</div>';
-	   //       }
-	   //       ControllerUtilisateur::profil($message);
-	   //    }else{
-	   //       ControllerDefault::error('Vous devez être connecter pour effectuer cette action !');
-	   //    }
-	   // }
+	   	public static function delete(){
+	   		$powerNeeded = self::isAdmin();
+
+	   		if(isset($_GET['idUtilisateur'], $_GET['idChambre']) && $_GET['idUtilisateur']!=null && $_GET['idChambre']!=null ){
+	   			$idUtilisateur = htmlspecialchars($_GET['idUtilisateur']);
+				$idChambre = htmlspecialchars($_GET['idChambre']);
+
+        		$utilisateur = ModelUtilisateur::select($idUtilisateur);
+		        if($utilisateur!=null){
+					// if( $idUtilisateur == $_SESSION['idUser'] ){
+					// 	$oneself = true;
+					// }else{
+					// 	$oneself = false;
+					// }
+
+					// $nom = htmlspecialchars($utilisateur->get('nomUtilisateur'));
+					// $prenom = htmlspecialchars($utilisateur->get('prenomUtilisateur'));
+
+		        	$chambre = ModelChambre::select($idChambre);
+		        	if($chambre!=null){
+		        		$avis = ModelAvis::select($idUtilisateur, $idChambre);
+				        if($avis!=null){
+				            $delete = ModelAvis::delete($idUtilisateur, $idChambre);
+				            if($delete){
+				                $message = '<div class="alert alert-success">la suppression de l\'avis est un succes !</div>';
+				            }else{
+				                $message = '<div class="alert alert-danger">Nous n\'avons pas pu supprimer l\'avis, merci de réessayer plus tard !</div>';
+				            }
+				        }else{
+				            $message = '<div class="alert alert-danger">Cette avis n\'exists déja plus !</div>';
+				        }
+		        	}else{
+			        	$message = '<div class="alert alert-danger">Cette chambre n\'existe plus !</div>';
+			    	}  	
+			    }else{
+			        $message = '<div class="alert alert-danger">Cet utilisateur n\'existe plus !</div>';
+			    }  
+	   		}else{
+	   			$message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer le informations necessaires a la suppression de l\'avis !</div>';
+	   		}
+			ControllerAdminUtilisateurs::read($idUtilisateur, $message);
+		    // if(ControllerUtilisateur::isConnected()){
+		    //     if(isset($_GET['idUtilisateur'], $_GET['idChambre']) && $_GET['idUtilisateur']!=null && $_GET['idChambre']!=null ){
+		    //         $idUtilisateur = htmlspecialchars($_GET['idUtilisateur']);
+		    //         if($idUtilisateur=$_SESSION['idUser']){
+		    //            	$idChambre = htmlspecialchars($_GET['idChambre']);
+		    //            	$avis = ModelAvis::select($idUtilisateur, $idChambre);
+		    //            	if($avis!=null){
+		    //               	$delete = ModelAvis::delete($idUtilisateur, $idChambre);
+		    //               	if($delete){
+		    //                  	$message = '<div class="alert alert-success">la suppression de l\'avis est un succes !</div>';
+		    //               	}else{
+		    //                  	$message = '<div class="alert alert-danger">Nous n\'avons pas pu supprimer l\'avis, merci de réessayer plus tard !</div>';
+		    //               	}
+		    //            	}else{
+		    //               	$message = '<div class="alert alert-danger">Cette avis n\'exists déja plus !</div>';
+		    //            	}
+		    //         }else{
+		    //            	$message = '<div class="alert alert-danger">Vous ne pouvez pas supprimmer un avis que vous n\'avez pas emis !</div>';
+		    //         }
+		    //     }else{
+		    //         $message = '<div class="alert alert-danger">Nous n\'avons pas pu recuperer les information necessaire a la suppression de l\'avis !</div>';
+		    //     }
+		    //     ControllerUtilisateur::profil($message);
+		    // }else{
+		    //     ControllerDefault::error('Vous devez être connecter pour effectuer cette action !');
+		    // }
+	   	}
 
 
 	}

@@ -25,17 +25,24 @@
 			require_once File::build_path(array("view","main_view.php"));
 		}
 
-		public static function read(){
+		public static function read($idUser = null, $message = null){
 			$powerNeeded = self::isAdmin();
-			if(isset($_GET['idUtilisateur']) && $_GET['idUtilisateur']!=null){
-				$utilisateur = ModelUtilisateur::select($_GET['idUtilisateur']);
+			if( (isset($_GET['idUtilisateur']) && $_GET['idUtilisateur']!=null) || (isset($idUser) && $idUser!=null) ){
+
+				if(isset($_GET['idUtilisateur'])){
+					$utilisateur = ModelUtilisateur::select(htmlspecialchars($_GET['idUtilisateur']));
+				}else if(isset($idUser)){
+					$utilisateur = ModelUtilisateur::select(htmlspecialchars($idUser));
+				}
+
+				
 				if($utilisateur!=false){
 					$view = 'readUser';
 					$pagetitle = 'Administration - un utilisateur';
 					$template = 'admin';
 					require_once File::build_path(array("view", "main_view.php"));
 				}else{
-					$message = '<div class="alert alert-danger">cet Utilisateur n\'existe plus !</div>';
+					$message = '<div class="alert alert-danger">Cet Utilisateur n\'existe plus !</div>';
 					self::utilisateurs($message);
 				}
 			}else{

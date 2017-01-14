@@ -99,11 +99,19 @@
 						</ul>
 					</ul>
 				</div>
-				<div class="container">
-					<ul class="no-puce">
-						<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
-					</ul>
-				</div>
+				<?php  
+					if($nbReservation>0){
+				?>
+					<div class="container">
+						<ul class="no-puce">
+							<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
+						</ul>
+					</div>
+				<?php
+					}
+				?>
+
+					
 				<div class="container">
 					<ul class="no-puce">
 						<li class="text-success">Argent dépensé : <?=ModelReservation::selectAllPrixByUser($idUtilisateur)?> €</li>
@@ -168,11 +176,9 @@
 							            </li> 
 							        </ul> 
 							        <?php echo "<a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>" ?>
-							        <?php echo "<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>" ?>
+							        <?php echo "<a href='?controller=AdminAvis&action=delete&idUtilisateur={$idUtilisateur}&idChambre={$idChambre}' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>" ?>
 						        </div>
 							</div>
-
-
 				<?php
 						}
 					}else{
