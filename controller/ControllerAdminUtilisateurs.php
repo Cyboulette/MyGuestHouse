@@ -96,9 +96,16 @@
 						$rang2="selected='selected'";
 						$rang3='';
 					}else if($rang=='3'){
-						$rang1='';
-						$rang2='';
-						$rang3="selected='selected'";
+						if($id == $_SESSION['idUser']){
+							$rang1='disabled="disabled"';
+							$rang2='disabled="disabled"';
+							$rang3="selected='selected'";
+						}else{
+							$rang1='';
+							$rang2='';
+							$rang3="selected='selected'";
+						}
+							
 					}
 
 					require_once File::build_path(array("view","main_view.php"));
@@ -115,23 +122,34 @@
 		public static function edited(){
 			$powerNeeded = self::isAdmin();
 			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['rang'])){
-
 				if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null && $_POST['rang']!=null){
 					//if is admin  rang = admin
-					$checkUser = ModelUtilisateur::select($_POST['id']);
+					$id = htmlspecialchars($_POST['id']);
+					$rang = htmlspecialchars($_POST['rang']);
+					$checkUser = ModelUtilisateur::select($id);
 					if($checkUser){
-						$lutilisateur = array(
-							'idUtilisateur' => $_POST['id'],
-							'emailUtilisateur' => $_POST['email'],
-							'nomUtilisateur' => $_POST['nom'],
-							'prenomUtilisateur' => $_POST['prenom'],
-							'rang' => $_POST['rang']
-						);
-						$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
-						if($update!=false){
-							$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+						if($id = $_SESSION && $rang!=3){
+							$verifAdmin = false;
 						}else{
-							$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+							$verifAdmin = true;
+						}
+
+						if($verifAdmin){
+							$lutilisateur = array(
+								'idUtilisateur' => $id,
+								'emailUtilisateur' => htmlspecialchars($_POST['email']),
+								'nomUtilisateur' => htmlspecialchars($_POST['nom']),
+								'prenomUtilisateur' => htmlspecialchars($_POST['prenom']),
+								'rang' => $rang
+							);
+							$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+							if($update!=false){
+								$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+							}else{
+								$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+							}
+						}else{
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas modifier vous même votre rang !</div>';
 						}
 					}else{
 						$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas !</div>';

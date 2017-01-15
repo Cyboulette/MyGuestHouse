@@ -43,10 +43,10 @@
 				</div>
 				<div class=" col-sm-9">
 					<div class="col-md-12">
-						<h4>Prenom : <?=$prenom?> 
+						<h4>Prenom : <?=$prenom?></h4> 
 					</div>
 					<div class="col-md-12">
-						<h4>Prenom : <?=$nom?> 
+						<h4>Prenom : <?=$nom?></h4>  
 					</div>
 					<div class="col-md-12">
 						<h4>Mail : <?=$email?></h4>

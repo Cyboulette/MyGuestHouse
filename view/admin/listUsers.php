@@ -43,6 +43,7 @@ if(empty($tab_utilisateurs)){
 		$id = htmlspecialchars($utilisateur->get('idUtilisateur'));
 		$nom = htmlspecialchars($utilisateur->get('nomUtilisateur'));
 		$prenom = htmlspecialchars($utilisateur->get('prenomUtilisateur'));
+		$email = htmlspecialchars($utilisateur->get('emailUtilisateur'));
 		$login = htmlspecialchars($utilisateur->get('emailUtilisateur'));
 		$statut = htmlspecialchars($utilisateur->get('rang'));
 		$valide = htmlspecialchars($utilisateur->get('nonce'));
@@ -61,22 +62,25 @@ if(empty($tab_utilisateurs)){
 			$valide = 'OUI';
 		}
 
-		echo '<tr>';
-		echo '<td>'.$valide.'</td>';
-		echo '<td>'.$prenom.'</td>';
-		echo '<td>'.$nom.'</td>';
-		echo '<td>'.$login.'</td>';
-		echo '<td>'.$statut.'</td>';
-		echo '<td>
-					<a href="index.php?controller=adminUtilisateurs&action=read&idUtilisateur='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir le profil</a>
+		if( $id != $_SESSION['idUser']){
+        	echo '<tr>';
+				echo '<td>'.$valide.'</td>';
+				echo '<td>'.$prenom.'</td>';
+				echo '<td>'.$nom.'</td>';
+				echo '<td>'.$login.'</td>';
+				echo '<td>'.$statut.'</td>';
 
-					<a href="index.php?controller=adminUtilisateurs&action=contactUtilisateur&idUtilisateur='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-envelope" aria-hidden="true"></i> Contacter</a>
+			echo "<td>
+					<a href='index.php?controller=adminUtilisateurs&action=read&idUtilisateur={$id}' class='btn btn-xs btn-primary'><i class='fa fa-eye' aria-hidden='true'></i> Voir le profil</a>
 
-					<a href="index.php?controller=adminUtilisateurs&action=edit&idUtilisateur='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+					<a href='mailto:{$email}' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>
 
-					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
-				</td>';
-		echo '</tr>';
+					<a href='index.php?controller=adminUtilisateurs&action=edit&idUtilisateur={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>
+
+					<button type='button' class='btn btn-xs btn-danger btnDelete' data-url='adminUtilisateurs' data-id={$id}><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</button>
+				</td>";
+			echo '</tr>';
+        }	
 	}
 
 	echo '</table></div>';

@@ -38,6 +38,12 @@
         }else{
         	$SOfReservation =	'';
         }
+
+        if( $idUtilisateur == $_SESSION['idUser']){
+        	$oneself = true;
+        }else{
+        	$oneself = false;
+        }
     }
 ?>
 
@@ -55,20 +61,48 @@
 				</span>
 			</div>
 			<div class="col-lg-8">
-				<div class="col-md-12">
-					<h4><?php echo $email; ?></h4>
-				</div>
-				<div class="col-md-12">
-					<h4><?php echo $rang.' / '.$statut; ?></h4>
-				</div>
-			 </div>
+				<?php  
+					if(!$oneself){
+				?>	
+						<div class="col-md-12">
+							<h4><?php echo $email; ?></h4>
+						</div>
+						<div class="col-md-12">
+							<h4><?php echo $rang.' / '.$statut; ?></h4>
+						</div>
+				<?php  
+					}else{
+				?>
+						<div class="col-md-12">
+						<h4>Prenom : <?=$prenom?></h4>  
+						</div>
+						<div class="col-md-12">
+							<h4>Prenom : <?=$nom?></h4>  
+						</div>
+						<div class="col-md-12">
+							<h4>Mail : <?=$email?></h4>
+						</div>
+				<?php
+					}
+				?>
+			</div>
 		</div>
 	</div>
 	<div class='row'>
-		<div class="col-lg-12 col-lg-offset-0">
-			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=contact&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>"; ?>
+		<div class="col-lg-12">
+			<?php 
+				if(!$oneself){ 
+					echo "<a href='mailto:{$email}' class='btn btn-xs btn-warning'><i class='fa fa-envelope' aria-hidden='true'></i> Contacter</a>";
+				}
+			?>
 			<?php echo "<a href='index.php?controller=adminUtilisateurs&action=edit&idUtilisateur={$idUtilisateur}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?>
-			<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="<?=$idUtilisateur?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+			<?php 
+				if(!$oneself){ 
+			?>
+					<button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminUtilisateurs" data-id="<?=$idUtilisateur?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+			<?php  
+				}
+			?>
 		</div>
 	</div>
 </div>

@@ -5,7 +5,7 @@
 <form class="form-horizontal" method='post' action='?controller=adminUtilisateurs&action=added' enctype='multipart/form-data'>
 
   <div class='form-group row'>
-    <label for='id_email' class="col-sm-2 control-label">E_mail : </label>
+    <label for='id_email' class="col-sm-2 control-label">E-mail : </label>
     <div class="col-sm-10">
       <input class="form-control" type='email' name='email' placeholder='email@email.com' id='id_email'>        		
     </div>
