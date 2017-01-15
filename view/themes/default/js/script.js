@@ -8,7 +8,7 @@ $('.btnDeleteReservation').on('click', function(e) {
     var dataToPost = 'idReservation='+encodeURIComponent(idReservation);
     $.ajax({
         type: "POST",
-        url: 'index.php?controller=Reservation&action=deleteReservationForm',
+        url: 'index.php?controller=reservation&action=deleteReservationForm',
         data: dataToPost,
         dataType: 'json',
         success: function(retour) {
@@ -68,4 +68,25 @@ $( function() {
             $(".messageCalcul").html("");
         }
     });
-} );
+});
+
+$('.cancelReservation').on('click', function(e) {
+    e.preventDefault();
+    $("#cancelReservation .modal-body").html('<div class="loader"></div><br/><div class="text-center"><em>Chargement en cours</em></div>');
+    $('#cancelReservation').modal('toggle');
+    var idReservation = $(this).attr('data-id');
+    var dataToPost = 'idReservation='+encodeURIComponent(idReservation);
+    $.ajax({
+        type: "POST",
+        url: 'index.php?controller=reservation&action=annulerReservationForm',
+        data: dataToPost,
+        dataType: 'json',
+        success: function(retour) {
+            console.log(retour);
+            $("#cancelReservation .modal-body").html(retour.message);
+        },
+        error: function(retour) {
+            console.log(retour);
+        }
+    });
+});

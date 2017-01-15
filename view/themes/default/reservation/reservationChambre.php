@@ -70,11 +70,6 @@
 <?php } ?>
 
 
-
-
-
-
-
 <!-- Modification du script datePicker pour datesDisabled -->
 <?=$sriptDatesExclues?>
 

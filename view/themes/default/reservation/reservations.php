@@ -22,10 +22,14 @@
             echo '<thead>';
             echo '<tr>';
             echo '<th>Nom de la chambre   </th>';
-            echo '<th>Nombre de nuits     </th>';
+            echo '<th>Nombre de nuit     </th>';
             echo '<th>Prix                </th>';
-        if($_GET['mode'] != 'finis') {
+            $aray = array('finis', 'annulees');
+            if(!in_array($_GET['mode'], $aray)) {
             echo '<th>Prestations         </th>';
+        } else {
+            echo '<th>Nombre de prestation     </th>';
+
         }
             echo '<th>Action         </th>';
             echo '</tr>';
@@ -50,14 +54,16 @@
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
-                if($_GET['mode'] != 'finis') {
+                if(!in_array($_GET['mode'], $aray)) {
                     echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation=' . $id . '" class="btn btn-xs btn-primary">' . $nbPrestations . ' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                } else {
+                    echo '<td>' . $nbPrestations . '</td>';
                 }
                 echo '<td>';
-                if($_GET['mode'] != 'finis') {
+                if(!in_array($_GET['mode'], $aray)) {
                     echo'
                         <a href="index.php?controller=reservation&action=read&idReservation='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
-                        <a href="index.php?controller=reservation&action=annuleeReservation&idReservation=' . $id . '" class="btn btn-xs btn-danger btnDelete"><i class="fa fa-delete" aria-hidden="true"></i> Annuler</a></td>';
+                        <button type="button" class="btn btn-xs btn-danger cancelReservation" data-url="reservations" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Annuler </button>';
 
                 } else {
                     echo '<a href="index.php?controller=reservation&action=read&idReservation='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>';
@@ -69,7 +75,18 @@
             echo '</table></div>';
         }
         ?>
-
+        <!-- Modal for cancel -->
+        <div id="cancelReservation" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmation de l'annulation </h4>
+                    </div>
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
         <a href="index.php?controller=Chambre&action=readAll" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Consulter nos chambres </a>
         <a href="index.php?controller=reservation&action=reservationChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Faite une reservation </a>
     </div>

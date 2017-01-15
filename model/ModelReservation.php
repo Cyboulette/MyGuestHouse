@@ -27,6 +27,26 @@ class ModelReservation extends Model {
 
     }
 
+    public static function annulerReservation($idReservation){
+        try {
+            $sql = 'UPDATE `'.static::$tableName.'` SET `annulee` = :tag_annulee WHERE `idReservation` = :tag_idReservation';
+
+            $data = array(
+                'tag_annulee' => true,
+                'tag_idReservation' => $idReservation
+            );
+
+            $update = Model::$pdo->prepare($sql);
+            $update->execute($data);
+            return true;
+        } catch(PDOException $e) {
+            if(Conf::getDebug()) {
+                echo $e->getMessage();
+            }
+            return false;
+            die();
+        }
+    }
 
     /* SOME GETTERS */
 

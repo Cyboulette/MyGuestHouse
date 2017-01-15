@@ -225,6 +225,74 @@
             }
         }
 
+        public static function annulerReservationForm(){
+            if(ControllerUtilisateur::isConnected()) {
+                $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+                $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
+                $powerNeeded = true; // pour les besoins du dév, à retirer
+
+                $retour = array(); //Tableau de retour
+                if(isset($_POST['idReservation'])) {
+                    $idReservation = htmlspecialchars($_POST['idReservation']);
+                    $Reservation = ModelReservation::select($idReservation);
+                    if($Reservation != false) {
+                        $form = '<form method="POST" role="form" action="index.php?controller=Reservation&action=annulerReservation">
+						<div class="alert alert-info text-center">
+							Confirmez vous l\'annulation de la reservation <b>'.htmlspecialchars($Reservation->get('idReservation')).'</b> ?
+						</div>
+						<input type="hidden" name="idReservation" value="'.$Reservation->get('idReservation').'">
+						<input type="hidden" name="confirm" value="true">
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Confirmer</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Annuler">Annuler</button>
+						</div>
+					</form>';
+                        $retour['result'] = true;
+                        $retour['message'] = $form;
+                    } else {
+                        $retour['result'] = false;
+                        $retour['message'] = '<div class="alert alert-danger">La reservation demandée n\'existe pas !</div>';
+                    }
+                } else {
+                    $retour['result'] = false;
+                    $retour['message'] = '<div class="alert alert-danger">Vous n\'avez pas envoyé correctement les données !</div>';
+                }
+                echo json_encode($retour);
+            } else {
+                ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
+            }
+        }
+
+        public static function annulerReservation(){
+            if(ControllerUtilisateur::isConnected()) {
+                if(isset($_POST['idReservation'], $_POST['confirm'])) {
+                    $idReservation = htmlspecialchars($_POST['idReservation']);
+                    $confirm = htmlspecialchars($_POST['confirm']);
+                    $reservation = ModelReservation::select($idReservation);
+                    if($reservation != false) {
+                        if($confirm == true) {
+                            $chekUpdate = ModelReservation::annulerReservation($idReservation);
+                            if($chekUpdate) {
+                                $message = '<div class="alert alert-success">La réservation a bien été annulée !</div>';
+                            } else {
+                                $message = '<div class="alert alert-danger">Impossible d\'annuler cette réservation !</div>';
+                            }
+                        } else {
+                            $message = '<div class="alert alert-danger">Vous devez confirmer l\'annulation !</div>';
+                        }
+                    } else {
+                        $message = '<div class="alert alert-danger">Cette réservation n\'existe pas</div>';
+                    }
+                } else {
+                    $message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire d\'annulation !</div>';
+                }
+            } else {
+                ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
+            }
+            self::reservations($message);
+        }
+
+        // Fonction qui servent à rien
         public static function deleteReservationForm(){
             if(ControllerUtilisateur::isConnected()) {
                 $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
