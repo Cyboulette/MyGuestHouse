@@ -180,36 +180,35 @@
 						$titreAction = 'Ajouter une reservation';
 					} elseif ($type == "edit") {
 						$titreAction = 'Modifier une reservation';
-					}
-					if (isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
-						$idReservation = htmlspecialchars($_GET['idReservation']);
-						$readReservation = ModelReservation::select($idReservation);
+						if (isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
+							$idReservation = htmlspecialchars($_GET['idReservation']);
+							$readReservation = ModelReservation::select($idReservation);
 
-						if ($readReservation) {
-							$powerNeeded = self::isAdmin();
-							$view = 'manageReservation';
-							$template = 'admin';
-							$tab_reservations = ModelReservation::selectAll();
-							$pagetitle = 'Administration - ' . $titreAction;
-
-
-							// Gestion des dates réservées
-							if(isset($_GET['idReservation'])){
-								$idChambre = ModelReservation::select($_GET['idReservation'])->get('idChambre');
-
-							} else {
-								$idChambre = $_POST['idChambre'];
+							if (!$readReservation) {
+								self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
 							}
-							$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
-							$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
-
-							require_once File::build_path(array("view", "main_view.php"));
 						} else {
-							self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
+							self::reservations('<div class="alert alert-danger">Pour pouvoir modifier une reservation il faut son ID</div>');
 						}
-					} else {
-						self::reservations('<div class="alert alert-danger">Pour pouvoir modifier une reservation il faut son ID</div>');
 					}
+					$powerNeeded = self::isAdmin();
+					$view = 'manageReservation';
+					$template = 'admin';
+					$tab_reservations = ModelReservation::selectAll();
+					$pagetitle = 'Administration - ' . $titreAction;
+
+
+					// Gestion des dates réservées
+					if(isset($_GET['idReservation'])){
+						$idChambre = ModelReservation::select($_GET['idReservation'])->get('idChambre');
+
+					} else {
+						$idChambre = $_POST['idChambre'];
+					}
+					$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
+					$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
+
+					require_once File::build_path(array("view", "main_view.php"));
 				} else {
 					ControllerDefault::error('Vous devez préciser si vous souhaitez modifier ou ajouter une reservation !', 'admin');
 				}
