@@ -1,5 +1,3 @@
-<div>
-   
     <?php   
         // variables 
         $nom = $chambre->get("nomChambre"); 
@@ -33,7 +31,7 @@
     ?> 
  
  
-
+<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <h1 class='page-header'><?=$nom?></h1>
     <?php if(isset($message)) echo $message; ?>
  
@@ -299,7 +297,4 @@
       </div>
     </div>
   </div>
-
-
-
 </div> 
