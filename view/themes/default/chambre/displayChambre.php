@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"> 
+<div>
    
     <?php   
         // variables 
@@ -99,7 +99,7 @@
                 </div>
             ";
         }else{ 
-          echo '<div class="alert alert-danger">'."il n'y a aucune photo pour linstant".'</div>'; 
+          echo '<div class="alert alert-danger">'."Il n'y a aucune photo pour linstant".'</div>';
         } 
     ?> 
  
@@ -107,30 +107,17 @@
     <?php  
         // description de la chambre 
         echo " 
-            <div class='descriptionChambre'> 
-              <div> 
-                <h4>Description :<h4> 
-              </div> 
-              <ul> 
-                <li> 
-                  Nom de la chambre : {$nom} 
-                </li> 
-                <li> 
-                  Prix<small>/nuit</small> : {$prix}&euro; 
-                </li> 
-                <li> 
-                  Superficie : {$superficie}m<sup>2</sup> 
-                </li> 
-                <li> 
-                  Description : 
-                  <ul> 
-                    <li> 
-                      {$description} 
-                    </li> 
-                  </ul> 
-                </li> 
-              </ul> 
-            </div> 
+            <div class='descriptionChambre margin-top-30px'>
+                <h3>Description </h3>
+                <ul class='no-puce margin-bottom-30px'>
+                    <li> {$description} </li>
+                </ul>
+                <h3>Caractéristiques</h3>
+                <ul class='no-puce margin-bottom-30px'>
+                    <li> Prix<small>/nuit</small> : {$prix}&euro; </li>
+                    <li> Superficie : {$superficie}m<sup>2</sup> </li>
+                </ul>
+            </div>
         "; 
     ?> 
  
@@ -142,7 +129,7 @@
      
             echo " 
               <div> 
-                <h4>Détails :<h4> 
+                <h3>Détails </h3>
               </div> 
               <div> 
                 <ul> 
@@ -159,7 +146,7 @@
      
           echo "</div>"; 
         }else{ 
-          echo '<div class="alert alert-danger">'."il n'y a pas de details pour cette chambre".'</div>'; 
+          echo '<div class="alert alert-danger">'."Il n'y a pas de details pour cette chambre".'</div>';
         } 
     ?> 
  
@@ -171,17 +158,17 @@
      
             echo " 
               <div> 
-                <h4>Prestation :<h4> 
+                <h3>Prestation </h3>
               </div> 
               <div> 
-                <ul> 
+                <ul class='no-puce'>
             "; 
      
 
             foreach ($tab_prestation as $prestation) {
               $nom = $prestation->get('nomPrestation');
               $prix = $prestation->get('prix');
-              echo "<li>".$nom." : ".$prix."&euro;</li>"; 
+              echo "<li>".ucfirst($nom)." : ".$prix."&euro;</li>";
             }
      
             echo " 
@@ -191,7 +178,7 @@
      
           echo "</div>"; 
         }else{ 
-          echo '<div class="alert alert-danger">'."il n'y a pas de prestations pour cette chambre".'</div>'; 
+          echo '<div class="alert alert-danger">'."Il n'y a pas de prestations pour cette chambre".'</div>';
         } 
     ?> 
 
@@ -304,7 +291,7 @@
               }
             }else{
           ?>
-              <div class="alert alert-danger">Cette chambre ne possede pas encore d'avis !</div>
+              <div class="alert alert-danger">Cette chambre ne possède pas encore d'avis !</div>
           <?php
             }
           ?>
