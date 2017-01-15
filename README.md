@@ -12,12 +12,6 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 <br>
 **Credencials for demo are : demo@yopmail.fr/demo**
 
-# TODO
-
-- develop some otpions :)
-- Remake the form for view all chambres !   
-- Ask to validate when a user add a reservation and add a prestations on reservation
-
 # Commits
 
 - 14/01 
