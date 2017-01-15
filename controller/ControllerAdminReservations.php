@@ -222,14 +222,15 @@
 		{
 			$powerNeeded = self::isAdmin();
 			if (isset($_GET['idReservation']) && $_GET['idReservation'] != NULL) {
-				$reservation = ModelReservation::select($_GET['idReservation']);
+				$idReservation = htmlspecialchars($_GET['idReservation']);
+				$reservation = ModelReservation::select($idReservation);
 				if ($reservation != null) {
 					$view = 'prestationFor';
 					$pagetitle = 'Administration';
 					$template = 'admin';
-					$idReservation = $_GET['idReservation'];
-					$tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
-					$tab_allPrestation = ModelPrestation::selectAll();
+					$idChambre = $reservation->get('idChambre');
+					$tab_prestations = ModelPrestation::selectAllByChambre($idChambre);
+					$tab_prestationsReservation = ModelPrestation::selectAllByReservation($idReservation);
 
 					require_once File::build_path(array("view", "main_view.php"));
 				} else {

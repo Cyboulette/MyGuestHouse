@@ -10,8 +10,6 @@ if(!$powerNeeded) { exit(); } ?>
 <?php if($type == "add") {
     if(!$_POST['idChambre']){ ?>
 
-        <br>
-        <br>
         <form class="form" role="form" method="post" action="index.php?controller=adminReservations&action=manageReservation&type=add">
             <div class="form-group">
                 <label for="idChambre"> Selectionnez la chambre </label>

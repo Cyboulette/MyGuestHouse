@@ -167,9 +167,9 @@
                         if($reservation->get('idUtilisateur') === $_SESSION['idUser']){
                             $view = 'prestationFor';
                             $pagetitle = 'Prestations pour votre réservation';
-                            $idReservation = $_GET['idReservation'];
-                            $tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
-                            $tab_allPrestation = ModelPrestation::selectAll();
+                            $idChambre = $reservation->get('idChambre');
+                            $tab_prestations = ModelPrestation::selectAllByChambre($idChambre);
+                            $tab_prestationsReservation = ModelPrestation::selectAllByReservation($idReservation);
 
                             require_once File::build_path(array("view", "main_view.php"));
                         } else {
@@ -199,13 +199,24 @@
                     $reservation = ModelReservation::select($idReservation);
 
                     if($reservation->get('idUtilisateur') === $_SESSION['idUser']) {
-                        $prestation = htmlspecialchars($_POST['prestations']);
+                        $prestationsPost = $_POST['prestations'];
+                        $idPrestations = array();
+
+                        if($prestationsPost != null ){
+                            foreach($_POST['prestations'] as $prestation) {
+                                $idPrestation = htmlspecialchars($prestation);
+                                array_push($idPrestations, $idPrestation);
+                            }
+
+                        }
+
+
                         $update = true;
                         $update = ModelPrestation::deleteAllByReservation($idReservation); //TODO vérifier si true
-                        if ($prestation != null) {
+                        if ($idPrestations != null) {
 
-                            foreach ($prestation as $key => $value) {
-                                $update = ModelPrestation::saveByReservation($idReservation, $prestation[$key]);
+                            foreach ($idPrestations as $key => $value) {
+                                $update = ModelPrestation::saveByReservation($idReservation, $idPrestations[$key]);
                             }
                         }
                         if ($update != false) {

@@ -156,13 +156,8 @@
 								$idUtilisateur = $value->get('idUtilisateur');
 								$idChambre = $value->get('idChambre');
 
-								$nomChambre = (ModelChambre::select($idChambre))->get('nomChambre');
-								// echo "<pre>";
-								// 	var_dump($value);
-								// echo "</pre>";
-								// echo "<pre>";
-								// 	var_dump($avis);
-								// echo "</pre>";
+								$nomChambre = ModelChambre::select($idChambre)->get('nomChambre');
+
 					?>
 								<div class="row border-avis">
 									<div class='descriptionChambre'>  

@@ -16,15 +16,16 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 - develop some otpions :)
 - Remake the form for view all chambres !   
-- Ask to validate when a user add a reservation and add a prestations on reservation and cancel a reservation
+- Ask to validate when a user add a reservation and add a prestations on reservation
 - Display good prestations for chambre whe user want to add some in the reservation
-- Provide to cancel a reservation for user
+- Faire les vérifations nécessaires aux modifications de reservations
 
 # Commits
 
 - 14/01 
     *       Resume of reservation
     *       New form on chambre's page and viewAllChambre, how can we get better form ?
+    *       Provide to cancel a reservation for user
 
 <br>
 - 13/01 

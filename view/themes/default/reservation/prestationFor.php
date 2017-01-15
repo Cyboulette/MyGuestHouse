@@ -7,7 +7,7 @@ if(!$powerNeeded) { exit(); } ?>
 <?php
 if ($_GET['controller'] == 'reservation'){
     echo '<h1 class="page-header">Liste des prestations de la reservation '.$_GET['idReservation'].'</h1>';
-    if(empty($tab_allPrestation)) {
+    if(empty($tab_prestations)) {
         echo '<div class="alert alert-danger">Il n\'y a aucune prestation pour le moment</div>';
     } else {
 
@@ -21,11 +21,11 @@ if ($_GET['controller'] == 'reservation'){
         echo '<th>Prix</th>';
         echo '</tr>';
         echo '</thead>';
-        foreach ($tab_allPrestation as $prestation) {
+        foreach ($tab_prestations as $prestation) {
             $id = $prestation->get('idPrestation');
             $nom = $prestation->get('nomPrestation');
             $prix = $prestation->get('prix');
-            $checked = in_array ( $prestation , $tab_prestation);
+            $checked = in_array ( $prestation , $tab_prestationsReservation);
 
             echo '<tr>';
             echo '<td><input type="checkbox" name="prestations[]" id="checkbox'.$id.'" value="'.$id.'"';

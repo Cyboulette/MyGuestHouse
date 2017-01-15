@@ -53,6 +53,8 @@
             <input type="hidden" class="prixChambre" value="<?=htmlspecialchars($chambre->get('prixChambre'));?>">
             <input type="hidden" name="idChambre" value="<?=$idChambre?>">
 
+            <h4 class="text-info text-muted">Pour ajouter des prestations rendez-vous dans vos réservations</h4>
+
             <!-- Module de calcul -->
             <div class="messageCalcul text-center"></div>
             <div class="text-center infoCalcul">
@@ -64,6 +66,7 @@
                 <button class="btn btn-lg btn-success btn-block" id="btnCalcul">Calculer</button>
                 <input type="submit" class="btn btn-lg btn-success btn-block" value="Réserver">
             </div>
+
         </fieldset>
     </form>
 
