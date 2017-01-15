@@ -4,9 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
 
   <title>Administration de votre site</title>
 
@@ -44,9 +41,8 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li <?php ControllerDefault::active('admin', 'administration'); ?>><a href="#">Administration</a></li>
-        <li <?php ControllerDefault::active('admin', 'parametre'); ?>><a href="#">Vos paramètres</a></li>
-        <li <?php ControllerDefault::active('admin', 'profil'); ?>><a <?php echo "href='?controller=adminUtilisateurs&action=read&idUtilisateur={$_SESSION['idUser']}'";  ?>>Votre profil</a></li>
+        <li <?php ControllerDefault::active('admin', 'index'); ?>><a href="index.php?controller=admin&action=index">Administration</a></li>
+        <li><a <?php echo "href='index.php?controller=adminUtilisateurs&action=read&idUtilisateur={$_SESSION['idUser']}'";  ?>>Votre profil</a></li>
         <li <?php ControllerDefault::active('admin', 'aide'); ?>><a href="index.php?controller=admin&action=help">Aide</a></li>
       </ul>
     </div>
