@@ -1,6 +1,50 @@
 <?php
 	class ControllerAdminReservations extends ControllerAdmin
 	{
+
+		public static function read($message = null){
+			self::isAdmin();
+			if(ControllerUtilisateur::isConnected()) {
+				if(isset($_GET['idReservation'])) {
+					$idReservation = htmlspecialchars($_GET['idReservation']);
+					$reservation = ModelReservation::select($idReservation);
+					if($reservation != false) {
+						$currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $reservation->get('idUtilisateur'))[0];
+						$powerNeeded = true; // C'est le bon user dans tous les cas
+						$view = 'recapReservation';
+						$pagetitle = 'Récaputulatif d\'une reservation';
+						$template = 'admin';
+
+
+						//informations client
+						$nomClient = htmlspecialchars($currentUser->get('nomUtilisateur'));
+						$prenomClient = htmlspecialchars($currentUser->get('prenomUtilisateur'));
+
+						//informations reservation
+						$reservation = ModelReservation::select($idReservation);
+						$dateDebut = $reservation->get('dateDebut');
+						$dateFin = $reservation->get('dateFin');
+						$prixTotal = $reservation->getPrixTotal();
+						$nomChambre = ModelChambre::select($reservation->get('idChambre'))->get('nomChambre');
+						$nombreNuits = $reservation->getNombreNuits();
+						$prixReservation = ModelChambre::select($reservation->get('idChambre'))->get('prixChambre')*$nombreNuits;
+
+						//informations prestations
+						$prestations = ModelPrestation::selectAllByReservation($idReservation);
+
+						require File::build_path(array('view', 'main_view.php'));
+					} else {
+						$message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'existe pas.</div>';
+					}
+				} else {
+					$message = '<div class="alert alert-danger">Vous devez renseigner l\'id de la réservation pour la lire.</div>';
+				}
+				self::reservations($message);
+			} else {
+				ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
+			}
+		}
+
 		// Gestion des réservations : view/amin/viewAllReservation.php
 		public static function reservations($message = null)
 		{
@@ -136,35 +180,36 @@
 						$titreAction = 'Ajouter une reservation';
 					} elseif ($type == "edit") {
 						$titreAction = 'Modifier une reservation';
-						if (isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
-							$idReservation = htmlspecialchars($_GET['idReservation']);
-							$readReservation = ModelReservation::select($idReservation);
+					}
+					if (isset($_GET['idReservation']) && !empty($_GET['idReservation'])) {
+						$idReservation = htmlspecialchars($_GET['idReservation']);
+						$readReservation = ModelReservation::select($idReservation);
 
-							if (!$readReservation) {
-								self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
+						if ($readReservation) {
+							$powerNeeded = self::isAdmin();
+							$view = 'manageReservation';
+							$template = 'admin';
+							$tab_reservations = ModelReservation::selectAll();
+							$pagetitle = 'Administration - ' . $titreAction;
+
+
+							// Gestion des dates réservées
+							if(isset($_GET['idReservation'])){
+								$idChambre = ModelReservation::select($_GET['idReservation'])->get('idChambre');
+
+							} else {
+								$idChambre = $_POST['idChambre'];
 							}
+							$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
+							$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
+
+							require_once File::build_path(array("view", "main_view.php"));
 						} else {
-							self::reservations('<div class="alert alert-danger">Pour pouvoir modifier une reservation il faut son ID</div>');
+							self::reservations('<div class="alert alert-danger">Impossible de modifier cette reservation, elle n\'existe pas !</div>');
 						}
-					}
-					$powerNeeded = self::isAdmin();
-					$view = 'manageReservation';
-					$template = 'admin';
-					$tab_reservations = ModelReservation::selectAll();
-					$pagetitle = 'Administration - ' . $titreAction;
-
-
-					// Gestion des dates réservées
-					if(isset($_GET['idReservation'])){
-						$idChambre = ModelReservation::select($_GET['idReservation'])->get('idChambre');
-
 					} else {
-						$idChambre = $_POST['idChambre'];
+						self::reservations('<div class="alert alert-danger">Pour pouvoir modifier une reservation il faut son ID</div>');
 					}
-					$datesEncode = modelReservation::encodeDatesForChambre($idChambre);
-					$sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
-
-					require_once File::build_path(array("view", "main_view.php"));
 				} else {
 					ControllerDefault::error('Vous devez préciser si vous souhaitez modifier ou ajouter une reservation !', 'admin');
 				}
@@ -222,10 +267,10 @@
 			ControllerAdminReservations::reservations($message);
 		}
 
-
 		public static function preDeleteItem() {
 			self::deleteItemForm("adminReservations", "ModelReservation", "de la réservation n°", "idReservation", 'idReservation');
 		}
+
 		public static function deleteItem() {
 			self::isAdmin();
 			if(isset($_POST['idItem'], $_POST['confirm'])) {

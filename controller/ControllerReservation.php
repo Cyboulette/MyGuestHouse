@@ -80,9 +80,6 @@
             }
         }
 
-        /**
-         * Provide to the user to choose a room with and the date to reserve it
-         **/
         public static function reservationChambre($message = null){
             if(ControllerUtilisateur::isConnected()) {
                 $powerNeeded = true;
@@ -113,15 +110,12 @@
 
         }
 
-        /**
-         *
-         */
         public static function addReservation($message = null){
             if(ControllerUtilisateur::isConnected()) {
                 $powerNeeded = true;
 
                 if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-                    if(ControllerDefault::getNombreNuits($_POST['dateDebut'], $_POST['dateFin']) > 0) {
+                    if(ControllerDefault::getDiffJours($_POST['dateDebut'], $_POST['dateFin']) > 0) {
                         if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
                             $idUtilisateur = $_SESSION['idUser'];
                             $dateDebut = htmlspecialchars($_POST['dateDebut']);
@@ -166,18 +160,25 @@
             if(ControllerUtilisateur::isConnected()) {
                 $powerNeeded = true;
                 if (isset($_GET['idReservation']) && $_GET['idReservation'] != NULL) {
-                    $reservation = ModelReservation::select($_GET['idReservation']);
-                    if ($reservation != null) {
-                        $view = 'prestationFor';
-                        $pagetitle = 'Prestations pour votre réservation';
-                        $idReservation = $_GET['idReservation'];
-                        $tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
-                        $tab_allPrestation = ModelPrestation::selectAll();
+                    $idReservation = htmlspecialchars($_GET['idReservation']);
+                    $reservation = ModelReservation::select($idReservation);
 
-                        require_once File::build_path(array("view", "main_view.php"));
+                    if ($reservation != null) {
+                        if($reservation->get('idUtilisateur') === $_SESSION['idUser']){
+                            $view = 'prestationFor';
+                            $pagetitle = 'Prestations pour votre réservation';
+                            $idReservation = $_GET['idReservation'];
+                            $tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
+                            $tab_allPrestation = ModelPrestation::selectAll();
+
+                            require_once File::build_path(array("view", "main_view.php"));
+                        } else {
+                            $message = '<div class="alert alert-danger">Vous ne pouvez pas modifier la reservation de quelqu\'un d\'autre !</div>';
+                            self::reservations($message);
+                        }
                     } else {
                         $message = '<div class="alert alert-danger">Cette reservation n\'existe plus !</div>';
-                        ControlleruserReservations::reservations($message);
+                        self::reservations($message);
                     }
                 } else {
                     $message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une reservation sans connaître son ID !</div>';
@@ -194,19 +195,26 @@
                 $powerNeeded = true;
 
                 if (isset($_POST['idReservation']) && $_POST['idReservation'] != null) {
-                    $idReservation = $_POST['idReservation'];
-                    $prestation = $_POST['prestations'];
-                    $update = true;
-                    $update = ModelPrestation::deleteAllByReservation($idReservation); //TODO vérifier si true
-                    if ($prestation != null) {
-                        foreach ($prestation as $key => $value) {
-                            $update = ModelPrestation::saveByReservation($idReservation, $prestation[$key]);
+                    $idReservation = htmlspecialchars($_POST['idReservation']);
+                    $reservation = ModelReservation::select($idReservation);
+
+                    if($reservation->get('idUtilisateur') === $_SESSION['idUser']) {
+                        $prestation = htmlspecialchars($_POST['prestations']);
+                        $update = true;
+                        $update = ModelPrestation::deleteAllByReservation($idReservation); //TODO vérifier si true
+                        if ($prestation != null) {
+
+                            foreach ($prestation as $key => $value) {
+                                $update = ModelPrestation::saveByReservation($idReservation, $prestation[$key]);
+                            }
                         }
-                    }
-                    if ($update != false) {
-                        $message = '<div class="alert alert-success">Prestations modifiées avec succès !</div>';
+                        if ($update != false) {
+                            $message = '<div class="alert alert-success">Prestations modifiées avec succès !</div>';
+                        } else {
+                            $message = '<div class="alert alert-danger">Echec de la modification des prestations !</div>';
+                        }
                     } else {
-                        $message = '<div class="alert alert-danger">Echec de la modification des prestations !</div>';
+                        $message = '<div class="alert alert-danger">Vous ne pouvez pas modifier la reservation de quelqu\'un d\'autre !!</div>';
                     }
                 } else {
                     $message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une resrvation sans connaître son ID !</div>';
