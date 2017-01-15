@@ -13,7 +13,7 @@
 
 	    if($statut != null){
 	    	$statut = 'Non activé';
-	    }else{
+	    } else {
 	    	$statut = 'Activé';
 	    }
 
@@ -28,20 +28,20 @@
         $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $idUtilisateur);
         if($nbAvis>1){
         	$SOfAvis = 's';
-        }else{
+        } else {
         	$SOfAvis =	'';
         }
 
         $nbReservation = count(ModelReservation::selectAllByUser($idUtilisateur));
-        if($reservation>1){
+        if($nbReservation>1){
         	$SOfReservation = 's';
-        }else{
+        } else {
         	$SOfReservation =	'';
         }
 
-        if( $idUtilisateur == $_SESSION['idUser']){
+        if($idUtilisateur == $_SESSION['idUser']){
         	$oneself = true;
-        }else{
+        } else {
         	$oneself = false;
         }
     }
@@ -74,10 +74,10 @@
 					}else{
 				?>
 						<div class="col-md-12">
-						<h4>Prenom : <?=$prenom?></h4>  
+						<h4>Prénom : <?=$prenom?></h4>  
 						</div>
 						<div class="col-md-12">
-							<h4>Prenom : <?=$nom?></h4>  
+							<h4>Nom : <?=$nom?></h4>  
 						</div>
 						<div class="col-md-12">
 							<h4>Mail : <?=$email?></h4>
@@ -115,7 +115,7 @@
 			<h4 class="panel-title">
 				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 					<div class="space-for-according">
-						<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?> au total</span>
+						<span class="text-left">Détails sur les réservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?> au total</span>
 					</div>
 				</a>
 			</h4>
@@ -125,9 +125,8 @@
 
 				<?php if ($tab_reservations != null) { ?>
 
-				<div class="container">
 					<ul class="no-puce">
-						<li>Recapitulatif du client :</li>
+						<li>Récapitulatif du client :</li>
 						<ul class="no-puce">
 							<li><?=count($reservationsEnCours)?> réservation en cours.</li>
 							<li><?=count($reservationsEnAttente)?> réservation en attente.</li>
@@ -135,17 +134,12 @@
 							<li class="text-danger"><?=count($reservationsAnnulees)?> réservation annulée.</li>
 						</ul>
 					</ul>
-				</div>
-				<div class="container">
 					<ul class="no-puce">
 						<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
 					</ul>
-				</div>	
-				<div class="container">
 					<ul class="no-puce">
 						<li class="text-success">Argent dépensé : <?=$argentDepense?> €</li>
 					</ul>
-				</div>
 
 				<?php } else { ?>
 					<div class="container">
