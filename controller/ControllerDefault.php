@@ -355,7 +355,6 @@ class Conf {
 
 		/* SOME VERIFICATION'S FUNCTIONS */
 
-
 		/**
 		 * @param string the date of the begining
 		 * @param string the date of the end
@@ -378,23 +377,19 @@ class Conf {
 
 		/**
 		 * @param $idReservation
-		 * @param $idUser
-		 * @return bool
+		 * @return mixed the id of the user who reserve the reservation n° $idReservation
 		 */
-		public static function verifReservationsForUser($idReservation, $idUser) {
-			$reservationsUser = ModelReservation::selectAllByUser($idUser);
-			$idReservationsUser = array();
-			$idReservationToArray = array($idReservation);
+		public static function idUserForReservation($idReservation) {
+			$reservationUser = ModelReservation::select($idReservation);
+			$idUser = $reservationUser->get('idUtilisateur');
 
-			foreach($reservationsUser as $reservation){
-				array_push($idReservationsUser, strval($reservation->get('idReservation')));
-			}
-
-			// Si c'est une reservation qui fait partie des reservations de l'utilisateur on renvoie true
-			return array_intersect($idReservationToArray, $idReservationsUser);
+			return $idUser;
 		}
 
-
+		/**
+		 * @param $idReservation
+		 * @return array
+		 */
 		public static function verifReservationExist($idReservation) {
 			$reservations = ModelReservation::selectAll();
 			$idReservationToArray = array($idReservation);
@@ -409,8 +404,8 @@ class Conf {
 			return array_intersect($idReservationToArray, $idReservationsAll);
 		}
 
-		/* SOME FUNCTION FOR RESERVATION'S DATE */
 
+		/* SOME FUNCTION FOR RESERVATION'S DATE */
 
 		/**
 		 * @param $string the date with the format : d/m/Y

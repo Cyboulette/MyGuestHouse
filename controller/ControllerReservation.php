@@ -8,8 +8,9 @@
             if(ControllerUtilisateur::isConnected()) {
                 if(isset($_GET['idReservation'])) {
                     $idReservation = htmlspecialchars($_GET['idReservation']);
+
                     if(ControllerDefault::verifReservationExist($idReservation)) {
-                        if(ControllerDefault::verifReservationsForUser($idReservation, $_SESSION['idUser'])[0] != null) {
+                        if(ControllerDefault::idUserForReservation($idReservation) === $_SESSION['idUser']) {
                             $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                             $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                             $powerNeeded = true;
