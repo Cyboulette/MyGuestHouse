@@ -49,7 +49,9 @@
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
                 echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
-                echo '<td><a href="index.php?controller=reservation&action=annuleeReservation&idReservation=' . $id . '" class="btn btn-xs btn-danger btnDelete"><i class="fa fa-delete" aria-hidden="true"></i> Annuler</a></td>';
+                echo '<td>
+                        <a href="index.php?controller=reservation&action=read&idReservation='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
+                        <a href="index.php?controller=reservation&action=annuleeReservation&idReservation=' . $id . '" class="btn btn-xs btn-danger btnDelete"><i class="fa fa-delete" aria-hidden="true"></i> Annuler</a></td>';
                 echo '</tr>';
 
             }

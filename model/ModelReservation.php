@@ -257,7 +257,7 @@ class ModelReservation extends Model {
             if($tab[0] < 0) {
                 return "#!ERREUR";
             }
-            return $tab[0]+1;
+            return $tab[0];
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();

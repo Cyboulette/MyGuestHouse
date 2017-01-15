@@ -1,7 +1,44 @@
 <?php
+/* Make sure in production mode that $powerNeeded is not true auto */
 
     class ControllerReservation {
         protected static $object = 'reservation';
+
+        public static function read($message = null){
+            if(ControllerUtilisateur::isConnected()) {
+                if(isset($_GET['idReservation'])) {
+                    $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+                    $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
+                    $powerNeeded = true;
+                    $view = 'recapReservation';
+                    $pagetitle = 'Récaputulatif reservations';
+
+                    //informations client
+                    $nomClient = $currentUser->get('nomUtilisateur');
+                    $prenomClient = $currentUser->get('prenomUtilisateur');
+
+                    //informations reservation
+                    $idReservation = htmlspecialchars($_GET['idReservation']);
+                    $reservation = ModelReservation::select($idReservation);
+                    $dateDebut = $reservation->get('dateDebut');
+                    $dateFin = $reservation->get('dateFin');
+                    $prixTotal = $reservation->getPrixTotal();
+                    $nomChambre = ModelChambre::select($reservation->get('idChambre'))->get('nomChambre');
+                    $nombreNuits = $reservation->getNombreNuits();
+                    $prixReservation = ModelChambre::select($reservation->get('idChambre'))->get('prixChambre')*$nombreNuits;
+
+                    //informations prestations
+                    $prestations = ModelPrestation::selectAllByReservation($idReservation);
+
+                    require File::build_path(array('view', 'main_view.php'));
+                } else {
+                    $message = '<div class="alert alert-danger">Vous devez renseigner l\'id de la réservation pour la lire.</div>';
+                    self::reservations($message);
+                }
+            } else {
+                ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
+            }
+        }
 
         public static function reservations($message = null){
             if(ControllerUtilisateur::isConnected()) {
@@ -11,7 +48,6 @@
                 $view = 'reservations';
                 $pagetitle = 'Vos reservations';
 
-                $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                 $idUtilisateur = $currentUser->get('idUtilisateur');
                 if (!isset($_GET['mode'])) {
                     $_GET['mode'] = 'enattentes';
