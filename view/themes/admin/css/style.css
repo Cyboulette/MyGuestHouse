@@ -10,6 +10,39 @@ body {
   padding-top: 50px;
 }
 
+/* Gestion du carousel */
+
+.carousel-control.left, .carousel-control.right {
+  background: none;
+  color: black;
+}
+
+.carousel-control {
+  width: auto;
+}
+
+.carousel-control.left {
+  left: 10%;
+}
+
+.carousel-control.right {
+  right: 10%;
+}
+
+.carousel-indicators .active {
+  background-color: black;
+}
+
+.carousel-indicators li {
+  border: 1px solid black;
+}
+
+.carousel-inner>.item>img {
+  margin-left: auto;
+  margin-right: auto;
+  height : 250px;
+}
+
 /* Gestion de l'icône de chargement */
 
 .loader {
