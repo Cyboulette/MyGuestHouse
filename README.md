@@ -22,6 +22,10 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 
 # Commits
 
+- 14/01 
+    *       Resume of reservation
+    *       New form on chambre's page and viewAllChambre, how can we get better form ?
+
 
 - 13/01 
     *       Allow to select some prestations when add reservations on user side
