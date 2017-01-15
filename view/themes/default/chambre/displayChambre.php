@@ -97,7 +97,7 @@
                 </div>
             ";
         }else{ 
-          echo '<div class="alert alert-danger">'."Il n'y a aucune photo pour linstant".'</div>';
+          echo '<div class="alert alert-danger">'."Il n'y a aucune photo pour l'instant".'</div>';
         } 
     ?> 
  
@@ -130,7 +130,7 @@
                 <h3>Détails </h3>
               </div> 
               <div> 
-                <ul> 
+                <ul class='no-puce'> 
             "; 
 
             foreach ($tab_detail as $key => $value) { 
