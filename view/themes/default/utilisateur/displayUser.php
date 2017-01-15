@@ -11,6 +11,9 @@
 
         $avis = ModelAvis::selectCustomAvis('idUtilisateur', $idUtilisateur);
         $nbAvis = ModelAvis::countCustomAvis('idUtilisateur', $idUtilisateur);
+
+
+		// Gestion des pluriels
         if($nbAvis>1){
         	$SOfAvis = 's';
         }else{
@@ -20,15 +23,35 @@
 
         $nbReservation = count(ModelReservation::selectAllByUser($idUtilisateur));
         if($nbReservation>1){
-        	$SOfReservation = 's';
+        	$SForAllReservation = 's';
         }else{
-        	$SOfReservation =	'';
+        	$SForAllReservation =	'';
         }
+		if(count($reservationsEnCours) > 1) {
+			$SForReservationEnCours = 's';
+		} else {
+			$SForReservationEnCours = '';
+		}
+		if(count($reservationsEnAttente) > 1) {
+			$SForReservationEnAttente = 's';
+		} else {
+			$SForReservationEnAttente = '';
+		}
+		if(count($reservationsFinies) > 1) {
+			$SForReservationFini = 's';
+		} else {
+			$SForReservationFini = '';
+		}
+		if(count($reservationsAnnulees) > 1) {
+			$SForReservationAnnulee = 's';
+		}else {
+			$SForReservationAnnulee = '';
+		}
     }
 ?>
 
 <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"> 
-	<h1 class="page-header"> Bonjour <?php echo $prenom.' '.$nom;?></h1>
+	<h1 class="page-header"> Bonjour <?php echo ucfirst($prenom);?></h1>
 	<?php if(isset($message)) echo $message; ?>
 
 	<div class="row col-lg-offset-0">
@@ -57,15 +80,14 @@
 		</div>
 	</div>
 
-	</br>
 
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="panel-group margin-top-30px" id="accordion" role="tablist" aria-multiselectable="true">
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						<div class="space-for-according">
-							<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SOfReservation?> effectuée<?=$SOfReservation?></span>
+							<span class="text-left">Détails sur les reservations</span><span class="text-right"><?= $nbReservation?> reservation<?=$SForAllReservation?> effectuée<?=$SForAllReservation?></span>
 						</div>
 					</a>
 				</h4>
@@ -77,10 +99,10 @@
 						<ul class="no-puce">
 							<li>Récapitulatif de vos reservations :</li>
 							<ul class="no-puce">
-								<li><?=count($reservationsEnCours)?> réservation en cours.</li>
-								<li><?=count($reservationsEnAttente)?> réservation en attente.</li>
-								<li><?=count($reservationsFinies)?> réservation finie.</li>
-								<li class="text-danger"><?=count($reservationsAnnulees)?> réservation annulée.</li>
+								<li><?=count($reservationsEnCours)?> réservation<?=$SForReservationEnCours?> en cours.</li>
+								<li><?=count($reservationsEnAttente)?> réservation<?=$SForReservationEnAttente?> en attente.</li>
+								<li><?=count($reservationsFinies)?> réservation<?=$SForReservationFini?> finie<?=$SForReservationFini?>.</li>
+								<li class="text-danger"><?=count($reservationsAnnulees)?> réservation<?=$SForReservationAnnulee?> annulée<?=$SForReservationAnnulee?>.</li>
 							</ul>
 						</ul>
 						<ul class="no-puce">

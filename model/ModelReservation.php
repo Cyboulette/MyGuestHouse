@@ -59,7 +59,7 @@ class ModelReservation extends Model {
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut <= :date AND dateFin >= :date '.$where_clause;
+            $sql = 'SELECT * FROM '.self::$tableName.' WHERE dateDebut <= :date AND dateFin >= :date AND annulee IS NULL '.$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -88,7 +88,7 @@ class ModelReservation extends Model {
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut > :date '.$where_clause;
+            $sql = 'SELECT * FROM GH_Reservations WHERE dateDebut > :date AND annulee IS NULL '.$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
@@ -118,7 +118,7 @@ class ModelReservation extends Model {
         try{
             $dateLocal = new DateTime();
 
-            $sql = 'SELECT * FROM GH_Reservations WHERE dateFin < :date '.$where_clause;
+            $sql = "SELECT * FROM GH_Reservations WHERE dateFin < :date AND annulee IS NULL ".$where_clause;
             $rep = Model::$pdo->prepare($sql);
 
             $values = array(
