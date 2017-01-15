@@ -26,7 +26,7 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
     *       Resume of reservation
     *       New form on chambre's page and viewAllChambre, how can we get better form ?
 
-
+<br>
 - 13/01 
     *       Allow to select some prestations when add reservations on user side
     *       Corrections on the list of reservations on user side       
