@@ -373,7 +373,25 @@ class Conf {
 				array_push($result, $dateTime);
 			}
 
-			return array_intersect($result, $tab_reservations)==null;
+			return array_intersect($result, $tab_reservations) == null;
+		}
+
+		/**
+		 * @param $idReservation
+		 * @param $idUser
+		 * @return bool
+		 */
+		public static function verifReservationsForUser($idReservation, $idUser) {
+			$reservationUser = ModelReservation::selectAllByUser($idUser);
+			$idReservationsUser = array();
+			$idReservationToArray = array($idReservation);
+
+			foreach($reservationUser as $reservation){
+				array_push($idReservationsUser, strval($reservation->get('idReservation')));
+			}
+
+			// Si c'est une reservation qui fait partie des reservations de l'utilisateur on renvoie true
+			return array_intersect($idReservationToArray, $idReservationsUser);
 		}
 
 
@@ -449,6 +467,61 @@ class Conf {
 
 		/* Some usefull functions */
 
+
+		/**
+		 * @param $date1 the date with the format d/m/Y
+		 * @param $date2 the date with the format d/m/Y
+		 * @return int|null
+		 */
+		public static function getDiffJours($date1, $date2){
+			$dates = ControllerDefault::getDateForBdFormat($date1, $date2);
+			$datetime1 = date_create($dates['dateDebut']);
+			$datetime2 = date_create($dates['dateFin']);
+			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
+
+			if($interval < 0){
+				return $interval;
+			} else {
+				return $interval;
+			}
+		}
+
+		/**
+		 * @param $dateDebut the date with the format Y-m-d
+		 * @param $dateFin	the date with the format Y-m-d
+		 * @return int|null
+		 */
+		public static function getDiffNuitsWithBDFormat($dateDebut, $dateFin) {
+			$datetime1 = new DateTime($dateDebut);
+			$datetime2 = new DateTime($dateFin);
+			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
+
+			if($interval < 0){
+				return $interval;
+			} else {
+				return $interval;
+			}
+		}
+
+		/**
+		 * @param object a list of php object
+		 * @return mixed the last object in $listObject
+		 */
+		public static function getLastObject(Array $listObject){
+			if($listObject === null ) {
+				return null;
+			}
+			$result = null;
+			foreach ($listObject as $object) {
+				$result = $object;
+ 			}
+			return $result;
+		}
+
+
+
+
+		// Est-ce que ces fonctions sont inutiles ?
 		/**
 		 * @param $dateDebut
 		 * @param $dateFin
@@ -515,58 +588,6 @@ class Conf {
 					return 31+29+31+30+31+30+31+31+30+31+30+31;
 					break;
 			}
-		return $result;
-		}
-
-
-		/**
-		 * @param $date1 the date with the format d/m/Y
-		 * @param $date2 the date with the format d/m/Y
-		 * @return int|null
-		 */
-		public static function getDiffJours($date1, $date2){
-			$dates = ControllerDefault::getDateForBdFormat($date1, $date2);
-			$datetime1 = date_create($dates['dateDebut']);
-			$datetime2 = date_create($dates['dateFin']);
-			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
-
-			if($interval < 0){
-				return $interval;
-			} else {
-				return $interval;
-			}
-		}
-
-
-		/**
-		 * @param $dateDebut the date with the format Y-m-d
-		 * @param $dateFin	the date with the format Y-m-d
-		 * @return int|null
-		 */
-		public static function getDiffNuitsWithBDFormat($dateDebut, $dateFin) {
-			$datetime1 = new DateTime($dateDebut);
-			$datetime2 = new DateTime($dateFin);
-			$interval = intval(date_diff($datetime1, $datetime2)->format("%R%a"));
-
-			if($interval < 0){
-				return $interval;
-			} else {
-				return $interval;
-			}
-		}
-
-		/**
-		 * @param object a list of php object
-		 * @return mixed the last object in $listObject
-		 */
-		public static function getLastObject(Array $listObject){
-			if($listObject === null ) {
-				return null;
-			}
-			$result = null;
-			foreach ($listObject as $object) {
-				$result = $object;
- 			}
 			return $result;
 		}
 	}

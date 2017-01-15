@@ -7,30 +7,36 @@
         public static function read($message = null){
             if(ControllerUtilisateur::isConnected()) {
                 if(isset($_GET['idReservation'])) {
-                    $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                    $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                    $powerNeeded = true;
-                    $view = 'recapReservation';
-                    $pagetitle = 'Récaputulatif d\'une reservation';
-
-                    //informations client
-                    $nomClient = $currentUser->get('nomUtilisateur');
-                    $prenomClient = $currentUser->get('prenomUtilisateur');
-
-                    //informations reservation
                     $idReservation = htmlspecialchars($_GET['idReservation']);
-                    $reservation = ModelReservation::select($idReservation);
-                    $dateDebut = $reservation->get('dateDebut');
-                    $dateFin = $reservation->get('dateFin');
-                    $prixTotal = $reservation->getPrixTotal();
-                    $nomChambre = ModelChambre::select($reservation->get('idChambre'))->get('nomChambre');
-                    $nombreNuits = $reservation->getNombreNuits();
-                    $prixReservation = ModelChambre::select($reservation->get('idChambre'))->get('prixChambre')*$nombreNuits;
+            var_dump(ControllerDefault::verifReservationsForUser($idReservation, $_SESSION['idUser'])[0]);
+                    if(ControllerDefault::verifReservationsForUser($idReservation, $_SESSION['idUser'])[0] != null) {
+                        $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+                        $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
+                        $powerNeeded = true;
+                        $view = 'recapReservation';
+                        $pagetitle = 'Récaputulatif d\'une reservation';
 
-                    //informations prestations
-                    $prestations = ModelPrestation::selectAllByReservation($idReservation);
+                        //informations client
+                        $nomClient = $currentUser->get('nomUtilisateur');
+                        $prenomClient = $currentUser->get('prenomUtilisateur');
 
-                    require File::build_path(array('view', 'main_view.php'));
+                        //informations reservation
+                        $reservation = ModelReservation::select($idReservation);
+                        $dateDebut = $reservation->get('dateDebut');
+                        $dateFin = $reservation->get('dateFin');
+                        $prixTotal = $reservation->getPrixTotal();
+                        $nomChambre = ModelChambre::select($reservation->get('idChambre'))->get('nomChambre');
+                        $nombreNuits = $reservation->getNombreNuits();
+                        $prixReservation = ModelChambre::select($reservation->get('idChambre'))->get('prixChambre')*$nombreNuits;
+
+                        //informations prestations
+                        $prestations = ModelPrestation::selectAllByReservation($idReservation);
+
+                        require File::build_path(array('view', 'main_view.php'));
+                    } else {
+                        $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'est pas la vôtre.</div>';
+                        self::reservations($message);
+                    }
                 } else {
                     $message = '<div class="alert alert-danger">Vous devez renseigner l\'id de la réservation pour la lire.</div>';
                     self::reservations($message);
