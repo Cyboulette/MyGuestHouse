@@ -198,10 +198,30 @@ class ControllerUtilisateur {
       if(self::isConnected()){
          $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
 
-         $view = 'displayUser';
-         $pagetitle = 'Détail de l\'utilisateur';
-         $powerNeeded = true;
-         require File::build_path(array('view', 'main_view.php'));
+         if($utilisateur!=false){
+
+            $idUtilisateur = $utilisateur->get('idUtilisateur');
+            $reservationsEnCours = ModelReservation::getReservationsEnCours($idUtilisateur);
+            $reservationsEnAttente = ModelReservation::getReservationsEnAttente($idUtilisateur);
+            $reservationsFinies = ModelReservation::getReservationsFinis($idUtilisateur);
+            $reservationsAnnulees = ModelReservation::getReservationsAnnulee($idUtilisateur);
+            $argentDepense = ModelReservation::selectAllPrixByUser($idUtilisateur);
+            $tab_reservations = ModelReservation::selectAllByUser($idUtilisateur);
+
+            if ($tab_reservations != null) {
+               $dateDebutLastReservation = ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut');
+               $dateFinLastReservation = ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin');
+            }
+
+            $view = 'displayUser';
+            $pagetitle = 'Détail de l\'utilisateur';
+            $powerNeeded = true;
+
+            require_once File::build_path(array("view", "main_view.php"));
+         }else{
+            $message = '<div class="alert alert-danger">Cet Utilisateur n\'existe plus !</div>';
+            self::utilisateurs($message);
+         }
       } else {
          ControllerDefault::error('Vous n\'êtes pas connecté, impossible d\'acceder a vos informations !');
       }

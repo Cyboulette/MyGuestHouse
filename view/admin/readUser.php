@@ -144,7 +144,7 @@
 				<?php } else { ?>
 					<div class="container">
 						<ul class="no-puce">
-							<li class="text-danger">Ce client n'a réservé aucune chambre ! <a href="#">envoyez lui un e-mail</a> </li>
+							<li class="text-danger">Ce client n'a réservé aucune chambre ! </li>
 						</ul>
 					</div>
 				<?php } ?>

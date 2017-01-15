@@ -72,7 +72,28 @@
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 				<div class="panel-body">
-					Argent dépensé : <?=ModelReservation::selectAllPrixByUser($id)?> €
+					<?php if ($tab_reservations != null) { ?>
+
+						<ul class="no-puce">
+							<li>Récapitulatif de vos reservations :</li>
+							<ul class="no-puce">
+								<li><?=count($reservationsEnCours)?> réservation en cours.</li>
+								<li><?=count($reservationsEnAttente)?> réservation en attente.</li>
+								<li><?=count($reservationsFinies)?> réservation finie.</li>
+								<li class="text-danger"><?=count($reservationsAnnulees)?> réservation annulée.</li>
+							</ul>
+						</ul>
+						<ul class="no-puce">
+							<li>Dernière réservation : du <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateDebut')?> au <?=ControllerDefault::getLastObject(ModelReservation::selectAllByUser($idUtilisateur))->get('dateFin')?></li>
+						</ul>
+
+					<?php } else { ?>
+						<div class="container">
+							<ul class="no-puce">
+								<li class="text-danger">Ce client n'a réservé aucune chambre ! </li>
+							</ul>
+						</div>
+					<?php } ?>
 					<br>
 				</div>
 			</div>
