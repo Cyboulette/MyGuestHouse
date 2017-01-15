@@ -112,14 +112,14 @@ $classAditional = '';
 			<div class="col-lg-6 text-center">
 				<div class="col-md-5">
 					<div class="service">
-						<h2><i class="fa fa-cutlery" aria-hidden="true"></i></h2>
-						<b>Restaurant</b>
+						<h2><i class="fa fa-bed" aria-hidden="true"></i></h2>
+						<b>Une chambre ...</b>
 					</div>
 				</div>
 				<div class="col-md-5">
 					<div class="service">
-						<h2><i class="fa fa-tint" aria-hidden="true"></i></h2>
-						<b>Piscine</b>
+						<h2><i class="fa fa-cutlery" aria-hidden="true"></i></h2>
+						<b>... des prestations</b>
 					</div>
 				</div>
 			</div>
