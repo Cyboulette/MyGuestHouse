@@ -375,35 +375,6 @@ class Conf {
 			return array_intersect($result, $tab_reservations) == null;
 		}
 
-		/**
-		 * @param $idReservation
-		 * @return mixed the id of the user who reserve the reservation n° $idReservation
-		 */
-		public static function idUserForReservation($idReservation) {
-			$reservationUser = ModelReservation::select($idReservation);
-			$idUser = $reservationUser->get('idUtilisateur');
-
-			return $idUser;
-		}
-
-		/**
-		 * @param $idReservation
-		 * @return array
-		 */
-		public static function verifReservationExist($idReservation) {
-			$reservations = ModelReservation::selectAll();
-			$idReservationToArray = array($idReservation);
-			$idReservationsAll = array();
-
-
-			foreach($reservations as $reservation){
-				array_push($idReservationsAll, strval($reservation->get('idReservation')));
-			}
-
-			// Si c'est une reservation qui fait partie des reservations de l'utilisateur on renvoie true
-			return array_intersect($idReservationToArray, $idReservationsAll);
-		}
-
 
 		/* SOME FUNCTION FOR RESERVATION'S DATE */
 

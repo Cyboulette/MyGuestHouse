@@ -8,18 +8,17 @@
             if(ControllerUtilisateur::isConnected()) {
                 if(isset($_GET['idReservation'])) {
                     $idReservation = htmlspecialchars($_GET['idReservation']);
-
-                    if(ControllerDefault::verifReservationExist($idReservation)) {
-                        if(ControllerDefault::idUserForReservation($idReservation) === $_SESSION['idUser']) {
-                            $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                            $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                            $powerNeeded = true;
+                    $reservation = ModelReservation::select($idReservation);
+                    if($reservation != false) {
+                        if($reservation->get('idUtilisateur') === $_SESSION['idUser']) {
+                            $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $reservation->get('idUtilisateur'))[0];
+                            $powerNeeded = true; // C'est le bon user dans tous les cas
                             $view = 'recapReservation';
                             $pagetitle = 'Récaputulatif d\'une reservation';
 
                             //informations client
-                            $nomClient = $currentUser->get('nomUtilisateur');
-                            $prenomClient = $currentUser->get('prenomUtilisateur');
+                            $nomClient = htmlspecialchars($currentUser->get('nomUtilisateur'));
+                            $prenomClient = htmlspecialchars($currentUser->get('prenomUtilisateur'));
 
                             //informations reservation
                             $reservation = ModelReservation::select($idReservation);
@@ -36,16 +35,14 @@
                             require File::build_path(array('view', 'main_view.php'));
                         } else {
                             $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'est pas la vôtre.</div>';
-                            self::reservations($message);
                         }
                     } else {
                         $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'existe pas.</div>';
-                        self::reservations($message);
                     }
                 } else {
                     $message = '<div class="alert alert-danger">Vous devez renseigner l\'id de la réservation pour la lire.</div>';
-                    self::reservations($message);
                 }
+                self::reservations($message);
             } else {
                 ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
             }
@@ -54,7 +51,6 @@
         public static function reservations($message = null){
             if(ControllerUtilisateur::isConnected()) {
                 $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                 $powerNeeded = true;
                 $view = 'reservations';
                 $pagetitle = 'Vos réservations';
@@ -89,8 +85,6 @@
          **/
         public static function reservationChambre($message = null){
             if(ControllerUtilisateur::isConnected()) {
-                $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                 $powerNeeded = true;
                 $view = 'reservationChambre';
                 $pagetitle = 'Faire une réservation';
@@ -124,8 +118,6 @@
          */
         public static function addReservation($message = null){
             if(ControllerUtilisateur::isConnected()) {
-                $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                 $powerNeeded = true;
 
                 if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
@@ -150,8 +142,8 @@
                             $save = ModelReservation::save($data);
                             if ($save) {
                                 $message = '<div class="alert alert-success">Réservation ajoutée avec succès !</div>';
-
                                 self::reservations($message);
+                                exit();
                             } else {
                                 $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
                             }
@@ -172,10 +164,7 @@
 
         public static function managePrestationForReservation(){
             if(ControllerUtilisateur::isConnected()) {
-                $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                $powerNeeded = true; // pour les besoins du dév, à retirer
-
+                $powerNeeded = true;
                 if (isset($_GET['idReservation']) && $_GET['idReservation'] != NULL) {
                     $reservation = ModelReservation::select($_GET['idReservation']);
                     if ($reservation != null) {
@@ -200,10 +189,9 @@
         }
 
         public static function managedPrestationForReservation(){
+            // Vérifier qu'on modifie bien une réservation qu'on possède.
             if(ControllerUtilisateur::isConnected()) {
-                $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                $powerNeeded = true; // pour les besoins du dév, à retirer
+                $powerNeeded = true;
 
                 if (isset($_POST['idReservation']) && $_POST['idReservation'] != null) {
                     $idReservation = $_POST['idReservation'];
