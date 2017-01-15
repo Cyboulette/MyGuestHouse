@@ -33,7 +33,7 @@
 	                  }
 	                }
 	                if (!$compteur) {
-	                    $tab_photo = ModelChambre::selectPhoto($idChambre);
+	                    $tab_photo = $chambre->selectPhoto();
 	                }
 	                
 	                require_once File::build_path(array("view","main_view.php"));
