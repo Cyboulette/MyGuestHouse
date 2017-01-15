@@ -11,7 +11,7 @@ class ControllerChambre {
             $powerNeeded = true;
             $tab_v = ModelChambre::selectAll();
             $view = 'displayAllChambre';
-            $pagetitle = 'Nos Chambres';
+            $pagetitle = 'Nos chambres';
 
             require_once File::build_path(array("view","main_view.php"));
         } else {
@@ -25,7 +25,7 @@ class ControllerChambre {
             $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
             $powerNeeded = true;
             $view = 'displayChambre';
-            $pagetitle = 'detail de la chambre';
+            $pagetitle = 'Détails de la chambre';
 
             if (isset($_GET["idChambre"]) || isset($_GET["forChambre"])){
                 if (isset($_GET['idChambre'])) {

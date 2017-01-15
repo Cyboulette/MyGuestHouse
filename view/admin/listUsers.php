@@ -26,7 +26,7 @@ $nbNonConfirme=ModelUtilisateur::countSelectNonValide();
 
 <?php
 if(empty($tab_utilisateurs)){
-	echo '<div class="alert alert-danger">Vous ne disposez d\'aucun uttilisateur dans cette catégorie pour le moment !</div>';
+	echo '<div class="alert alert-danger">Vous ne disposez d\'aucun utilisateur dans cette catégorie pour le moment !</div>';
 }else{
 	echo '<div class="table-responsive"><table class="table table-hover tableCenter">';
 	echo '<thead>';
@@ -34,8 +34,8 @@ if(empty($tab_utilisateurs)){
 	echo '<th>Valide</th>';
 	echo '<th>Prenom</th>';
 	echo '<th>Nom</th>';
-	echo '<th>login</th>';
-	echo '<th>statut</th>';
+	echo '<th>Login</th>';
+	echo '<th>Statut</th>';
 	echo '<th>Actions</th>';
 	echo '</tr>';
 	echo '</thead>';

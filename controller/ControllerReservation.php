@@ -11,7 +11,7 @@
                     $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                     $powerNeeded = true;
                     $view = 'recapReservation';
-                    $pagetitle = 'Récaputulatif reservations';
+                    $pagetitle = 'Récaputulatif d\'une reservation';
 
                     //informations client
                     $nomClient = $currentUser->get('nomUtilisateur');
@@ -46,7 +46,7 @@
                 $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                 $powerNeeded = true;
                 $view = 'reservations';
-                $pagetitle = 'Vos reservations';
+                $pagetitle = 'Vos réservations';
 
                 $idUtilisateur = $currentUser->get('idUtilisateur');
                 if (!isset($_GET['mode'])) {
@@ -82,7 +82,7 @@
                 $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
                 $powerNeeded = true;
                 $view = 'reservationChambre';
-                $pagetitle = 'Faire une reservation';
+                $pagetitle = 'Faire une réservation';
 
                 $idChambre = null;
                 if(isset($_GET['idChambre'])) {
@@ -138,17 +138,17 @@
                             );
                             $save = ModelReservation::save($data);
                             if ($save) {
-                                $message = '<div class="alert alert-success">Reservation ajoutée avec succès !</div>';
+                                $message = '<div class="alert alert-success">Réservation ajoutée avec succès !</div>';
 
                                 self::reservations($message);
                             } else {
                                 $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
                             }
                         } else {
-                            $message = '<div class="alert alert-danger">Vous devez effectuer 2 reservations distincts s\'il y a deja eu des reservations entre la date de début.</div>';
+                            $message = '<div class="alert alert-danger">Vous devez effectuer 2 reservations distinctes s\'il y a déjà eu des réservations entre la date de début.</div>';
                         }
                     } else {
-                        $message = '<div class="alert alert-danger">Vous ne pouvez pas réserver avec une date de fin antèrieur à la date de début. Veuillez réessayer</div>';
+                        $message = '<div class="alert alert-danger">Vous ne pouvez pas réserver avec une date de fin anterieure à la date de début. Veuillez réessayer.</div>';
                     }
                 } else {
                     $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';
@@ -163,15 +163,13 @@
             if(ControllerUtilisateur::isConnected()) {
                 $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                 $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                $powerNeeded = true;
+                $powerNeeded = true; // pour les besoins du dév, à retirer
 
-                if (isset($_SESSION['idUser'])) { $powerNeeded = true; }
-                else { $powerNeeded = false; }
                 if (isset($_GET['idReservation']) && $_GET['idReservation'] != NULL) {
                     $reservation = ModelReservation::select($_GET['idReservation']);
                     if ($reservation != null) {
                         $view = 'prestationFor';
-                        $pagetitle = 'Nos prestations';
+                        $pagetitle = 'Prestations pour votre réservation';
                         $idReservation = $_GET['idReservation'];
                         $tab_prestation = ModelPrestation::selectAllByReservation($_GET['idReservation']);
                         $tab_allPrestation = ModelPrestation::selectAll();
@@ -194,7 +192,7 @@
             if(ControllerUtilisateur::isConnected()) {
                 $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                 $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                $powerNeeded = true;
+                $powerNeeded = true; // pour les besoins du dév, à retirer
 
                 if (isset($_POST['idReservation']) && $_POST['idReservation'] != null) {
                     $idReservation = $_POST['idReservation'];
@@ -207,9 +205,9 @@
                         }
                     }
                     if ($update != false) {
-                        $message = '<div class="alert alert-success">Prestation modifiée avec succès !</div>';
+                        $message = '<div class="alert alert-success">Prestations modifiées avec succès !</div>';
                     } else {
-                        $message = '<div class="alert alert-danger">Echec de la modification de la prestation !</div>';
+                        $message = '<div class="alert alert-danger">Echec de la modification des prestations !</div>';
                     }
                 } else {
                     $message = '<div class="alert alert-danger">Vous ne pouvez modifier les prestations d\'une resrvation sans connaître son ID !</div>';
@@ -224,7 +222,7 @@
             if(ControllerUtilisateur::isConnected()) {
                 $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
                 $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                $powerNeeded = true;
+                $powerNeeded = true; // pour les besoins du dév, à retirer
 
                 $retour = array(); //Tableau de retour
                 if(isset($_POST['idReservation'])) {
