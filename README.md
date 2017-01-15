@@ -19,6 +19,8 @@ A demo is available here : https://myguesthouse.cyboulette.fr/
 - Ask to validate when a user add a reservation and add a prestations on reservation 
 - Display good prestations for chambre whe user want to add some in the reservation
 - Provide to cancel a reservation for user
+- verifier si l'user est bien sur sa reservation
+- recapitulatif de reservation coté admin / coté user
 
 # Commits
 

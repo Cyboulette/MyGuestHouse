@@ -1,11 +1,11 @@
 <?php if(!$powerNeeded) { exit(); } ?>
 <?php if(isset($message)) echo $message; ?>
 
-<div>
+
     <h1 class="page-header">Vos réservations</h1>
 
     <!-- Navigation for reservation -->
-    <div class="col-xs-12 row placeholders">
+    <div class="row placeholders">
         <ul class="nav nav-tabs" role="tablist">
             <li <?php ControllerDefault::active('reservation', '', 'enattentes'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=enattentes" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente($_SESSION['idUser'])) ?> </span></a></li>
             <li <?php ControllerDefault::active('reservation', '', 'encours'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours($_SESSION['idUser'])) ?> </span></a></li>
@@ -24,7 +24,9 @@
             echo '<th>Nom de la chambre   </th>';
             echo '<th>Nombre de nuits     </th>';
             echo '<th>Prix                </th>';
+        if($_GET['mode'] != 'finis') {
             echo '<th>Prestations         </th>';
+        }
             echo '<th>Action         </th>';
             echo '</tr>';
             echo '</thead>';
@@ -48,10 +50,19 @@
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
-                echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
-                echo '<td>
+                if($_GET['mode'] != 'finis') {
+                    echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation=' . $id . '" class="btn btn-xs btn-primary">' . $nbPrestations . ' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                }
+                echo '<td>';
+                if($_GET['mode'] != 'finis') {
+                    echo'
                         <a href="index.php?controller=reservation&action=read&idReservation='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
                         <a href="index.php?controller=reservation&action=annuleeReservation&idReservation=' . $id . '" class="btn btn-xs btn-danger btnDelete"><i class="fa fa-delete" aria-hidden="true"></i> Annuler</a></td>';
+
+                } else {
+                    echo '<a href="index.php?controller=reservation&action=read&idReservation='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>';
+                }
+
                 echo '</tr>';
 
             }
@@ -62,4 +73,4 @@
         <a href="index.php?controller=Chambre&action=readAll" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Consulter nos chambres </a>
         <a href="index.php?controller=reservation&action=reservationChambre" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Faite une reservation </a>
     </div>
-</div>
+

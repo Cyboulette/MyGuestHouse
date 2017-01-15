@@ -7,10 +7,10 @@
     <!-- Navigation for reservation -->
     <div class="col-xs-12 row placeholders">
         <ul class="nav nav-tabs" role="tablist">
-            <li <?php ControllerDefault::active('adminReservations', '', 'enattentes'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=enattentes" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('adminReservations', '', 'enattentes'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=enattentes" > En attentes <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente()) ?> </span></a></li>
             <li <?php ControllerDefault::active('adminReservations', '', 'encours'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours()) ?> </span></a></li>
             <li <?php ControllerDefault::active('adminReservations', '', 'annulees'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=annulees" > Annulées <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee()) ?> </span></a></li>
-            <li <?php ControllerDefault::active('adminReservations', '', 'finis'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=finis" > Finis <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis()) ?> </span></a></li>
+            <li <?php ControllerDefault::active('adminReservations', '', 'finis'); ?> ><a href="index.php?controller=adminReservations&action=reservations&mode=finis" > Finies <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis()) ?> </span></a></li>
         </ul>
         <br>
 
@@ -27,37 +27,49 @@
             echo '<th>Nom de la chambre   </th>';
             echo '<th>Nombre de nuits     </th>';
             echo '<th>Prix                </th>';
-            echo '<th>Prestations         </th>';
-            echo '<th>Actions             </th>';
-            echo '</tr>';
-            echo '</thead>';
-            foreach ($tab_reservations as $reservations) {
-                $id = $reservations->get('idReservation');
-                $utilisateur = ModelUtilisateur::select($reservations->get('idUtilisateur'));
-                $nom = $utilisateur->get('nomUtilisateur');
-                $prenom = $utilisateur->get('prenomUtilisateur');
-                $chambre = ModelChambre::select($reservations->get('idChambre'));
-                $idChambre = $chambre->get('idChambre');
-                $nomchambre = $chambre->get('nomChambre');
-                $nbPrestations = count(ModelPrestation::selectAllByReservation($reservations->get('idReservation')));
 
-                $prix = $reservations->getPrixTotal();
-                $duree = $reservations->getNombreNuits  ();
-
-                echo '<tr>';
-                echo '<td>' . $id .                 '</td>';
-                echo '<td>' . $nom .                '</td>';
-                echo '<td>' . $prenom .             '</td>';
-                echo '<td>' . $nomchambre .         '</td>';
-                echo '<td>' . $duree .              '</td>';
-                echo '<td>' . $prix . ' €            </td>';
-                echo '<td><a href="index.php?controller=adminReservations&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
-                echo '<td>
-                        <a href="index.php?controller=adminReservations&action=manageReservation&type=edit&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-                        <button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminReservations" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
-
-                        </td>';
+            if($_GET['mode'] != 'finis') {
+                echo '<th>Prestations         </th>';
+            }
+                echo '<th>Actions             </th>';
                 echo '</tr>';
+                echo '</thead>';
+
+                foreach ($tab_reservations as $reservations) {
+                    $id = $reservations->get('idReservation');
+                    $utilisateur = ModelUtilisateur::select($reservations->get('idUtilisateur'));
+                    $nom = $utilisateur->get('nomUtilisateur');
+                    $prenom = $utilisateur->get('prenomUtilisateur');
+                    $chambre = ModelChambre::select($reservations->get('idChambre'));
+                    $idChambre = $chambre->get('idChambre');
+                    $nomchambre = $chambre->get('nomChambre');
+                    $nbPrestations = count(ModelPrestation::selectAllByReservation($reservations->get('idReservation')));
+
+                    $prix = $reservations->getPrixTotal();
+                    $duree = $reservations->getNombreNuits  ();
+
+                    echo '<tr>';
+                    echo '<td>' . $id .                 '</td>';
+                    echo '<td>' . $nom .                '</td>';
+                    echo '<td>' . $prenom .             '</td>';
+                    echo '<td>' . $nomchambre .         '</td>';
+                    echo '<td>' . $duree .              '</td>';
+                    echo '<td>' . $prix . ' €            </td>';
+
+                    if($_GET['mode'] != 'finis') {
+                        echo '<td><a href="index.php?controller=adminReservations&action=managePrestationForReservation&idReservation='.$id.'" class="btn btn-xs btn-primary">'.$nbPrestations.' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
+                    }
+                    echo '<td>';
+                            if($_GET['mode'] != 'finis'){
+                                echo '
+                                <a href="index.php?controller=adminReservations&action=manageReservation&type=edit&idReservation=' . $id . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+                                <button type="button" class="btn btn-xs btn-danger btnDelete" data-url="adminReservations" data-id="'.$id.'"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button>
+                                </td>';
+                            } else {
+                                echo '<a href="index.php?controller=adminReservations&action=read&idReservation='.$id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>';
+                            }
+
+                    echo '</tr>';
 
 
             }

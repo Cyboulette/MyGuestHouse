@@ -179,8 +179,9 @@ class ModelUtilisateur extends Model {
         }       
     }
 
+    // Cette fonction existe deja dans le model Reservation
     // Select toutes les réservations d'un utilisateur
-    public static function selectAllRéservation(){
+    public static function selectAllRéservation() {
         $idUtilisateur = static::$idUtilisateur;
         $class_name = 'Model'.ucfirst(static::$object);
 
