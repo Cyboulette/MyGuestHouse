@@ -7,7 +7,7 @@ $classAditional = '';
 	  <!-- Indicators -->
 	  <ol class="carousel-indicators">
 		<?php 
-			foreach($dataSlides as $slide) { 
+			foreach($dataSlides as $slide) {
 			$isActive = ($slide['order'] == 0 ? 'class="active"' : '');
 		?>
 			<li data-target="#carousel-accueil" data-slide-to="<?=$slide['order']?>" <?=$isActive?>></li>

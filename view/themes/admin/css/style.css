@@ -43,6 +43,11 @@ body {
   height : 250px;
 }
 
+.disabled-date {
+  background-color: #ad1717!important;
+  color: white!important;
+}
+
 /* Gestion de l'icône de chargement */
 
 .loader {

@@ -15,12 +15,14 @@
 			$dataSlides = array();
 			if(!empty($imagesSlides)) {
 				foreach ($imagesSlides as $slide) {
-					$dataSlides[$slide->get('idSlide')] = array(
-						'order' => $order,
-						'url' => $slide->get('urlSlide'),
-						'texte' => htmlspecialchars($slide->get('textSlide'))
-					);
-					$order++;
+					if(file_exists(File::build_path(array($slide->get('urlSlide'))))) {
+						$dataSlides[$slide->get('idSlide')] = array(
+							'order' => $order,
+							'url' => $slide->get('urlSlide'),
+							'texte' => htmlspecialchars($slide->get('textSlide'))
+						);
+						$order++;
+					}
 				}
 			}
 
