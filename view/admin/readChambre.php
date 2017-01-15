@@ -88,7 +88,7 @@
       </div>
     ";
   }else{ 
-    echo '<div class="alert alert-danger">'."il n'y a aucune photo pour linstant".'</div>'; 
+    echo '<div class="alert alert-danger">'."Il n'y a aucune photo pour l'instant".'</div>'; 
   } 
 ?> 
  
@@ -98,7 +98,7 @@
   echo " 
     <div class='descriptionChambre margin-top-30px'> 
       <div> 
-        <h4>Descriptions :<h4> 
+        <h4>Description :<h4> 
       </div> 
       <ul> 
         <li> 
@@ -120,7 +120,7 @@
         </li> 
       </ul> 
     </div> 
-    <a href='index.php?controller=adminChambres&action=editChambre&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier les descriptions</a>
+    <a href='index.php?controller=adminChambres&action=editChambre&idChambre={$id}' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier les informations</a>
   "; 
 ?>
  
@@ -185,7 +185,7 @@
      
     echo '
       </div>
-      <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier lesprestations</a>
+      <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les prestations</a>
     '; 
   }else{ 
     echo '
