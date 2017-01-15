@@ -13,7 +13,7 @@ if(empty($tab_allPrestation)) {
 } else {
 	echo '<a href="index.php?controller=adminPrestations&action=addPrestation" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter une prestation</a><br/><br/>';
 
-	echo '<div class="table-responsive"><table class="table table-hover tableCenter">';
+	echo '<div class="table-responsive"><table class="table table-hover">';
 	echo '<thead>';
 	echo '<tr>';
 	echo '<th>Nom de la prestation</th>';

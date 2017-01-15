@@ -28,7 +28,7 @@
   <div class='form-group row'>
     <label class="col-sm-2 control-label" for='id_rang'>Rang de l'utilisateur :</label>
     <div class="col-sm-10">
-      <select multiple  class="form-control" name='rang' id='id_rang'>
+      <select class="form-control" name='rang' id='id_rang'>
       	<option class="form-control" value='1'>Visiteur</option>
       	<option class="form-control" value='2'>Membre</option>
       	<option class="form-control" value='3'>Administrateur</option>
@@ -39,14 +39,14 @@
   <div class='form-group row'>
     <label for='id_motDePasse' class="col-sm-2 control-label">Mot de passe : </label>
     <div class="col-sm-10">
-      <input class="form-control" type='password' name='motDePasse' id='id_motDePasse' placeholder='nouveau mot de passe'>
+      <input class="form-control" type='password' name='motDePasse' id='id_motDePasse' placeholder='Nouveau mot de passe'>
     </div>
   </div>
 
   <div class='form-group row'>
     <label for='id_motDePassebis' class="col-sm-2 control-label">Validation du mot de passe : </label>
     <div class="col-sm-10">
-      <input class="form-control" type='password' name='motDePassebis' id='id_motDePassebis' placeholder='validation du mot de passe'>
+      <input class="form-control" type='password' name='motDePassebis' id='id_motDePassebis' placeholder='Validation du mot de passe'>
     </div>
   </div>
 

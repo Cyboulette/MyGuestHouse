@@ -60,21 +60,21 @@
 				<div class='form-group'>
 					<label for='id_ancienMDP' class="col-sm-2 control-label">Ancien mot de passe : </label>
 					<div class="col-sm-10">
-						<input class='form-control' type='password' name='ancienMDP' id='id_ancienMDP' placeholder='ancien mot de passe'>
+						<input class='form-control' type='password' name='ancienMDP' id='id_ancienMDP' placeholder='Ancien mot de passe'>
 					</div>
 				</div>
 
 				<div class='form-group'>
 					<label for='id_nouveauMDP' class="col-sm-2 control-label">Nouveau mot de passe : </label>
 					<div class="col-sm-10">
-						<input class='form-control' type='password' name='nouveauMDP' id='id_nouveauMDP' placeholder='nouveau mot de passe'>
+						<input class='form-control' type='password' name='nouveauMDP' id='id_nouveauMDP' placeholder='Nouveau mot de passe'>
 					</div>
 				</div>
 
 				<div class='form-group'>
 					<label for='id_nouveauMDPbis' class="col-sm-2 control-label">Validation du mot de passe : </label>
 					<div class="col-sm-10">
-						<input class='form-control' type='password' name='nouveauMDPbis' id='id_nouveauMDPbis' placeholder='validation du mot de passe'>
+						<input class='form-control' type='password' name='nouveauMDPbis' id='id_nouveauMDPbis' placeholder='Validation du mot de passe'>
 					</div>
 				</div>
 

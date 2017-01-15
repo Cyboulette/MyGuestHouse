@@ -13,7 +13,7 @@ if(empty($tab_allDetails)) {
 } else {
 	echo '<a href="index.php?controller=adminDetails&action=addDetail" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un détail</a><br/><br/>';
 
-	echo '<div class="table-responsive"><table class="table table-hover tableCenter">';
+	echo '<div class="table-responsive"><table class="table table-hover">';
 	echo '<thead>';
 	echo '<tr>';
 	echo '<th>Nom du détail</th>';
