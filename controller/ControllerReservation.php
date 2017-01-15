@@ -8,33 +8,37 @@
             if(ControllerUtilisateur::isConnected()) {
                 if(isset($_GET['idReservation'])) {
                     $idReservation = htmlspecialchars($_GET['idReservation']);
-            var_dump(ControllerDefault::verifReservationsForUser($idReservation, $_SESSION['idUser'])[0]);
-                    if(ControllerDefault::verifReservationsForUser($idReservation, $_SESSION['idUser'])[0] != null) {
-                        $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
-                        $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
-                        $powerNeeded = true;
-                        $view = 'recapReservation';
-                        $pagetitle = 'Récaputulatif d\'une reservation';
+                    if(ControllerDefault::verifReservationExist($idReservation)) {
+                        if(ControllerDefault::verifReservationsForUser($idReservation, $_SESSION['idUser'])[0] != null) {
+                            $currentUser = ModelUtilisateur::selectCustom('idUtilisateur', $_SESSION['idUser'])[0];
+                            $powerNeeded = ($currentUser->getPower() == Conf::$power['user']);
+                            $powerNeeded = true;
+                            $view = 'recapReservation';
+                            $pagetitle = 'Récaputulatif d\'une reservation';
 
-                        //informations client
-                        $nomClient = $currentUser->get('nomUtilisateur');
-                        $prenomClient = $currentUser->get('prenomUtilisateur');
+                            //informations client
+                            $nomClient = $currentUser->get('nomUtilisateur');
+                            $prenomClient = $currentUser->get('prenomUtilisateur');
 
-                        //informations reservation
-                        $reservation = ModelReservation::select($idReservation);
-                        $dateDebut = $reservation->get('dateDebut');
-                        $dateFin = $reservation->get('dateFin');
-                        $prixTotal = $reservation->getPrixTotal();
-                        $nomChambre = ModelChambre::select($reservation->get('idChambre'))->get('nomChambre');
-                        $nombreNuits = $reservation->getNombreNuits();
-                        $prixReservation = ModelChambre::select($reservation->get('idChambre'))->get('prixChambre')*$nombreNuits;
+                            //informations reservation
+                            $reservation = ModelReservation::select($idReservation);
+                            $dateDebut = $reservation->get('dateDebut');
+                            $dateFin = $reservation->get('dateFin');
+                            $prixTotal = $reservation->getPrixTotal();
+                            $nomChambre = ModelChambre::select($reservation->get('idChambre'))->get('nomChambre');
+                            $nombreNuits = $reservation->getNombreNuits();
+                            $prixReservation = ModelChambre::select($reservation->get('idChambre'))->get('prixChambre')*$nombreNuits;
 
-                        //informations prestations
-                        $prestations = ModelPrestation::selectAllByReservation($idReservation);
+                            //informations prestations
+                            $prestations = ModelPrestation::selectAllByReservation($idReservation);
 
-                        require File::build_path(array('view', 'main_view.php'));
+                            require File::build_path(array('view', 'main_view.php'));
+                        } else {
+                            $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'est pas la vôtre.</div>';
+                            self::reservations($message);
+                        }
                     } else {
-                        $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'est pas la vôtre.</div>';
+                        $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'existe pas.</div>';
                         self::reservations($message);
                     }
                 } else {

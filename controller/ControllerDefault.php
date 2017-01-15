@@ -382,11 +382,11 @@ class Conf {
 		 * @return bool
 		 */
 		public static function verifReservationsForUser($idReservation, $idUser) {
-			$reservationUser = ModelReservation::selectAllByUser($idUser);
+			$reservationsUser = ModelReservation::selectAllByUser($idUser);
 			$idReservationsUser = array();
 			$idReservationToArray = array($idReservation);
 
-			foreach($reservationUser as $reservation){
+			foreach($reservationsUser as $reservation){
 				array_push($idReservationsUser, strval($reservation->get('idReservation')));
 			}
 
@@ -394,6 +394,20 @@ class Conf {
 			return array_intersect($idReservationToArray, $idReservationsUser);
 		}
 
+
+		public static function verifReservationExist($idReservation) {
+			$reservations = ModelReservation::selectAll();
+			$idReservationToArray = array($idReservation);
+			$idReservationsAll = array();
+
+
+			foreach($reservations as $reservation){
+				array_push($idReservationsAll, strval($reservation->get('idReservation')));
+			}
+
+			// Si c'est une reservation qui fait partie des reservations de l'utilisateur on renvoie true
+			return array_intersect($idReservationToArray, $idReservationsAll);
+		}
 
 		/* SOME FUNCTION FOR RESERVATION'S DATE */
 
