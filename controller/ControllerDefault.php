@@ -147,7 +147,7 @@ class Conf {
 		'password' => '".$pwd."'
 	);
 
-	static private \$debug = true;
+	static private \$debug = false;
 
 	static public \$theme = 'default';
 
