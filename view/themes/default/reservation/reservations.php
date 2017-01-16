@@ -9,8 +9,8 @@
         <ul class="nav nav-tabs" role="tablist">
             <li <?php ControllerDefault::active('reservation', '', 'enattentes'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=enattentes" > En attente <span class="badge">  <?php echo count(ModelReservation::getReservationsEnAttente($_SESSION['idUser'])) ?> </span></a></li>
             <li <?php ControllerDefault::active('reservation', '', 'encours'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=encours" > En cours <span class="badge">  <?php echo count(ModelReservation::getReservationsEnCours($_SESSION['idUser'])) ?> </span></a></li>
-            <li <?php ControllerDefault::active('reservation', '', 'annulees'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=annulees" > Annulées <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee($_SESSION['idUser'])) ?> </span></a></li>
-            <li <?php ControllerDefault::active('reservation', '', 'finis'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=finis" > Finies <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis($_SESSION['idUser'])) ?> </span></a></li>
+            <li <?php ControllerDefault::active('reservation', '', 'annulees'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=annulees" > Annulée <span class="badge">  <?php echo count(ModelReservation::getReservationsAnnulee($_SESSION['idUser'])) ?> </span></a></li>
+            <li <?php ControllerDefault::active('reservation', '', 'finis'); ?> ><a href="index.php?controller=reservation&action=reservations&mode=finis" > Finie <span class="badge">  <?php echo count(ModelReservation::getReservationsFinis($_SESSION['idUser'])) ?> </span></a></li>
         </ul>
         <br>
 
@@ -24,13 +24,14 @@
             echo '<th>Nom de la chambre   </th>';
             echo '<th>Nombre de nuit     </th>';
             echo '<th>Prix                </th>';
+
             $aray = array('finis', 'annulees');
             if(!in_array($_GET['mode'], $aray)) {
-            echo '<th>Prestations         </th>';
-        } else {
-            echo '<th>Nombre de prestation     </th>';
+                echo '<th>Prestations         </th>';
+            } else {
+                echo '<th>Nombre de prestation     </th>';
+            }
 
-        }
             echo '<th>Action         </th>';
             echo '</tr>';
             echo '</thead>';
@@ -54,11 +55,13 @@
                 echo '<td>' . $nomchambre .         '</td>';
                 echo '<td>' . $duree .              '</td>';
                 echo '<td>' . $prix . ' €            </td>';
+
                 if(!in_array($_GET['mode'], $aray)) {
                     echo '<td><a href="index.php?controller=reservation&action=managePrestationForReservation&idReservation=' . $id . '" class="btn btn-xs btn-primary">' . $nbPrestations . ' <i class="fa fa-cog" aria-hidden="true"></i></a></td>';
                 } else {
                     echo '<td>' . $nbPrestations . '</td>';
                 }
+
                 echo '<td>';
                 if(!in_array($_GET['mode'], $aray)) {
                     echo'
