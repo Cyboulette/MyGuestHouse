@@ -23,26 +23,26 @@
       	<div class='form-group row'>
       		<label for='id_email' class='col-xs-6 col-form-label'>E-mail : </label>
       		<div class='col-xs-6'>
-            <input type='email' class="form-control" name='email' id='id_email' value='<?=$email?>'>        		
+            <input required type='email' class="form-control" name='email' id='id_email' value='<?=$email?>'>        		
       		</div>
       	</div>
 
         <div class='form-group row'>
           <label for='id_nom' class='col-xs-6 col-form-label'>Nom de l'utilisateur : </label>
           <div class='col-xs-6'>
-            <input type='text' class="form-control" value='<?=$nom?>' name='nom' id='id_nom'>
+            <input required type='text' class="form-control" value='<?=$nom?>' name='nom' id='id_nom'>
           </div>
         </div>
 
         <div class='form-group row'>
           <label for='id_prenom' class='col-xs-6 col-form-label'>Prénom de l'utilisateur : </label>
           <div class='col-xs-6'>
-            <input type='text' class="form-control" value='<?=$prenom?>' name='prenom' id='id_prenom'>
+            <input required type='text' class="form-control" value='<?=$prenom?>' name='prenom' id='id_prenom'>
           </div>
         </div>
 
         <div class='col-xs-6 col-sm-5 col-lg-3 clear-both-left'>
-          <input type='submit' class='col-lg-offset-0 btn btn-s btn-success btn-block' value='Modifier'>
+          <input required type='submit' class='col-lg-offset-0 btn btn-s btn-success btn-block' value='Modifier'>
         </div>
     	</form>
     	</br>
@@ -57,27 +57,27 @@
       <div class='form-group row'>
         <label for='id_ancienMDP' class='col-xs-6  col-form-label'>Ancien mot de passe : </label>
         <div class='col-xs-6'>
-          <input type='password' class="form-control" name='ancienMDP' id='id_ancienMDP' placeholder='ancien mot de passe'>        		
+          <input required type='password' class="form-control" name='ancienMDP' id='id_ancienMDP' placeholder='Ancien mot de passe'>        		
         </div>
       </div>
 
       <div class='form-group row'>
       	<label for='id_nouveauMDP' class='col-xs-6 col-form-label'>Nouveau mot de passe : </label>
         <div class='col-xs-6'>
-          <input type='password' class="form-control" name='nouveauMDP' id='id_nouveauMDP' placeholder='nouveau mot de passe'>
+          <input required type='password' class="form-control" name='nouveauMDP' id='id_nouveauMDP' placeholder='Nouveau mot de passe'>
         </div>
       </div>
 
       <div class='form-group row'>
         <label for='id_nouveauMDPbis' class='col-xs-6 col-form-label'>Validation du mot de passe : </label>
         <div class='col-xs-6'>
-          <input type='password' class="form-control" name='nouveauMDPbis' id='id_nouveauMDPbis' placeholder='validation du mot de passe'>
+          <input required type='password' class="form-control" name='nouveauMDPbis' id='id_nouveauMDPbis' placeholder='Validation du mot de passe'>
         </div>
       </div>
 
       <div class='col-xs-6 col-sm-5 col-lg-3 clear-both-left'>
-        	<input type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
-        <input type='hidden' value='<?=$id?>' name='id'>
+        <input required type='submit' class='btn btn-s btn-success btn-block' value='Modifier'>
+        <input required type='hidden' value='<?=$id?>' name='id'>
       </div>
     </form>
 </div>
