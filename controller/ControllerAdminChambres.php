@@ -10,14 +10,20 @@
 			require_once File::build_path(array("view","main_view.php"));
 		}
 
-		public static function read(){
+		public static function read($idChambre=null, $message=null){
 			$powerNeeded = self::isAdmin();
 			$view = 'readChambre';
 			$pagetitle = 'Administration - Liste des chambres';
 			$template = 'admin';
 			
-			if (isset($_GET["idChambre"])) {
-	            $idChambre = $_GET["idChambre"];
+			if((isset($_GET["idChambre"]) && $_GET["idChambre"]!=null) || (isset($idChambre) && $idChambre!=null)){
+	            
+	            if(isset($_GET["idChambre"])){
+	            	$idChambre = htmlspecialchars($_GET["idChambre"]);
+	            }else if(isset($idChambre)){
+	            	$idChambre = htmlspecialchars($idChambre);
+	            }
+
 		        $chambre = ModelChambre::select($idChambre);
 	            if ($chambre!=false) {
 	                $tab_photo = $chambre->selectPhoto();

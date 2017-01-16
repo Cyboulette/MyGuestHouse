@@ -55,7 +55,7 @@
 		<div class="row">
 			<h3>Changement de mot de passe :</h3>
 
-			<form class="form-horizontal col-xs-offset-1" method='post' action='' enctype='multipart/form-data'>
+			<form class="form-horizontal col-xs-offset-1" method='post' action='?controller=adminUtilisateurs&action=changePassword&idUtilisateur=<?=$id?>' enctype='multipart/form-data'>
 
 				<div class='form-group'>
 					<label for='id_ancienMDP' class="col-sm-2 control-label">Ancien mot de passe : </label>

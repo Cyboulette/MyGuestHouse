@@ -130,7 +130,7 @@
 					$rang = htmlspecialchars($_POST['rang']);
 					$checkUser = ModelUtilisateur::select($id);
 					if($checkUser){
-						if($id = $_SESSION && $rang!=3){
+						if($id == $_SESSION['idUser'] && $rang!=3){
 							$verifAdmin = false;
 						}else{
 							$verifAdmin = true;
@@ -230,82 +230,134 @@
 		}
 
 		public static function preDeleteItem() {
-		self::deleteItemForm("adminUtilisateurs", "ModelUtilisateur", "de l'utilisateur", "emailUtilisateur", 'idUtilisateur');
-	}
+			self::deleteItemForm("adminUtilisateurs", "ModelUtilisateur", "de l'utilisateur", "emailUtilisateur", 'idUtilisateur');
+		}
 
 		public static function deleteItem() {
-		self::isAdmin();
-		if(isset($_POST['idItem'], $_POST['confirm'])) {
-			$idItem = htmlspecialchars($_POST['idItem']);
-			$confirm = htmlspecialchars($_POST['confirm']);
-			$item = ModelUtilisateur::select($idItem);
-			if($item != false) {
-				if($confirm == true) {
-					if($_SESSION['idUser'] != $item->get('idUtilisateur')) {
-						$checkDeleteItem = ModelUtilisateur::delete($item->get('idUtilisateur'));
-						if($checkDeleteItem) {
-							$message = '<div class="alert alert-success">L\'Utilisateur a bien été supprimé !</div>';
+			self::isAdmin();
+			if(isset($_POST['idItem'], $_POST['confirm'])) {
+				$idItem = htmlspecialchars($_POST['idItem']);
+				$confirm = htmlspecialchars($_POST['confirm']);
+				$item = ModelUtilisateur::select($idItem);
+				if($item != false) {
+					if($confirm == true) {
+						if($_SESSION['idUser'] != $item->get('idUtilisateur')) {
+							$checkDeleteItem = ModelUtilisateur::delete($item->get('idUtilisateur'));
+							if($checkDeleteItem) {
+								$message = '<div class="alert alert-success">L\'Utilisateur a bien été supprimé !</div>';
+							} else {
+								$message = '<div class="alert alert-danger">Impossible de supprimer cet utilisateur !</div>';
+							}
 						} else {
-							$message = '<div class="alert alert-danger">Impossible de supprimer cet utilisateur !</div>';
+							$message = '<div class="alert alert-danger">Vous ne pouvez pas vous auto-supprimer !</div>';
 						}
 					} else {
-						$message = '<div class="alert alert-danger">Vous ne pouvez pas vous auto-supprimer !</div>';
+						$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
 					}
 				} else {
-					$message = '<div class="alert alert-danger">Vous devez confirmer la suppression !</div>';
+					$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas</div>';
 				}
 			} else {
-				$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas</div>';
+				$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
 			}
-		} else {
-			$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de suppression !</div>';
+			self::utilisateurs($message);
 		}
-		self::utilisateurs($message);
-	}
 
-		// public static function changePassword(){
-	 //    	$powerNeeded = self::isAdmin();
-	 //        	$view = 'displayUser';
-	 //        	$pagetitle = 'Détail de l\'utilisateur';
-	 //        	$powerNeeded = true;
 
-	 //         	$checkUser = ModelUtilisateur::select($_SESSION['idUser']);
+		public static function changePassword() {
+			self::isAdmin();
+			if(isset($_POST['id']) && $_POST['id']!=null){
+				$idUtilisateur = htmlspecialchars($_POST['id']);
+				$checkUsr = ModelUtilisateur::select($idUtilisateur);
+				if($checkUsr!=false){
+					if(isset($_POST['ancienMDP']) && isset($_POST['nouveauMDP']) && isset($_POST['nouveauMDPbis'])){
+						if($_POST['ancienMDP']!=null && $_POST['nouveauMDP']!=null && $_POST['nouveauMDPbis']!=null){
+							$ancienMDP = strip_tags($_POST['ancienMDP']);
+				            $nouveauMDP = strip_tags($_POST['nouveauMDP']);
+				            $nouveauMDPbis = strip_tags($_POST['nouveauMDPbis']);
+				            if(password_verify($ancienMDP, $checkUsr->get('password'))){
+				            	if($nouveauMDP == $nouveauMDPbis){
+				                    $lutilisateur = array(
+				                        'idUtilisateur' => $idUtilisateur,
+				                        'password' => password_hash($nouveauMDP, PASSWORD_DEFAULT)
+				                    );
 
-		//         if(isset($_POST['ancienMDP']) && isset($_POST['nouveauMDP']) && isset($_POST['nouveauMDPbis'])){
-		//             if($_POST['ancienMDP']!=null && $_POST['nouveauMDP']!=null && $_POST['nouveauMDPbis']!=null){
-		//                $ancienMDP = strip_tags($_POST['ancienMDP']);
-		//                $nouveauMDP = strip_tags($_POST['nouveauMDP']);
-		//                $nouveauMDPbis = strip_tags($_POST['nouveauMDPbis']);
+				                    $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+				                    if($update!=false){
+				                        $message = '<div class="alert alert-success">Le changement de mot de passe a bien été effectué !</div>';
+				                    }else{
+				                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la modifictaion du mot de passe!</div>';
+				                    }
+				                }else{
+				                    $message = '<div class="alert alert-danger">L\'a validation du nouveau mot de passe n\'est pas correct !</div>';
+				                } 
+				            }else{
+				            	$message = '<div class="alert alert-danger">L\'ancien mot de passe est incorrect !</div>';
+				            }
+						}else{
+							$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de modification !</div>';
+						}
+					} else {
+						$message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire de modification !</div>';
+					}
+				}else{
+					$message = '<div class="alert alert-danger">Cet Utilisateur n\'existe plus !</div>';
+				}	
+			}else{
+				$message = '<div class="alert alert-danger">Nous n’avons pas pu recuperer les informations necessaires pour la modification !</div>';
+			}
+			self::utilisateurs($message);
+		}
 
-		//                	if(password_verify($ancienMDP, $checkUser->get('password'))){
-		//                   	if($nouveauMDP == $nouveauMDPbis){
-		//                     	$lutilisateur = array(
-		//                         	'idUtilisateur' => $_SESSION['idUser'],
-		//                         	'password' => password_hash($nouveauMDP, PASSWORD_DEFAULT)
-		//                      	);
 
-		// 	                    $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
-		// 	                    if($update!=false){
-		// 	                    	$message = '<div class="alert alert-success">Votre changement de mot de passe a bien été effectué !</div>';
-		// 	                    }else{
-		// 	                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la modifictaion de votre mot de passe!</div>';
-		// 	                    }
-		//                   	}else{
-		//                      	$message = '<div class="alert alert-danger">L\'a validation du nouveau mot de passe n\'est pas correct !</div>';
-		//                   	}
-		//                	}else{
-		//                   	$message = '<div class="alert alert-danger">L\'ancien mot de passe est incorrect !</div>';
-		//                	}
-		//             }else{
-		//                $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
-		//             }
-		//          }else{
-		//             $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
-		//          }
-		//          // pour le vue displayUser ---
-		//          $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
-		//          require File::build_path(array('view', 'main_view.php'));
-	 //   	}
+
+
+			// public static function changePassword(){
+		 //      if(self::isConnected()){
+		 //         $view = 'displayUser';
+		 //         $pagetitle = 'Détail de l\'utilisateur';
+		 //         $powerNeeded = true;
+
+		 //         $checkUser = ModelUtilisateur::select($_SESSION['idUser']);
+
+		 //         if(isset($_POST['ancienMDP']) && isset($_POST['nouveauMDP']) && isset($_POST['nouveauMDPbis'])){
+		 //            if($_POST['ancienMDP']!=null && $_POST['nouveauMDP']!=null && $_POST['nouveauMDPbis']!=null){
+		 //               $ancienMDP = strip_tags($_POST['ancienMDP']);
+		 //               $nouveauMDP = strip_tags($_POST['nouveauMDP']);
+		 //               $nouveauMDPbis = strip_tags($_POST['nouveauMDPbis']);
+
+		 //               if(password_verify($ancienMDP, $checkUser->get('password'))){
+		 //                  if($nouveauMDP == $nouveauMDPbis){
+		 //                     $lutilisateur = array(
+		 //                        'idUtilisateur' => $_SESSION['idUser'],
+		 //                        'password' => password_hash($nouveauMDP, PASSWORD_DEFAULT)
+		 //                     );
+
+		 //                     $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+		 //                     if($update!=false){
+		 //                        $message = '<div class="alert alert-success">Votre changement de mot de passe a bien été effectué !</div>';
+		 //                     }else{
+		 //                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la modifictaion de votre mot de passe!</div>';
+		 //                     }
+		 //                  }else{
+		 //                     $message = '<div class="alert alert-danger">L\'a validation du nouveau mot de passe n\'est pas correct !</div>';
+		 //                  } 
+		 //               }else{
+		 //                  $message = '<div class="alert alert-danger">L\'ancien mot de passe est incorrect !</div>';
+		 //               }   
+		 //            }else{
+		 //               $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
+		 //            }   
+		 //         }else{
+		 //            $message = '<div class="alert alert-danger">Vous ne pouvez pas acceder à la modification sans passer par l\'étape de modification !</div>';
+		 //         }
+		 //         // pour le vue displayUser ---
+		 //         $utilisateur= ModelUtilisateur::select($_SESSION['idUser']);
+		 //         require File::build_path(array('view', 'main_view.php'));
+		 //      }else {
+		 //         ControllerDefault::error('Vous n\'êtes pas connecté, il vous est donc impossible de modifier vos informations !');
+		 //      }
+		 //   }
 
 	}
 ?>

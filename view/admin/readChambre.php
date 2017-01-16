@@ -19,10 +19,10 @@
 ?> 
  
  
-<?php 
-  // titre de la page 
-  echo "<h1 class='page-header'>{$nom}</h1>";
-?> 
+
+<h1 class='page-header'><?=$nom?></h1>
+<?php if(isset($message)) echo $message; ?>
+
 
  
 <?php  
@@ -147,13 +147,15 @@
     "; 
      
     echo '
+        <a target="_blank" href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
       </div>
-      <a target="_blank" href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      
     '; 
   }else{ 
     echo '
-      <div class="alert alert-danger">'."il n'y a pas de details pour cette chambre".'</div>
-      <a href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
+      <div class ="margin-top-30px">
+        <div class="alert alert-danger">'."il n'y a pas de details pour cette chambre".'</div>
+        <a href="index.php?controller=adminDetails&action=manageDetails&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les détails</a>
     '; 
   } 
 ?> 
@@ -184,13 +186,15 @@
     "; 
      
     echo '
+        <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les prestations</a>
       </div>
-      <a target="_blank" href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les prestations</a>
     '; 
   }else{ 
     echo '
-      <div class="alert alert-danger">'."il n'y a pas de prestations pour cette chambre".'</div>
-      <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les prestations</a>
+      <div class ="margin-top-30px">
+        <div class="alert alert-danger">'."il n'y a pas de prestations pour cette chambre".'</div>
+        <a href="index.php?controller=adminPrestations&action=managePrestations&idChambre='.$id.'" class="btn btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier les prestations</a>
+      </div>
     '; 
   } 
 ?> 
@@ -254,8 +258,8 @@
                       </ul> 
                     </li> 
                   </ul>   
-                    <?php echo "<a href='#' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?> 
-                     <?php echo "<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> supprimer</a>" ?>
+                    <?php echo "<a href='?controller=AdminAvis&action=edit&idUtilisateur={$idUtilisateur}&idChambre={$idChambre}&from=chambre' class='btn btn-xs btn-warning'><i class='fa fa-pencil' aria-hidden='true'></i> Modifier</a>"; ?> 
+                    <?php echo "<a href='?controller=AdminAvis&action=delete&idUtilisateur={$idUtilisateur}&idChambre={$idChambre}&from=chambre' class='btn btn-xs btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Supprimer</a>" ?>
                 </div>
               </div>
 
