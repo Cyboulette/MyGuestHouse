@@ -116,7 +116,6 @@
 							</ul>
 						</div>
 					<?php } ?>
-					<br>
 				</div>
 			</div>
 		</div>
