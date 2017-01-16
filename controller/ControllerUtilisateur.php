@@ -248,19 +248,30 @@ class ControllerUtilisateur {
 
          if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email'])){
             if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null){
-
-               $lutilisateur = array(
-                  'idUtilisateur' => $_SESSION['idUser'],
-                  'emailUtilisateur' => $_POST['email'],
-                  'nomUtilisateur' => $_POST['nom'],
-                  'prenomUtilisateur' => $_POST['prenom']
-               );
-               $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
-               if($update!=false){
-                  $message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+               $checkUser = ModelUtilisateur::select(htmlspecialchars($_SESSION['idUser']));
+               if($checkUser!=false){
+                  $mailUser = htmlspecialchars($checkUser->get('emailUtilisateur')) ;
+                  $mail = htmlspecialchars($_POST['email']);
+                  $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
+                  if($checkUser==false || $email==$emailUser){
+                     $lutilisateur = array(
+                        'idUtilisateur' => htmlspecialchars($_SESSION['idUser']),
+                        'emailUtilisateur' => $mail,
+                        'nomUtilisateur' => htmlspecialchars($_POST['nom']),
+                        'prenomUtilisateur' => htmlspecialchars($_POST['prenom'])
+                     );
+                     $update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+                     if($update!=false){
+                        $message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+                     }else{
+                        $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+                     }
+                  }else{
+                     $message = '<div class="alert alert-danger">Ce mail est deja utilisé sur notre site !</div>';
+                  }
                }else{
-                  $message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
-               }
+                  $message = '<div class="alert alert-danger">Utilisateur introuvable</div>';
+               }  
             }else{
                $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser de champ vide !</div>';
             }   

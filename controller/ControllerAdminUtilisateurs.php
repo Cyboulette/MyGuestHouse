@@ -134,7 +134,7 @@
 						$emailUser = $checkUser->get('emailUtilisateur');
 						$email = htmlspecialchars($_POST['email']);
 						$checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
-						if($checkUser==false && $email!=$emailUser){
+						if($checkUser==false || $email==$emailUser){
 							if($id == $_SESSION['idUser'] && $rang!=3){
 								$verifAdmin = false;
 							}else{
