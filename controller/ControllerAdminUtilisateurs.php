@@ -129,29 +129,37 @@
 					$id = htmlspecialchars($_POST['id']);
 					$rang = htmlspecialchars($_POST['rang']);
 					$checkUser = ModelUtilisateur::select($id);
-					if($checkUser){
-						if($id == $_SESSION['idUser'] && $rang!=3){
-							$verifAdmin = false;
-						}else{
-							$verifAdmin = true;
-						}
 
-						if($verifAdmin){
-							$lutilisateur = array(
-								'idUtilisateur' => $id,
-								'emailUtilisateur' => htmlspecialchars($_POST['email']),
-								'nomUtilisateur' => htmlspecialchars($_POST['nom']),
-								'prenomUtilisateur' => htmlspecialchars($_POST['prenom']),
-								'rang' => $rang
-							);
-							$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
-							if($update!=false){
-								$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+					if($checkUser){
+						$emailUser = $checkUser->get('emailUtilisateur');
+						$email = htmlspecialchars($_POST['email']);
+						$checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
+						if($checkUser==false && $email!=$emailUser){
+							if($id == $_SESSION['idUser'] && $rang!=3){
+								$verifAdmin = false;
 							}else{
-								$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+								$verifAdmin = true;
+							}
+
+							if($verifAdmin){
+								$lutilisateur = array(
+									'idUtilisateur' => $id,
+									'emailUtilisateur' => $email,
+									'nomUtilisateur' => htmlspecialchars($_POST['nom']),
+									'prenomUtilisateur' => htmlspecialchars($_POST['prenom']),
+									'rang' => $rang
+								);
+								$update = ModelUtilisateur::update_gen($lutilisateur, 'idUtilisateur');
+								if($update!=false){
+									$message = '<div class="alert alert-success">Utilisateur modifié avec succès !</div>';
+								}else{
+									$message = '<div class="alert alert-danger">Nous n\'avons pas pu procéder à la mise a jour de l\'utilisateur!</div>';
+								}
+							}else{
+								$message = '<div class="alert alert-danger">Vous ne pouvez pas modifier vous même votre rang !</div>';
 							}
 						}else{
-							$message = '<div class="alert alert-danger">Vous ne pouvez pas modifier vous même votre rang !</div>';
+							$message = '<div class="alert alert-danger">Ce mail est deja utilisé sur notre site !</div>';
 						}
 					}else{
 						$message = '<div class="alert alert-danger">Cet utilisateur n\'existe pas !</div>';
