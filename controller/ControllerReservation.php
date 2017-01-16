@@ -290,6 +290,10 @@
 						<div class="alert alert-info text-center">
 							Confirmez vous l\'annulation de la reservation <b>'.htmlspecialchars($Reservation->get('idReservation')).'</b> ?
 						</div>
+						<div class="text-muted text-danger text-center">
+                            <p>Cette action est irrévocable. <br> Vous n\'aurrez plus aucun droit de modification sur cette réservation <br> Vous pourrez accèder au récapitulatif depuis l\'onglet "Réservations". </p>
+						</div>
+
 						<input type="hidden" name="idReservation" value="'.$Reservation->get('idReservation').'">
 						<input type="hidden" name="confirm" value="true">
 						<div class="form-group">
@@ -319,19 +323,23 @@
                     $idReservation = htmlspecialchars($_POST['idReservation']);
                     $confirm = htmlspecialchars($_POST['confirm']);
                     $reservation = ModelReservation::select($idReservation);
-                    if($reservation != false) {
-                        if($confirm == true) {
-                            $chekUpdate = ModelReservation::annulerReservation($idReservation);
-                            if($chekUpdate) {
-                                $message = '<div class="alert alert-success">La réservation a bien été annulée !</div>';
+                    if($reservation->get('idUtilisateur') === $_SESSION['idUser']) {
+                        if($reservation != false) {
+                            if($confirm == true) {
+                                $chekUpdate = ModelReservation::annulerReservation($idReservation);
+                                if($chekUpdate) {
+                                    $message = '<div class="alert alert-success">La réservation a bien été annulée !</div>';
+                                } else {
+                                    $message = '<div class="alert alert-danger">Impossible d\'annuler cette réservation !</div>';
+                                }
                             } else {
-                                $message = '<div class="alert alert-danger">Impossible d\'annuler cette réservation !</div>';
+                                $message = '<div class="alert alert-danger">Vous devez confirmer l\'annulation !</div>';
                             }
                         } else {
-                            $message = '<div class="alert alert-danger">Vous devez confirmer l\'annulation !</div>';
+                            $message = '<div class="alert alert-danger">Cette réservation n\'existe pas</div>';
                         }
                     } else {
-                        $message = '<div class="alert alert-danger">Cette réservation n\'existe pas</div>';
+                        $message = '<div class="alert alert-danger">Vous essayer d\'afficher une reservation qui n\'est pas la vôtre.</div>';
                     }
                 } else {
                     $message = '<div class="alert alert-danger">Merci de remplir correctement le formulaire d\'annulation !</div>';
