@@ -73,8 +73,7 @@
 			require_once File::build_path(array("view", "main_view.php"));
 		}
 
-		public static function addReservation()
-		{ // Vérifications à faire
+		public static function addReservation() {
 			self::isAdmin();
 			if (isset($_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
 				if(ControllerDefault::getDiffJours($_POST['dateDebut'], $_POST['dateFin']) > 0){
@@ -120,53 +119,63 @@
 		{
 			self::isAdmin();
 			if (isset($_POST['idReservation'], $_POST['idUtilisateur'], $_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-				$idReservation = htmlspecialchars($_POST['idReservation']);
-				$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
-				$dateDebut = htmlspecialchars($_POST['dateDebut']);
-				$dateFin = htmlspecialchars($_POST['dateFin']);
-				$idChambre = htmlspecialchars($_POST['idChambre']);
-				$checkReservation = ModelReservation::select($idReservation);
-				if ($checkReservation) {
-					if (!empty($idUtilisateur) && !ctype_space($idUtilisateur)) {
-						if (!empty($idChambre) && !ctype_space($idChambre)) {
-							if (!empty($dateDebut) && !ctype_space($dateDebut)) {
-								if (!empty($dateFin) && !ctype_space($dateFin)) {
-									$dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
-									if (DateTime::createFromFormat('Y-m-d', $dates['dateDebut']) !== false && DateTime::createFromFormat('Y-m-d', $dates['dateFin']) !== false) {
-										$data = array(
-											'idReservation' => $idReservation,
-											'idUtilisateur' => $idUtilisateur,
-											'idChambre' => $idChambre,
-											'dateDebut' => $dates['dateDebut'],
-											'dateFin' => $dates['dateFin'],
-											'annulee' => null
-										);
-										$testSaveReservation = ModelReservation::update_gen($data, 'idReservation');
-										if ($testSaveReservation) {
-											$message = '<div class="alert alert-success">La réservation a bien été modifiée !</div>';
-											self::reservations($message);
-											exit(); // On ne veut pas que le code self::manageReservation s'exécute :)
+				if(ControllerDefault::getDiffJours($_POST['dateDebut'], $_POST['dateFin']) > 0) {
+					if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
+						$idReservation = htmlspecialchars($_POST['idReservation']);
+						$idUtilisateur = htmlspecialchars($_POST['idUtilisateur']);
+						$dateDebut = htmlspecialchars($_POST['dateDebut']);
+						$dateFin = htmlspecialchars($_POST['dateFin']);
+						$idChambre = htmlspecialchars($_POST['idChambre']);
+						$checkReservation = ModelReservation::select($idReservation);
+						if ($checkReservation) {
+							if (!empty($idUtilisateur) && !ctype_space($idUtilisateur)) {
+								if (!empty($idChambre) && !ctype_space($idChambre)) {
+									if (!empty($dateDebut) && !ctype_space($dateDebut)) {
+										if (!empty($dateFin) && !ctype_space($dateFin)) {
+											$dates = ControllerDefault::getDateForBdFormat($dateDebut, $dateFin);
+											if (DateTime::createFromFormat('Y-m-d', $dates['dateDebut']) !== false && DateTime::createFromFormat('Y-m-d', $dates['dateFin']) !== false) {
+												$data = array(
+													'idReservation' => $idReservation,
+													'idUtilisateur' => $idUtilisateur,
+													'idChambre' => $idChambre,
+													'dateDebut' => $dates['dateDebut'],
+													'dateFin' => $dates['dateFin'],
+													'annulee' => null
+												);
+												$testSaveReservation = ModelReservation::update_gen($data, 'idReservation');
+												if ($testSaveReservation) {
+													$message = '<div class="alert alert-success">La réservation a bien été modifiée !</div>';
+													self::reservations($message);
+													exit(); // On ne veut pas que le code self::manageReservation s'exécute :)
+												} else {
+													$message = '<div class="alert alert-danger">Merci de contacter le support de MyGuestHouse !</div>';
+												}
+											} else {
+												$message = '<div class="alert alert-danger">Vous devez saisir des dates au format jj/mm/aaaa</div>';
+											}
 										} else {
-											$message = '<div class="alert alert-danger">Merci de contacter le support de MyGuestHouse !</div>';
+											$message = '<div class="alert alert-danger">Vous devez saisir une date de fin non vide</div>';
 										}
 									} else {
-										$message = '<div class="alert alert-danger">Vous devez saisir des dates au format jj/mm/aaaa</div>';
+										$message = '<div class="alert alert-danger">Vous devez saisir une date de début non vide</div>';
 									}
 								} else {
-									$message = '<div class="alert alert-danger">Vous devez saisir une date de fin non vide</div>';
+									$message = '<div class="alert alert-danger">Vous devez saisir identifiant de chambre non vide</div>';
 								}
 							} else {
-								$message = '<div class="alert alert-danger">Vous devez saisir une date de début non vide</div>';
+								$message = '<div class="alert alert-danger">Vous devez saisir identifiant client non vide</div>';
 							}
 						} else {
-							$message = '<div class="alert alert-danger">Vous devez saisir identifiant de chambre non vide</div>';
+							$message = '<div class="alert alert-danger">La réservation que vous tentez de modifier n\'existe pas</div>';
 						}
 					} else {
-						$message = '<div class="alert alert-danger">Vous devez saisir identifiant client non vide</div>';
+						$message = '<div class="alert alert-danger">Vous devez effectuer 2 reservations distincts s\'il y a deja eu des reservations entre la date de début. </div>';
 					}
 				} else {
-					$message = '<div class="alert alert-danger">La réservation que vous tentez de modifier n\'existe pas</div>';
+					$message = '<div class="alert alert-danger">Vous ne pouvez pas réserver avec une date de fin antèrieur à la date de début. Veuillez réessayer</div>';
 				}
+
+
 			}
 			self::manageReservation($message);
 		}

@@ -44,6 +44,26 @@
         } else {
         	$oneself = false;
         }
+		if(count($reservationsEnCours) > 1) {
+			$SForReservationEnCours = 's';
+		} else {
+			$SForReservationEnCours = '';
+		}
+		if(count($reservationsEnAttente) > 1) {
+			$SForReservationEnAttente = 's';
+		} else {
+			$SForReservationEnAttente = '';
+		}
+		if(count($reservationsFinies) > 1) {
+			$SForReservationFini = 's';
+		} else {
+			$SForReservationFini = '';
+		}
+		if(count($reservationsAnnulees) > 1) {
+			$SForReservationAnnulee = 's';
+		}else {
+			$SForReservationAnnulee = '';
+		}
     }
 ?>
 
@@ -128,10 +148,10 @@
 					<ul class="no-puce">
 						<li>Récapitulatif du client :</li>
 						<ul class="no-puce">
-							<li><?=count($reservationsEnCours)?> réservation en cours.</li>
-							<li><?=count($reservationsEnAttente)?> réservation en attente.</li>
-							<li><?=count($reservationsFinies)?> réservation finie.</li>
-							<li class="text-danger"><?=count($reservationsAnnulees)?> réservation annulée.</li>
+							<li><?=count($reservationsEnCours)?> réservation<?=$SForReservationEnCours?> en cours.</li>
+							<li><?=count($reservationsEnAttente)?> réservation<?=$SForReservationEnAttente?> en attente.</li>
+							<li><?=count($reservationsFinies)?> réservation<?=$SForReservationFini?> finie<?=$SForReservationFini?>.</li>
+							<li class="text-danger"><?=count($reservationsAnnulees)?> réservation<?=$SForReservationAnnulee?> annulée<?=$SForReservationAnnulee?>.</li>
 						</ul>
 					</ul>
 					<ul class="no-puce">
