@@ -37,6 +37,7 @@
             .disabled-date {
                 background-color: <?=$customColor?>!important;
                 color: white!important;
+                background-image: initial!important;
             }
 
         </style>

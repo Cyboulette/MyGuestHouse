@@ -1,8 +1,3 @@
-<?php
-
-?>
-
-
 <h1 class="page-header">Récatitulatif de la réservation n°<?=$idReservation?></h1>
 
 <div>
@@ -34,8 +29,7 @@
         <!-- Total -->
         <tr class="info">
             <td> Pour plus d'information contactez nous ! </td>
-                    <td>Total <?=$prixTotal?></td>
-
+            <td>Total <?=$prixTotal?></td>
         </tr>
 
     </table>

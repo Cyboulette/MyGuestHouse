@@ -46,6 +46,7 @@ body {
 .disabled-date {
   background-color: #ad1717!important;
   color: white!important;
+  background-image: initial!important;
 }
 
 /* Gestion de l'icône de chargement */

@@ -81,43 +81,80 @@
         }
 
         public static function reservationChambre($message = null){
-            if(ControllerUtilisateur::isConnected()) {
-                $powerNeeded = true;
-                $view = 'reservationChambre';
-                $pagetitle = 'Faire une réservation';
+            $powerNeeded = true;
+            $view = 'reservationChambre';
+            $pagetitle = 'Faire une réservation';
 
-                $idChambre = null;
-                if(isset($_GET['idChambre'])) {
-                    $idChambre = htmlspecialchars($_GET['idChambre']);
-                } else if(isset($_POST['idChambre'])) {
-                    $idChambre = htmlspecialchars($_POST['idChambre']);
-                } else {
-                    $idChambre = null;
-                }
-                $chambre = ModelChambre::select($idChambre);
-                if($chambre == false) {
-                    $idChambre = null;
-                }
-
-                // Gestion des dates réservées
-                $datesEncode = ModelReservation::encodeDatesForChambre($idChambre);
-                $sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
-
-                require File::build_path(array('view', 'main_view.php'));
+            $idChambre = null;
+            if(isset($_GET['idChambre'])) {
+                $idChambre = htmlspecialchars($_GET['idChambre']);
+            } else if(isset($_POST['idChambre'])) {
+                $idChambre = htmlspecialchars($_POST['idChambre']);
             } else {
-                ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
+                $idChambre = null;
+            }
+            $chambre = ModelChambre::select($idChambre);
+            if($chambre == false) {
+                $idChambre = null;
             }
 
+            // Gestion des dates réservées
+            $datesEncode = ModelReservation::encodeDatesForChambre($idChambre);
+            $sriptDatesExclues = " <script> var date = ".$datesEncode."; </script> ";
+
+            require File::build_path(array('view', 'main_view.php'));
         }
 
         public static function addReservation($message = null){
-            if(ControllerUtilisateur::isConnected()) {
                 $powerNeeded = true;
-
                 if (isset($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
                     if(ControllerDefault::getDiffJours($_POST['dateDebut'], $_POST['dateFin']) > 0) {
                         if(ControllerDefault::verifToDatesDisabled($_POST['dateDebut'], $_POST['dateFin'], $_POST['idChambre'])) {
-                            $idUtilisateur = $_SESSION['idUser'];
+                            if(!ControllerUtilisateur::isConnected()) {
+                                if(isset($_POST['emailV'], $_POST['prenomV'], $_POST['nomV'])) {
+                                    $emailV = htmlspecialchars($_POST['emailV']);
+                                    $prenomV = htmlspecialchars($_POST['prenomV']);
+                                    $nomV = htmlspecialchars($_POST['nomV']);
+                                    $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $emailV);
+                                    if(empty($checkUser) || $checkUser == false) {
+                                        if(!empty($emailV) && filter_var($emailV, FILTER_VALIDATE_EMAIL)) {
+                                            if(!empty($prenomV) && !ctype_space($prenomV)) {
+                                                if(!empty($nomV) && !ctype_space($nomV)) {
+                                                    $data = array(
+                                                        'idUtilisateur' => NULL,
+                                                        'prenomUtilisateur' => $prenomV,
+                                                        'nomUtilisateur' => $nomV,
+                                                        'emailUtilisateur' => $emailV,
+                                                        'password' => "visitor_no_pwd",
+                                                        'rang' => 1,
+                                                        'nonce' => NULL
+                                                    );
+                                                    $idUtilisateur = ModelUtilisateur::save($data, "id");
+                                                } else {
+                                                    $message = '<div class="alert alert-danger">Vous devez renseigner un nom</div>';
+                                                }
+                                            } else {
+                                                $message = '<div class="alert alert-danger">Vous devez renseigner un prénom</div>';
+                                            }
+                                        } else {
+                                            $message = '<div class="alert alert-danger">Merci de vérifier le format de votre adresse e-mail !</div>';
+                                        }
+                                    } else {
+                                        $idUtilisateur = $checkUser[0]->get('idUtilisateur');
+                                    }
+                                } else {
+                                    $message = '<div class="alert alert-danger">Merci de renseigner vos contacts en remplissant tous les champs du formulaire !</div>';
+                                }
+                            } else {
+                                $idUtilisateur = $_SESSION['idUser'];
+                            }
+                            if(!empty($message)) {
+                                // Pour afficher une erreur si jamais
+                                $idChambre = $_POST['idChambre'];
+                                $_POST['idChambre'] = $idChambre;
+                                self::reservationChambre($message);
+                                exit();
+                            }
                             $dateDebut = htmlspecialchars($_POST['dateDebut']);
                             $dateFin = htmlspecialchars($_POST['dateFin']);
 
@@ -136,7 +173,12 @@
                             $save = ModelReservation::save($data);
                             if ($save) {
                                 $message = '<div class="alert alert-success">Réservation ajoutée avec succès !</div>';
-                                self::reservations($message);
+                                if(ControllerUtilisateur::isConnected()) {
+                                    self::reservations($message);
+                                } else {
+                                    $_GET['idChambre'] = $idChambre;
+                                    ControllerChambre::read($message);
+                                }
                                 exit();
                             } else {
                                 $message = '<div class="alert alert-danger">Echec de l\'ajout de la reservation !</div>';
@@ -151,9 +193,6 @@
                     $message = '<div class="alert alert-danger">Vous ne pouvez pas laisser un champ vide !</div>';
                 }
                 self::reservationChambre($message);
-            } else {
-                ControllerDefault::error('Vous devez être connecté pour accéder à cette page !');
-            }
         }
 
         public static function managePrestationForReservation(){
