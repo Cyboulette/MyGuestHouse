@@ -251,7 +251,7 @@ class ControllerUtilisateur {
                $checkUser = ModelUtilisateur::select(htmlspecialchars($_SESSION['idUser']));
                if($checkUser!=false){
                   $mailUser = htmlspecialchars($checkUser->get('emailUtilisateur')) ;
-                  $mail = htmlspecialchars($_POST['email']);
+                  $email = htmlspecialchars($_POST['email']);
                   $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
                   if($checkUser==false || $email==$emailUser){
                      $lutilisateur = array(
