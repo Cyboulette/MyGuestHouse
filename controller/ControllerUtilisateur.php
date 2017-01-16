@@ -250,7 +250,7 @@ class ControllerUtilisateur {
             if($_POST['nom']!=null && $_POST['prenom']!=null && $_POST['email']!=null){
                $checkUser = ModelUtilisateur::select(htmlspecialchars($_SESSION['idUser']));
                if($checkUser!=false){
-                  $mailUser = htmlspecialchars($checkUser->get('emailUtilisateur')) ;
+                  $emailUser = htmlspecialchars($checkUser->get('emailUtilisateur')) ;
                   $email = htmlspecialchars($_POST['email']);
                   $checkUser = ModelUtilisateur::selectCustom('emailUtilisateur', $email);
                   if($checkUser==false || $email==$emailUser){
