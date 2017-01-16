@@ -142,6 +142,8 @@ $classAditional = '';
 				if($news->get('publie') == 1) {
 				$date = date_create($news->get('dateNews'));
 				$dateDisplay = date_format($date, 'd M');
+				$idNews = htmlspecialchars($news->get('idNews'));
+				$titreNews = htmlspecialchars($news->get('titreNews'));
 			?>
 				<div class="col-lg-6 news">
 					<div class="col-md-2 text-center">
@@ -150,8 +152,8 @@ $classAditional = '';
 						</div>
 					</div>
 					<div class="col-md-10">
-						<b><?=$news->get('titreNews')?></b><br/>
-						<a href="index.php?controller=news&action=read&idNews=1" class="btn btn-red btn-xs bgCustom">Lire la news</a>
+						<b><?=$titreNews?></b><br/>
+						<a href="index.php?controller=news&action=read&idNews=<?=$idNews?>" class="btn btn-red btn-xs bgCustom">Lire la news</a>
 					</div>
 					<hr/>
 				</div>

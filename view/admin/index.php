@@ -48,7 +48,7 @@ $nbNews = ModelNews::count();
         <i class="fa fa-plug fa-inverse fa-stack-1x"></i>
       </span>
       <h4>Détails</h4>
-      <span class="text-muted"><?php echo$nbDetails; ?> détail<?php if($nbDetails>1)echo"s";?> enregistrée<?php if($nbDetails>1)echo"s";?></span>
+      <span class="text-muted"><?php echo$nbDetails; ?> détail<?php if($nbDetails>1)echo"s";?> enregistré<?php if($nbDetails>1)echo"s";?></span>
     </a>
   </div>
   <div class="col-xs-6 col-sm-3 placeholder">
