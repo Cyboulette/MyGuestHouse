@@ -256,7 +256,7 @@ class ControllerUtilisateur {
                   if($checkUser==false || $email==$emailUser){
                      $lutilisateur = array(
                         'idUtilisateur' => htmlspecialchars($_SESSION['idUser']),
-                        'emailUtilisateur' => $mail,
+                        'emailUtilisateur' => $email,
                         'nomUtilisateur' => htmlspecialchars($_POST['nom']),
                         'prenomUtilisateur' => htmlspecialchars($_POST['prenom'])
                      );
